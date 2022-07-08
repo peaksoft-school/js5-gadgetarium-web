@@ -8,12 +8,12 @@ function Button({ children, ...props }) {
 export default Button
 const ButtonStyled = styled('button')((props) => ({
    fontSize: '16px',
-   color: props.color,
-   background: props.background,
+   color: props.color || 'white',
+   background: props.background || '#E313BF',
    width: props.width,
-   height: props.height,
-   border: props.border,
-   borderRadius: props.border,
+   height: props.height || '43px',
+   border: props.border || ' none',
+   borderRadius: props.borderRadius || '4px',
    '&:hover': {
       ...props.hover,
    },
