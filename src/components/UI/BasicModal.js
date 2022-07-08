@@ -24,7 +24,7 @@ const style = {
 
 function BasicModal({ children, closeModal, showModal }) {
    return (
-      <Modal open={showModal}>
+      <Modal open={showModal} onClose={closeModal}>
          <Box sx={style}>
             <img
                className="close"
