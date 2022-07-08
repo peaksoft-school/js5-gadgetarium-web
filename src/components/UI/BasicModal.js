@@ -1,9 +1,28 @@
+import { styled } from '@mui/material'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 
-import close from '../../assets/icons/Group.svg'
+import closeIcon from '../../assets/icons/Group.svg'
 
-const style = {
+function BasicModal({ children, isOpen, onClose }) {
+   return (
+      <Modal open={isOpen} onClose={onClose}>
+         <ModalBox>
+            <img
+               className="close"
+               src={closeIcon}
+               alt="close-img"
+               onClick={onClose}
+            />
+            <div>{children}</div>
+         </ModalBox>
+      </Modal>
+   )
+}
+
+export default BasicModal
+
+const ModalBox = styled(Box)({
    position: 'absolute',
    float: 'left',
    left: '50%',
@@ -20,22 +39,4 @@ const style = {
       right: '20px',
       cursor: 'pointer',
    },
-}
-
-function BasicModal({ children, closeModal, showModal }) {
-   return (
-      <Modal open={showModal} onClose={closeModal}>
-         <Box sx={style}>
-            <img
-               className="close"
-               src={close}
-               alt="close-img"
-               onClick={closeModal}
-            />
-            {children}
-         </Box>
-      </Modal>
-   )
-}
-
-export default BasicModal
+})
