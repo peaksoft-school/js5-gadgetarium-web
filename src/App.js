@@ -6,10 +6,11 @@ function App() {
    return (
       <div>
          <Button
-            width="400px"
+            width="151px"
             height="44px"
             background="gray"
             hover={{ background: 'green', color: 'white' }}
+            showbasketicon="showbasketicon"
          >
             Add
          </Button>
