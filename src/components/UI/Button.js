@@ -1,34 +1,33 @@
 import { styled } from '@mui/material'
+import MuiButton from '@mui/material/Button'
 
-import { ReactComponent as BasketIcon } from '../../assets/icons/Vector.svg'
-
-function Button({ children, ...props }) {
+function Button({ children, onClick, ...props }) {
    return (
-      <ButtonStyled {...props}>
-         {props.showbasketicon && <BasketIconStyled {...props} />}
+      <ButtonStyled onClick={onClick} {...props}>
          {children}
       </ButtonStyled>
    )
 }
 export default Button
-const ButtonStyled = styled('button')((props) => ({
-   fontSize: props.fontSize || '16px',
-   display: 'flex',
-   alignItems: 'center',
-   justifyContent: 'center',
-   color: props.color || 'white',
-   background: props.background || '#E313BF',
-   width: props.width,
-   height: props.height || '43px',
-   border: props.border || ' none',
-   borderRadius: props.borderRadius || '4px',
-   '&:hover': {
-      ...props.hover,
-   },
-   '&:active': {
-      ...props.active,
-   },
-}))
-const BasketIconStyled = styled(BasketIcon)`
-   width: 20.72px;
+
+const ButtonStyled = styled(MuiButton)`
+   font-family: 'Inter';
+   font-style: normal;
+   font-size: 16px;
+   line-height: 19px;
+   color: #ffffff;
+   padding: 12px 19px;
+   gap: 6px;
+   width: ${(props) => props.width || '300px'};
+   height: ${(props) => props.height || '44px'};
+   border-radius: 4px;
+   background: ${(props) => props.background || 'rgba(0, 0, 0, 0.25)'};
+   border: ${(props) => props.border || '1px solid #CB11AB'};
+
+   &:hover {
+      background: ${(props) => props.background || '#CB11AB'};
+   }
+   &:active {
+      background: ${({ props }) => props || '#E20FBE'};
+   }
 `
