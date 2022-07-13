@@ -24,10 +24,15 @@ const StyledInput = styled(OutlinedInput)((props) => ({
    boxSizing: 'borderBox',
    width: props.width || '100%',
    height: props.height,
-   fontSize: props.fontSize,
+   fontFamily: 'Inter',
+   fontStyle: 'normal',
+   fontWeight: '400',
+   fontSize: '16px',
    borderRadius: props.borderRadius,
-   backgroundColor: props.backgroundColor,
-   outline: 'none',
+   backgroundColor: '#FFFFFF;',
+
+   background: `${props.variant === 'default' ? '#F7F7F7' : ''}`,
+   color: `${props.variant === 'default' ? '#909CB5' : ''}`,
 
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: 'rgba(19, 18, 18, 0.23) !important',
