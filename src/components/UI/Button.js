@@ -11,17 +11,14 @@ function Button({ children, onClick, variant, ...props }) {
 export default Button
 
 const ButtonStyled = styled(MuiButton)`
-   width: ${(props) => props.width && props.width};
    text-transform: none;
-   width: ${(props) => props.width};
-   font-family: ;
    font-weight: 500;
    font-size: 14px;
    line-height: 16.95px;
    border-radius: 4px;
    color: #ffffff;
    padding: 12px 19px;
-   width: ${(props) => (props.width ? props.width : '')};
+   width: ${(props) => (props.width ? props.width : '131px')};
    height: ${(props) => (props.height ? props.height : '')};
 
    &.MuiButton-contained {
