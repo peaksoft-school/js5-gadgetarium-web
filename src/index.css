@@ -1,5 +1,9 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+* {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+}
+button {
+   font-family: 'Inter', sans-serif;
 }
