@@ -4,12 +4,18 @@ import MuiSnackbar from '@mui/material/Snackbar'
 import styled from 'styled-components'
 
 import { ReactComponent as Close } from '../../../assets/icons/closeIcon.svg'
+import { ReactComponent as Error } from '../../../assets/icons/ErrorIcons.svg'
 
 const SlideTransition = (props) => {
    return <Slide {...props} direction="left" />
 }
+/**
+ *
+ * @param {*if error === 'error' как атрбут} param0
+ * @returns то вернется уведомление с ошибкой в message мы пишем текст ошибки)
+ */
 
-const SuccessSnackbar = ({ handleClose, open, message, link, navigation }) => {
+const Snackbar = ({ handleClose, open, message, link, navigation, error }) => {
    return (
       <StyledSnackbarContainer
          open={open}
@@ -22,7 +28,13 @@ const SuccessSnackbar = ({ handleClose, open, message, link, navigation }) => {
          message={<SnackbarParagrapgh>{message}</SnackbarParagrapgh>}
          action={[
             <>
-               <SnackbarNavigations to={link}>{navigation}</SnackbarNavigations>
+               {error === 'error' ? (
+                  <StyledError />
+               ) : (
+                  <SnackbarNavigations to={link}>
+                     {navigation}
+                  </SnackbarNavigations>
+               )}
                <IconButton
                   key="close"
                   aria-label="Close"
@@ -37,13 +49,16 @@ const SuccessSnackbar = ({ handleClose, open, message, link, navigation }) => {
    )
 }
 
-export default SuccessSnackbar
+export default Snackbar
 
 const SnackbarParagrapgh = styled.p`
    padding: 20px 15px;
    color: #fff;
    font-size: 18px;
    font-weight: 400;
+`
+const StyledError = styled(Error)`
+   margin-right: 10px;
 `
 
 const SnackbarNavigations = styled.a`
