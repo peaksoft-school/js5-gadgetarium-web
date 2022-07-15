@@ -37,9 +37,6 @@ const DatePicker = ({ label, width, height, value, onChange }) => {
                )}
             />
          </StyledDivContainer>
-         {/* <StyledDivContainer width={width} height={height}> */}
-
-         {/* </StyledDivContainer> */}
       </LocalizationProvider>
    )
 }
