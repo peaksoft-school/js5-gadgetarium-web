@@ -1,29 +1,12 @@
-import React, { useState } from 'react'
-
 import styled from 'styled-components'
 
 import { ReactComponent as Busket } from '../../../assets/icons/busket.svg'
-import { ReactComponent as Star } from '../../../assets/icons/Star 5.svg'
 import Button from '../Button'
 
 import { Balance, Like } from './CardIcons'
+import CardRating from './CardRating'
 
 const Card = (props) => {
-   const [like, setLike] = useState(false)
-   const [balance, setBalance] = useState(false)
-
-   // const rating = 3
-   /**
-    * example for rating logic
-    */
-
-   const handleToggleFavorite = () => {
-      setLike((prev) => !prev)
-   }
-   const handleToggleBalance = () => {
-      setBalance((prev) => !prev)
-   }
-
    return (
       <CardBox>
          <CardContainer>
@@ -33,17 +16,13 @@ const Card = (props) => {
                </CardHeaderItemsAction>
                <CardHeaderItemsIcons>
                   <li onClick={props.onClick}>
-                     <p onClick={handleToggleBalance}>
-                        <Balance fill={balance ? '#CB11AB' : '#aaB1bf'} />
-                     </p>
+                     <Balance fill={props.balance ? '#CB11AB' : '#aaB1bf'} />
                   </li>
                   <li onClick={props.onClick}>
-                     <p onClick={handleToggleFavorite}>
-                        <Like
-                           fill={like ? '#f53b49' : 'transparent'}
-                           stroke={like ? '#f53b49' : '#aaB1bf'}
-                        />
-                     </p>
+                     <Like
+                        fill={props.like ? '#f53b49' : 'transparent'}
+                        stroke={props.like ? '#f53b49' : '#aaB1bf'}
+                     />
                   </li>
                </CardHeaderItemsIcons>
             </CardHeaderItems>
@@ -55,16 +34,7 @@ const Card = (props) => {
                <StyledCardHeader>{props.title}</StyledCardHeader>
                <StyledCardRating>
                   <StyledCardRatingSpan>Рейтинг</StyledCardRatingSpan>
-                  {[...Array(5)].map((star, i) => {
-                     const ratingValue = i + 1
-                     return (
-                        <Star
-                           fill={
-                              ratingValue > props.rating ? '#fff' : '#F99808'
-                           }
-                        />
-                     )
-                  })}
+                  <CardRating rating={props.rating} />
                </StyledCardRating>
             </CardTitle>
             <CardShopItems>
@@ -151,12 +121,6 @@ const CardTitle = styled.div`
    grid-row-gap: 8px;
 `
 
-const StyledCardRating = styled.div`
-   display: flex;
-   justify-content: flex-start;
-   align-items: center;
-`
-
 const StyledCardRatingSpan = styled.span`
    font-family: 'Inter';
    font-style: normal;
@@ -165,6 +129,12 @@ const StyledCardRatingSpan = styled.span`
    line-height: 15px;
    color: #909cb5;
    margin-right: 6px;
+`
+
+const StyledCardRating = styled.div`
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
 `
 const CardShopItems = styled.div`
    margin-top: 16px;
