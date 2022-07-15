@@ -1,29 +1,23 @@
-import styled from '@emotion/styled'
-import { Stack } from '@mui/material'
+// import { Stack } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ru } from 'date-fns/locale'
+import styled from 'styled-components'
 
-const DatePicker = ({
-   label,
-   width,
-   height,
-   selectedDate,
-   setSelectedDate,
-}) => {
+const DatePicker = ({ label, width, height, value, onChange }) => {
    return (
       <LocalizationProvider adapterLocale={ru} dateAdapter={AdapterDateFns}>
-         <Stack sx={{ width: { width }, height: { height } }}>
+         <StyledDivContainer width={width} height={height}>
             <MuiDatePicker
                views={['day']}
                label={label}
-               value={selectedDate}
+               value={value}
                disablePast
                inputFormat="dd.MM.yy"
                popperProps={{ strategy: 'fixed' }}
-               onChange={(newValue) => setSelectedDate(newValue)}
+               onChange={onChange}
                renderInput={(params) => (
                   <TextFieldStyle
                      {...params}
@@ -43,7 +37,10 @@ const DatePicker = ({
                   />
                )}
             />
-         </Stack>
+         </StyledDivContainer>
+         {/* <StyledDivContainer width={width} height={height}> */}
+
+         {/* </StyledDivContainer> */}
       </LocalizationProvider>
    )
 }
@@ -60,4 +57,9 @@ const TextFieldStyle = styled(TextField)`
       color: #8d949e;
       outline: none;
    }
+`
+
+const StyledDivContainer = styled.div`
+   width: ${(props) => props.width || '100%'};
+   height: ${(props) => props.height || '100%'};
 `
