@@ -7,4 +7,8 @@ const Tooltip = ({ children, title, placement }) => {
       </MuiTooltip>
    )
 }
+Tooltip.defaultProps = {
+   placement: 'top',
+}
+
 export default Tooltip
