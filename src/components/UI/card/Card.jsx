@@ -15,10 +15,10 @@ const Card = (props) => {
                   <span>{props.action}</span>
                </CardHeaderItemsAction>
                <CardHeaderItemsIcons>
-                  <li onClick={props.onClick}>
+                  <li onClick={props.compareProducts}>
                      <Balance fill={props.balance ? '#CB11AB' : '#aaB1bf'} />
                   </li>
-                  <li onClick={props.onClick}>
+                  <li onClick={props.addToFavotites}>
                      <Like
                         fill={props.like ? '#f53b49' : 'transparent'}
                         stroke={props.like ? '#f53b49' : '#aaB1bf'}
@@ -48,7 +48,7 @@ const Card = (props) => {
                </StyledCardPrice>
                <Button
                   variant="contained"
-                  onClick={props.onClick}
+                  onClick={props.addToCart}
                   startIcon={<Busket />}
                >
                   В корзину
