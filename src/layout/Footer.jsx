@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { styled } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import logo from '../assets/icons/footer-logo.svg'
 import clockIcon from '../assets/icons/icon-clock.svg'
@@ -17,67 +17,69 @@ const Footer = () => {
          <BoxCategories>
             <BoxLinks>
                <Catalog>
-                  <Link to="/catalog">
+                  <NavLink to="/catalog">
                      <Title> Каталог </Title>
-                  </Link>
-                  <Link to="/smartphones"> Смартфоны </Link>
-                  <Link to="/laptops"> Ноутбуки и планшеты </Link>
-                  <Link to="/watches"> Смарт-часы и браслеты </Link>
-                  <Link to="/accesories"> Акссесуары </Link>
+                  </NavLink>
+                  <NavLink to="/smartphones"> Смартфоны </NavLink>
+                  <NavLink to="/laptops"> Ноутбуки и планшеты </NavLink>
+                  <NavLink to="/watches"> Смарт-часы и браслеты </NavLink>
+                  <NavLink to="/accesories"> Акссесуары </NavLink>
                </Catalog>
                <BeWithUs>
-                  <Link to="/catalog">
+                  <NavLink to="/catalog">
                      <Title> Будь с нами </Title>
-                  </Link>
-                  <Link to="/sales"> Акции </Link>
-                  <Link to="/novelties"> Новинки </Link>
-                  <Link to="/popular-categories"> Популярыне категории </Link>
+                  </NavLink>
+                  <NavLink to="/sales"> Акции </NavLink>
+                  <NavLink to="/novelties"> Новинки </NavLink>
+                  <NavLink to="/popular-categories">
+                     Популярыне категории
+                  </NavLink>
                </BeWithUs>
                <Services>
-                  <Link to="/catalog">
+                  <NavLink to="/catalog">
                      <Title> Помощь и сервисы </Title>
-                  </Link>
-                  <Link to="/about-store"> О Магазине </Link>
-                  <Link to="/delivery"> Доставка </Link>
-                  <Link to="/faq"> FAQ </Link>
-                  <Link to="/contacts"> Контакты </Link>
+                  </NavLink>
+                  <NavLink to="/about-store"> О Магазине </NavLink>
+                  <NavLink to="/delivery"> Доставка </NavLink>
+                  <NavLink to="/faq"> FAQ </NavLink>
+                  <NavLink to="/contacts"> Контакты </NavLink>
                </Services>
             </BoxLinks>
             <ContactsBox>
                <Distribution>
                   <Title> Расскажем об акциях и скидках </Title>
-                  <div>
-                     <Input
+                  <InputButtonContainer>
+                     <InputSubscribe
                         width="240px"
                         height="39px"
                         border-radius="4px 0 0 4px"
                      />
-                     <Button width="160px" height="39px">
+                     <ButtonSubscribe width="160px" height="39px">
                         Подписаться
-                     </Button>
-                  </div>
+                     </ButtonSubscribe>
+                  </InputButtonContainer>
                   <p>
                      Нажимая на кнопку «подписаться» Вы соглашаетесь на
                      обработку персональных данных
                   </p>
                </Distribution>
                <Contacts>
-                  <Link to="/number">
+                  <NavLink to="/number">
                      <Icons src={numberIcon} />
                      <p> +996 (400) 00 00 00 </p>
-                  </Link>
-                  <Link to="/gadgetarium">
+                  </NavLink>
+                  <NavLink to="/gadgetarium">
                      <Icons src={messageIcon} />
                      <p> Gadgetarium.kg </p>
-                  </Link>
-                  <Link to="/address">
+                  </NavLink>
+                  <NavLink to="/address">
                      <Icons src={gpsIcon} />
                      <p> г.Бишкек, ул. Гражданская 119 </p>
-                  </Link>
-                  <Link to="/">
+                  </NavLink>
+                  <NavLink to="/">
                      <Icons src={clockIcon} />
                      <p> С 10:00 до 21:00 (без выходных) </p>
-                  </Link>
+                  </NavLink>
                </Contacts>
             </ContactsBox>
          </BoxCategories>
@@ -227,10 +229,20 @@ const Distribution = styled('div')`
       color: #ffffff;
       font-size: 14px;
    }
-   input,
-   button {
-      font-size: 16px;
-   }
+`
+const InputButtonContainer = styled('div')`
+   display: flex;
+`
+const InputSubscribe = styled(Input)`
+   width: 246px;
+   height: 39px;
+   border-radius: 4px 0 0 4px;
+`
+const ButtonSubscribe = styled(Button)`
+   width: 162px;
+   height: 39.5px;
+   background: #e20fbe;
+   border-radius: 0 4px 4px 0;
 `
 const Logo = styled('img')`
    width: 221px;
