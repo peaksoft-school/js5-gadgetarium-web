@@ -24,7 +24,7 @@ const InputForPassword = forwardRef((props) => {
          placeholder={placeholder}
          name={name}
          id={id}
-         onchange={onChange}
+         onChange={onChange}
          ref={ref}
          {...others}
          type={showPassword ? 'text' : 'password'}
