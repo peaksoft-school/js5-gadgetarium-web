@@ -93,7 +93,7 @@ const HeadCell = styled(TableCell)`
    height: 40px;
    display: flex;
    align-items: center;
-   text-align: right;
+   text-align: left;
    color: white;
 `
 
@@ -118,9 +118,6 @@ const DivHead = styled('div')`
    height: 40px;
    display: flex;
    background: rgba(56, 66, 85, 0.9);
-   & .header {
-      color: white;
-   }
 `
 const Row = styled(TableRow)`
    font-size: 16px;
