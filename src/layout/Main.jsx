@@ -17,6 +17,10 @@ const Main = () => {
             aperiam, dolore tempore quasi amet animi corporis?Lorem ipsum, dolor
             sit amet consectetur adipisicing elit. Tenetur amet nostrum sit!
             Adipisci aperiam, dolore tempore quasi amet animi corporis?
+            consectetur adipisicing elit. Tenetur amet nostrum sit! Adipisci
+            aperiam, dolore tempore quasi amet animi corporis?Lorem ipsum, dolor
+            sit amet consectetur adipisicing elit. Tenetur amet nostrum sit!
+            Adipisci aperiam, dolore tempore quasi amet animi corporis?
          </h1>
       </MainContainer>
    )

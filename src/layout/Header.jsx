@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { styled } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import compare from '../assets/icons/compare.svg'
 import facebook from '../assets/icons/facebook.svg'
@@ -21,18 +21,26 @@ const Header = () => {
                <Logo src={logo} />
                <Menu>
                   <BackgroundButton>
-                     <Link to="/main"> Главная </Link>
+                     <NavLink to="/main"> Главная </NavLink>
                   </BackgroundButton>
-                  <Link to="/about"> О магазине </Link>
-                  <Link to="/delivery"> Доставка </Link>
-                  <Link to="/fag"> FAG </Link>
-                  <Link to="/contacts"> Контакты </Link>
+                  <BackgroundButton>
+                     <NavLink to="/about"> О магазине </NavLink>
+                  </BackgroundButton>
+                  <BackgroundButton>
+                     <NavLink to="/delivery"> Доставка </NavLink>
+                  </BackgroundButton>
+                  <BackgroundButton>
+                     <NavLink to="/fag"> FAG </NavLink>
+                  </BackgroundButton>
+                  <BackgroundButton>
+                     <NavLink to="/contacts"> Контакты </NavLink>
+                  </BackgroundButton>
                </Menu>
                <UserProfile>
                   <p> +996 (400) 00-00-00 </p>
-                  <Link to="/login">
+                  <NavLink to="/login">
                      <ProfileLogo src={profileLogo} />
-                  </Link>
+                  </NavLink>
                </UserProfile>
             </UpperRow>
             <MiddleLine />
@@ -49,26 +57,26 @@ const Header = () => {
                   placeholder="Поиск по каталогу магазина"
                />
                <SocialLinks>
-                  <Link to="/facebook">
+                  <NavLink to="/facebook">
                      <ImageBox src={facebook} />
-                  </Link>
-                  <Link to="/instagram">
+                  </NavLink>
+                  <NavLink to="/instagram">
                      <ImageBox src={instagram} />
-                  </Link>
-                  <Link to="/whatsapp">
+                  </NavLink>
+                  <NavLink to="/whatsapp">
                      <ImageBox src={whatsapp} />
-                  </Link>
+                  </NavLink>
                </SocialLinks>
                <UserTools>
-                  <Link to="/compare">
+                  <NavLink to="/compare">
                      <ImageBox src={compare} />
-                  </Link>
-                  <Link to="/favorites">
+                  </NavLink>
+                  <NavLink to="/favorites">
                      <ImageBox src={favorites} />
-                  </Link>
-                  <Link to="/cart">
+                  </NavLink>
+                  <NavLink to="/cart">
                      <ImageBox src={cart} />
-                  </Link>
+                  </NavLink>
                </UserTools>
             </BottomRow>
          </HeaderBottom>
@@ -153,13 +161,19 @@ const Menu = styled('div')`
    }
 `
 const BackgroundButton = styled('div')`
-   background: rgba(133, 143, 164, 0.15);
+   padding: 13px 15px;
    border-radius: 4px;
-   width: 93px;
-   height: 39px;
    display: flex;
    align-items: center;
    justify-content: center;
+   :hover {
+      transition: 0.3s;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(133, 143, 164, 0.15);
+   }
 `
 const UserProfile = styled('div')`
    width: 232px;
