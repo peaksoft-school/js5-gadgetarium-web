@@ -33,7 +33,7 @@ function TableList({ columns, data, width, checkbox }) {
                      {columns.map((col) => {
                         if (col.headerCell) {
                            return (
-                              <HeadCell width={col.width}>
+                              <HeadCell width={col.width} key={col.key}>
                                  {col.headerCell()}
                               </HeadCell>
                            )
@@ -50,7 +50,7 @@ function TableList({ columns, data, width, checkbox }) {
             <TableBody>
                {data.map((row) => {
                   return (
-                     <Row>
+                     <Row key={row.id}>
                         <Div>
                            {checkbox && (
                               <BodyCell>
@@ -60,13 +60,13 @@ function TableList({ columns, data, width, checkbox }) {
                            {columns.map((col) => {
                               if (col.cell) {
                                  return (
-                                    <BodyCell width={col.width}>
+                                    <BodyCell width={col.width} key={col.key}>
                                        {col.cell(row)}
                                     </BodyCell>
                                  )
                               }
                               return (
-                                 <BodyCell width={col.width}>
+                                 <BodyCell width={col.width} key={col.key}>
                                     {row[col.key]}
                                  </BodyCell>
                               )
