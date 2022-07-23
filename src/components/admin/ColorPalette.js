@@ -1,44 +1,70 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
-import { Paper, Popover, styled } from '@mui/material'
+import { InputAdornment, Paper, Popover, styled } from '@mui/material'
 
+import { ReactComponent as ColorIcon } from '../../assets/icons/color-icon.svg'
 import colorList from '../../utils/constants/colors'
+import Input from '../UI/inputs/Input'
 
-function ColorPalette({ isOpen, onClose, colorHandler }) {
+function ColorPalette({ colorHandler }) {
    const [color, setColor] = useState('')
    const colorChangeHandler = (col) => {
       setColor(col)
       colorHandler(col)
    }
+   const [anchorEl, setAnchorEl] = useState(null)
+   const divRef = useRef()
+   function handleClick() {
+      setAnchorEl(divRef.current)
+   }
+
+   function handleClose() {
+      setAnchorEl(null)
+   }
+
+   const open = Boolean(anchorEl)
 
    return (
-      <Popover
-         open={isOpen}
-         onClose={onClose}
-         anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-         }}
-      >
-         <Container>
-            {colorList.map((item, index) => {
-               return (
-                  <Column key={item[index]}>
-                     {item.map((el, ind) => {
-                        return (
-                           <Color
-                              key={el[ind]}
-                              background={el}
-                              border={color === el ? 'red' : el}
-                              onClick={() => colorChangeHandler(el)}
-                           />
-                        )
-                     })}
-                  </Column>
-               )
-            })}
-         </Container>
-      </Popover>
+      <div ref={divRef}>
+         <Input
+            height="35px"
+            value={color}
+            endAdornment={
+               <InputAdornment position="end">
+                  <ColorIcon onClick={() => handleClick()} />
+               </InputAdornment>
+            }
+            variant="outlined"
+         />
+         <Popover
+            open={open}
+            anchorEl={anchorEl}
+            onClose={() => handleClose()}
+            anchorOrigin={{
+               vertical: 'bottom',
+               horizontal: 'left',
+            }}
+         >
+            <Container>
+               {colorList.map((item, index) => {
+                  return (
+                     <Column key={item[index]}>
+                        {item.map((el, ind) => {
+                           return (
+                              <Color
+                                 key={el[ind]}
+                                 background={el}
+                                 border={color === el ? 'red' : el}
+                                 onClick={() => colorChangeHandler(el)}
+                              />
+                           )
+                        })}
+                     </Column>
+                  )
+               })}
+            </Container>
+         </Popover>
+      </div>
    )
 }
 
