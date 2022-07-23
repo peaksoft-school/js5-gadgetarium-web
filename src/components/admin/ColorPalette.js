@@ -25,8 +25,9 @@ function ColorPalette({ colorHandler }) {
    const open = Boolean(anchorEl)
 
    return (
-      <div ref={divRef}>
+      <>
          <Input
+            ref={divRef}
             height="35px"
             value={color}
             endAdornment={
@@ -43,6 +44,10 @@ function ColorPalette({ colorHandler }) {
             anchorOrigin={{
                vertical: 'bottom',
                horizontal: 'left',
+            }}
+            transformOrigin={{
+               vertical: 'top',
+               horizontal: 'right',
             }}
          >
             <Container>
@@ -64,7 +69,7 @@ function ColorPalette({ colorHandler }) {
                })}
             </Container>
          </Popover>
-      </div>
+      </>
    )
 }
 
