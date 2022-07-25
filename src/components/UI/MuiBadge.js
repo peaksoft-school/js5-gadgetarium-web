@@ -1,8 +1,12 @@
 import Badge from '@mui/material/Badge'
 import { styled } from '@mui/material/styles'
 
-export default function MuiBadge({ children, counter }) {
-   return <StyledBadge badgeContent={counter}>{children}</StyledBadge>
+export default function MuiBadge({ onClick, children, counter }) {
+   return (
+      <StyledBadge badgeContent={counter} onClick={onClick}>
+         {children}
+      </StyledBadge>
+   )
 }
 
 const StyledBadge = styled(Badge)({
