@@ -6,8 +6,8 @@ import { ChromePicker } from 'react-color'
 import { ReactComponent as ColorIcon } from '../../assets/icons/color-icon.svg'
 import Input from '../UI/inputs/Input'
 
-function ColorPalette({ getColor }) {
-   const [color, setColor] = useState('')
+function ColorPalette({ getColor, defaultColor }) {
+   const [color, setColor] = useState(defaultColor && '')
    const colorChangeHandler = (col) => {
       setColor(col)
       getColor(col)
