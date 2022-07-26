@@ -32,6 +32,7 @@ const ModalBox = styled(Box)({
    background: '#FFFFFF',
    boxShadow: '0px 10px 30px rgba(133, 143, 164, 0.1)',
    borderRadius: '4px',
+   outline: 'none',
    '& .close': {
       width: '16px',
       position: 'absolute',

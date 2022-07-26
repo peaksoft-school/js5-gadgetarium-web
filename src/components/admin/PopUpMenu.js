@@ -60,7 +60,7 @@ function PopUpMenu({ payment }) {
                      <MenuList>
                         {list.map((item) => (
                            <MenuItem
-                           key={item.title}
+                              key={item.title}
                               onClick={() =>
                                  closeMenuHandler(item.title, item.color)
                               }
