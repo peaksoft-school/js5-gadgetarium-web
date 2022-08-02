@@ -8,8 +8,8 @@ import styled from 'styled-components'
 import { ReactComponent as OpenedEye } from '../../../assets/icons/Visible.svg'
 import { ReactComponent as ClosedEye } from '../../../assets/icons/VisibleOff.svg'
 
-const InputForPassword = forwardRef((props) => {
-   const { ref, type, placeholder, name, id, onChange, ...others } = props
+const InputForPassword = forwardRef((props, ref) => {
+   const { type, placeholder, name, id, onChange, ...others } = props
    const [showPassword, setShowPassword] = useState(false)
 
    const handleClickShowPassword = () => {
@@ -24,8 +24,8 @@ const InputForPassword = forwardRef((props) => {
          placeholder={placeholder}
          name={name}
          id={id}
-         onchange={onChange}
          ref={ref}
+         onChange={onChange}
          {...others}
          type={showPassword ? 'text' : 'password'}
          endAdornment={

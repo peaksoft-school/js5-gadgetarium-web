@@ -4,9 +4,9 @@ import Modal from '@mui/material/Modal'
 
 import closeIcon from '../../assets/icons/Group.svg'
 
-function BasicModal({ children, isOpen, onClose }) {
+function BasicModal({ children, open, onClose }) {
    return (
-      <Modal open={isOpen} onClose={onClose}>
+      <Modal open={open} onClose={onClose}>
          <ModalBox>
             <img
                className="close"

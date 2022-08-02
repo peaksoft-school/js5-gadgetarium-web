@@ -1,9 +1,14 @@
 import { styled } from '@mui/material'
 import MuiButton from '@mui/material/Button'
 
-function Button({ children, onClick, variant, ...props }) {
+function Button({ children, disabled, onClick, variant, ...props }) {
    return (
-      <ButtonStyled onClick={onClick} variant={variant} {...props}>
+      <ButtonStyled
+         onClick={onClick}
+         disabled={disabled}
+         variant={variant}
+         {...props}
+      >
          {children}
       </ButtonStyled>
    )
@@ -27,6 +32,11 @@ const ButtonStyled = styled(MuiButton)`
       font-size: 14px;
       border: none;
       color: #ffffff;
+      &:disabled {
+         background-color: rgba(0, 0, 0, 0.12);
+         color: #6a6363;
+         box-shadow: none;
+      }
       &:hover {
          background: ${({ bgcolor }) => (bgcolor ? '#2fc509' : '#CB11AB')};
          color: #ffffff;
