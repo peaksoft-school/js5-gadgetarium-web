@@ -3,8 +3,8 @@ import React, { forwardRef } from 'react'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import styled from 'styled-components'
 
-const Input = forwardRef((props) => {
-   const { ref, type, placeholder, name, id, onChange, ...others } = props
+const Input = forwardRef((props, ref) => {
+   const { type, placeholder, name, id, onChange, ...others } = props
    return (
       <StyledInput
          ref={ref}
@@ -30,8 +30,10 @@ const StyledInput = styled(OutlinedInput)((props) => ({
    fontSize: '16px',
    borderRadius: props.borderRadius,
    backgroundColor: '#FFFFFF;',
+
    background: `${props.variant === 'default' ? '#F7F7F7' : ''}`,
    color: `${props.variant === 'default' ? '#909CB5' : ''}`,
+
    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: 'rgba(19, 18, 18, 0.23) !important',
    },
