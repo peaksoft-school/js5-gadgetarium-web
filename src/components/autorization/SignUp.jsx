@@ -1,10 +1,7 @@
-import { useEffect } from 'react'
-
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, Controller } from 'react-hook-form'
 import InputMask from 'react-input-mask'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import { registration } from '../../store/slices/authSlice'
@@ -15,8 +12,6 @@ import Input from '../UI/inputs/Input'
 import InputForPassword from '../UI/inputs/InputForPassword'
 
 const SignUp = ({ onClose, open }) => {
-   const { user } = useSelector((store) => store.auth)
-   const navigate = useNavigate()
    const {
       register,
       handleSubmit,
@@ -24,21 +19,15 @@ const SignUp = ({ onClose, open }) => {
       formState: { errors },
       reset,
    } = useForm({
-      mode: 'onСhange',
+      mode: 'onSubmit',
       resolver: yupResolver(RegisterFormSchema),
    })
 
-   useEffect(() => {
-      if (user.jwt) navigate('home page')
-   }, [user])
-
    const dispatch = useDispatch()
-
-   console.log(errors)
 
    function onSubmit({
       firstName,
-      lastname,
+      lastName,
       phoneNumber,
       password,
       email,
@@ -46,7 +35,7 @@ const SignUp = ({ onClose, open }) => {
    }) {
       if (password === confirmedPassword)
          dispatch(
-            registration({ firstName, lastname, phoneNumber, password, email })
+            registration({ firstName, lastName, phoneNumber, password, email })
          )
       reset()
    }
@@ -80,7 +69,7 @@ const SignUp = ({ onClose, open }) => {
                   error={!!errors.lastname?.message}
                   borderRadius="6px"
                   variant="default"
-                  {...register('lastname', { required: true })}
+                  {...register('lastName', { required: true })}
                />
                <Controller
                   name="phoneNumber"

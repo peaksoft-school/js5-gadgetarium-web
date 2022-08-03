@@ -6,11 +6,6 @@ export const injectStore = (_store) => {
    store = _store
 }
 
-// import { GADGETARIUM_USER_DATA } from '../utils/constants/constants'
-// import { localStorageHelpers } from '../utils/helpers/general'
-
-// const token = getJwt()
-
 const BASE_URL =
    'http://gadgetarium-env.eba-edpzzr3j.eu-central-1.elasticbeanstalk.com/'
 
@@ -30,7 +25,6 @@ axiosInstance.interceptors.request.use((config) => {
       user: { jwt },
    } = store.getState().auth
    if (jwt) updatedConfig.headers.Authorization = `Bearer ${jwt}`
-   console.log(jwt)
    return updatedConfig
 })
 
