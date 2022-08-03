@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 
+import NotFound from '../components/UI/NotFound'
 import AdminPage from '../containers/admin/AdminPage'
 import PersonPage from '../containers/user/PersonPage'
 import MainPage from '../containers/user/UserPage'
@@ -20,12 +21,14 @@ const AppRoutes = () => {
             path="/person/*"
             element={<ProtectedRoute roles="USER" element={<PersonPage />} />}
          />
+         <Route path="*" element={<NotFound />} />
       </Routes>
    )
 }
 
 /**
  * все element'ы буду менять на Layout'ы
+ * PersonPage > Личный кабинет
  */
 
 export default AppRoutes
