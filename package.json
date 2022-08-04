@@ -5,7 +5,11 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+<<<<<<< HEAD
     "@hookform/resolvers": "^2.9.7",
+=======
+    "@mui/lab": "^5.0.0-alpha.93",
+>>>>>>> 43a52f25757f8ec72842a87619b9f0f7da33f122
     "@mui/material": "^5.8.7",
     "@mui/x-date-pickers": "^5.0.0-beta.0",
     "@reduxjs/toolkit": "^1.8.3",
