@@ -4,10 +4,10 @@ import { Route, Routes } from 'react-router-dom'
 
 import NotFound from '../components/UI/NotFound'
 import AdminPage from '../containers/admin/AdminPage'
+import MainPage from '../containers/MainPage'
 import PersonPage from '../containers/user/PersonPage'
-import MainPage from '../containers/user/UserPage'
 
-import ProtectedRoute from './ProtectedRoute'
+import ProtectedRoute from './private/ProtectedRoute'
 
 const AppRoutes = () => {
    return (
