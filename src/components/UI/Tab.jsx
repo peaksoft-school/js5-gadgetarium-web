@@ -1,49 +1,66 @@
-import React, { useState } from 'react'
+import * as React from 'react'
 
-import { styled, Button } from '@mui/material'
+import styled from '@emotion/styled'
+import TabContext from '@mui/lab/TabContext'
+import TabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
+import Tab from '@mui/material/Tab'
 
-function Tab({ buttonarray, value, text, id, ...props }) {
-   const [toggleState, setToggleState] = useState('1')
+export default function LabTabs({ tabsArray, variant }) {
+   const [value, setValue] = React.useState('1')
+
+   const handleChange = (event, newValue) => {
+      setValue(newValue)
+   }
 
    return (
-      <>
-         <div>
-            {buttonarray.map((el, index) => (
-               <STyledButton
-                  key={el}
-                  value={value}
-                  active={toggleState === index}
-                  onClick={() => setToggleState(index)}
-                  {...props}
-               >
-                  {el.text}({el.data.length})
-               </STyledButton>
+      <TabContext value={value}>
+         <TabList
+            onChange={handleChange}
+            TabIndicatorProps={{ style: { backgroundColor: '#fff' } }}
+            aria-label="lab API tabs example"
+         >
+            {tabsArray.map((el) => (
+               <StyledTab
+                  variant={variant}
+                  key={el.id}
+                  label={el.label}
+                  value={el.value}
+               />
             ))}
-         </div>
-         <div>
-            <div>{toggleState} </div>
-         </div>
-      </>
+         </TabList>
+         {tabsArray.map((el) => {
+            return (
+               <TabPanel key={el.id} value={el.value}>
+                  {el.Component}
+               </TabPanel>
+            )
+         })}
+      </TabContext>
    )
 }
 
-export default Tab
-
-const STyledButton = styled(Button)`
-   height: 34px;
-   margin-left: 10px;
-   padding: 8px 20px 9px 20px;
-   border-radius: 4px;
-   text-transform: none;
-   font-family: 'Inter, sans-serif';
-   font-style: normal;
-   font-weight: 600;
-   font-size: 14px;
-   line-height: 19px;
-   background-color: #e0e2e7;
-   color: ${({ active }) => (active ? '#FFFFFF;' : '#384255')};
-
-   &:focus-within {
-      background: #384255;
-   }
-`
+const StyledTab = styled(Tab)(({ variant }) => ({
+   height: '34px',
+   marginRight: '12px',
+   borderRadius: '4px',
+   padding: '8px 20px 9px 20px',
+   textTransform: 'none',
+   fontFamily: 'Inter, sans-serif',
+   fontStyle: 'normal',
+   fontWeight: '600',
+   fontSize: '14px',
+   lineHeight: '19px',
+   backgroundColor: '#e0e2e7',
+   color: '#384255',
+   '&:focus-within': {
+      background: '#384255',
+      color: '#ffffff',
+   },
+   ...(variant === 'pink' && {
+      '&:focus-within': {
+         background: '#CB11AB',
+         color: '#ffffff',
+      },
+   }),
+}))
