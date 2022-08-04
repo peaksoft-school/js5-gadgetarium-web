@@ -37,17 +37,24 @@ export const registration = createAsyncThunk(
    }
 )
 
+const primalState = {
+   user: {
+      jwt: null,
+      role: null,
+      email: null,
+   },
+   error: '',
+   loading: false,
+}
+
 const authSlice = createSlice({
    name: 'auth',
-   initialState: {
-      user: {
-         jwt: '',
-         role: '',
-         email: '',
-      },
-      error: '',
-      loading: false,
-   },
+   initialState: localStorageHelpers.getFromLocalStorage(GADGETARIUM_USER_DATA)
+      ? {
+           ...primalState,
+           user: localStorageHelpers.getFromLocalStorage(GADGETARIUM_USER_DATA),
+        }
+      : primalState,
    reducers: {
       logout: (state) => {
          localStorageHelpers.deleteFromLocalStorage(GADGETARIUM_USER_DATA)
