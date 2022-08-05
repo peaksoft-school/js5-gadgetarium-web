@@ -4,7 +4,6 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import styled from 'styled-components'
 
 const Input = forwardRef((props, ref) => {
-<<<<<<< HEAD
    const {
       type,
       placeholder,
@@ -16,9 +15,6 @@ const Input = forwardRef((props, ref) => {
       helperText,
       ...others
    } = props
-=======
-   const { type, placeholder, name, id, onChange, ...others } = props
->>>>>>> 43a52f25757f8ec72842a87619b9f0f7da33f122
    return (
       <StyledInput
          ref={ref}
