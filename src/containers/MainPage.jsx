@@ -1,11 +1,5 @@
-import TextEditor from '../components/UI/TextEditor'
-
 const MainPage = () => {
-   return (
-      <div>
-         <TextEditor />
-      </div>
-   )
+   return <div> </div>
 }
 
 export default MainPage
