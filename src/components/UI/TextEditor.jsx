@@ -1,6 +1,8 @@
+import { forwardRef } from 'react'
+
 import JoditEditor from 'jodit-react'
 
-const TextEditor = ({ onChange, value, ref }) => {
+const TextEditor = forwardRef(({ onChange, value }, ref) => {
    const config = {
       toolbar: true,
       buttons: ['bold', 'italic', 'underline', 'ul', 'ol'],
@@ -14,6 +16,6 @@ const TextEditor = ({ onChange, value, ref }) => {
          onChange={onChange}
       />
    )
-}
+})
 
 export default TextEditor
