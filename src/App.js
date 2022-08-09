@@ -1,9 +1,9 @@
-import AppRoutes from './routes/AppRoutes'
+import Select from './components/UI/Select'
 
 function App() {
    return (
       <div>
-         <AppRoutes />
+         <Select />
       </div>
    )
 }
