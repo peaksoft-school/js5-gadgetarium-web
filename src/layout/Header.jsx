@@ -104,6 +104,7 @@ const HeaderBottom = styled('div')`
    padding: 18px 194px;
    background: #1a1a25;
    position: sticky;
+   z-index: 999;
    top: 0;
 `
 const BottomRow = styled('div')`

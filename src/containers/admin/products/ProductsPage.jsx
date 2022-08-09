@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Profucts = () => {
+const ProductsPage = () => {
    return <div>Profucts</div>
 }
 
-export default Profucts
+export default ProductsPage

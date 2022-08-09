@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { styled } from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 
 import logo from '../assets/icons/logo.svg'
 import profileLogo from '../assets/icons/profile-icon.svg'
@@ -10,35 +10,38 @@ import Button from '../components/UI/Button'
 
 const HeaderForAdmin = () => {
    return (
-      <div>
-         <Header>
-            <UpperRow>
-               <Logo src={logo} />
-               <Menu>
-                  <BackgroundButton>
-                     <NavLink to="/products"> Товары </NavLink>
-                  </BackgroundButton>
-                  <BackgroundButton>
-                     <NavLink to="/orders"> Заказы </NavLink>
-                  </BackgroundButton>
-                  <BackgroundButton>
-                     <NavLink to="/reviews-rating"> Отзывы и рейтинг </NavLink>
-                  </BackgroundButton>
-               </Menu>
-               <AdminUI>
-                  <ButtonPush> Создать рассылку </ButtonPush>
-                  <SearchLogo src={search} />
-                  <VerticalLine />
-                  <UserProfile>
-                     <NavLink to="/login">
-                        <ProfileLogo src={profileLogo} />
-                     </NavLink>
-                  </UserProfile>
-                  <p> Адина Урматова </p>
-               </AdminUI>
-            </UpperRow>
-         </Header>
-      </div>
+      <Header>
+         <UpperRow>
+            <Logo src={logo} />
+            <Menu>
+               <BackgroundButton>
+                  <StyledNavLink to="products" style={{}} end>
+                     Товары
+                  </StyledNavLink>
+               </BackgroundButton>
+               <BackgroundButton>
+                  <StyledNavLink to="orders">Заказы</StyledNavLink>
+               </BackgroundButton>
+               <BackgroundButton>
+                  <StyledNavLink to="reviews" style={{}}>
+                     Отзывы и рейтинг
+                  </StyledNavLink>
+               </BackgroundButton>
+            </Menu>
+            <AdminUI>
+               <ButtonPush> Создать рассылку </ButtonPush>
+               <SearchLogo src={search} />
+               <VerticalLine />
+               <UserProfile>
+                  <NavLink to="/">
+                     <ProfileLogo src={profileLogo} />
+                  </NavLink>
+               </UserProfile>
+               <p> Адина Урматова </p>
+            </AdminUI>
+         </UpperRow>
+         <Outlet />
+      </Header>
    )
 }
 
@@ -51,6 +54,7 @@ const Header = styled('div')`
    background: #1a1a25;
    position: fixed;
    top: 0;
+   z-index: 999;
 `
 const UpperRow = styled('div')`
    display: flex;
@@ -88,6 +92,24 @@ const ButtonPush = styled(Button)`
    font-size: 16px;
    background: #e20fbe;
 `
+
+const StyledNavLink = styled(NavLink)`
+   transition: 0.3s;
+   border-radius: ${(props) => {
+      return props.style ? (isActive) => (isActive ? '4px' : 'none') : 'none'
+   }};
+   background: ${(props) => {
+      return props.style
+         ? (isActive) => (isActive ? 'rgba(133, 143, 164, 0.15)' : 'none')
+         : 'none'
+   }};
+   text-decoration: ${(props) => {
+      return props.style
+         ? (isActive) => (isActive ? 'underline' : 'none')
+         : 'none'
+   }};
+`
+
 const BackgroundButton = styled('div')`
    padding: 13px 15px;
    border-radius: 4px;
@@ -96,10 +118,6 @@ const BackgroundButton = styled('div')`
    justify-content: center;
    :hover {
       transition: 0.3s;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       background: rgba(133, 143, 164, 0.15);
    }
 `

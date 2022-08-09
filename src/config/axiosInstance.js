@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import { toast } from 'react-toastify'
 
 let store
 
@@ -27,5 +28,29 @@ axiosInstance.interceptors.request.use((config) => {
    if (jwt) updatedConfig.headers.Authorization = `Bearer ${jwt}`
    return updatedConfig
 })
+
+// axiosInstance.interceptors.response.use(
+//    ((updatedConfig) => updatedConfig,
+//    (error) => {
+//       if (error.response.status === 401) {
+//          toast.error('Ошибка с авторизацией')
+//       }
+//    })
+// )
+
+// api.interceptors.request.use((config) => {
+//    const { auth: { token } } = store.getState();
+//    const authConfig = { ...config };
+//    if (token) {
+//      authConfig.headers.Authorization = token;
+//    }
+//    return authConfig;
+//  });
+//  api.interceptors.response.use((res) => res, (error) => {
+//    const { response: { data } } = error;
+//    store.dispatch(showToast(data.error));
+//    store.dispatch(hideLoading());
+//    throw error;
+//  });
 
 export default axiosInstance

@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
+
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { login } from '../../store/slices/authSlice'
@@ -9,6 +12,12 @@ import BasicModal from '../UI/BasicModal'
 import Button from '../UI/Button'
 import Input from '../UI/inputs/Input'
 import InputForPassword from '../UI/inputs/InputForPassword'
+
+const MAIN_ROUTES = {
+   ADMIN: {
+      path: '/admin',
+   },
+}
 
 const SignIn = ({ onClose, open }) => {
    const {
@@ -22,9 +31,15 @@ const SignIn = ({ onClose, open }) => {
    })
    const dispatch = useDispatch()
 
+   const navigate = useNavigate()
+   const { role } = useSelector((state) => state.auth.user)
+
+   useEffect(() => {
+      if (MAIN_ROUTES[role]) navigate(MAIN_ROUTES[role].path)
+   }, [role])
+
    function onSubmit({ email, password }) {
       dispatch(login({ email, password }))
-      console.log({ password, email })
       reset()
    }
 
@@ -54,12 +69,11 @@ const SignIn = ({ onClose, open }) => {
                   placeholder="Напишите пароль"
                   height="43px"
                   id="password"
-                  error={
-                     !!errors.password?.message ||
-                     !!errors.confirmedPassword?.message
-                  }
+                  error={!!errors.password?.message}
                   name="password"
-                  {...register('password')}
+                  {...register('password', {
+                     required: true,
+                  })}
                />
                {errors.password?.message && (
                   <ErrorMessage>{errors.password?.message}</ErrorMessage>
