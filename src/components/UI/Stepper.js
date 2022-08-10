@@ -1,91 +1,39 @@
 import * as React from 'react'
 
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import { styled } from '@mui/material'
+import Step from '@mui/material/Step'
+import MuiStepLabel from '@mui/material/StepLabel'
+import Stepper from '@mui/material/Stepper'
 
-const ProgressStepper = (steps, ...props) => {
-   const [active, setactive] = React.useState({
-      number: '1',
-   })
-
-   const activestyle = (element) => {
-      if (element === 1) {
-         setactive({ number: element })
-      }
-      if (element === 2) {
-         setactive({ number: element })
-      }
-      if (element === 3) {
-         setactive({
-            number: element,
-         })
-      }
-   }
+const ProgressStepper = ({ steps, currentStep }) => {
    return (
-      <Fragment>
-         {steps.map((item, index) => {
-            return (
-               <StyledDiv active={+active.number - 1 === index}>
-                  <StyledButton
-                     onClick={() => {
-                        props.onClick(item.id)
-                        activestyle(item.id)
-                     }}
-                  >
-                     {item.id}
-                  </StyledButton>
-                  <p>{item.text}</p>
-                  {item.line && <SpanLine> </SpanLine>}
-               </StyledDiv>
-            )
-         })}
-      </Fragment>
+      <Stepper activeStep={currentStep}>
+         {steps.map((step, index) => (
+            <Step
+               completed={step.completed}
+               active={currentStep === index}
+               key={step}
+            >
+               <StepLabel>{step}</StepLabel>
+            </Step>
+         ))}
+      </Stepper>
    )
 }
 export default ProgressStepper
-const SpanLine = styled('span')`
-   width: 30px;
-   height: 0px;
-   border: 1px solid #384255;
-   margin-top: 32px;
-   margin-left: 35px;
-`
-const Fragment = styled('div')`
-   width: 100%;
-   display: flex;
-   align-items: center;
-   justify-content: space-evenly;
-`
-const StyledButton = styled('div')`
-   margin-right: 16px;
-   width: 56px;
-   height: 56px;
-   border-radius: 50%;
-   background: #91969e;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   color: #ffffff;
-   font-style: normal;
-   font-weight: 600;
-   font-size: 28px;
-   line-height: 34px;
-`
-const StyledDiv = styled('div')`
-   display: flex;
-   justify-content: space-evenly;
-   & > p {
-      font-size: 18px;
-      color: #384255;
+
+const StepLabel = styled(MuiStepLabel)`
+   svg {
+      &.Mui-active {
+         fill: #cb11ab;
+      }
+      &.Mui-completed {
+         fill: #cb11ab;
+      }
    }
-   ${({ active }) =>
-      active &&
-      css`
-         & > div {
-            background: #cb11ab;
-         }
-         & > p {
-            color: #cb11ab;
-         }
-      `}
+   span {
+      &.Mui-active {
+         color: #cb11ab;
+      }
+   }
 `
