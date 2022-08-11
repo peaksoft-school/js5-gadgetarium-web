@@ -15,7 +15,7 @@ const HeaderForAdmin = () => {
             <Logo src={logo} />
             <Menu>
                <BackgroundButton>
-                  <StyledNavLink to="products" style={{}} end>
+                  <StyledNavLink to="products" end>
                      Товары
                   </StyledNavLink>
                </BackgroundButton>
@@ -23,9 +23,7 @@ const HeaderForAdmin = () => {
                   <StyledNavLink to="orders">Заказы</StyledNavLink>
                </BackgroundButton>
                <BackgroundButton>
-                  <StyledNavLink to="reviews" style={{}}>
-                     Отзывы и рейтинг
-                  </StyledNavLink>
+                  <StyledNavLink to="reviews">Отзывы и рейтинг</StyledNavLink>
                </BackgroundButton>
             </Menu>
             <AdminUI>

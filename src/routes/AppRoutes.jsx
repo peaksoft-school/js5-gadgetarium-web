@@ -7,6 +7,7 @@ import AdminPage from '../containers/admin/AdminPage'
 import MainPage from '../containers/MainPage'
 import PersonPage from '../containers/user/PersonPage'
 
+// import AdminRoutes from './admin-routes/AdminRoutes'
 import ProtectedRoute from './private/ProtectedRoute'
 
 const AppRoutes = () => {
