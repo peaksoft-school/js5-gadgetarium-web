@@ -105,6 +105,7 @@ const HeaderBottom = styled('div')`
    background: #1a1a25;
    position: sticky;
    top: 0;
+   z-index: 99;
 `
 const BottomRow = styled('div')`
    display: flex;

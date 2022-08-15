@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import styled from '@emotion/styled'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -7,29 +5,13 @@ import MenuItem from '@mui/material/MenuItem'
 import { ReactComponent as IconDelete } from '../../../assets/icons/Vertor-delete.svg'
 import Button from '../Button'
 
-export default function AccountMenu({ cart, title }) {
-   const [anchorEl, setAnchorEl] = useState(null)
-   const open = Boolean(anchorEl)
-
-   // const handleClick = (event) => {
-   //    setAnchorEl(event.currentTarget)
-   // }
-
-   const handleClose = () => {
-      setAnchorEl(null)
-   }
-
-   const handlerClick = () => {}
-
-   const handleChange = () => {}
-
+export default function AccountMenu({ cart, title, open, onClose, ...props }) {
    return (
       <div>
          <Menu
-            anchorEl={anchorEl}
             id="account-menu"
             open={open}
-            onClose={handleClose}
+            onClose={onClose}
             PaperProps={{
                elevation: 0,
                sx: {
@@ -69,7 +51,7 @@ export default function AccountMenu({ cart, title }) {
                         </ContainerDates>
                         <ContainerPrice>{el.price}</ContainerPrice>
                         <img src={el.img} alt="" />
-                        <ContainerIcon onClick={handlerClick}>
+                        <ContainerIcon onClick={props.handlerClick}>
                            <IconDelete />
                         </ContainerIcon>
                      </StyledMenuItem>
@@ -80,7 +62,7 @@ export default function AccountMenu({ cart, title }) {
                      variant="contained"
                      width="117px"
                      height="43px"
-                     onClick={handleChange}
+                     onClick={props.handleChange}
                   >
                      {title}
                   </Button>
