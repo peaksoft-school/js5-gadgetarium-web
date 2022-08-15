@@ -13,95 +13,102 @@ import Input from '../components/UI/inputs/Input'
 
 const Footer = () => {
    return (
-      <FooterContainer>
-         <BoxCategories>
-            <BoxLinks>
-               <Catalog>
-                  <NavLink to="/catalog">
-                     <Title> Каталог </Title>
-                  </NavLink>
-                  <NavLink to="/smartphones"> Смартфоны </NavLink>
-                  <NavLink to="/laptops"> Ноутбуки и планшеты </NavLink>
-                  <NavLink to="/watches"> Смарт-часы и браслеты </NavLink>
-                  <NavLink to="/accesories"> Акссесуары </NavLink>
-               </Catalog>
-               <BeWithUs>
-                  <NavLink to="/catalog">
-                     <Title> Будь с нами </Title>
-                  </NavLink>
-                  <NavLink to="/sales"> Акции </NavLink>
-                  <NavLink to="/novelties"> Новинки </NavLink>
-                  <NavLink to="/popular-categories">
-                     Популярыне категории
-                  </NavLink>
-               </BeWithUs>
-               <Services>
-                  <NavLink to="/catalog">
-                     <Title> Помощь и сервисы </Title>
-                  </NavLink>
-                  <NavLink to="/about-store"> О Магазине </NavLink>
-                  <NavLink to="/delivery"> Доставка </NavLink>
-                  <NavLink to="/faq"> FAQ </NavLink>
-                  <NavLink to="/contacts"> Контакты </NavLink>
-               </Services>
-            </BoxLinks>
-            <ContactsBox>
-               <Distribution>
-                  <Title> Расскажем об акциях и скидках </Title>
-                  <InputButtonContainer>
-                     <InputSubscribe
-                        width="240px"
-                        height="39px"
-                        border-radius="4px 0 0 4px"
-                     />
-                     <ButtonSubscribe width="160px" height="39px">
-                        Подписаться
-                     </ButtonSubscribe>
-                  </InputButtonContainer>
-                  <p>
-                     Нажимая на кнопку «подписаться» Вы соглашаетесь на
-                     обработку персональных данных
-                  </p>
-               </Distribution>
-               <Contacts>
-                  <NavLink to="/number">
-                     <Icons src={numberIcon} />
-                     <p> +996 (400) 00 00 00 </p>
-                  </NavLink>
-                  <NavLink to="/gadgetarium">
-                     <Icons src={messageIcon} />
-                     <p> Gadgetarium.kg </p>
-                  </NavLink>
-                  <NavLink to="/address">
-                     <Icons src={gpsIcon} />
-                     <p> г.Бишкек, ул. Гражданская 119 </p>
-                  </NavLink>
-                  <NavLink to="/">
-                     <Icons src={clockIcon} />
-                     <p> С 10:00 до 21:00 (без выходных) </p>
-                  </NavLink>
-               </Contacts>
-            </ContactsBox>
-         </BoxCategories>
-         <MiddleLine />
-         <CopyrightBox>
-            <Logo src={logo} />
-            <Copyright>
-               © 2022 Gadgetarium. Интернет магазин Все права защищены.
-            </Copyright>
-         </CopyrightBox>
-      </FooterContainer>
+      <FooterPosition>
+         <FooterContainer>
+            <BoxCategories>
+               <BoxLinks>
+                  <Catalog>
+                     <NavLink to="/catalog">
+                        <Title> Каталог </Title>
+                     </NavLink>
+                     <NavLink to="/smartphones"> Смартфоны </NavLink>
+                     <NavLink to="/laptops"> Ноутбуки и планшеты </NavLink>
+                     <NavLink to="/watches"> Смарт-часы и браслеты </NavLink>
+                     <NavLink to="/accesories"> Акссесуары </NavLink>
+                  </Catalog>
+                  <BeWithUs>
+                     <NavLink to="/catalog">
+                        <Title> Будь с нами </Title>
+                     </NavLink>
+                     <NavLink to="/sales"> Акции </NavLink>
+                     <NavLink to="/novelties"> Новинки </NavLink>
+                     <NavLink to="/popular-categories">
+                        Популярыне категории
+                     </NavLink>
+                  </BeWithUs>
+                  <Services>
+                     <NavLink to="/catalog">
+                        <Title> Помощь и сервисы </Title>
+                     </NavLink>
+                     <NavLink to="/about-store"> О Магазине </NavLink>
+                     <NavLink to="/delivery"> Доставка </NavLink>
+                     <NavLink to="/faq"> FAQ </NavLink>
+                     <NavLink to="/contacts"> Контакты </NavLink>
+                  </Services>
+               </BoxLinks>
+               <ContactsBox>
+                  <Distribution>
+                     <Title> Расскажем об акциях и скидках </Title>
+                     <InputButtonContainer>
+                        <InputSubscribe
+                           width="240px"
+                           height="39px"
+                           border-radius="4px 0 0 4px"
+                        />
+                        <ButtonSubscribe width="160px" height="39px">
+                           Подписаться
+                        </ButtonSubscribe>
+                     </InputButtonContainer>
+                     <p>
+                        Нажимая на кнопку «подписаться» Вы соглашаетесь на
+                        обработку персональных данных
+                     </p>
+                  </Distribution>
+                  <Contacts>
+                     <NavLink to="/number">
+                        <Icons src={numberIcon} />
+                        <p> +996 (400) 00 00 00 </p>
+                     </NavLink>
+                     <NavLink to="/gadgetarium">
+                        <Icons src={messageIcon} />
+                        <p> Gadgetarium.kg </p>
+                     </NavLink>
+                     <NavLink to="/address">
+                        <Icons src={gpsIcon} />
+                        <p> г.Бишкек, ул. Гражданская 119 </p>
+                     </NavLink>
+                     <NavLink to="/">
+                        <Icons src={clockIcon} />
+                        <p> С 10:00 до 21:00 (без выходных) </p>
+                     </NavLink>
+                  </Contacts>
+               </ContactsBox>
+            </BoxCategories>
+            <MiddleLine />
+            <CopyrightBox>
+               <Logo src={logo} />
+               <Copyright>
+                  © 2022 Gadgetarium. Интернет магазин Все права защищены.
+               </Copyright>
+            </CopyrightBox>
+         </FooterContainer>
+      </FooterPosition>
    )
 }
 
 export default Footer
 
+const FooterPosition = styled('footer')`
+   width: 100%;
+   background: #1a1a25;
+`
+
 const FooterContainer = styled('div')`
-   width: 1920px;
+   max-width: 1920px;
+   margin-left: auto;
+   margin-right: auto;
    height: 600px;
    padding: 60px 195px 40px;
-   background: #1a1a25;
-   box-shadow: 0px 10px 50px rgba(133, 143, 164, 0.05);
    display: flex;
    flex-direction: column;
    justify-content: space-between;
