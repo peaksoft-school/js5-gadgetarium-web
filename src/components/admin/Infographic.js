@@ -28,7 +28,7 @@ const tabsArray = [
 export default function Infographic(props) {
    const [value, setValue] = React.useState('1')
 
-   const handleChange = (newValue) => {
+   const handleChange = (SyntheticEvent, newValue) => {
       setValue(newValue)
    }
    return (
