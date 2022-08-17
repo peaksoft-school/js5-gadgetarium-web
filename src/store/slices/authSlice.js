@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 import { signIn, signUp } from '../../services/authService'
 import { GADGETARIUM_USER_DATA } from '../../utils/constants/constants'
@@ -70,10 +71,12 @@ const authSlice = createSlice({
          const user = action.payload
          localStorageHelpers.saveToLocalStorage(GADGETARIUM_USER_DATA, user)
          state.user = user
+         toast.success('Успешно!')
       },
       [login.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload.message
+         toast.error('Ошибка с авторизацией')
       },
       [registration.pending]: (state) => {
          state.loading = true
@@ -83,10 +86,12 @@ const authSlice = createSlice({
          const user = action.payload
          localStorageHelpers.saveToLocalStorage(GADGETARIUM_USER_DATA, user)
          state.user = user
+         toast.success('Успешно!')
       },
       [registration.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
+         toast.error('Ошибка с авторизацией')
       },
    },
 })
