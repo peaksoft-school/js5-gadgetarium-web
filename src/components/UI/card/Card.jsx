@@ -8,61 +8,61 @@ import CardRating from './CardRating'
 
 const Card = (props) => {
    return (
-      <CardBox>
-         <CardContainer>
-            <CardHeaderItems>
-               <CardHeaderItemsAction>
-                  <span>{props.action}</span>
-               </CardHeaderItemsAction>
-               <CardHeaderItemsIcons>
-                  <li onClick={props.compareProducts}>
-                     <Balance fill={props.balance ? '#CB11AB' : '#aaB1bf'} />
-                  </li>
-                  <li onClick={props.addToFavotites}>
-                     <Like
-                        fill={props.like ? '#f53b49' : 'transparent'}
-                        stroke={props.like ? '#f53b49' : '#aaB1bf'}
-                     />
-                  </li>
-               </CardHeaderItemsIcons>
-            </CardHeaderItems>
-            <CardImage>
-               <img src={props.img} alt={props.title} />
-            </CardImage>
-            <CardTitle>
-               <StlyedCardParagraph>{props.status}</StlyedCardParagraph>
-               <StyledCardHeader>{props.title}</StyledCardHeader>
-               <StyledCardRating>
-                  <StyledCardRatingSpan>Рейтинг</StyledCardRatingSpan>
+      <CardContainer>
+         <CardHeaderItems>
+            <CardHeaderItemsAction>
+               <span>{props.action}</span>
+            </CardHeaderItemsAction>
+            <CardHeaderItemsIcons>
+               <li onClick={props.compareProducts}>
+                  <Balance fill={props.balance ? '#CB11AB' : '#aaB1bf'} />
+               </li>
+               <li onClick={props.addToFavotites}>
+                  <Like
+                     fill={props.like ? '#f53b49' : 'transparent'}
+                     stroke={props.like ? '#f53b49' : '#aaB1bf'}
+                  />
+               </li>
+            </CardHeaderItemsIcons>
+         </CardHeaderItems>
+         <CardImage>
+            <img src={props.img} alt={props.title} />
+         </CardImage>
+         <CardTitle>
+            <StlyedCardParagraph>{props.status}</StlyedCardParagraph>
+            <StyledCardHeader>{props.title}</StyledCardHeader>
+            <StyledCardRating>
+               <StyledCardRatingSpan>Рейтинг</StyledCardRatingSpan>
+               <div key={props.rating}>
                   <CardRating rating={props.rating} />
-               </StyledCardRating>
-            </CardTitle>
-            <CardShopItems>
-               <StyledCardPrice>
-                  <StyledCardPriceActual>
-                     {props.actualprice}
-                  </StyledCardPriceActual>
-                  <StyledCardPriceNoneActual>
-                     {props.noneactualprice}
-                  </StyledCardPriceNoneActual>
-               </StyledCardPrice>
-               <Button
-                  variant="contained"
-                  onClick={props.addToCart}
-                  startIcon={<Busket />}
-               >
-                  В корзину
-               </Button>
-            </CardShopItems>
-         </CardContainer>
-      </CardBox>
+               </div>
+            </StyledCardRating>
+         </CardTitle>
+         <CardShopItems>
+            <StyledCardPrice>
+               <StyledCardPriceActual>
+                  {props.actualprice} с
+               </StyledCardPriceActual>
+               <StyledCardPriceNoneActual>
+                  {props.noneactualprice} с
+               </StyledCardPriceNoneActual>
+            </StyledCardPrice>
+            <Button
+               variant="contained"
+               onClick={props.addToCart}
+               startIcon={<Busket />}
+            >
+               В корзину
+            </Button>
+         </CardShopItems>
+      </CardContainer>
    )
 }
 
 export default Card
 
 const CardContainer = styled.div`
-   margin: 70px;
+   /* margin: 70px; */
    display: flex;
    flex-direction: column;
    max-width: 300px;
@@ -77,8 +77,6 @@ const CardContainer = styled.div`
       transform: scale(10px);
    }
 `
-
-const CardBox = styled.div``
 
 const CardHeaderItems = styled.div`
    display: flex;

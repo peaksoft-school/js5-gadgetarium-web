@@ -15,7 +15,7 @@ import whatsapp from '../assets/icons/whatsapp.svg'
 
 const Header = () => {
    return (
-      <>
+      <HeaderContainer>
          <HeaderTop>
             <UpperRow>
                <Logo src={logo} />
@@ -80,16 +80,21 @@ const Header = () => {
                </UserTools>
             </BottomRow>
          </HeaderBottom>
-      </>
+      </HeaderContainer>
    )
 }
 
 export default Header
 
 const HeaderTop = styled('div')`
-   width: 1920px;
+   max-width: 1920px;
+   margin-left: auto;
+   margin-right: auto;
    height: 82px;
    padding: 18px 194px;
+`
+const HeaderContainer = styled('header')`
+   width: 100%;
    background: #1a1a25;
 `
 const UpperRow = styled('div')`
@@ -99,12 +104,15 @@ const UpperRow = styled('div')`
    padding: 0 0 20px 0;
 `
 const HeaderBottom = styled('div')`
-   width: 1920px;
+   max-width: 1920px;
+   margin-left: auto;
+   margin-right: auto;
    height: 90px;
    padding: 18px 194px;
    background: #1a1a25;
    position: sticky;
    top: 0;
+   z-index: 99;
 `
 const BottomRow = styled('div')`
    display: flex;
