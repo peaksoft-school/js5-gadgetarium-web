@@ -1,11 +1,5 @@
-import Select from './components/UI/Select'
-
 function App() {
-   return (
-      <div>
-         <Select />
-      </div>
-   )
+   return <div> </div>
 }
 
 export default App
