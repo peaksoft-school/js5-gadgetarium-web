@@ -14,7 +14,7 @@ const AdminRoutes = () => {
          <Route path="products/*" element={<ProductsPage />}>
             <Route index element={<Products />} />
             <Route path=":productId" element={<ProductInnerPage />} />
-            <Route path="addproducts" element={<AddProducts />} />
+            <Route path="addproducts/*" element={<AddProducts />} />
          </Route>
          <Route path="orders" element={<OrdersPage />} />
          <Route path="reviews" element={<ReviewsPage />} />

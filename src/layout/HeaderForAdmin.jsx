@@ -11,34 +11,38 @@ import Button from '../components/UI/Button'
 const HeaderForAdmin = () => {
    return (
       <Header>
-         <UpperRow>
-            <Logo src={logo} />
-            <Menu>
-               <BackgroundButton>
-                  <StyledNavLink to="products" end>
-                     Товары
-                  </StyledNavLink>
-               </BackgroundButton>
-               <BackgroundButton>
-                  <StyledNavLink to="orders">Заказы</StyledNavLink>
-               </BackgroundButton>
-               <BackgroundButton>
-                  <StyledNavLink to="reviews">Отзывы и рейтинг</StyledNavLink>
-               </BackgroundButton>
-            </Menu>
-            <AdminUI>
-               <ButtonPush> Создать рассылку </ButtonPush>
-               <SearchLogo src={search} />
-               <VerticalLine />
-               <UserProfile>
-                  <NavLink to="/">
-                     <ProfileLogo src={profileLogo} />
-                  </NavLink>
-               </UserProfile>
-               <p> Адина Урматова </p>
-            </AdminUI>
-         </UpperRow>
-         <Outlet />
+         <HeaderContainer>
+            <UpperRow>
+               <Logo src={logo} />
+               <Menu>
+                  <BackgroundButton>
+                     <StyledNavLink to="products" end>
+                        Товары
+                     </StyledNavLink>
+                  </BackgroundButton>
+                  <BackgroundButton>
+                     <StyledNavLink to="orders">Заказы</StyledNavLink>
+                  </BackgroundButton>
+                  <BackgroundButton>
+                     <StyledNavLink to="reviews">
+                        Отзывы и рейтинг
+                     </StyledNavLink>
+                  </BackgroundButton>
+               </Menu>
+               <AdminUI>
+                  <ButtonPush> Создать рассылку </ButtonPush>
+                  <SearchLogo src={search} />
+                  <VerticalLine />
+                  <UserProfile>
+                     <NavLink to="/">
+                        <ProfileLogo src={profileLogo} />
+                     </NavLink>
+                  </UserProfile>
+                  <p> Адина Урматова </p>
+               </AdminUI>
+            </UpperRow>
+            <Outlet />
+         </HeaderContainer>
       </Header>
    )
 }
@@ -46,11 +50,17 @@ const HeaderForAdmin = () => {
 export default HeaderForAdmin
 
 const Header = styled('div')`
-   width: 1920px;
-   height: 83px;
-   padding: 18px 194px;
+   width: 100%;
    background: #1a1a25;
-   position: fixed;
+`
+const HeaderContainer = styled('header')`
+   max-width: 1920px;
+   margin-left: auto;
+   margin-right: auto;
+   height: 83px;
+   padding: 18px 0;
+   background: #1a1a25;
+   position: sticky;
    top: 0;
    z-index: 999;
 `

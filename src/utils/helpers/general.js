@@ -9,3 +9,15 @@ export const localStorageHelpers = {
       return localStorage.removeItem(key)
    },
 }
+
+export const sessionStorageHelpers = {
+   getFromSessionStorage: (key) => {
+      return JSON.parse(sessionStorage.getItem(key))
+   },
+   saveToSessionStorage: (key, data) => {
+      return sessionStorage.setItem(key, JSON.stringify(data))
+   },
+   deleteFromSessionStorage: (key) => {
+      return sessionStorage.removeItem(key)
+   },
+}

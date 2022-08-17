@@ -52,7 +52,6 @@ const SignUp = ({ onClose, open }) => {
                   height="43px"
                   id="firstName"
                   name="firstName"
-                  borderRadius="6px"
                   error={!!errors.firstName?.message}
                   variant="default"
                   {...register('firstName', {

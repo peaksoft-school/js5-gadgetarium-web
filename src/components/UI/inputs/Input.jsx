@@ -12,16 +12,17 @@ const Input = forwardRef((props, ref) => {
       onChange,
       error,
       value,
-      helperText,
+      autoComplete,
       ...others
    } = props
    return (
       <StyledInput
+         autoComplete={autoComplete}
          ref={ref}
          type={type}
          placeholder={placeholder}
          name={name}
-         helperText={helperText}
+         // helperText={helperText}
          id={id}
          value={value}
          error={error}
@@ -41,7 +42,7 @@ const StyledInput = styled(OutlinedInput)((props) => ({
    fontStyle: 'normal',
    fontWeight: '400',
    fontSize: '16px',
-   borderRadius: props.borderRadius,
+   borderRadius: '6px',
    backgroundColor: '#FFFFFF;',
 
    background: `${props.variant === 'default' ? '#F7F7F7' : ''}`,

@@ -20,13 +20,15 @@ const MAIN_ROUTES = {
 }
 
 const SignIn = ({ onClose, open }) => {
+   const { error } = useSelector((state) => state.auth)
+   console.log(error)
    const {
       register,
       handleSubmit,
       formState: { errors },
       reset,
    } = useForm({
-      mode: 'onSubmit',
+      mode: 'onChange',
       resolver: yupResolver(LoginFormSchema),
    })
    const dispatch = useDispatch()
@@ -40,7 +42,9 @@ const SignIn = ({ onClose, open }) => {
 
    function onSubmit({ email, password }) {
       dispatch(login({ email, password }))
-      reset()
+      if (!error) {
+         reset()
+      }
    }
 
    return (
@@ -53,10 +57,9 @@ const SignIn = ({ onClose, open }) => {
                   placeholder="Напишите email"
                   width="460px"
                   height="43px"
-                  borderRadius="6px"
                   id="email"
                   name="email"
-                  error={!!errors.email?.message}
+                  error={!!errors.email?.message && !!error}
                   variant="default"
                   {...register('email', {
                      required: true,
@@ -77,6 +80,9 @@ const SignIn = ({ onClose, open }) => {
                />
                {errors.password?.message && (
                   <ErrorMessage>{errors.password?.message}</ErrorMessage>
+               )}
+               {error && (
+                  <ErrorMessage>Неправильный пароль или логин</ErrorMessage>
                )}
                <Button
                   width="460px"

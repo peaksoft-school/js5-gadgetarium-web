@@ -1,14 +1,12 @@
-import React from 'react'
-
-import HeaderForAdmin from '../../layout/HeaderForAdmin'
+import AdminLayout from '../../layout/AdminLayout'
+// import HeaderForAdmin from '../../layout/HeaderForAdmin'
 import AdminRoutes from '../../routes/admin-routes/AdminRoutes'
 
 const AdminPage = () => {
    return (
-      <>
-         <HeaderForAdmin />
+      <AdminLayout>
          <AdminRoutes />
-      </>
+      </AdminLayout>
    )
 }
 

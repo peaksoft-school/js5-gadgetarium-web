@@ -29,28 +29,4 @@ axiosInstance.interceptors.request.use((config) => {
    return updatedConfig
 })
 
-// axiosInstance.interceptors.response.use(
-//    ((updatedConfig) => updatedConfig,
-//    (error) => {
-//       if (error.response.status === 401) {
-//          toast.error('Ошибка с авторизацией')
-//       }
-//    })
-// )
-
-// api.interceptors.request.use((config) => {
-//    const { auth: { token } } = store.getState();
-//    const authConfig = { ...config };
-//    if (token) {
-//      authConfig.headers.Authorization = token;
-//    }
-//    return authConfig;
-//  });
-//  api.interceptors.response.use((res) => res, (error) => {
-//    const { response: { data } } = error;
-//    store.dispatch(showToast(data.error));
-//    store.dispatch(hideLoading());
-//    throw error;
-//  });
-
 export default axiosInstance

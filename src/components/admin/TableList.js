@@ -1,6 +1,4 @@
-import { useState } from 'react'
-
-import { Checkbox, styled } from '@mui/material'
+import { styled } from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -8,28 +6,14 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
-function TableList({ columns, data, width, checkbox }) {
-   const [checked, setChecked] = useState(0)
-   const countChecked = (event) => {
-      if (event.target.checked === true) {
-         setChecked((prevState) => prevState + 1)
-      } else {
-         setChecked((prevState) => prevState - 1)
-      }
-   }
+function TableList({ columns, data, width }) {
+   console.log(columns)
    return (
       <TableContainer>
          <MuiTable width={width}>
             <TableHead>
                <TableRow>
                   <DivHead>
-                     {checkbox && (
-                        <HeadCell>
-                           <div style={{ width: '42px', textAlign: 'center' }}>
-                              {checked}
-                           </div>
-                        </HeadCell>
-                     )}
                      {columns.map((col) => {
                         if (col.headerCell) {
                            return (
@@ -52,11 +36,6 @@ function TableList({ columns, data, width, checkbox }) {
                   return (
                      <Row key={row.id}>
                         <Div>
-                           {checkbox && (
-                              <BodyCell>
-                                 <Checkbox onChange={countChecked} />
-                              </BodyCell>
-                           )}
                            {columns.map((col) => {
                               if (col.cell) {
                                  return (
