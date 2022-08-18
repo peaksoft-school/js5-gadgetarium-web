@@ -3,13 +3,13 @@ import React from 'react'
 import { styled } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 
-import logo from '../assets/icons/footer-logo.svg'
-import clockIcon from '../assets/icons/icon-clock.svg'
-import gpsIcon from '../assets/icons/icon-gps.svg'
-import messageIcon from '../assets/icons/icon-message.svg'
-import numberIcon from '../assets/icons/icon-number.svg'
-import Button from '../components/UI/Button'
-import Input from '../components/UI/inputs/Input'
+import logo from '../../assets/icons/footer-logo.svg'
+import clockIcon from '../../assets/icons/icon-clock.svg'
+import gpsIcon from '../../assets/icons/icon-gps.svg'
+import messageIcon from '../../assets/icons/icon-message.svg'
+import numberIcon from '../../assets/icons/icon-number.svg'
+import Button from '../../components/UI/Button'
+import Input from '../../components/UI/inputs/Input'
 
 const Footer = () => {
    return (

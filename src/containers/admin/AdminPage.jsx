@@ -1,7 +1,12 @@
-import React from 'react'
+import AdminLayout from '../../layout/AdminLayout'
+import AdminRoutes from '../../routes/admin-routes/AdminRoutes'
 
 const AdminPage = () => {
-   return <div>AdminPageasdasdasdasdasd</div>
+   return (
+      <AdminLayout>
+         <AdminRoutes />
+      </AdminLayout>
+   )
 }
 
 export default AdminPage

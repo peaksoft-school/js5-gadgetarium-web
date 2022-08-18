@@ -3,19 +3,19 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import NotFound from '../components/UI/NotFound'
-import AdminPage from '../containers/admin/AdminPage'
-import MainPage from '../containers/MainPage'
-import PersonPage from '../containers/user/PersonPage'
+import PersonPage from '../containers/person/PersonPage'
 
+import AdminRoutes from './admin-routes/AdminRoutes'
+import MainRoutes from './MainRoutes'
 import ProtectedRoute from './private/ProtectedRoute'
 
 const AppRoutes = () => {
    return (
       <Routes>
-         <Route path="/" element={<MainPage />} />
+         <Route path="/*" element={<MainRoutes />} />
          <Route
             path="/admin/*"
-            element={<ProtectedRoute roles="ADMIN" element={<AdminPage />} />}
+            element={<ProtectedRoute roles="ADMIN" element={<AdminRoutes />} />}
          />
          <Route
             path="/person/*"
@@ -25,10 +25,5 @@ const AppRoutes = () => {
       </Routes>
    )
 }
-
-/**
- * все element'ы буду менять на Layout'ы
- * PersonPage > Личный кабинет
- */
 
 export default AppRoutes
