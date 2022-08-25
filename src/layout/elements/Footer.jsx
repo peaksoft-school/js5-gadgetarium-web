@@ -51,7 +51,6 @@ const Footer = () => {
                      <Title> Расскажем об акциях и скидках </Title>
                      <InputButtonContainer>
                         <InputSubscribe
-                           width="240px"
                            height="39px"
                            border-radius="4px 0 0 4px"
                         />
@@ -108,11 +107,21 @@ const FooterContainer = styled('div')`
    margin-left: auto;
    margin-right: auto;
    height: 600px;
-   padding: 60px 195px 40px;
+   padding: 60px 100px;
    display: flex;
    flex-direction: column;
-   justify-content: space-between;
+   justify-content: space-around;
    margin-top: auto;
+
+   @media screen and (max-width: 1536px) {
+      max-width: 1380px;
+      padding: 60px 0 40px 0;
+   }
+
+   @media screen and (max-width: 1240px) {
+      max-width: 1140px;
+      padding: 60px 0 40px 0;
+   }
 `
 const BoxCategories = styled('div')`
    display: flex;
@@ -121,7 +130,8 @@ const BoxCategories = styled('div')`
 const BoxLinks = styled('div')`
    display: flex;
    height: 300px;
-   gap: 90px;
+   gap: 60px;
+   margin-right: 50px;
 `
 const ContactsBox = styled('div')`
    display: flex;
@@ -137,7 +147,6 @@ const CopyrightBox = styled('div')`
    align-items: center;
 `
 const MiddleLine = styled('div')`
-   width: 1530px;
    height: 1px;
    background: rgba(133, 143, 164, 0.15);
 `
@@ -147,7 +156,7 @@ const Title = styled('span')`
    cursor: pointer;
 `
 const Catalog = styled('div')`
-   width: 210px;
+   white-space: nowrap;
    height: 171px;
    display: flex;
    flex-direction: column;
@@ -164,7 +173,7 @@ const Catalog = styled('div')`
    }
 `
 const BeWithUs = styled('div')`
-   width: 210px;
+   white-space: nowrap;
    height: 138px;
    display: flex;
    flex-direction: column;
@@ -181,7 +190,7 @@ const BeWithUs = styled('div')`
    }
 `
 const Services = styled('div')`
-   width: 210px;
+   white-space: nowrap;
    height: 171px;
    display: flex;
    flex-direction: column;
@@ -224,7 +233,6 @@ const Icons = styled('img')`
    height: 20px;
 `
 const Distribution = styled('div')`
-   width: 428px;
    height: 136px;
    color: #858fa4;
    display: flex;
@@ -241,12 +249,10 @@ const InputButtonContainer = styled('div')`
    display: flex;
 `
 const InputSubscribe = styled(Input)`
-   width: 246px;
    height: 39px;
    border-radius: 4px 0 0 4px;
 `
 const ButtonSubscribe = styled(Button)`
-   width: 162px;
    height: 39.5px;
    background: #e20fbe;
    border-radius: 0 4px 4px 0;

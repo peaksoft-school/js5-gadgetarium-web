@@ -15,6 +15,7 @@ import { RingLoader } from 'react-spinners'
 // import ProductCatalogPage from '../containers/client/main-pages/ProductCatalogPage'
 // import ProductInnerPage from '../containers/client/main-pages/ProductInnerPage'
 // import MainLayout from '../layout/MainLayout'
+import NotFound from '../components/UI/NotFound'
 
 const MainLayuot = lazy(() => import('../layout/MainLayout'))
 const AboutPage = lazy(() => import('../containers/client/AboutPage'))
@@ -73,6 +74,7 @@ const MainRoutes = () => {
                <Route path="delivery" element={<DeliveryPage />} />
                <Route path="fag" element={<FagPage />} />
                <Route path="contacts" element={<Contacts />} />
+               <Route path="*" element={<NotFound />} />
             </Routes>
          </MainLayuot>
       </Suspense>

@@ -44,30 +44,6 @@ const Header = () => {
                      <StyledNavLink to="contacts"> Контакты </StyledNavLink>{' '}
                   </li>
                </MenuNavBar>
-               {/* <Menu>
-                  <BackgroundButton>
-                     <StyledNavLink
-                        to="/"
-                        className={({ isActive }) =>
-                           isActive ? 'active' : 'default'
-                        }
-                     >
-                        Главная
-                     </StyledNavLink>
-                  </BackgroundButton>
-                  <BackgroundButton>
-                     <NavLink to="about"> О магазине </NavLink>
-                  </BackgroundButton>
-                  <BackgroundButton>
-                     <NavLink to="delivery"> Доставка </NavLink>
-                  </BackgroundButton>
-                  <BackgroundButton>
-                     <NavLink to="fag"> FAG </NavLink>
-                  </BackgroundButton>
-                  <BackgroundButton>
-                     <NavLink to="contacts"> Контакты </NavLink>
-                  </BackgroundButton>
-               </Menu> */}
                <UserProfile>
                   <p> +996 (400) 00-00-00 </p>
                   <NavLink to="#">
@@ -123,7 +99,17 @@ const HeaderTop = styled('header')`
    margin-left: auto;
    margin-right: auto;
    height: 82px;
-   padding: 18px 0;
+   padding: 18px 100px;
+
+   @media (max-width: 1536px) {
+      max-width: 1440px;
+      padding: 18px 30px;
+   }
+
+   @media (max-width: 1240px) {
+      max-width: 1200px;
+      padding: 18px 30px;
+   }
 `
 const HeaderContainer = styled('div')`
    width: 100%;
@@ -141,11 +127,16 @@ const NavBar = styled('nav')`
    margin-left: auto;
    margin-right: auto;
    height: 90px;
-   padding: 18px 0;
+   padding: 18px 100px;
    background: #1a1a25;
    position: sticky;
    top: 0;
    z-index: 99;
+
+   @media (max-width: 1536px) {
+      max-width: 1440px;
+      padding: 18px 30px;
+   }
 `
 const BottomRow = styled('div')`
    display: flex;
@@ -173,6 +164,10 @@ const SearchInput = styled('input')`
    ::placeholder {
       color: white;
    }
+
+   @media (max-width: 1536px) {
+      width: 600px;
+   }
 `
 const SocialLinks = styled('div')`
    width: 115px;
@@ -188,7 +183,6 @@ const Logo = styled('img')`
    height: 39px;
    cursor: pointer;
 `
-
 const StyledNavLink = styled(NavLink)`
    width: 100%;
    display: flex;
@@ -201,6 +195,10 @@ const StyledNavLink = styled(NavLink)`
       transition: 0.3s;
       border-radius: 4px;
       background: rgba(133, 143, 164, 0.15);
+   }
+   @media (max-width: 1536px) {
+      font-size: 14px;
+      padding: 12px 10px;
    }
 `
 const MenuNavBar = styled('ul')`
@@ -223,37 +221,6 @@ const MenuNavBar = styled('ul')`
       background: rgba(133, 143, 164, 0.15);
    }
 `
-// const BackgroundButton = styled('div')`
-//    .default {
-//       padding: 13px 15px;
-//       border-radius: 4px;
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//    }
-
-//    :hover {
-//       transition: 0.3s;
-//       border-radius: 4px;
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       background: rgba(133, 143, 164, 0.15);
-//    }
-//    .active {
-//       padding: 13px 15px;
-//       border-radius: 4px;
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       transition: 0.3s;
-//       border-radius: 4px;
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       background: rgba(133, 143, 164, 0.15);
-//    }
-// `
 const UserProfile = styled('div')`
    width: 232px;
    height: 30px;
