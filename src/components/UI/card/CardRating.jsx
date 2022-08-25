@@ -7,7 +7,9 @@ const CardRating = ({ rating }) => {
       <>
          {[...Array(5)].map((i) => {
             const ratingValue = i + 1
-            return <Star fill={ratingValue > rating ? '#fff' : '#F99808'} />
+            return (
+               <Star key={i} fill={ratingValue > rating ? '#fff' : '#F99808'} />
+            )
          })}
       </>
    )

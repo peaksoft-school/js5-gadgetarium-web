@@ -21,7 +21,7 @@ export const RegisterFormSchema = yup.object().shape({
 export const LoginFormSchema = yup.object().shape({
    email: yup
       .string()
-      .email('Неправильно указан Email и/или пароль')
-      .required('Неправильно указан Email и/или пароль'),
+      .email('Введите корректный Email')
+      .required('Введите корректный Email'),
    password: yup.string().required('Введите пароль'),
 })

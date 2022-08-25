@@ -12,7 +12,6 @@ const Input = forwardRef((props, ref) => {
          type={type}
          placeholder={placeholder}
          name={name}
-         // helperText={helperText}
          id={id}
          value={value}
          error={error}
@@ -32,7 +31,7 @@ const StyledInput = styled(OutlinedInput)((props) => ({
    fontStyle: 'normal',
    fontWeight: '400',
    fontSize: '16px',
-   borderRadius: props.borderRadius,
+   borderRadius: '6px',
    backgroundColor: '#FFFFFF;',
 
    background: `${props.variant === 'default' ? '#F7F7F7' : ''}`,

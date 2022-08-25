@@ -26,7 +26,6 @@ const Main = styled.main`
 const Container = styled.div`
    margin: 45px auto 120px auto;
    max-width: 1380px;
-   /* height: 100vh; */
 
    @media screen and (min-width: 1537px) {
       max-width: 1720px;

@@ -1,10 +1,11 @@
+import Rating from '@mui/material/Rating'
 import styled from 'styled-components'
 
 import { ReactComponent as Busket } from '../../../assets/icons/busket.svg'
 import Button from '../Button'
 
 import { Balance, Like } from './CardIcons'
-import CardRating from './CardRating'
+// import CardRating from './CardRating'
 
 const Card = (props) => {
    return (
@@ -33,9 +34,12 @@ const Card = (props) => {
             <StyledCardHeader>{props.title}</StyledCardHeader>
             <StyledCardRating>
                <StyledCardRatingSpan>Рейтинг</StyledCardRatingSpan>
-               <div key={props.rating}>
-                  <CardRating rating={props.rating} />
-               </div>
+               <Rating
+                  name="read-only"
+                  value={props.rating}
+                  readOnly
+                  size="small"
+               />
             </StyledCardRating>
          </CardTitle>
          <CardShopItems>

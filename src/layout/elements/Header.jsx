@@ -9,9 +9,9 @@ import favorites from '../../assets/icons/favorites.svg'
 import instagram from '../../assets/icons/instagram.svg'
 import logo from '../../assets/icons/logo.svg'
 import menu from '../../assets/icons/menu.svg'
-import profileLogo from '../../assets/icons/profile-icon.svg'
 import cart from '../../assets/icons/shopping-cart.svg'
 import whatsapp from '../../assets/icons/whatsapp.svg'
+import UserProfile from '../../components/client/UserProfile'
 
 const Header = () => {
    return (
@@ -38,18 +38,13 @@ const Header = () => {
                      <StyledNavLink to="delivery"> Доставка </StyledNavLink>
                   </li>
                   <li>
-                     <StyledNavLink to="fag"> FAG </StyledNavLink>
+                     <StyledNavLink to="faq"> FAQ </StyledNavLink>
                   </li>
                   <li>
                      <StyledNavLink to="contacts"> Контакты </StyledNavLink>{' '}
                   </li>
                </MenuNavBar>
-               <UserProfile>
-                  <p> +996 (400) 00-00-00 </p>
-                  <NavLink to="#">
-                     <ProfileLogo src={profileLogo} />
-                  </NavLink>
-               </UserProfile>
+               <UserProfile />
             </UpperRow>
             <MiddleLine />
          </HeaderTop>
@@ -220,18 +215,6 @@ const MenuNavBar = styled('ul')`
       border-radius: 4px;
       background: rgba(133, 143, 164, 0.15);
    }
-`
-const UserProfile = styled('div')`
-   width: 232px;
-   height: 30px;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   color: #ffffff;
-`
-const ProfileLogo = styled('img')`
-   width: 24px;
-   height: 24px;
 `
 const Catalog = styled('button')`
    width: 136px;
