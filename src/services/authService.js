@@ -5,6 +5,6 @@ export const signIn = (formData) =>
 export const signUp = (formData) =>
    axiosInstance.post('api/public/register', formData)
 
-// export const getCatalog = () => {
+// export const getCatalog = (url) => {
 //    return axiosInstance.get('api/catalog/')
 // }
