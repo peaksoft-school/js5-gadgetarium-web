@@ -24,9 +24,9 @@ const Main = styled.main`
 `
 
 const Container = styled.div`
-   margin: 45px 195px;
+   margin: 45px 195px 120px 195px;
    max-width: 1920px;
    margin-left: auto;
    margin-right: auto;
-   height: 100vh;
+   /* height: 100vh; */
 `
