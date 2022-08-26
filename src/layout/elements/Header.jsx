@@ -12,6 +12,7 @@ import menu from '../../assets/icons/menu.svg'
 import cart from '../../assets/icons/shopping-cart.svg'
 import whatsapp from '../../assets/icons/whatsapp.svg'
 import UserProfile from '../../components/client/UserProfile'
+import MuiBadge from '../../components/UI/MuiBadge'
 
 const Header = () => {
    return (
@@ -50,10 +51,12 @@ const Header = () => {
          </HeaderTop>
          <NavBar>
             <BottomRow>
-               <Catalog>
-                  <img src={menu} alt="#" />
-                  Каталог
-               </Catalog>
+               <StyledLink to="catalog">
+                  <Catalog>
+                     <img src={menu} alt="#" />
+                     Каталог
+                  </Catalog>
+               </StyledLink>
                <VerticalLine />
                <SearchInput
                   padding="2em"
@@ -72,13 +75,19 @@ const Header = () => {
                </SocialLinks>
                <UserTools>
                   <NavLink to="comparison">
-                     <ImageBox src={compare} />
+                     <MuiBadge counter={2}>
+                        <ImageBox src={compare} />
+                     </MuiBadge>
                   </NavLink>
                   <NavLink to="favourites">
-                     <ImageBox src={favorites} />
+                     <MuiBadge>
+                        <ImageBox src={favorites} />
+                     </MuiBadge>
                   </NavLink>
                   <NavLink to="cart">
-                     <ImageBox src={cart} />
+                     <MuiBadge>
+                        <ImageBox src={cart} />
+                     </MuiBadge>
                   </NavLink>
                </UserTools>
             </BottomRow>
@@ -116,7 +125,6 @@ const UpperRow = styled('div')`
    align-items: center;
    padding: 0 0 20px 0;
 `
-
 const NavBar = styled('nav')`
    max-width: 1920px;
    margin-left: auto;
@@ -226,6 +234,8 @@ const Catalog = styled('button')`
    align-items: center;
    justify-content: space-evenly;
    font-size: 16px;
+   cursor: pointer;
+   text-decoration: none;
 `
 const VerticalLine = styled('div')`
    width: 1.07px;
@@ -235,4 +245,9 @@ const VerticalLine = styled('div')`
 const ImageBox = styled('img')`
    width: 24px;
    height: 24px;
+`
+const StyledLink = styled(Link)`
+   text-decoration: none;
+   color: white;
+   padding: 2px;
 `

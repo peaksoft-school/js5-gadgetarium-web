@@ -33,14 +33,14 @@ const SignIn = ({ onClose, open, openRegistationModal }) => {
    const dispatch = useDispatch()
 
    const navigate = useNavigate()
-   const { role } = useSelector((state) => state.auth.user)
+   const { role } = useSelector((state) => state?.auth.user)
 
    useEffect(() => {
       if (MAIN_ROUTES[role]) navigate(MAIN_ROUTES[role].path)
    }, [role])
 
    function onSubmit({ email, password }) {
-      dispatch(login({ email, password }))
+      dispatch(login({ email, password, onClose }))
       if (!error) {
          reset()
       }

@@ -28,51 +28,62 @@ const DeliveryPage = () => {
             <Title>
                <h2> Доставка</h2>
             </Title>
-            <h3>Город доставки Бишкек</h3>
+            <DeliveryCity>
+               Город доставки <b>Бишкек</b>
+            </DeliveryCity>
             <Delivery>
                <About>
-                  <div>
+                  <div className="block">
                      <Icons src={VectorDeliv} alt="delivery" />
-                     <Text>Самовывоз со склада Забрать в течение 14 дней</Text>
+                     <b>Самовывоз со склада </b>
                   </div>
-                  <div>
+                  <div className="description">
+                     <Text>Забрать в течение 14 дней</Text>
+                  </div>
+                  <AfterBlock>
                      <Icons src={VectorPort} alt="port" />
                      <Text>Предоплата не требуется</Text>
-                  </div>
+                  </AfterBlock>
                </About>
                <About>
-                  <div>
+                  <div className="block">
                      <Icons src={VectorDeliv} alt="delivery" />
-                     <Text>Самовывоз со склада Забрать в течение 14 дней</Text>
+                     <b>Самовывоз со склада</b>
                   </div>
-                  <div>
+                  <div className="description">
+                     <Text> Забрать в течение 14 дней</Text>
+                  </div>
+                  <AfterBlock>
                      <Icons src={VectorPort} alt="port" />
                      <Text>Предоплата не требуется </Text>
-                  </div>
+                  </AfterBlock>
                </About>
                <About>
-                  <div>
+                  <div className="block">
                      <Icons src={VectorDeliv} alt="delivery" />
-                     <Text>
-                        Доставка По городу 200сом, по регионам Бесплатная
-                        доставка при покупках свыше — 10 000с.
-                     </Text>
+                     <b> Доставка</b>
+                     <div className="description">
+                        <Text>
+                           По городу 200сом, по регионам Бесплатная доставка при
+                           покупках свыше — 10 000с.
+                        </Text>
+                     </div>
                   </div>
-                  <div>
+                  <AfterBlock>
                      <Icons src={VectorPort} alt="" />
                      <Text>Предоплата не требуется </Text>
-                  </div>
+                  </AfterBlock>
                </About>
             </Delivery>
             <h3> Способы оплаты</h3>
             <MinContainer>
                <Cart>
-                  <div>
+                  <AfterBlock>
                      <WhiteBackground>
                         <img src={VectorCart} alt="" />
                      </WhiteBackground>
                      <p> Оплата картой онлайн</p>
-                  </div>
+                  </AfterBlock>
                </Cart>
                <Cart>
                   <div>
@@ -107,21 +118,30 @@ const Title = styled('div')`
    line-height: 110%;
 `
 const Delivery = styled('div')`
-   width: 1300px;
    height: 203px;
    display: flex;
-   justify-content: space-between;
-   margin: 30px 0px;
+   justify-content: flex-start;
+   gap: 70px;
+   margin-bottom: 40px;
 `
 const About = styled('div')`
    width: 311px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 
-   & div {
+   .block {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
       margin: 5px 0px;
+      align-items: center;
+   }
+
+   .description {
+      justify-content: center;
+      display: flex;
    }
 `
 const Icons = styled('img')`
@@ -131,18 +151,23 @@ const Icons = styled('img')`
 const Text = styled('p')`
    width: 273px;
    padding: 10px 10px;
+   display: flex;
+   justify-content: center;
 `
 
 const Container = styled('div')`
    margin: 20px auto;
-   & h3 {
-      padding: 30px 0px;
-   }
+`
+const DeliveryCity = styled('p')`
+   padding: 30px 0px;
+   font-size: 18px;
+   font-weight: 400px;
 `
 const MinContainer = styled('div')`
    display: flex;
    justify-content: flex-start;
    align-items: center;
+   margin-top: 30px;
 
    & div {
       display: flex;
@@ -150,6 +175,7 @@ const MinContainer = styled('div')`
       justify-content: flex-start;
       margin: 5px 0px;
       align-items: center;
+      flex-direction: row;
    }
 `
 const Cart = styled('div')`
@@ -167,4 +193,10 @@ const WhiteBackground = styled('div')`
    padding: 12px;
    border-radius: 50%;
    margin: 0;
+`
+const AfterBlock = styled('div')`
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   margin-top: 20px;
 `

@@ -19,7 +19,7 @@ const SignUp = ({ onClose, open, openLoginModal }) => {
       formState: { errors },
       reset,
    } = useForm({
-      mode: 'onSubmit',
+      mode: 'on',
       resolver: yupResolver(RegisterFormSchema),
    })
 
@@ -35,7 +35,14 @@ const SignUp = ({ onClose, open, openLoginModal }) => {
    }) {
       if (password === confirmedPassword)
          dispatch(
-            registration({ firstName, lastName, phoneNumber, password, email })
+            registration({
+               firstName,
+               lastName,
+               phoneNumber,
+               password,
+               email,
+               onClose,
+            })
          )
       reset()
    }

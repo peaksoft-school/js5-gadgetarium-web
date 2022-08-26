@@ -1,8 +1,12 @@
 import styled from '@emotion/styled/'
 
 import IphoneImg from '../../../assets/images/Phone.png'
+// import slidePhone from '../../../assets/images/slidePhone.png'
+// import slidePhoneTwo from '../../../assets/images/slidePhoneds.png'
 import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
+import Carousel from '../../../components/UI/Carousel'
+import InfoCards from '../../../components/UI/InfoCards'
 // import Pictures from '../../../components/UI/Pictures'
 // import Slider from '../../../components/UI/Slider'
 // import Layout from '../layout/layout'
@@ -62,11 +66,13 @@ const data = [
 // const imgs = [
 //    {
 //       id: 1,
-//       url: 'https://www.apple.com/kg/iphone/home/images/meta/iphone__btp62hy2cbea_og.png',
+//       url: 'https://www.apple.com/ru/i
+// phone-13/images/overview/hero/hero_1_static__d195o2nfxt26_large.jpg',
 //    },
 //    {
 //       id: 2,
-//       url: 'https://www.apple.com/kg/iphone/home/images/meta/iphone__btp62hy2cbea_og.png',
+//       url: 'https://media.wired.com/photos/5f91e9488401fee4b39a2c84/191:100/w_1280,c
+// _limit/Gear-Buying-Guide-iPhone-12_family-lineup.jpg',
 //    },
 //    {
 //       id: 3,
@@ -77,9 +83,13 @@ const MainPage = () => {
    return (
       <div>
          {/* <Layout> */}
-         {/* <StyledSlider>
-            <Slider imgs={imgs} />
-         </StyledSlider> */}
+         <StyledSlider>
+            {/* <div>
+               <img src={slidePhone} alt="" />
+               <img src={slidePhoneTwo} alt="" />
+            </div> */}
+            <Carousel />
+         </StyledSlider>
          <CardContainer>
             <Styled> Акции</Styled>
             <StyledCard>
@@ -153,17 +163,20 @@ const MainPage = () => {
                   Показать еще
                </Button>
             </StyledButton>
-            <StyledContainer>{/* <Pictures /> */}</StyledContainer>
+            <StyledContainer>
+               <InfoCards />
+            </StyledContainer>
          </CardContainer>
          {/* </Layout> */}
       </div>
    )
 }
 export default MainPage
-// const StyledSlider = styled('div')`
-//    margin: auto;
-//    margin-top: 30px;
-// `
+
+const StyledSlider = styled('div')`
+   margin-top: 30px;
+   background: #dedfe7;
+`
 const CardContainer = styled('div')`
    margin: auto;
    margin-top: 120px;
@@ -186,9 +199,10 @@ const StyledCard = styled('div')`
 const StyledButton = styled('div')`
    display: flex;
    justify-content: center;
-   margin-top: 20px;
+   margin-top: 40px;
 `
 const StyledContainer = styled('div')`
    display: flex;
    justify-content: center;
+   margin-top: 120px;
 `

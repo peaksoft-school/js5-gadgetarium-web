@@ -1,9 +1,12 @@
 import { useState } from 'react'
 
 import { Popover } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import profileLogo from '../../assets/icons/profile-icon.svg'
+import { logout } from '../../store/slices/authSlice'
 import SignIn from '../autorization/SignIn'
 import SignUp from '../autorization/SignUp'
 
@@ -13,6 +16,9 @@ const UserProfile = () => {
       loginOpened: false,
       signupOpened: false,
    })
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+   const { user } = useSelector((state) => state.auth)
 
    const handleClick = (event) => {
       setAnchorEl(event.currentTarget)
@@ -20,6 +26,12 @@ const UserProfile = () => {
 
    const handleClose = () => {
       setAnchorEl(null)
+   }
+
+   const navigateAfterLogOut = () => {
+      dispatch(logout())
+      window.location.reload()
+      navigate('/')
    }
 
    const open = Boolean(anchorEl)
@@ -53,7 +65,7 @@ const UserProfile = () => {
 
    return (
       <StyledDiv>
-         <p> +996 (400) 00-00-00 </p>
+         <p>{user?.email || '+996 (400) 00-00-00'}</p>
          <ProfileLogo src={profileLogo} onClick={handleClick} />
          <Popover
             id={id}
@@ -65,10 +77,19 @@ const UserProfile = () => {
                horizontal: 'left',
             }}
          >
-            <LinkItems>
-               <li onClick={openModal('login')}>Войти</li>
-               <li onClick={openModal('signup')}>Регистрация</li>
-            </LinkItems>
+            {user.email ? (
+               <LinkItems>
+                  <li onClick={() => navigate('/person')}>
+                     Войти в личный кабинет
+                  </li>
+                  <li onClick={navigateAfterLogOut}>Выйти</li>
+               </LinkItems>
+            ) : (
+               <LinkItems>
+                  <li onClick={openModal('login')}>Войти</li>
+                  <li onClick={openModal('signup')}>Регистрация</li>
+               </LinkItems>
+            )}
          </Popover>
          <SignIn
             open={modalControl.loginOpened}
@@ -87,11 +108,11 @@ const UserProfile = () => {
 export default UserProfile
 
 const StyledDiv = styled('div')`
-   width: 232px;
+   width: 220px;
    height: 30px;
    display: flex;
    align-items: center;
-   justify-content: space-between;
+   justify-content: space-evenly;
    color: #ffffff;
    cursor: pointer;
 `

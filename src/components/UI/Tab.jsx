@@ -6,8 +6,8 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import Tab from '@mui/material/Tab'
 
-export default function LabTabs({ tabsArray, variant }) {
-   const [value, setValue] = React.useState('1')
+export default function LabTabs({ tabsArray, variant, children }) {
+   const [value, setValue] = React.useState('Смартфоны')
 
    const handleChange = (event, newValue) => {
       setValue(newValue)
@@ -32,7 +32,7 @@ export default function LabTabs({ tabsArray, variant }) {
          {tabsArray.map((el) => {
             return (
                <TabPanel key={el.id} value={el.value}>
-                  {el.Component}
+                  {children}
                </TabPanel>
             )
          })}
