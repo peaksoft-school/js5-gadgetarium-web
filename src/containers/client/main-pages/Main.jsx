@@ -3,15 +3,17 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import SignIn from '../components/autorization/SignIn'
-import SignUp from '../components/autorization/SignUp'
-import Button from '../components/UI/Button'
-import { logout } from '../store/slices/authSlice'
+import SignIn from '../../../components/autorization/SignIn'
+import SignUp from '../../../components/autorization/SignUp'
+import Button from '../../../components/UI/Button'
+import { logout } from '../../../store/slices/authSlice'
 
-const MainPage = () => {
+const Main = () => {
    const [open, setOpen] = useState(false)
    const [openUp, setOpenUp] = useState(false)
+
    const dispatch = useDispatch()
+
    const isOpen = () => {
       setOpen(true)
    }
@@ -27,9 +29,6 @@ const MainPage = () => {
    const onCloseUp = () => {
       setOpenUp(false)
    }
-   const logOut = () => {
-      dispatch(logout())
-   }
    return (
       <div>
          <Button variant="outlined" onClick={isOpen}>
@@ -38,16 +37,16 @@ const MainPage = () => {
          <Button variant="outlined" onClick={isOpenUp}>
             Register
          </Button>
-         <Button variant="outlined" onClick={logOut}>
+         <Button variant="outlined" onClick={() => dispatch(logout())}>
             Logout
          </Button>
          <SignIn open={open} onClose={onClose} />
          <SignUp open={openUp} onClose={onCloseUp} />
          <Link to="/person">
-            <Button variant="outlined">Link</Button>
+            <Button variant="outlined">Click</Button>
          </Link>
       </div>
    )
 }
 
-export default MainPage
+export default Main

@@ -72,7 +72,7 @@ const SignIn = ({ onClose, open }) => {
                   placeholder="Напишите пароль"
                   height="43px"
                   id="password"
-                  error={!!errors.password?.message}
+                  error={!!errors.email?.message && !!error}
                   name="password"
                   {...register('password', {
                      required: true,

@@ -4,7 +4,8 @@ import {
    getAllCategories,
    getAllSubcategories,
    getAllBrands,
-} from '../../services/apiServices'
+   createProductFirstStage,
+} from '../../services/productServices'
 import { STEPPER_FORM_DATA_KEY } from '../../utils/constants/constants'
 import { sessionStorageHelpers } from '../../utils/helpers/general'
 
@@ -16,6 +17,23 @@ const initialState = {
    error: '',
    loading: false,
 }
+
+export const createFirstStage = createAsyncThunk(
+   'product/createFirstStage',
+   async ({ subcategoryId, updatedProductData }) => {
+      try {
+         console.log({ updatedProductData })
+         const response = await createProductFirstStage(
+            updatedProductData,
+            subcategoryId
+         )
+         console.log(response.data)
+         return response.data
+      } catch (error) {
+         return console.error(error.response.data)
+      }
+   }
+)
 
 export const getCategories = createAsyncThunk(
    'product/getCategories',
@@ -94,6 +112,18 @@ const productSlice = createSlice({
          state.brands = action.payload
       },
       [getBrands.rejected]: (state, action) => {
+         state.loading = false
+         state.error = action.payload
+      },
+      [createFirstStage.pending]: (state) => {
+         state.loading = true
+      },
+      [createFirstStage.fulfilled]: (state, action) => {
+         state.loading = false
+         state.products = action.payload
+         console.log(action)
+      },
+      [createFirstStage.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
       },

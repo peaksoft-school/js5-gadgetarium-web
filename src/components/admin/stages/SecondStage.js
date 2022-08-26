@@ -12,8 +12,12 @@ import Input from '../../UI/inputs/Input'
 const SecondStage = () => {
    const navigate = useNavigate()
    const dispatch = useDispatch()
-   const { pathname } = useLocation()
-   const patharr = pathname.split('/').filter(Boolean).slice(0, -1).join('/')
+   const location = useLocation()
+   const patharr = location.pathname
+      .split('/')
+      .filter(Boolean)
+      .slice(0, -1)
+      .join('/')
    const { products } = useSelector((state) => state.form)
    const { handleSubmit, register, reset } = useForm({
       defaultValues: products,

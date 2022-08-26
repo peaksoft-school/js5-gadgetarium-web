@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router'
 import styled from 'styled-components'
 
-import HeaderForAdmin from './HeaderForAdmin'
+import HeaderForAdmin from './elements/HeaderForAdmin'
 
 const AdminLayout = ({ children }) => {
    return (

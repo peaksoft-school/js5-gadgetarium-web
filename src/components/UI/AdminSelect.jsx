@@ -7,13 +7,6 @@ import { ReactComponent as MiniImagePicker } from '../../assets/icons/imageMiniP
 
 const Select = forwardRef((props, ref) => {
    const { placeholder, label, options, onChange, value } = props
-   // const {
-   //    field: {
-   //      value,
-   //      OnChange,
-   //    },
-   //    Data,
-   //  } = Props;
    const colourStyles = {
       control: (style, { isFocused }) => ({
          ...style,
@@ -72,7 +65,7 @@ const Select = forwardRef((props, ref) => {
             options={options}
             onChange={onChange}
             value={value}
-            ref={ref}
+            inputRef={ref}
             isSearchable={false}
             styles={colourStyles}
             {...props}

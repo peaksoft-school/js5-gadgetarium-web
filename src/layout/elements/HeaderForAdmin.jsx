@@ -3,10 +3,10 @@ import React from 'react'
 import { styled } from '@mui/material'
 import { NavLink, Outlet } from 'react-router-dom'
 
-import logo from '../assets/icons/logo.svg'
-import profileLogo from '../assets/icons/profile-icon.svg'
-import search from '../assets/icons/searchForAdmin.svg'
-import Button from '../components/UI/Button'
+import logo from '../../assets/icons/logo.svg'
+import profileLogo from '../../assets/icons/profile-icon.svg'
+import search from '../../assets/icons/searchForAdmin.svg'
+import Button from '../../components/UI/Button'
 
 const HeaderForAdmin = () => {
    return (
@@ -14,29 +14,31 @@ const HeaderForAdmin = () => {
          <HeaderContainer>
             <UpperRow>
                <Logo src={logo} />
-               <Menu>
-                  <BackgroundButton>
-                     <StyledNavLink to="products" end>
+               <MenuNavBar>
+                  <li>
+                     <StyledNavLink
+                        to="products"
+                        className={({ isActive }) => (isActive ? 'active' : '')}
+                        end
+                     >
                         Товары
                      </StyledNavLink>
-                  </BackgroundButton>
-                  <BackgroundButton>
-                     <StyledNavLink to="orders">Заказы</StyledNavLink>
-                  </BackgroundButton>
-                  <BackgroundButton>
-                     <StyledNavLink to="reviews">
+                  </li>
+                  <li>
+                     <StyledNavLink to="orders"> Заказы </StyledNavLink>
+                  </li>
+                  <li>
+                     <StyledNavLink to="reviews-rating">
                         Отзывы и рейтинг
                      </StyledNavLink>
-                  </BackgroundButton>
-               </Menu>
+                  </li>
+               </MenuNavBar>
                <AdminUI>
                   <ButtonPush> Создать рассылку </ButtonPush>
                   <SearchLogo src={search} />
                   <VerticalLine />
                   <UserProfile>
-                     <NavLink to="/">
-                        <ProfileLogo src={profileLogo} />
-                     </NavLink>
+                     <ProfileLogo src={profileLogo} />
                   </UserProfile>
                   <p> Адина Урматова </p>
                </AdminUI>
@@ -73,17 +75,52 @@ const Logo = styled('img')`
    width: 221px;
    height: 39px;
 `
-const Menu = styled('div')`
+// const Menu = styled('div')`
+//    display: flex;
+//    justify-content: space-around;
+//    align-items: center;
+//    padding: 0;
+//    width: 365px;
+//    a {
+//       font-size: 16px;
+//       font-weight: 500;
+//       text-decoration: none;
+//       color: #ffffff;
+//    }
+// `
+
+const StyledNavLink = styled(NavLink)`
+   width: 100%;
    display: flex;
-   justify-content: space-around;
    align-items: center;
-   padding: 0;
-   width: 365px;
-   a {
+   color: #fff;
+   font-size: 16px;
+   text-decoration: none;
+   padding: 14px 12px;
+   &:hover {
+      transition: 0.3s;
+      border-radius: 4px;
+      background: rgba(133, 143, 164, 0.15);
+   }
+`
+const MenuNavBar = styled('ul')`
+   list-style: none;
+   display: flex;
+   align-items: center;
+   flex-direction: row;
+   white-space: nowrap;
+   gap: 8px;
+   & li {
+      width: 100%;
+      color: #fff;
       font-size: 16px;
-      font-weight: 500;
-      text-decoration: none;
-      color: #ffffff;
+      border-radius: 4px;
+   }
+
+   .active {
+      transition: 0.3s;
+      border-radius: 4px;
+      background: rgba(133, 143, 164, 0.15);
    }
 `
 const AdminUI = styled('div')`
@@ -99,35 +136,6 @@ const ButtonPush = styled(Button)`
    border-radius: 46px;
    font-size: 16px;
    background: #e20fbe;
-`
-
-const StyledNavLink = styled(NavLink)`
-   transition: 0.3s;
-   border-radius: ${(props) => {
-      return props.style ? (isActive) => (isActive ? '4px' : 'none') : 'none'
-   }};
-   background: ${(props) => {
-      return props.style
-         ? (isActive) => (isActive ? 'rgba(133, 143, 164, 0.15)' : 'none')
-         : 'none'
-   }};
-   text-decoration: ${(props) => {
-      return props.style
-         ? (isActive) => (isActive ? 'underline' : 'none')
-         : 'none'
-   }};
-`
-
-const BackgroundButton = styled('div')`
-   padding: 13px 15px;
-   border-radius: 4px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   :hover {
-      transition: 0.3s;
-      background: rgba(133, 143, 164, 0.15);
-   }
 `
 const UserProfile = styled('div')`
    width: 44px;

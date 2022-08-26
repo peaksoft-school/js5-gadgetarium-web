@@ -62,7 +62,7 @@ const Card = (props) => {
 export default Card
 
 const CardContainer = styled.div`
-   margin: 70px;
+   /* margin: 70px; */
    display: flex;
    flex-direction: column;
    max-width: 300px;

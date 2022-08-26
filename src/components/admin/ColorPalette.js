@@ -29,6 +29,7 @@ function ColorPalette({ getColor, defaultColor }) {
          <div ref={divRef}>
             <Input
                height="35px"
+               width="396px"
                value={color}
                placeholder="Основной цвет"
                endAdornment={

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import { signIn, signUp } from '../../services/apiServices'
+import { signIn, signUp } from '../../services/authServices'
 import { GADGETARIUM_USER_DATA } from '../../utils/constants/constants'
 import { localStorageHelpers } from '../../utils/helpers/general'
 
@@ -87,6 +87,7 @@ const authSlice = createSlice({
          localStorageHelpers.saveToLocalStorage(GADGETARIUM_USER_DATA, user)
          toast.success('Успешно!')
          state.user = user
+         toast.success('Успешно!')
       },
       [registration.rejected]: (state, action) => {
          state.loading = false

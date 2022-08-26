@@ -1,33 +1,47 @@
 import { useState, useEffect } from 'react'
 
 import { InputLabel } from '@mui/material'
-import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { formDetails } from '../../../store/slices/formSlice'
+import { phoneCharacters } from '../../../data/characters'
+import { formDetails, nextStage } from '../../../store/slices/formSlice'
 import {
+   createFirstStage,
    getBrands,
    getCategories,
    getSubcategories,
 } from '../../../store/slices/productSlice'
 import AdminSelect from '../../UI/AdminSelect'
 import Button from '../../UI/Button'
+import FileUpload from '../../UI/FileUpload'
 import Input from '../../UI/inputs/Input'
+import ColorPalette from '../ColorPalette'
 
 const FirstStage = () => {
+   const [productData, setProductData] = useState({
+      productName: '',
+      quarantee: '',
+      images: [],
+   })
+   const [characters, setCharacters] = useState([])
+   const [files, setFiles] = useState([
+      {
+         name: 'myFile.pdf',
+      },
+   ])
+   console.log(characters)
    const { categories, subcategories, brands } = useSelector(
       (state) => state.product
    )
    const [selectedCategory, setSelectedCategory] = useState(null)
-   const [selectedSubcategory, setSelectedSubCatelogy] = useState(null)
+   const [selectedSubcategory, setSelectedSubCategory] = useState(null)
    const [selectedBrand, setSelectedBrand] = useState(null)
    const navigate = useNavigate()
    const dispatch = useDispatch()
-   const { handleSubmit, register, control, reset } = useForm({
-      mode: 'onSubmit',
-   })
+
+   const { quarantee, productName } = productData
 
    useEffect(() => {
       dispatch(getCategories())
@@ -38,8 +52,8 @@ const FirstStage = () => {
    }, [])
 
    useEffect(() => {
-      if (selectedCategory) {
-         dispatch(getSubcategories(selectedCategory))
+      if (selectedCategory?.value) {
+         dispatch(getSubcategories(selectedCategory?.value))
       }
    }, [selectedCategory])
 
@@ -47,91 +61,100 @@ const FirstStage = () => {
       return option?.map((data) => ({ label: data.name, value: data.id }))
    }
 
-   const getValue = () => {
-      return selectedCategory
-         ? categories.find((c) => c.value === selectedCategory)
-         : ''
-   }
-
-   const geSubValue = () => {
-      return selectedSubcategory
-         ? subcategories.find((c) => c.value === selectedSubcategory)
-         : ''
-   }
-
-   const getBrandValue = () => {
-      return selectedBrand ? brands.find((c) => c.value === selectedBrand) : ''
+   const getValue = (data, state) => {
+      return state ? data.find((c) => c.label === state) : ''
    }
 
    const onChange = (newValue) => {
-      setSelectedCategory(newValue.value)
+      setSelectedCategory(newValue)
    }
 
-   const handleChange = (newValue) => {
-      setSelectedSubCatelogy(newValue.value)
+   const subChange = (newValue) => {
+      setSelectedSubCategory(newValue)
+   }
+   const selectChange = (selectedOption) => {
+      setCharacters((prevState) => {
+         const newArr = prevState.find(
+            (elem) => elem.key === selectedOption.key
+         )
+         if (newArr) {
+            return prevState.map((elem) => {
+               if (elem.key === selectedOption.key) {
+                  return selectedOption
+               }
+               return elem
+            })
+         }
+         return [...prevState, selectedOption]
+      })
+   }
+
+   const handleChange = (event) => {
+      const { value } = event.target
+      const { name } = event.target
+
+      setProductData((prev) => {
+         return {
+            ...prev,
+            [name]: value,
+         }
+      })
+   }
+
+   const handleChangeFile = (file) => {
+      setFiles(file)
    }
 
    const brandChange = (newValue) => {
       setSelectedBrand(newValue.value)
    }
+   const brandId = selectedBrand
+   const subcategoryId = selectedSubcategory?.value
 
-   const onSubmit = (data) => {
-      dispatch(formDetails(data))
-      navigate('stage2')
-      reset()
+   const onSubmit = (e) => {
+      e.preventDefault()
+
+      if (productName && quarantee) {
+         const updatedProductData = { ...productData, brandId }
+         dispatch(formDetails({ updatedProductData }))
+         dispatch(
+            createFirstStage({
+               subcategoryId,
+               updatedProductData,
+            })
+         )
+         dispatch(nextStage(1))
+         navigate('stage2')
+      }
    }
    return (
       <div>
-         <form onSubmit={handleSubmit(onSubmit)}>
+         <TabsContainer>
             <AddProductsFieldsContainer>
-               <Controller
-                  name="category"
-                  control={control}
-                  value={selectedCategory}
-                  onChange={(arg) => setSelectedCategory(arg)}
-                  render={({ field }) => (
-                     <AdminSelect
-                        {...field}
-                        placeholder="Выбрать категорию"
-                        label="Выберите категорию *"
-                        name="category"
-                        variant="category"
-                        value={getValue()}
-                        onChange={onChange}
-                        options={renderList(categories)}
-                     />
-                  )}
+               <AdminSelect
+                  placeholder="Выбрать категорию"
+                  label="Выберите категорию *"
+                  variant="category"
+                  value={getValue(categories, selectedCategory)}
+                  onChange={onChange}
+                  options={renderList(categories)}
                />
-               <Controller
+               <AdminSelect
+                  placeholder="Выберите подкатегорию"
+                  label="Выберите подкатегорию *"
                   name="subcategory"
-                  control={control}
-                  render={({ field }) => (
-                     <AdminSelect
-                        {...field}
-                        placeholder="Выберите подкатегорию"
-                        label="Выберите подкатегорию *"
-                        name="subcategory"
-                        value={geSubValue()}
-                        onChange={handleChange}
-                        options={renderList(subcategories)}
-                     />
-                  )}
+                  value={getValue(subcategories, selectedSubcategory)}
+                  onChange={subChange}
+                  options={renderList(subcategories)}
                />
-               <Controller
-                  name="brand"
-                  control={control}
-                  render={({ field }) => (
-                     <AdminSelect
-                        {...field}
-                        placeholder="Выберите бренд товара"
-                        label="Бренд *"
-                        variant="brand"
-                        name="brand"
-                        value={getBrandValue()}
-                        onChange={brandChange}
-                        options={renderList(brands)}
-                     />
-                  )}
+               <AdminSelect
+                  placeholder="Выберите бренд товара"
+                  label="Бренд *"
+                  variant="brand"
+                  name="brandId"
+                  value={getValue(brands, selectedBrand)}
+                  onChange={brandChange}
+                  options={renderList(brands)}
                />
                <div>
                   <StyledInputLabel>Введите гарантию товара *</StyledInputLabel>
@@ -140,12 +163,10 @@ const FirstStage = () => {
                      placeholder="Введите гарантию товара"
                      width="396px"
                      height="38px"
-                     id="guarantee"
-                     name="guarantee"
+                     id="quarantee"
+                     onChange={handleChange}
+                     name="quarantee"
                      autoComplete="off"
-                     {...register('guarantee', {
-                        required: true,
-                     })}
                   />
                </div>
                <div>
@@ -155,18 +176,36 @@ const FirstStage = () => {
                      width="396px"
                      height="38px"
                      id="productName"
+                     onChange={handleChange}
                      name="productName"
                      autoComplete="off"
-                     {...register('productName', {
-                        required: true,
-                     })}
                   />
                </div>
             </AddProductsFieldsContainer>
-            <Button type="submit" variant="contained" width="100px">
+            <StyledInputLabel>Основной цвет *</StyledInputLabel>
+            <ColorPalette />
+            {phoneCharacters.map((data) => (
+               <div key={data.id}>
+                  <StyledInputLabel>{data.placeholder} *</StyledInputLabel>
+                  <AdminSelect
+                     options={data.value}
+                     placeholder={data.placeholder}
+                     onChange={selectChange}
+                     // value={getValue(data.value, characters)}
+                  />
+               </div>
+            ))}
+            <StyledInputLabel>Добавьте фото</StyledInputLabel>
+            <FileUpload onChange={handleChangeFile} file={files} />
+            <Button
+               onClick={onSubmit}
+               type="submit"
+               variant="contained"
+               width="100px"
+            >
                Далее
             </Button>
-         </form>
+         </TabsContainer>
       </div>
    )
 }
@@ -186,4 +225,10 @@ const StyledInputLabel = styled(InputLabel)`
    margin-bottom: 3px;
    color: #384255 !important;
    font-family: 'Inter' !important;
+`
+
+const TabsContainer = styled.div`
+   display: flex;
+   flex-direction: column;
+   gap: 14px;
 `

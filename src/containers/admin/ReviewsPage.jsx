@@ -1,16 +1,7 @@
-import { Button } from '@mui/material'
-import styled from 'styled-components'
+import React from 'react'
 
 const ReviewsPage = () => {
-   return (
-      <Container>
-         <Button>Click</Button>
-      </Container>
-   )
+   return <div>ReviewsPage</div>
 }
 
 export default ReviewsPage
-
-const Container = styled.div`
-   margin: 146px 100px;
-`

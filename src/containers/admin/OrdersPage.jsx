@@ -1,11 +1,7 @@
-import styled from 'styled-components'
+import React from 'react'
 
 const OrdersPage = () => {
-   return <Container>OrdersPage</Container>
+   return <div>OrdersPage</div>
 }
 
 export default OrdersPage
-
-const Container = styled.div`
-   margin: 146px 100px;
-`
