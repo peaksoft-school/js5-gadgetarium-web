@@ -16,7 +16,7 @@ const PreviewSlider = ({ images }) => {
          >
             {images.map((img) => (
                <div key={img.id}>
-                  <img src={img} alt="#" />
+                  <img src={img.images} alt="#" />
                </div>
             ))}
          </CarouselStyle>
@@ -33,12 +33,9 @@ const CarouselStyle = styled(Carousel)`
       background-color: transparent;
    }
    .carousel .slide {
-      height: 750px;
+      /* height: 750px; */
    }
-   .carousel .slide img {
-      width: 750px;
-      height: 750px;
-   }
+
    .thumbs-wrapper {
       margin-top: -0px;
    }
