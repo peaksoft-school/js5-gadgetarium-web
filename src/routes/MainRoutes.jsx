@@ -3,24 +3,11 @@ import { lazy, Suspense } from 'react'
 import { Outlet, Route, Routes } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
 
-// import AboutPage from '../containers/client/AboutPage'
-// import Contacts from '../containers/client/Contacts'
-// import DeliveryPage from '../containers/client/DeliveryPage'
-// import FagPage from '../containers/client/FagPage'
-// import CartPage from '../containers/client/main-pages/CartPage'
-// import ComparisonPage from '../containers/client/main-pages/ComparisonPage'
-// import FavouritesPage from '../containers/client/main-pages/FavouritesPage'
-// import Main from '../containers/client/main-pages/Main'
-// import OrderingPage from '../containers/client/main-pages/OrderingPage'
-// import ProductCatalogPage from '../containers/client/main-pages/ProductCatalogPage'
-// import ProductInnerPage from '../containers/client/main-pages/ProductInnerPage'
-// import MainLayout from '../layout/MainLayout'
-
 const MainLayuot = lazy(() => import('../layout/MainLayout'))
 const AboutPage = lazy(() => import('../containers/client/AboutPage'))
 const Contacts = lazy(() => import('../containers/client/Contacts'))
 const DeliveryPage = lazy(() => import('../containers/client/DeliveryPage'))
-const FagPage = lazy(() => import('../containers/client/FagPage'))
+const FaqPage = lazy(() => import('../containers/client/FaqPage'))
 const CartPage = lazy(() => import('../containers/client/main-pages/CartPage'))
 const ComparisonPage = lazy(
    () => import('../containers/client/main-pages/ComparisonPage')
@@ -71,7 +58,7 @@ const MainRoutes = () => {
                </Route>
                <Route path="about" element={<AboutPage />} />
                <Route path="delivery" element={<DeliveryPage />} />
-               <Route path="fag" element={<FagPage />} />
+               <Route path="faq" element={<FaqPage />} />
                <Route path="contacts" element={<Contacts />} />
             </Routes>
          </MainLayuot>
