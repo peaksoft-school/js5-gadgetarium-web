@@ -65,8 +65,8 @@ const CardContainer = styled.div`
    /* margin: 70px; */
    display: flex;
    flex-direction: column;
-   max-width: 300px;
-   max-height: 500px;
+   max-width: 290px;
+   min-height: 500px;
    background: #fff;
    border-radius: 4px;
    padding: 15px;
@@ -166,13 +166,11 @@ const StyledCardPriceNoneActual = styled.span`
 `
 const CardHeaderItemsIcons = styled.ul`
    list-style: none;
-   display: grid;
-   grid-template-columns: repeat(2, 1fr);
-   grid-template-rows: 1fr;
-   grid-column-gap: 16px;
+   display: flex;
    align-items: center;
    & svg {
       cursor: pointer;
+      margin-left: 10px;
    }
 `
 

@@ -6,7 +6,7 @@ export const injectStore = (_store) => {
    store = _store
 }
 
-const BASE_URL =
+export const BASE_URL =
    'http://gadgetarium-env.eba-edpzzr3j.eu-central-1.elasticbeanstalk.com/'
 
 const headers = {

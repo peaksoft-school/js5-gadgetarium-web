@@ -7,6 +7,7 @@ import Button from '../../../components/UI/Button'
 import CardRating from '../../../components/UI/card/CardRating'
 import Counter from '../../../components/UI/Counter'
 import PreviewSlider from '../../../components/UI/PreviewSlider'
+import Sale from '../../../components/UI/SALE'
 
 const Product = (props) => {
    const count = (val) => {
@@ -39,13 +40,16 @@ const Product = (props) => {
                   <Counter count={count} />
                   <Prices>
                      <Price>
-                        <div>-10%</div>
+                        <Sale salePrice="-10%" />
                         <h1>{props.price}</h1>
                         <p>54 770 c</p>
                      </Price>
                      <Buttons>
                         <Button
-                           style={{ width: '24px', border: '1px solid grey' }}
+                           style={{
+                              width: '24px',
+                              border: '1px solid grey',
+                           }}
                            variant="outlined"
                         >
                            <p>&#10084;</p>
@@ -120,9 +124,9 @@ const Buttons = styled.div`
    display: flex;
    margin: 20px 0px;
    justify-content: space-around;
-   & p {
-      color: grey;
+   & button p {
       font-size: 27px;
+      color: #e20fbe;
    }
 `
 const Infos = styled.div`
@@ -137,22 +141,6 @@ const Price = styled.div`
    justify-content: space-between;
    padding-bottom: 15px;
    border-bottom: 1px solid rgba(133, 143, 164, 0.2);
-   & div {
-      background-color: red;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      color: white;
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 900;
-      font-size: 12px;
-      line-height: 15px;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-   }
    & h1 {
       font-family: 'Inter';
       font-style: normal;

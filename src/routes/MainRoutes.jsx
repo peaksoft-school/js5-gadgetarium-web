@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 
 import { Outlet, Route, Routes } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
+// import Catalog from '../containers/client/catalog/Catalog'
 
 // import AboutPage from '../containers/client/AboutPage'
 // import Contacts from '../containers/client/Contacts'
@@ -33,7 +34,7 @@ const OrderingPage = lazy(
    () => import('../containers/client/main-pages/OrderingPage')
 )
 const ProductCatalogPage = lazy(
-   () => import('../containers/client/main-pages/ProductCatalogPage')
+   () => import('../containers/client/catalog/Catalog')
 )
 const ProductInnerPage = lazy(
    () => import('../containers/client/main-pages/ProductInnerPage')

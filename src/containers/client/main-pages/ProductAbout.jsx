@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 
 import Character from './Character'
+import Delivery from './Delivery'
 import Description from './Description'
 
 export default function LabTabs() {
@@ -17,7 +18,7 @@ export default function LabTabs() {
    }
 
    return (
-      <Box sx={{ width: '100%', typography: 'body1' }}>
+      <Box sx={{ width: '100%', margin: '200px 0px', typography: 'body1' }}>
          <TabContext value={value}>
             <Box sx={{ borderBottom: '1px solid  #CDCDCD' }}>
                <TabList
@@ -25,10 +26,10 @@ export default function LabTabs() {
                   aria-label="lab API tabs example"
                   indicatorColor="secondary"
                >
-                  <Tab label="Описание" value="1" />
-                  <Tab label="Характеристики" value="2" />
-                  <Tab label="Отзывы" value="3" />
-                  <Tab label="Доставка и оплата" value="4" />
+                  <Tab style={styleTab} label="Описание" value="1" />
+                  <Tab style={styleTab} label="Характеристики" value="2" />
+                  <Tab style={styleTab} label="Отзывы" value="3" />
+                  <Tab style={styleTab} label="Доставка и оплата" value="4" />
                </TabList>
             </Box>
             <TabPanel value="1">
@@ -38,8 +39,18 @@ export default function LabTabs() {
                <Character />
             </TabPanel>
             <TabPanel value="3">Item Three</TabPanel>
-            <TabPanel value="4">Item 4</TabPanel>
+            <TabPanel value="4">
+               <Delivery />
+            </TabPanel>
          </TabContext>
       </Box>
    )
+}
+const styleTab = {
+   fontFamily: 'Inter',
+   fontStyle: 'normal',
+   fontWeight: '500',
+   fontSize: '18px',
+   lineHeight: '22px',
+   color: '#292929',
 }

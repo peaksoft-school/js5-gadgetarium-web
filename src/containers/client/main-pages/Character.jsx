@@ -121,7 +121,7 @@ const info = [
 ]
 console.log(info)
 const Div = styled.div`
-   border-top: 1px solid #c2c7d1;
+   /* border-top: 1px solid #c2c7d1; */
    border-bottom: 1px solid #c2c7d1;
    width: 930px;
    padding: 20px 0px;
