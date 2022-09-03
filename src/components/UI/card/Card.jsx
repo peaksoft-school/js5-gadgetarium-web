@@ -62,10 +62,10 @@ const Card = (props) => {
 export default Card
 
 const CardContainer = styled.div`
-   /* margin: 70px; */
+   margin: 8px;
    display: flex;
    flex-direction: column;
-   max-width: 290px;
+   max-width: 260px;
    min-height: 500px;
    background: #fff;
    border-radius: 4px;
@@ -80,7 +80,8 @@ const CardContainer = styled.div`
 
 const CardHeaderItems = styled.div`
    display: flex;
-   flex-direction: row;
+   width: 100%;
+   /* flex-direction: row; */
    justify-content: space-between;
    align-items: center;
 `
@@ -89,8 +90,10 @@ const CardImage = styled.div`
    display: flex;
    justify-content: center;
    margin-top: 12px;
-   width: 100%;
-   height: 100%;
+   img {
+      width: 100%;
+      height: 100%;
+   }
 `
 
 const StlyedCardParagraph = styled.p`
@@ -168,6 +171,7 @@ const CardHeaderItemsIcons = styled.ul`
    list-style: none;
    display: flex;
    align-items: center;
+
    & svg {
       cursor: pointer;
       margin-left: 10px;

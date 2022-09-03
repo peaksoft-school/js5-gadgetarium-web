@@ -32,16 +32,13 @@ const Catalog = () => {
       setShow({ ...show, gb: !show.gb })
    }
    return (
-      <div>
+      <div style={{ margin: '30px 0px' }}>
          <BreadCrumbs paths={crambs} />
          <Title>
             <h1>Cмартфоны</h1>
          </Title>
-         {/* ------------- */}
-
-         {/* ------------- */}
          <Container>
-            <div>
+            <div style={{ width: '18%' }}>
                <Options>Найдено 167 Товаров</Options>
                <FilterZone>
                   <section>
@@ -400,25 +397,18 @@ const checktext = {
    padding: '0px',
 }
 const CardList = styled('div')`
+   /* width: 90%; */
+   margin: 0px auto;
    display: flex;
-   img {
-      width: auto;
-      height: 245px;
-   }
-   justify-content: flex-start;
+   justify-content: flex-end;
    flex-wrap: wrap;
-   div {
-      margin-top: 8px;
-      margin-right: 8px;
-   }
 `
 const FilterZone = styled('div')`
-   width: 351px;
-   background: #ffffff;
+   /* width: 20%; */
+   /* background: #ffffff; */
    border-radius: 4px;
-
    section {
-      width: 291px;
+      width: 90%;
       margin: 20px auto;
    }
 `

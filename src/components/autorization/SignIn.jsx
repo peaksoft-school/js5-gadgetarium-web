@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
+
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { login } from '../../store/slices/authSlice'
@@ -10,22 +13,37 @@ import Button from '../UI/Button'
 import Input from '../UI/inputs/Input'
 import InputForPassword from '../UI/inputs/InputForPassword'
 
-const SignIn = ({ onClose, open }) => {
+const MAIN_ROUTES = {
+   ADMIN: {
+      path: '/admin',
+   },
+}
+
+const SignIn = ({ onClose, open, openRegistationModal }) => {
+   const { error } = useSelector((state) => state.auth)
    const {
       register,
       handleSubmit,
       formState: { errors },
       reset,
    } = useForm({
-      mode: 'onSubmit',
+      mode: 'onChange',
       resolver: yupResolver(LoginFormSchema),
    })
    const dispatch = useDispatch()
 
+   const navigate = useNavigate()
+   const { role } = useSelector((state) => state?.auth.user)
+
+   useEffect(() => {
+      if (MAIN_ROUTES[role]) navigate(MAIN_ROUTES[role].path)
+   }, [role])
+
    function onSubmit({ email, password }) {
-      dispatch(login({ email, password }))
-      console.log({ password, email })
-      reset()
+      dispatch(login({ email, password, onClose }))
+      if (!error) {
+         reset()
+      }
    }
 
    return (
@@ -38,10 +56,10 @@ const SignIn = ({ onClose, open }) => {
                   placeholder="Напишите email"
                   width="460px"
                   height="43px"
-                  borderRadius="6px"
                   id="email"
                   name="email"
-                  error={!!errors.email?.message}
+                  error={!!errors.email?.message && !!error}
+                  // error={!!errors.email?.message || !!error}
                   variant="default"
                   {...register('email', {
                      required: true,
@@ -54,15 +72,17 @@ const SignIn = ({ onClose, open }) => {
                   placeholder="Напишите пароль"
                   height="43px"
                   id="password"
-                  error={
-                     !!errors.password?.message ||
-                     !!errors.confirmedPassword?.message
-                  }
+                  error={!!errors.password?.message}
                   name="password"
-                  {...register('password')}
+                  {...register('password', {
+                     required: true,
+                  })}
                />
                {errors.password?.message && (
                   <ErrorMessage>{errors.password?.message}</ErrorMessage>
+               )}
+               {error && (
+                  <ErrorMessage>Неправильный пароль или логин</ErrorMessage>
                )}
                <Button
                   width="460px"
@@ -75,7 +95,9 @@ const SignIn = ({ onClose, open }) => {
             </SignUpForm>
             <SignUpNavToSignIn>
                Нет аккаунта?
-               <NavToSignIn to="/home">Зарегистрироваться</NavToSignIn>
+               <NavToSignIn onClick={openRegistationModal}>
+                  Зарегистрироваться
+               </NavToSignIn>
             </SignUpNavToSignIn>
          </SignUpContainer>
       </BasicModal>
@@ -122,9 +144,11 @@ const ErrorMessage = styled.div`
    transition: all 0.5s ease-in-out;
 `
 
-const NavToSignIn = styled.a`
+const NavToSignIn = styled.button`
+   border: none;
    color: #2c68f5;
    font-weight: 600;
    cursor: pointer;
    margin-left: 5px;
+   background: transparent;
 `
