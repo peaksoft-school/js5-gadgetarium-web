@@ -53,17 +53,17 @@ const MainPage = () => {
       })
    }
 
-   const seeMoreDiscount = discount?.map(() => el)
-   const seeMoreNew = newProduct?.map((el) => el)
-   const seeMoreRecommend = recommend?.map((el) => el)
-   
+   const seeMoreDiscount = discount.map((el) => el)
+   const seeMoreNew = newProduct.map((el) => el)
+   const seeMoreRecommend = recommend.map((el) => el)
+
    return (
       <div>
          <StyledSlider>{/* <Carousel /> */}</StyledSlider>
          <CardContainer>
             <Styled>Акции</Styled>
             <StyledCard>
-               {discount?.map((data) => {
+               {discount.map((data) => {
                   return (
                      <div key={data.productId}>
                         <Card
@@ -81,16 +81,18 @@ const MainPage = () => {
                })}
             </StyledCard>
             <StyledButton>
-               {seeMoreDiscount?.length === 5 && (
-                  <Button
-                     variant="outlined"
-                     width="300px"
-                     onClick={() => loadMore('discount')}
-                  >
-                     Показать еще
-                  </Button>
+               {seeMoreDiscount.length === 5 && (
+                  <div key={seeMoreDiscount.productId}>
+                     <Button
+                        variant="outlined"
+                        width="300px"
+                        onClick={() => loadMore('discount')}
+                     >
+                        Показать еще
+                     </Button>
+                  </div>
                )}
-               {seeMore?.length >= 20 && (
+               {seeMoreDiscount.length >= 20 && (
                   <Button
                      variant="outlined"
                      width="300px"
@@ -102,7 +104,7 @@ const MainPage = () => {
             </StyledButton>
             <Styled> Новинки</Styled>
             <StyledCard>
-               {newProduct?.map((data) => {
+               {newProduct.map((data) => {
                   return (
                      <div key={data.productId}>
                         <Card
@@ -120,16 +122,18 @@ const MainPage = () => {
                })}
             </StyledCard>
             <StyledButton>
-               {seeMoreNew?.length === 5 && (
-                  <Button
-                     variant="outlined"
-                     width="300px"
-                     onClick={() => loadMore('new')}
-                  >
-                     Показать еще
-                  </Button>
+               {seeMoreNew.length === 5 && (
+                  <div key={seeMoreNew.productId}>
+                     <Button
+                        variant="outlined"
+                        width="300px"
+                        onClick={() => loadMore('new')}
+                     >
+                        Показать еще
+                     </Button>
+                  </div>
                )}
-               {seeMore?.length >= 20 && (
+               {seeMoreNew.length >= 20 && (
                   <Button
                      variant="outlined"
                      width="300px"
@@ -141,7 +145,7 @@ const MainPage = () => {
             </StyledButton>
             <Styled> Мы рекомендуем</Styled>
             <StyledCard>
-               {recommend?.map((data) => {
+               {recommend.map((data) => {
                   return (
                      <div key={data.productId}>
                         <Card
@@ -159,16 +163,18 @@ const MainPage = () => {
                })}
             </StyledCard>
             <StyledButton>
-               {seeMoreRecommend?.length === 5 && (
-                  <Button
-                     variant="outlined"
-                     width="300px"
-                     onClick={() => loadMore('recommend')}
-                  >
-                     Показать еще
-                  </Button>
+               {seeMoreRecommend.length === 5 && (
+                  <div key={seeMoreRecommend.productId}>
+                     <Button
+                        variant="outlined"
+                        width="300px"
+                        onClick={() => loadMore('recommend')}
+                     >
+                        Показать еще
+                     </Button>
+                  </div>
                )}
-               {seeMore?.length >= 100 && (
+               {seeMoreRecommend.length >= 100 && (
                   <Button
                      variant="outlined"
                      width="300px"
