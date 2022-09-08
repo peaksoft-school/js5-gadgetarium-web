@@ -24,8 +24,14 @@ const Main = styled.main`
 `
 
 const Container = styled.div`
-   margin: 45px 195px;
-   max-width: 1920px;
-   margin-left: auto;
-   margin-right: auto;
+   margin: 45px auto 120px auto;
+   max-width: 1380px;
+
+   @media screen and (min-width: 1537px) {
+      max-width: 1620px;
+   }
+
+   @media screen and (max-width: 1240px) {
+      max-width: 1150px;
+   }
 `

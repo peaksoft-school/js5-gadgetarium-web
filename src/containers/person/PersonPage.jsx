@@ -1,13 +1,15 @@
 import React from 'react'
 
 // import Tab from '@mui/material/Tab'
+
 import styled from 'styled-components'
 
-// import Group from '../../assets/images/337564.png'
 import Breadcrumbs from '../../components/UI/Bredcrumbs'
-import Button from '../../components/UI/Button'
-import Input from '../../components/UI/inputs/Input'
 import Tab from '../../components/UI/Tab'
+
+import PersonOrderHistory from './pages/PersonOrderHistory'
+import PersonProfile from './pages/PersonProfile'
+import PersonWishList from './pages/PersonWishList'
 
 const pathsArray = [
    {
@@ -25,88 +27,62 @@ const tabsArray = [
       id: '1',
       label: 'История заказов',
       value: '1',
+      Component: <PersonOrderHistory />,
    },
    {
       id: '2',
       label: 'Избранное',
       value: '2',
+      Component: <PersonWishList />,
    },
    {
       id: '3',
       label: 'Профиль',
       value: '3',
+      Component: <PersonProfile />,
    },
 ]
 const PersonPage = () => {
    return (
-      <div>
+      <ContainerComponent>
          <Breadcrumbs paths={pathsArray} />
          <StyledH3>Профиль</StyledH3>
          <Horizontal />
-         <TabStyledComponent>
-            <Tab tabsArray={tabsArray} variant="variant" />
-         </TabStyledComponent>
-
          <LargeContainer>
-            {/* <StyledGroup src={Group}>
-               <p>Нажмите для добавления фотографии</p>
-            </StyledGroup> */}
+            <TabStyledComponent>
+               <Tab tabsArray={tabsArray} variant="variant" />
+            </TabStyledComponent>
+
             <StyledUser>
                <UserH5>Азамат Азаматов</UserH5>
-               <UserData>aza@gmail.com +996 (400) 88-88-88</UserData>
+               <UserData>
+                  <p>aza@gmail.com</p>
+                  <p>+996 (400) 88-88-88</p>
+               </UserData>
                <Main>Выйти</Main>
             </StyledUser>
-            <ComponentForm>
-               <StyledH4>Личные данные</StyledH4>
-
-               <StyledBox>
-                  <StyledContainerDiv>
-                     <p>Имя *</p>
-                     <Input width="338px" height="48px" borderRadius="6px" />
-                     <p>Фамилия *</p>
-                     <Input width="338px" height="48px" borderRadius="6px" />
-                  </StyledContainerDiv>
-                  <StyledDiv>
-                     <p>E-mail *</p>
-                     <Input width="338px" height="48px" borderRadius="6px" />
-                     <p>Телефон *</p>
-                     <Input width="338px" height="48px" borderRadius="6px" />
-                  </StyledDiv>
-               </StyledBox>
-
-               <ContainerDiv>
-                  <StyledAdress>
-                     <p>Адрес доставки *</p>
-                     <Input
-                        width="686px"
-                        height=" 48px"
-                        borderRadius="6px"
-                        placeholder="ул.Московская 120, кв 4, дом 9"
-                     />
-                  </StyledAdress>
-                  <ContainerBox>
-                     <Button variant="outlined" width="338px" height="47px">
-                        Назад
-                     </Button>
-                     <Button variant="contained" width="338px" height="47px">
-                        Редактировать
-                     </Button>
-                  </ContainerBox>
-               </ContainerDiv>
-            </ComponentForm>
          </LargeContainer>
-      </div>
+      </ContainerComponent>
    )
 }
 
 export default PersonPage
-const LargeContainer = styled.div``
-const ComponentForm = styled.div`
-   position: absolute;
-   width: 688px;
-   left: 455px;
-   top: 470px;
+
+const ContainerComponent = styled.div`
+   width: 100%;
 `
+const LargeContainer = styled.div`
+   /* Auto layout */
+
+   display: flex;
+   flex-direction: row;
+   align-items: flex-start;
+   padding: 0px;
+   gap: 12px;
+   width: 100%;
+   border: 1px solid red;
+`
+
 const TabStyledComponent = styled.div`
    .css-1s62zzw-MuiButtonBase-root-MuiTab-root.Mui-selected {
       background: #384255;
@@ -131,89 +107,31 @@ const Horizontal = styled.div`
    transform: rotate(180deg);
    margin-bottom: 30px;
 `
-// const StyledGroup = styled('img')`
-//    p {
-//       font-style: normal;
-//       font-weight: 500;
-//       font-size: 12px;
-//       line-height: 130%;
-//       text-align: center;
-//       color: #91969e;
-//    }
-// `
-const StyledH4 = styled.h4`
-   font-style: normal;
-   font-weight: 700;
-   font-size: 24px;
-   line-height: 110%;
-   color: #292929;
-   gap: 26px;
-`
+
 const StyledUser = styled.div`
-   position: absolute;
-   width: 169px;
-   height: 135px;
-   left: 1500px;
+   width: 100%;
+   margin: 0px 0px 0px 550px;
+   justify-self: flex-end;
 `
 const Main = styled.p`
-   color: blue;
+   font-style: normal;
+   font-weight: 700;
+   font-size: 16px;
+   line-height: 19px;
+   color: #2c68f5;
+   cursor: pointer;
 `
 const UserH5 = styled.h5`
    font-style: normal;
    font-weight: 600;
    font-size: 18px;
    line-height: 22px;
-   color: #384255;
+   color: #292929;
 `
 const UserData = styled.p`
    font-style: normal;
    font-weight: 400;
    font-size: 16px;
    line-height: 150%;
-   gap: 24px;
-   color: #384255;
-`
-const StyledBox = styled.div`
-   display: flex;
-   gap: 10px;
-`
-
-const StyledContainerDiv = styled.div`
-   p {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 150%;
-      color: #384255;
-   }
-`
-const StyledDiv = styled.div`
-   p {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 150%;
-      color: #384255;
-   }
-`
-
-const ContainerDiv = styled.div`
-   display: flex;
-   flex-direction: column;
-`
-
-const StyledAdress = styled.div`
-   font-style: normal;
-   font-weight: 400;
-   font-size: 16px;
-   line-height: 150%;
-   color: #384255;
-   &.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-      padding: 8px, 12px, 8px, 12px;
-   }
-`
-const ContainerBox = styled.div`
-   display: flex;
-   margin-top: 15px;
-   gap: 10px;
+   color: #292929;
 `

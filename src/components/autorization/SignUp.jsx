@@ -11,7 +11,7 @@ import Button from '../UI/Button'
 import Input from '../UI/inputs/Input'
 import InputForPassword from '../UI/inputs/InputForPassword'
 
-const SignUp = ({ onClose, open }) => {
+const SignUp = ({ onClose, open, openLoginModal }) => {
    const {
       register,
       handleSubmit,
@@ -19,7 +19,7 @@ const SignUp = ({ onClose, open }) => {
       formState: { errors },
       reset,
    } = useForm({
-      mode: 'onSubmit',
+      mode: 'on',
       resolver: yupResolver(RegisterFormSchema),
    })
 
@@ -35,7 +35,14 @@ const SignUp = ({ onClose, open }) => {
    }) {
       if (password === confirmedPassword)
          dispatch(
-            registration({ firstName, lastName, phoneNumber, password, email })
+            registration({
+               firstName,
+               lastName,
+               phoneNumber,
+               password,
+               email,
+               onClose,
+            })
          )
       reset()
    }
@@ -52,7 +59,6 @@ const SignUp = ({ onClose, open }) => {
                   height="43px"
                   id="firstName"
                   name="firstName"
-                  borderRadius="6px"
                   error={!!errors.firstName?.message}
                   variant="default"
                   {...register('firstName', {
@@ -67,7 +73,6 @@ const SignUp = ({ onClose, open }) => {
                   id="lastname"
                   name="lastname"
                   error={!!errors.lastname?.message}
-                  borderRadius="6px"
                   variant="default"
                   {...register('lastName', { required: true })}
                />
@@ -91,7 +96,6 @@ const SignUp = ({ onClose, open }) => {
                               placeholder="+996 (_ _ _) _ _  _ _  _ _"
                               width="460px"
                               height="43px"
-                              borderRadius="6px"
                               error={!!errors.phoneNumber?.message}
                               id="phoneNumber"
                               variant="default"
@@ -109,7 +113,6 @@ const SignUp = ({ onClose, open }) => {
                   placeholder="Напишите email"
                   width="460px"
                   height="43px"
-                  borderRadius="6px"
                   id="email"
                   name="email"
                   error={!!errors.email?.message}
@@ -159,7 +162,7 @@ const SignUp = ({ onClose, open }) => {
             </SignUpForm>
             <SignUpNavToSignIn>
                У вас уже есть аккаунт?
-               <NavToSignIn to="/home">Войти</NavToSignIn>
+               <NavToSignIn onClick={openLoginModal}>Войти</NavToSignIn>
             </SignUpNavToSignIn>
          </SignUpContainer>
       </BasicModal>
@@ -206,9 +209,11 @@ const ErrorMessage = styled.div`
    transition: all 0.5s ease-in-out;
 `
 
-const NavToSignIn = styled.a`
+const NavToSignIn = styled.button`
+   border: none;
    color: #2c68f5;
    font-weight: 600;
    cursor: pointer;
    margin-left: 5px;
+   background: transparent;
 `

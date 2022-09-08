@@ -1,11 +1,10 @@
-import axios from '../config/axios'
-// import axios from '../config/axiosInstance'
+import axiosInstance from '../config/axiosInstance'
 
-
-export default {
-   methods:{
-      axios.post('api/user/wishlist/4/add/2')
-   }
-}
 export const getAllWishProducts = (userId) =>
-   axiosInstance.get(`api/public/register`)
+   axiosInstance.get(`api/user/wishlist/${userId}`)
+
+export const addToWishProducts = (userId, productId) =>
+   axiosInstance.post(`api/user/wishlist/${userId}/add/${productId}`)
+
+export const removeAllProducts = (userId) =>
+   axiosInstance.delete(`api/user/wishlist/${userId}/removeAll`)
