@@ -53,7 +53,10 @@ const MainPage = () => {
       })
    }
 
-   const seeMore = newProduct?.map((el) => el)
+   const seeMoreDiscount = discount?.map(() => el)
+   const seeMoreNew = newProduct?.map((el) => el)
+   const seeMoreRecommend = recommend?.map((el) => el)
+   
    return (
       <div>
          <StyledSlider>{/* <Carousel /> */}</StyledSlider>
@@ -78,7 +81,7 @@ const MainPage = () => {
                })}
             </StyledCard>
             <StyledButton>
-               {seeMore?.length === 5 && (
+               {seeMoreDiscount?.length === 5 && (
                   <Button
                      variant="outlined"
                      width="300px"
@@ -117,7 +120,7 @@ const MainPage = () => {
                })}
             </StyledCard>
             <StyledButton>
-               {seeMore?.length === 5 && (
+               {seeMoreNew?.length === 5 && (
                   <Button
                      variant="outlined"
                      width="300px"
@@ -156,7 +159,7 @@ const MainPage = () => {
                })}
             </StyledCard>
             <StyledButton>
-               {seeMore?.length === 5 && (
+               {seeMoreRecommend?.length === 5 && (
                   <Button
                      variant="outlined"
                      width="300px"
