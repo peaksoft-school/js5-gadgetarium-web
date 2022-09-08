@@ -15,12 +15,13 @@ import { RingLoader } from 'react-spinners'
 // import ProductCatalogPage from '../containers/client/main-pages/ProductCatalogPage'
 // import ProductInnerPage from '../containers/client/main-pages/ProductInnerPage'
 // import MainLayout from '../layout/MainLayout'
+import NotFound from '../components/UI/NotFound'
 
 const MainLayuot = lazy(() => import('../layout/MainLayout'))
 const AboutPage = lazy(() => import('../containers/client/AboutPage'))
 const Contacts = lazy(() => import('../containers/client/Contacts'))
 const DeliveryPage = lazy(() => import('../containers/client/DeliveryPage'))
-const FagPage = lazy(() => import('../containers/client/FagPage'))
+const FaqPage = lazy(() => import('../containers/client/FaqPage'))
 const CartPage = lazy(() => import('../containers/client/main-pages/CartPage'))
 const ComparisonPage = lazy(
    () => import('../containers/client/main-pages/ComparisonPage')
@@ -71,8 +72,9 @@ const MainRoutes = () => {
                </Route>
                <Route path="about" element={<AboutPage />} />
                <Route path="delivery" element={<DeliveryPage />} />
-               <Route path="fag" element={<FagPage />} />
+               <Route path="faq" element={<FaqPage />} />
                <Route path="contacts" element={<Contacts />} />
+               <Route path="*" element={<NotFound />} />
             </Routes>
          </MainLayuot>
       </Suspense>

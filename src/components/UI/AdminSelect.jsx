@@ -58,7 +58,9 @@ const Select = forwardRef((props, ref) => {
                <MiniImagePicker />
             </StyledSpanContaner>
          )}
-         <Label htmlFor={label}>{label}</Label>
+         <Label htmlFor={label}>
+            {label} <RequiredLabel>*</RequiredLabel>
+         </Label>
          <StyleSelect
             style={{ display: 'flex' }}
             placeholder={placeholder}
@@ -116,4 +118,7 @@ const StyledSpanContaner = styled.span`
    z-index: 99;
    margin-left: 9px;
    cursor: pointer;
+`
+const RequiredLabel = styled.span`
+   color: red;
 `

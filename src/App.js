@@ -6,7 +6,7 @@ import AppRoutes from './routes/AppRoutes'
 function App() {
    return (
       <div>
-         <ToastContainer />
+         <ToastContainer position="top-right" />
          <AppRoutes />
       </div>
    )

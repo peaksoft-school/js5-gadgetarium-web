@@ -1,14 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { styled } from '@mui/material'
+import { Popover, styled } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
 
 import logo from '../../assets/icons/logo.svg'
 import profileLogo from '../../assets/icons/profile-icon.svg'
 import search from '../../assets/icons/searchForAdmin.svg'
 import Button from '../../components/UI/Button'
+import { logout } from '../../store/slices/authSlice'
 
 const HeaderForAdmin = () => {
+   const [anchorEl, setAnchorEl] = useState(null)
+   const handleClick = (event) => {
+      setAnchorEl(event.currentTarget)
+   }
+
+   const handleClose = () => {
+      setAnchorEl(null)
+   }
+   const open = Boolean(anchorEl)
+   const id = open ? 'simple-popover' : undefined
+   const dispatch = useDispatch()
+   // const navigate = useNavigate()
+   const navigateAfterLogOut = () => {
+      dispatch(logout())
+      window.location.reload()
+      // navigate('/')
+   }
    return (
       <Header>
          <HeaderContainer>
@@ -28,7 +47,7 @@ const HeaderForAdmin = () => {
                      <StyledNavLink to="orders"> Заказы </StyledNavLink>
                   </li>
                   <li>
-                     <StyledNavLink to="reviews-rating">
+                     <StyledNavLink to="reviews">
                         Отзывы и рейтинг
                      </StyledNavLink>
                   </li>
@@ -38,9 +57,23 @@ const HeaderForAdmin = () => {
                   <SearchLogo src={search} />
                   <VerticalLine />
                   <UserProfile>
-                     <ProfileLogo src={profileLogo} />
+                     <ProfileLogo src={profileLogo} onClick={handleClick} />
+                     <Popover
+                        id={id}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                           vertical: 'bottom',
+                           horizontal: 'left',
+                        }}
+                     >
+                        <LinkItems>
+                           <li onClick={navigateAfterLogOut}>Выйти</li>
+                        </LinkItems>
+                     </Popover>
                   </UserProfile>
-                  <p> Адина Урматова </p>
+                  <p>Администратор </p>
                </AdminUI>
             </UpperRow>
             <Outlet />
@@ -56,7 +89,7 @@ const Header = styled('div')`
    background: #1a1a25;
 `
 const HeaderContainer = styled('header')`
-   max-width: 1920px;
+   max-width: 1520px;
    margin-left: auto;
    margin-right: auto;
    height: 83px;
@@ -65,6 +98,17 @@ const HeaderContainer = styled('header')`
    position: sticky;
    top: 0;
    z-index: 999;
+   @media (max-width: 1536px) {
+      max-width: 1280px;
+   }
+   @media (max-width: 1280px) {
+      max-width: 1120px;
+   }
+
+   /* @media (max-width: 1240px) {
+      max-width: 1200px;
+      padding: 18px 30px;
+   } */
 `
 const UpperRow = styled('div')`
    display: flex;
@@ -74,6 +118,26 @@ const UpperRow = styled('div')`
 const Logo = styled('img')`
    width: 221px;
    height: 39px;
+`
+
+const LinkItems = styled('ul')`
+   padding: 20px;
+   list-style: none;
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+
+   & li {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 19px;
+      color: #292929;
+      cursor: pointer;
+
+      :hover {
+         color: #cb11ab;
+      }
+   }
 `
 // const Menu = styled('div')`
 //    display: flex;
@@ -101,6 +165,10 @@ const StyledNavLink = styled(NavLink)`
       transition: 0.3s;
       border-radius: 4px;
       background: rgba(133, 143, 164, 0.15);
+   }
+   @media (max-width: 1536px) {
+      font-size: 14px;
+      padding: 12px 10px;
    }
 `
 const MenuNavBar = styled('ul')`
@@ -156,4 +224,5 @@ const VerticalLine = styled('div')`
 const ProfileLogo = styled('img')`
    width: 24px;
    height: 24px;
+   cursor: pointer;
 `

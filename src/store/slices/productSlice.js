@@ -1,86 +1,52 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
-import {
-   getAllCategories,
-   getAllSubcategories,
-   getAllBrands,
-   createProductFirstStage,
-} from '../../services/productServices'
-import { STEPPER_FORM_DATA_KEY } from '../../utils/constants/constants'
+import { GADGETARIUM_ADD_PRODUCT_DATA } from '../../utils/constants/constants'
 import { sessionStorageHelpers } from '../../utils/helpers/general'
+import {
+   getCategories,
+   getBrands,
+   getSubcategories,
+} from '../actions/categories/categoriesActions'
+import {
+   createFirstStage,
+   createSecondStage,
+   createThirdStage,
+} from '../actions/stages/stagesActions'
 
 const initialState = {
-   products: null,
+   products: [],
    categories: null,
    brands: null,
+   search: '',
    subcategories: null,
    error: '',
    loading: false,
 }
 
-export const createFirstStage = createAsyncThunk(
-   'product/createFirstStage',
-   async ({ subcategoryId, updatedProductData }) => {
-      try {
-         console.log({ updatedProductData })
-         const response = await createProductFirstStage(
-            updatedProductData,
-            subcategoryId
-         )
-         console.log(response.data)
-         return response.data
-      } catch (error) {
-         return console.error(error.response.data)
-      }
-   }
-)
-
-export const getCategories = createAsyncThunk(
-   'product/getCategories',
-   async () => {
-      try {
-         const { data } = await getAllCategories()
-         return data
-      } catch (err) {
-         return console.error(err.response.data)
-      }
-   }
-)
-
-export const getSubcategories = createAsyncThunk(
-   'product/getSubcategories',
-   async (id, { rejectWithValue }) => {
-      try {
-         const response = await getAllSubcategories(id)
-         return response.data
-      } catch (err) {
-         return rejectWithValue(err.response.data)
-      }
-   }
-)
-
-export const getBrands = createAsyncThunk('product/brands', async () => {
-   try {
-      const { data } = await getAllBrands()
-      return data
-   } catch (err) {
-      return console.error(err.response.data)
-   }
-})
-
 const productSlice = createSlice({
    name: 'product',
    initialState: sessionStorageHelpers.getFromSessionStorage(
-      STEPPER_FORM_DATA_KEY
+      GADGETARIUM_ADD_PRODUCT_DATA
    )
       ? {
            ...initialState,
            products: sessionStorageHelpers.getFromSessionStorage(
-              STEPPER_FORM_DATA_KEY
+              GADGETARIUM_ADD_PRODUCT_DATA
            ),
         }
       : initialState,
-   reducers: {},
+   reducers: {
+      clearSessionStorage: (state) => {
+         sessionStorageHelpers.deleteFromSessionStorage(
+            GADGETARIUM_ADD_PRODUCT_DATA
+         )
+         state.products = []
+      },
+      setSearchQuery: (state, action) => {
+         state.search = action.payload
+      },
+   },
    extraReducers: {
       [getCategories.pending]: (state) => {
          state.loading = true
@@ -120,14 +86,45 @@ const productSlice = createSlice({
       },
       [createFirstStage.fulfilled]: (state, action) => {
          state.loading = false
-         state.products = action.payload
-         console.log(action)
+         const product = action.payload
+         sessionStorageHelpers.saveToSessionStorage(
+            GADGETARIUM_ADD_PRODUCT_DATA,
+            product
+         )
+         state.products = product
+         toast.success('Успешно!')
       },
       [createFirstStage.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
       },
+      [createSecondStage.pending]: (state) => {
+         state.loading = true
+      },
+      [createSecondStage.fulfilled]: (state, action) => {
+         state.loading = false
+         state.products = action.payload
+         toast.success('Успешно!')
+      },
+      [createSecondStage.rejected]: (state, action) => {
+         state.loading = false
+         state.error = action.payload
+      },
+      [createThirdStage.pending]: (state) => {
+         state.loading = true
+      },
+      [createThirdStage.fulfilled]: (state, action) => {
+         state.loading = false
+         state.products = action.payload
+         toast.success('Успешно!')
+      },
+      [createThirdStage.rejected]: (state, action) => {
+         state.loading = false
+         state.error = action.payload
+      },
    },
 })
+
+export const { clearSessionStorage, setSearchQuery } = productSlice.actions
 
 export default productSlice

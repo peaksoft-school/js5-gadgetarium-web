@@ -1,12 +1,13 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, forwardRef } from 'react'
 
 import { InputAdornment, Popover } from '@mui/material'
 import { ChromePicker } from 'react-color'
+import styled from 'styled-components'
 
 import { ReactComponent as ColorIcon } from '../../assets/icons/color-icon.svg'
 import Input from '../UI/inputs/Input'
 
-function ColorPalette({ getColor, defaultColor }) {
+const ColorPalette = forwardRef(({ getColor, defaultColor }, ref) => {
    const [color, setColor] = useState(defaultColor && '')
    const colorChangeHandler = (col) => {
       setColor(col)
@@ -26,11 +27,12 @@ function ColorPalette({ getColor, defaultColor }) {
 
    return (
       <>
-         <div ref={divRef}>
+         <ContainerColor ref={divRef}>
             <Input
                height="35px"
                width="396px"
                value={color}
+               ref={ref}
                placeholder="Основной цвет"
                endAdornment={
                   <InputAdornment position="end">
@@ -38,7 +40,7 @@ function ColorPalette({ getColor, defaultColor }) {
                   </InputAdornment>
                }
             />
-         </div>
+         </ContainerColor>
          <Popover
             open={open}
             anchorEl={anchorEl}
@@ -60,6 +62,11 @@ function ColorPalette({ getColor, defaultColor }) {
          </Popover>
       </>
    )
-}
+})
 
 export default ColorPalette
+
+const ContainerColor = styled.div`
+   width: 396px;
+   cursor: pointer;
+`

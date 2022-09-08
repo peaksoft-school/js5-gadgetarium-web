@@ -1,10 +1,11 @@
+import Rating from '@mui/material/Rating'
 import styled from 'styled-components'
 
 import { ReactComponent as Busket } from '../../../assets/icons/busket.svg'
 import Button from '../Button'
+import Tooltip from '../Tooltip'
 
 import { Balance, Like } from './CardIcons'
-import CardRating from './CardRating'
 
 const Card = (props) => {
    return (
@@ -15,13 +16,21 @@ const Card = (props) => {
             </CardHeaderItemsAction>
             <CardHeaderItemsIcons>
                <li onClick={props.compareProducts}>
-                  <Balance fill={props.balance ? '#CB11AB' : '#aaB1bf'} />
+                  <Tooltip title="Добавить в сравнение">
+                     <div>
+                        <Balance fill={props.balance ? '#CB11AB' : '#aaB1bf'} />
+                     </div>
+                  </Tooltip>
                </li>
                <li onClick={props.addToFavotites}>
-                  <Like
-                     fill={props.like ? '#f53b49' : 'transparent'}
-                     stroke={props.like ? '#f53b49' : '#aaB1bf'}
-                  />
+                  <Tooltip title="Добавить в сравнение">
+                     <div>
+                        <Like
+                           fill={props.like ? '#f53b49' : 'transparent'}
+                           stroke={props.like ? '#f53b49' : '#aaB1bf'}
+                        />
+                     </div>
+                  </Tooltip>
                </li>
             </CardHeaderItemsIcons>
          </CardHeaderItems>
@@ -33,9 +42,12 @@ const Card = (props) => {
             <StyledCardHeader>{props.title}</StyledCardHeader>
             <StyledCardRating>
                <StyledCardRatingSpan>Рейтинг</StyledCardRatingSpan>
-               <div key={props.rating}>
-                  <CardRating rating={props.rating} />
-               </div>
+               <Rating
+                  name="read-only"
+                  value={props.rating}
+                  readOnly
+                  size="small"
+               />
             </StyledCardRating>
          </CardTitle>
          <CardShopItems>

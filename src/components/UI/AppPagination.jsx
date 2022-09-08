@@ -3,14 +3,13 @@ import React from 'react'
 import { Box, styled } from '@mui/material'
 import Pagination from '@mui/material/Pagination'
 
-const AppPagination = ({ page, totalPage, onChange }) => {
+const AppPagination = ({ totalPage, onChange, page }) => {
    return (
       <Box justifyContent="center" alignItems="center" display="flex">
          <PaginationStyled
-            count={10}
-            page={page}
-            totalPage={totalPage}
-            onChange={onChange}
+            count={totalPage}
+            onChange={(e) => onChange(e.target.textContent)}
+            page={Number(page)}
             color="secondary"
          />
       </Box>

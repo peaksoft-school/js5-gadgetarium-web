@@ -14,3 +14,8 @@
 body {
     background: #f4f4f4;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}

@@ -1,48 +1,77 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import { InputLabel } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { phoneCharacters } from '../../../data/characters'
-import { formDetails, nextStage } from '../../../store/slices/formSlice'
 import {
-   createFirstStage,
+   phoneCharacters,
+   laptopCharacters,
+   tabletCharacters,
+   smartWathchesCharacters,
+   accessoriesCharacters,
+} from '../../../data/characters'
+import {
    getBrands,
    getCategories,
    getSubcategories,
-} from '../../../store/slices/productSlice'
+} from '../../../store/actions/categories/categoriesActions'
+import { createFirstStage } from '../../../store/actions/stages/stagesActions'
+import { nextStage } from '../../../store/slices/formSlice'
 import AdminSelect from '../../UI/AdminSelect'
 import Button from '../../UI/Button'
-import FileUpload from '../../UI/FileUpload'
 import Input from '../../UI/inputs/Input'
+import ImageUpload from '../../UI/uploads/ImageUpload'
 import ColorPalette from '../ColorPalette'
+import SelectCharacter from '../selects/DynamicTextFields'
+
+const SELECTS = [
+   {
+      option: null,
+      id: 1,
+   },
+   {
+      option: phoneCharacters,
+      id: 2,
+   },
+   {
+      option: laptopCharacters,
+      id: 3,
+   },
+   {
+      option: tabletCharacters,
+      id: 4,
+   },
+   {
+      option: smartWathchesCharacters,
+      id: 5,
+   },
+   {
+      option: accessoriesCharacters,
+      id: 6,
+   },
+]
 
 const FirstStage = () => {
+   // states
    const [productData, setProductData] = useState({
       productName: '',
-      quarantee: '',
-      images: [],
+      guarantee: '',
    })
    const [characters, setCharacters] = useState([])
-   const [files, setFiles] = useState([
-      {
-         name: 'myFile.pdf',
-      },
-   ])
-   console.log(characters)
-   const { categories, subcategories, brands } = useSelector(
-      (state) => state.product
-   )
+   const [files, setFiles] = useState([])
+   const [color, setColor] = useState()
    const [selectedCategory, setSelectedCategory] = useState(null)
    const [selectedSubcategory, setSelectedSubCategory] = useState(null)
    const [selectedBrand, setSelectedBrand] = useState(null)
+
+   const { categories, subcategories, brands } = useSelector(
+      (state) => state.product
+   )
    const navigate = useNavigate()
    const dispatch = useDispatch()
-
-   const { quarantee, productName } = productData
-
+   // useEffects
    useEffect(() => {
       dispatch(getCategories())
    }, [])
@@ -62,33 +91,9 @@ const FirstStage = () => {
    }
 
    const getValue = (data, state) => {
-      return state ? data.find((c) => c.label === state) : ''
+      return state ? data?.find((c) => c.label === state) : ''
    }
-
-   const onChange = (newValue) => {
-      setSelectedCategory(newValue)
-   }
-
-   const subChange = (newValue) => {
-      setSelectedSubCategory(newValue)
-   }
-   const selectChange = (selectedOption) => {
-      setCharacters((prevState) => {
-         const newArr = prevState.find(
-            (elem) => elem.key === selectedOption.key
-         )
-         if (newArr) {
-            return prevState.map((elem) => {
-               if (elem.key === selectedOption.key) {
-                  return selectedOption
-               }
-               return elem
-            })
-         }
-         return [...prevState, selectedOption]
-      })
-   }
-
+   // onChanes
    const handleChange = (event) => {
       const { value } = event.target
       const { name } = event.target
@@ -100,77 +105,89 @@ const FirstStage = () => {
          }
       })
    }
-
-   const handleChangeFile = (file) => {
-      setFiles(file)
-   }
-
-   const brandChange = (newValue) => {
-      setSelectedBrand(newValue.value)
-   }
+   const { guarantee, productName } = productData
    const brandId = selectedBrand
    const subcategoryId = selectedSubcategory?.value
-
+   // onSubmit
    const onSubmit = (e) => {
       e.preventDefault()
 
-      if (productName && quarantee) {
-         const updatedProductData = { ...productData, brandId }
-         dispatch(formDetails({ updatedProductData }))
+      if (productName && guarantee) {
+         const updatedProductData = {
+            ...productData,
+            brandId,
+            color,
+            characters: [...characters],
+         }
+         console.log(updatedProductData)
          dispatch(
             createFirstStage({
                subcategoryId,
                updatedProductData,
+               files,
             })
          )
          dispatch(nextStage(1))
          navigate('stage2')
       }
    }
+
+   const OptionSelect = (selectedId) => {
+      return useMemo(() => {
+         const option = SELECTS[selectedId]
+         return option
+      }, [selectedId])
+   }
+   console.log(files)
    return (
       <div>
          <TabsContainer>
             <AddProductsFieldsContainer>
                <AdminSelect
                   placeholder="Выбрать категорию"
-                  label="Выберите категорию *"
+                  label="Выберите категорию"
                   variant="category"
                   value={getValue(categories, selectedCategory)}
-                  onChange={onChange}
+                  onChange={(newValue) => setSelectedCategory(newValue)}
                   options={renderList(categories)}
                />
                <AdminSelect
                   placeholder="Выберите подкатегорию"
-                  label="Выберите подкатегорию *"
+                  label="Выберите подкатегорию"
                   name="subcategory"
                   value={getValue(subcategories, selectedSubcategory)}
-                  onChange={subChange}
+                  onChange={(newValue) => setSelectedSubCategory(newValue)}
                   options={renderList(subcategories)}
                />
                <AdminSelect
                   placeholder="Выберите бренд товара"
-                  label="Бренд *"
+                  label="Бренд"
                   variant="brand"
                   name="brandId"
                   value={getValue(brands, selectedBrand)}
-                  onChange={brandChange}
+                  onChange={(newValue) => setSelectedBrand(newValue.value)}
                   options={renderList(brands)}
                />
                <div>
-                  <StyledInputLabel>Введите гарантию товара *</StyledInputLabel>
+                  <StyledInputLabel>
+                     Введите гарантию товара(месяцев)
+                     <RequiredLabel>*</RequiredLabel>
+                  </StyledInputLabel>
                   <Input
-                     type="text"
+                     type="number"
                      placeholder="Введите гарантию товара"
                      width="396px"
                      height="38px"
-                     id="quarantee"
+                     id="guarantee"
                      onChange={handleChange}
-                     name="quarantee"
+                     name="guarantee"
                      autoComplete="off"
                   />
                </div>
                <div>
-                  <StyledInputLabel>Введите название товара *</StyledInputLabel>
+                  <StyledInputLabel>
+                     Введите название товара <RequiredLabel>*</RequiredLabel>
+                  </StyledInputLabel>
                   <Input
                      placeholder="Введите название товара"
                      width="396px"
@@ -182,21 +199,28 @@ const FirstStage = () => {
                   />
                </div>
             </AddProductsFieldsContainer>
-            <StyledInputLabel>Основной цвет *</StyledInputLabel>
-            <ColorPalette />
-            {phoneCharacters.map((data) => (
-               <div key={data.id}>
-                  <StyledInputLabel>{data.placeholder} *</StyledInputLabel>
-                  <AdminSelect
-                     options={data.value}
-                     placeholder={data.placeholder}
-                     onChange={selectChange}
-                     // value={getValue(data.value, characters)}
-                  />
-               </div>
-            ))}
-            <StyledInputLabel>Добавьте фото</StyledInputLabel>
-            <FileUpload onChange={handleChangeFile} file={files} />
+            <AddCharactersFieldsContainer>
+               {selectedCategory?.value && (
+                  <div>
+                     <StyledInputLabel>
+                        Основной цвет <RequiredLabel>*</RequiredLabel>
+                     </StyledInputLabel>
+                     <ColorPalette getColor={setColor} />
+                  </div>
+               )}
+               <SelectCharacter
+                  option={OptionSelect(selectedCategory?.value)}
+                  setCharacters={setCharacters}
+               />
+               {selectedCategory?.value && (
+                  <div>
+                     <StyledInputLabel>
+                        Добавьте фото <RequiredLabel>*</RequiredLabel>
+                     </StyledInputLabel>
+                     <ImageUpload getPhoto={setFiles} allPhotos={files} />
+                  </div>
+               )}
+            </AddCharactersFieldsContainer>
             <Button
                onClick={onSubmit}
                type="submit"
@@ -231,4 +255,12 @@ const TabsContainer = styled.div`
    display: flex;
    flex-direction: column;
    gap: 14px;
+`
+const RequiredLabel = styled.span`
+   color: red;
+`
+const AddCharactersFieldsContainer = styled.div`
+   display: flex;
+   flex-direction: column;
+   gap: 23px;
 `

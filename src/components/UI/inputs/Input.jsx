@@ -22,7 +22,6 @@ const Input = forwardRef((props, ref) => {
          type={type}
          placeholder={placeholder}
          name={name}
-         // helperText={helperText}
          id={id}
          value={value}
          error={error}

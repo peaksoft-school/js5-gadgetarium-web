@@ -19,9 +19,8 @@ const MAIN_ROUTES = {
    },
 }
 
-const SignIn = ({ onClose, open }) => {
+const SignIn = ({ onClose, open, openRegistationModal }) => {
    const { error } = useSelector((state) => state.auth)
-   console.log(error)
    const {
       register,
       handleSubmit,
@@ -34,14 +33,14 @@ const SignIn = ({ onClose, open }) => {
    const dispatch = useDispatch()
 
    const navigate = useNavigate()
-   const { role } = useSelector((state) => state.auth.user)
+   const { role } = useSelector((state) => state?.auth.user)
 
    useEffect(() => {
       if (MAIN_ROUTES[role]) navigate(MAIN_ROUTES[role].path)
    }, [role])
 
    function onSubmit({ email, password }) {
-      dispatch(login({ email, password }))
+      dispatch(login({ email, password, onClose }))
       if (!error) {
          reset()
       }
@@ -60,6 +59,7 @@ const SignIn = ({ onClose, open }) => {
                   id="email"
                   name="email"
                   error={!!errors.email?.message && !!error}
+                  // error={!!errors.email?.message || !!error}
                   variant="default"
                   {...register('email', {
                      required: true,
@@ -72,7 +72,7 @@ const SignIn = ({ onClose, open }) => {
                   placeholder="Напишите пароль"
                   height="43px"
                   id="password"
-                  error={!!errors.email?.message && !!error}
+                  error={!!errors.password?.message}
                   name="password"
                   {...register('password', {
                      required: true,
@@ -95,7 +95,9 @@ const SignIn = ({ onClose, open }) => {
             </SignUpForm>
             <SignUpNavToSignIn>
                Нет аккаунта?
-               <NavToSignIn to="/home">Зарегистрироваться</NavToSignIn>
+               <NavToSignIn onClick={openRegistationModal}>
+                  Зарегистрироваться
+               </NavToSignIn>
             </SignUpNavToSignIn>
          </SignUpContainer>
       </BasicModal>
@@ -142,9 +144,11 @@ const ErrorMessage = styled.div`
    transition: all 0.5s ease-in-out;
 `
 
-const NavToSignIn = styled.a`
+const NavToSignIn = styled.button`
+   border: none;
    color: #2c68f5;
    font-weight: 600;
    cursor: pointer;
    margin-left: 5px;
+   background: transparent;
 `

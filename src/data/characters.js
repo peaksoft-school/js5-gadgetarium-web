@@ -5,13 +5,13 @@ export const phoneCharacters = [
       option: [
          {
             key: 'Количество SIM-карт',
-            value: 1,
-            label: 1,
+            value: '1 (Nano-SIM)',
+            label: '1 (Nano-SIM)',
          },
          {
             key: 'Количество SIM-карт',
-            value: 2,
-            label: 2,
+            value: '2 (Nano-SIM)',
+            label: '2 (Nano-SIM)',
          },
       ],
    },

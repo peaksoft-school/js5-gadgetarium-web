@@ -7,9 +7,10 @@ import { localStorageHelpers } from '../../utils/helpers/general'
 
 export const login = createAsyncThunk(
    'auth/login',
-   async ({ email, password }, { rejectWithValue }) => {
+   async ({ email, password, onClose }, { rejectWithValue }) => {
       try {
          const response = await signIn({ email, password })
+         onClose()
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)
@@ -20,7 +21,7 @@ export const login = createAsyncThunk(
 export const registration = createAsyncThunk(
    'auth/register',
    async (
-      { firstName, lastname, phoneNumber, password, email },
+      { firstName, lastname, phoneNumber, password, email, onClose },
       { rejectWithValue }
    ) => {
       try {
@@ -31,6 +32,7 @@ export const registration = createAsyncThunk(
             password,
             email,
          })
+         onClose()
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)
@@ -87,7 +89,7 @@ const authSlice = createSlice({
          localStorageHelpers.saveToLocalStorage(GADGETARIUM_USER_DATA, user)
          toast.success('Успешно!')
          state.user = user
-         toast.success('Успешно!')
+         toast.success('Вы успешно зарегистрирвались!')
       },
       [registration.rejected]: (state, action) => {
          state.loading = false

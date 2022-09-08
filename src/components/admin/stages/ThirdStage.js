@@ -1,73 +1,103 @@
+import { useState } from 'react'
+
 import { InputLabel } from '@mui/material'
-import { useForm } from 'react-hook-form'
-import { useSelector, useDispatch } from 'react-redux'
-// import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+// import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-import { formDetails } from '../../../store/slices/formSlice'
+import { createThirdStage } from '../../../store/actions/stages/stagesActions'
+import { clearSessionStorage } from '../../../store/slices/productSlice'
 import Button from '../../UI/Button'
 import Input from '../../UI/inputs/Input'
 import TextEditor from '../../UI/TextEditor'
+import { FileUpload } from '../../UI/uploads/fileUpload'
 
-const SecondStage = () => {
+const ThirdStage = () => {
+   const [pdfFile, setPdfFile] = useState(null)
+   const [videoReview, setVideoReview] = useState('')
+   const [description, setDescription] = useState('')
+   const { products, error } = useSelector((state) => state.product)
+   console.log(products)
+
    const dispatch = useDispatch()
-   // const navigate = useNavigate()
-   const { products } = useSelector((state) => state.form)
-   const { handleSubmit, register, reset } = useForm({
-      defaultValues: products,
-   })
-   const onSubmit = (data) => {
-      dispatch(formDetails(data))
-      reset()
+   const navigate = useNavigate()
+
+   console.log('pdfFile:', pdfFile)
+
+   const onChange = (value) => {
+      setDescription(value)
+   }
+
+   const handleChange = (event) => {
+      setVideoReview(event.target.value)
+   }
+   const productId = products?.productId
+   console.log(productId)
+   const onSubmit = () => {
+      // dispatch(formDetails(data))
+      dispatch(
+         createThirdStage({ productId, videoReview, description, pdfFile })
+      )
+      if (!error) {
+         dispatch(clearSessionStorage())
+         navigate('/products')
+      }
    }
 
    return (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <>
          <AddProductsFieldsContainer>
             <div>
-               <StyledInputLabel>Загрузите видеобзор</StyledInputLabel>
+               <StyledInputLabel>
+                  Вставьте сюда ссылку на видеообзор
+                  <RequiredLabel>*</RequiredLabel>
+               </StyledInputLabel>
                <Input
-                  type="file"
-                  accept="video/mp4,video/x-m4v,video/*"
-                  placeholder="Загрузите видеобзор"
+                  name="videoReview"
+                  id="videoReview"
+                  placeholder="Вставьте сюда ссылку на видеообзор"
+                  onChange={handleChange}
+                  value={videoReview}
                   width="396px"
-                  height="35px"
-                  id="video"
-                  name="video"
-                  autoComplete="off"
-                  {...register('video')}
+                  height="37px"
                />
             </div>
             <div>
-               <StyledInputLabel>Загрузите файл</StyledInputLabel>
-               <Input
-                  type="file"
-                  placeholder="Загрузите файл"
-                  width="396px"
-                  height="35px"
-                  id="file"
-                  name="file"
-                  autoComplete="off"
-                  {...register('file')}
-               />
+               <StyledInputLabel>
+                  Загрузите файл (размер до 1МБ)<RequiredLabel>*</RequiredLabel>
+               </StyledInputLabel>
+               <FileUpload pdfFile={pdfFile} setPdfFile={setPdfFile} />
             </div>
          </AddProductsFieldsContainer>
          <AddProductsTexEditorContainer>
-            <TextEditor />
+            <StyledInputLabel>
+               Описание <RequiredLabel>*</RequiredLabel>
+            </StyledInputLabel>
+            <TextEditor onChange={onChange} value={description} />
          </AddProductsTexEditorContainer>
          <AddProductsButtonsContainer>
-            <Button variant="outlined" width="100px">
+            <Button
+               variant="outlined"
+               width="100px"
+               onClick={() => navigate(-1)}
+            >
                Отменить
             </Button>
-            <Button type="submit" variant="contained" width="100px">
+            <Button
+               type="submit"
+               variant="contained"
+               width="100px"
+               onClick={onSubmit}
+            >
                Добавить
             </Button>
          </AddProductsButtonsContainer>
-      </form>
+      </>
    )
 }
 
-export default SecondStage
+export default ThirdStage
 
 const AddProductsFieldsContainer = styled.div`
    display: grid;
@@ -79,6 +109,7 @@ const AddProductsFieldsContainer = styled.div`
 `
 const AddProductsTexEditorContainer = styled.div`
    max-width: 812px;
+   height: 380px;
 `
 const StyledInputLabel = styled(InputLabel)`
    margin-bottom: 3px;
@@ -90,4 +121,7 @@ const AddProductsButtonsContainer = styled.div`
    margin-left: 592px;
    margin-top: 28px;
    column-gap: 20px;
+`
+const RequiredLabel = styled.span`
+   color: red;
 `

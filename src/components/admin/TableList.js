@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { styled } from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -6,14 +8,31 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
-function TableList({ columns, data, width }) {
-   console.log(columns)
+import Checkbox from '../UI/Checkbox'
+
+function TableList({ columns, data, width, checkbox, onNavigetToInnerPage }) {
+   const [checked, setChecked] = useState(0)
+   const countChecked = (event) => {
+      if (event.target.checked === true) {
+         setChecked((prevState) => prevState + 1)
+      } else {
+         setChecked((prevState) => prevState - 1)
+      }
+   }
+
    return (
       <TableContainer>
          <MuiTable width={width}>
             <TableHead>
                <TableRow>
                   <DivHead>
+                     {checkbox && (
+                        <HeadCell>
+                           <div style={{ width: '42px', textAlign: 'center' }}>
+                              {checked}
+                           </div>
+                        </HeadCell>
+                     )}
                      {columns.map((col) => {
                         if (col.headerCell) {
                            return (
@@ -34,12 +53,24 @@ function TableList({ columns, data, width }) {
             <TableBody>
                {data.map((row) => {
                   return (
-                     <Row key={row.id}>
+                     <Row
+                        key={row.productId}
+                        onClick={() => onNavigetToInnerPage(row.productId)}
+                     >
                         <Div>
+                           {checkbox && (
+                              <BodyCell>
+                                 <Checkbox onChange={countChecked} />
+                              </BodyCell>
+                           )}
                            {columns.map((col) => {
                               if (col.cell) {
                                  return (
-                                    <BodyCell width={col.width} key={col.key}>
+                                    <BodyCell
+                                       width={col.width}
+                                       key={col.key}
+                                       style={col.style}
+                                    >
                                        {col.cell(row)}
                                     </BodyCell>
                                  )
@@ -65,6 +96,12 @@ export default TableList
 const MuiTable = styled(Table)`
    table-layout: fixed;
    width: width;
+
+   & .MuiTableCell-root.MuiTableCell-body {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+   }
 `
 
 const HeadCell = styled(TableCell)`
@@ -74,6 +111,8 @@ const HeadCell = styled(TableCell)`
    align-items: center;
    text-align: left;
    color: white;
+   justify-content: flex-start;
+   white-space: nowrap;
 `
 
 const BodyCell = styled(TableCell)`
@@ -89,6 +128,8 @@ const Div = styled('div')`
    border: 1px solid #d5d8de;
    border-radius: 6px;
    margin-top: 8px;
+   display: flex;
+   justify-content: space-between;
    &:hover {
       background-color: rgba(213, 216, 222, 0.5);
    }
@@ -96,8 +137,10 @@ const Div = styled('div')`
 const DivHead = styled('div')`
    height: 40px;
    display: flex;
+   justify-content: space-between;
    background: rgba(56, 66, 85, 0.9);
 `
 const Row = styled(TableRow)`
    font-size: 16px;
+   cursor: pointer;
 `

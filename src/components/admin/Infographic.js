@@ -7,25 +7,38 @@ import TabPanel from '@mui/lab/TabPanel'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 
+const data = {
+   price: 7556,
+   amount: 12,
+   totalprice: '34 562',
+   totalamount: 56,
+}
+
 const tabsArray = [
    {
       id: '1',
       label: 'За день',
       value: '1',
+      currentPrice: 1200,
+      previousPrice: 10000,
    },
    {
       id: '2',
       label: 'За месяц',
       value: '2',
+      currentPrice: 12000,
+      previousPrice: 10000,
    },
    {
       id: '3',
       label: 'За год',
       value: '3',
+      currentPrice: 120000,
+      previousPrice: 100500,
    },
 ]
 
-export default function Infographic(props) {
+export default function Infographic() {
    const [value, setValue] = React.useState('1')
 
    const handleChange = (SyntheticEvent, newValue) => {
@@ -38,13 +51,13 @@ export default function Infographic(props) {
             <div>
                <div>
                   <Price>
-                     {props.price}
+                     {data.price}
                      <span>С</span>
                   </Price>
                   <Descrip>Выкупили на сумму</Descrip>
                </div>
                <Amount>
-                  {props.amount}
+                  {data.amount}
                   <span>шт</span>
                </Amount>
             </div>
@@ -52,13 +65,13 @@ export default function Infographic(props) {
             <div>
                <div>
                   <Price2>
-                     {props.price}
+                     {data.totalprice}
                      <span>С</span>
                   </Price2>
                   <Descrip2>Заказали на сумму</Descrip2>
                </div>
                <Amount2>
-                  {props.amount}
+                  {data.totalamount}
                   <span>шт</span>
                </Amount2>
             </div>
@@ -200,6 +213,7 @@ const CurrentPrice = styled.p`
    letter-spacing: 1px;
    color: #2fc509;
    margin: 0;
+   white-space: nowrap;
 `
 
 const PrevPrice = styled.p`
