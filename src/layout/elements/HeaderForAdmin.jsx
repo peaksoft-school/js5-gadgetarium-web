@@ -100,13 +100,10 @@ const HeaderContainer = styled('header')`
    z-index: 999;
 
    @media (max-width: 1536px) {
-      max-width: 1440px;
-      padding: 18px 30px;
+      max-width: 1280px;
    }
-
-   @media (max-width: 1240px) {
-      max-width: 1200px;
-      padding: 18px 30px;
+   @media (max-width: 1280px) {
+      max-width: 1120px;
    }
 `
 const UpperRow = styled('div')`

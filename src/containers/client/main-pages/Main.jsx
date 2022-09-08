@@ -1,15 +1,10 @@
 import styled from '@emotion/styled/'
 
 import IphoneImg from '../../../assets/images/Phone.png'
-// import slidePhone from '../../../assets/images/slidePhone.png'
-// import slidePhoneTwo from '../../../assets/images/slidePhoneds.png'
 import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
 import Carousel from '../../../components/UI/Carousel'
 import InfoCards from '../../../components/UI/InfoCards'
-// import Pictures from '../../../components/UI/Pictures'
-// import Slider from '../../../components/UI/Slider'
-// import Layout from '../layout/layout'
 
 const data = [
    {

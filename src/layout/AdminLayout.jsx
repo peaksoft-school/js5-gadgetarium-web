@@ -24,14 +24,12 @@ const Main = styled.main`
 `
 
 const Container = styled.div`
-   margin: 45px auto 0 auto;
-   max-width: 1380px;
-
-   @media screen and (min-width: 1537px) {
-      max-width: 1620px;
+   margin: 45px auto 120px auto;
+   max-width: 1520px;
+   @media (max-width: 1536px) {
+      max-width: 1280px;
    }
-
-   @media screen and (max-width: 1240px) {
-      max-width: 1150px;
+   @media (max-width: 1280px) {
+      max-width: 1120px;
    }
 `
