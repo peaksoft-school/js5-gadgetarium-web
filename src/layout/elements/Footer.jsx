@@ -104,11 +104,11 @@ const FooterPosition = styled('footer')`
 `
 
 const FooterContainer = styled('div')`
-   max-width: 1920px;
+   max-width: 1380px;
    margin-left: auto;
    margin-right: auto;
    height: 600px;
-   padding: 60px 195px 40px;
+   padding: 60px 0px;
    display: flex;
    flex-direction: column;
    justify-content: space-between;

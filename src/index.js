@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './App'
 import { injectStore } from './config/axiosInstance'
+// eslint-disable-next-line import/no-named-as-default
 import store from './store'
 import './index.css'
 

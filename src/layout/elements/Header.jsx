@@ -8,10 +8,11 @@ import facebook from '../../assets/icons/facebook.svg'
 import favorites from '../../assets/icons/favorites.svg'
 import instagram from '../../assets/icons/instagram.svg'
 import logo from '../../assets/icons/logo.svg'
-import menu from '../../assets/icons/menu.svg'
+// import menu from '../../assets/icons/menu.svg'
 import cart from '../../assets/icons/shopping-cart.svg'
 import whatsapp from '../../assets/icons/whatsapp.svg'
 import UserProfile from '../../components/client/UserProfile'
+import CatalogButton from '../../components/UI/Catalogbutton'
 import MuiBadge from '../../components/UI/MuiBadge'
 
 const Header = () => {
@@ -52,10 +53,11 @@ const Header = () => {
          <NavBar>
             <BottomRow>
                <StyledLink to="catalog">
-                  <Catalog>
+                  {/* <Catalog>
                      <img src={menu} alt="#" />
                      Каталог
-                  </Catalog>
+                  </Catalog> */}
+                  <CatalogButton />
                </StyledLink>
                <VerticalLine />
                <SearchInput
@@ -221,19 +223,19 @@ const MenuNavBar = styled('ul')`
       background: rgba(133, 143, 164, 0.15);
    }
 `
-const Catalog = styled('button')`
-   width: 136px;
-   height: 49px;
-   background: #cb11ab;
-   color: #ffffff;
-   border-radius: 4px;
-   display: flex;
-   align-items: center;
-   justify-content: space-evenly;
-   font-size: 16px;
-   cursor: pointer;
-   text-decoration: none;
-`
+// const Catalog = styled('button')`
+//    width: 136px;
+//    height: 49px;
+//    background: #cb11ab;
+//    color: #ffffff;
+//    border-radius: 4px;
+//    display: flex;
+//    align-items: center;
+//    justify-content: space-evenly;
+//    font-size: 16px;
+//    cursor: pointer;
+//    text-decoration: none;
+// `
 const VerticalLine = styled('div')`
    width: 1.07px;
    height: 40px;

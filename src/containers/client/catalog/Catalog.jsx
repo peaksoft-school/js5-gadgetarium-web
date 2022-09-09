@@ -1,21 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Checkbox, styled, InputLabel } from '@mui/material'
+import { useDispatch } from 'react-redux'
 
 import Arrow from '../../../assets/icons/pinkUp.svg'
+// import Ok from '../../../assets/icons/галочка.svg'
 import Iphone from '../../../assets/images/Samsung.png'
 import BreadCrumbs from '../../../components/UI/Bredcrumbs'
 import Card from '../../../components/UI/card/Card'
 import PopUp from '../../../components/UI/PopUp'
+import { getCategories } from '../../../store/actions/CatalogActions'
 
 const Catalog = () => {
    const [show, setShow] = useState({
-      category: false,
+      category: true,
       price: false,
       color: false,
       memory: false,
       gb: false,
    })
+   const dispatch = useDispatch()
+   const [categories, setCategories] = useState()
+   useEffect(() => {
+      dispatch(getCategories(setCategories))
+   }, [])
+   console.log(categories)
    const showCategory = () => {
       setShow({ ...show, category: !show.category })
    }
@@ -158,6 +167,7 @@ const Catalog = () => {
    )
 }
 export default Catalog
+
 const Container = styled('div')`
    display: flex;
    justify-content: space-between;
@@ -458,3 +468,24 @@ const crambs = [
       name: 'Смартфоны',
    },
 ]
+// const Input = styled('div')`
+//    & input {
+//       appearance: none;
+//       border: 1px solid #d3d3d3;
+//       width: 20px;
+//       height: 20px;
+//       /* content: none;
+//       outline: none; */
+//       margin: 0;
+//       cursor: pointer;
+//       /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+//    }
+//    & input:checked {
+// eslint-disable-next-line max-len
+//       background: url('https://flyclipart.com/ru/white-hammer-clip-art-at-clker-hammer-vector-white-texture-white-board-text-hd-png-download-1033562');
+//       background-repeat: no-repeat;
+//       background-position: center center;
+//       background-size: 30px 30px;
+//       background-color: #cb11ab;
+//    }
+// `
