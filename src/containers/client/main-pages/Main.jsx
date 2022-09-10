@@ -53,9 +53,9 @@ const MainPage = () => {
       })
    }
 
-   const seeMoreDiscount = discount.map((el) => el)
-   const seeMoreNew = newProduct.map((el) => el)
-   const seeMoreRecommend = recommend.map((el) => el)
+   const seeMoreDiscount = discount?.map((el) => el)
+   const seeMoreNew = newProduct?.map((el) => el)
+   const seeMoreRecommend = recommend?.map((el) => el)
 
    return (
       <div>
@@ -63,7 +63,7 @@ const MainPage = () => {
          <CardContainer>
             <Styled>Акции</Styled>
             <StyledCard>
-               {discount.map((data) => {
+               {discount?.map((data) => {
                   return (
                      <div key={data.productId}>
                         <Card
@@ -81,7 +81,7 @@ const MainPage = () => {
                })}
             </StyledCard>
             <StyledButton>
-               {seeMoreDiscount.length === 5 && (
+               {seeMoreDiscount?.length === 5 && (
                   <div key={seeMoreDiscount.productId}>
                      <Button
                         variant="outlined"
@@ -92,7 +92,7 @@ const MainPage = () => {
                      </Button>
                   </div>
                )}
-               {seeMoreDiscount.length >= 20 && (
+               {seeMoreDiscount?.length >= 20 && (
                   <Button
                      variant="outlined"
                      width="300px"
@@ -104,7 +104,7 @@ const MainPage = () => {
             </StyledButton>
             <Styled> Новинки</Styled>
             <StyledCard>
-               {newProduct.map((data) => {
+               {newProduct?.map((data) => {
                   return (
                      <div key={data.productId}>
                         <Card
@@ -122,7 +122,7 @@ const MainPage = () => {
                })}
             </StyledCard>
             <StyledButton>
-               {seeMoreNew.length === 5 && (
+               {seeMoreNew?.length === 5 && (
                   <div key={seeMoreNew.productId}>
                      <Button
                         variant="outlined"
@@ -133,7 +133,7 @@ const MainPage = () => {
                      </Button>
                   </div>
                )}
-               {seeMoreNew.length >= 20 && (
+               {seeMoreNew?.length >= 20 && (
                   <Button
                      variant="outlined"
                      width="300px"
@@ -145,7 +145,7 @@ const MainPage = () => {
             </StyledButton>
             <Styled> Мы рекомендуем</Styled>
             <StyledCard>
-               {recommend.map((data) => {
+               {recommend?.map((data) => {
                   return (
                      <div key={data.productId}>
                         <Card
@@ -163,7 +163,7 @@ const MainPage = () => {
                })}
             </StyledCard>
             <StyledButton>
-               {seeMoreRecommend.length === 5 && (
+               {seeMoreRecommend?.length === 5 && (
                   <div key={seeMoreRecommend.productId}>
                      <Button
                         variant="outlined"
@@ -174,7 +174,7 @@ const MainPage = () => {
                      </Button>
                   </div>
                )}
-               {seeMoreRecommend.length >= 100 && (
+               {seeMoreRecommend?.length >= 100 && (
                   <Button
                      variant="outlined"
                      width="300px"

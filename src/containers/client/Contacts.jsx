@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { styled } from '@mui/material'
+import { useDispatch } from 'react-redux'
 
 import googleMap from '../../assets/icons/googleMap.svg'
 import BreadCrumbs from '../../components/UI/Bredcrumbs'
 import Button from '../../components/UI/Button'
 import Input from '../../components/UI/inputs/Input'
+import { postContacts } from '../../store/actions/userContactAction'
 
 const pathsArray = [
    {
@@ -17,7 +19,37 @@ const pathsArray = [
       name: 'Контакты',
    },
 ]
+
 const Contacts = () => {
+   const dispatch = useDispatch()
+
+   const [contact, setContact] = useState({
+      name: '',
+      surname: '',
+      email: '',
+      phoneNumber: '',
+      message: '',
+   })
+
+   const getValuesHandler = (event) => {
+      setContact({
+         ...contact,
+         [event.target.name]: event.target.value,
+      })
+   }
+
+   const sendContactHandler = (event) => {
+      event.preventDefault()
+      dispatch(postContacts(contact))
+      setContact({
+         name: '',
+         surname: '',
+         email: '',
+         phoneNumber: '',
+         message: '',
+      })
+   }
+
    return (
       <div>
          <BreadCrumbs paths={pathsArray} />
@@ -40,30 +72,34 @@ const Contacts = () => {
                </MinContainer>
                <div>
                   <h3> Напишите нам</h3>
-                  <FormContainer>
+                  <FormContainer onSubmit={sendContactHandler}>
                      <StyledForm>
                         <Form>
                            <label htmlFor="name"> Имя</label>
                            <Input
+                              onChange={getValuesHandler}
                               type="text"
                               placeholder="Напишите ваше имя"
                               width="338px"
                               height="48px"
                               borderRadius="6px"
                               id="firstName"
-                              name="firstName"
+                              value={contact.name}
+                              name="name"
                            />
                         </Form>
                         <Form>
                            <label htmlFor="lastName"> Фамилия </label>
                            <Input
+                              onChange={getValuesHandler}
                               type="text"
                               placeholder="Напишите вашу фамилию"
                               width="338px"
                               height="48px"
                               borderRadius="6px"
                               id="lastName"
-                              name="lastName"
+                              value={contact.surname}
+                              name="surname"
                            />
                         </Form>
                      </StyledForm>
@@ -72,25 +108,27 @@ const Contacts = () => {
                            <Form>
                               <label htmlFor="E-mail"> E-mail </label>
                               <Input
+                                 onChange={getValuesHandler}
                                  type="email"
                                  placeholder="Напишите ваш email"
+                                 value={contact.email}
                                  width="338px"
                                  height="48px"
                                  borderRadius="6px"
-                                 id="lastName"
-                                 name="lastName"
+                                 name="email"
                               />
                            </Form>
                            <Form>
                               <label htmlFor="Number"> Телефон </label>
                               <Input
+                                 onChange={getValuesHandler}
                                  type="number"
                                  placeholder="+996 (_ _ _) _ _ _ _ _ _"
+                                 value={contact.phoneNumber}
                                  width="338px"
                                  height="48px"
                                  borderRadius="6px"
-                                 id="lastName"
-                                 name="lastName"
+                                 name="phoneNumber"
                               />
                            </Form>
                         </StyledFormBlock>
@@ -98,9 +136,11 @@ const Contacts = () => {
                      <div>
                         <label htmlFor="text"> Сообщение</label>
                         <Textarea
+                           onChange={getValuesHandler}
                            type="text"
-                           id="id"
                            placeholder="Напишите сообщение"
+                           value={contact.massage}
+                           name="massage"
                         />
                         <Button
                            width="690px"
@@ -137,7 +177,7 @@ const Styled = styled('div')`
    justify-content: space-between;
    margin: 60px 0px;
 `
-const FormContainer = styled('div')`
+const FormContainer = styled('form')`
    width: 688px;
    height: 500px;
    display: flex;
