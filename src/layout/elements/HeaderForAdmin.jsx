@@ -89,7 +89,7 @@ const Header = styled('div')`
    background: #1a1a25;
 `
 const HeaderContainer = styled('header')`
-   max-width: 1920px;
+   max-width: 1520px;
    margin-left: auto;
    margin-right: auto;
    height: 83px;
@@ -98,13 +98,17 @@ const HeaderContainer = styled('header')`
    position: sticky;
    top: 0;
    z-index: 999;
-
    @media (max-width: 1536px) {
       max-width: 1280px;
    }
    @media (max-width: 1280px) {
       max-width: 1120px;
    }
+
+   /* @media (max-width: 1240px) {
+      max-width: 1200px;
+      padding: 18px 30px;
+   } */
 `
 const UpperRow = styled('div')`
    display: flex;

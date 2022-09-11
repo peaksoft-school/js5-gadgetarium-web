@@ -1,168 +1,219 @@
-import styled from '@emotion/styled/'
+import { useEffect, useState } from 'react'
 
-import IphoneImg from '../../../assets/images/Phone.png'
+import styled from '@emotion/styled/'
+import { useSelector, useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
+
 import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
 import Carousel from '../../../components/UI/Carousel'
 import InfoCards from '../../../components/UI/InfoCards'
+import { addToComparison } from '../../../store/actions/comparisonActions'
+import {
+   getMainDiscountProduct,
+   getMainNewProduct,
+   getMainRecommendProduct,
+} from '../../../store/actions/productActions'
 
-const data = [
-   {
-      id: 1,
-      action: '-10%',
-      img: IphoneImg,
-      status: 'В наличии',
-      title: 'Смартфон Apple iPhone 13 256gb',
-      rating: 5,
-      actualprice: 78000,
-      noneactualprice: 80000,
-   },
-   {
-      id: 2,
-      action: '-20%',
-      img: IphoneImg,
-      status: 'В наличии',
-      title: 'Смартфон Apple iPhone 13 256gb',
-      rating: 2,
-      actualprice: 78000,
-      noneactualprice: 80000,
-   },
-   {
-      id: 3,
-      action: '-10%',
-      img: IphoneImg,
-      status: 'В наличии',
-      title: 'Смартфон Apple iPhone 13 256gb',
-      rating: 3,
-      actualprice: 78000,
-      noneactualprice: 80000,
-   },
-   {
-      id: 4,
-      action: '-10%',
-      img: IphoneImg,
-      status: 'В наличии',
-      title: 'Смартфон Apple iPhone 13 256gb',
-      rating: 4,
-      actualprice: 78000,
-      noneactualprice: 80000,
-   },
-   {
-      id: 5,
-      action: '-10%',
-      img: IphoneImg,
-      status: 'В наличии',
-      title: 'Смартфон Apple iPhone 13 256gb',
-      rating: 5,
-      actualprice: 78000,
-      noneactualprice: 80000,
-   },
-]
-// const imgs = [
-//    {
-//       id: 1,
-//       url: 'https://www.apple.com/ru/i
-// phone-13/images/overview/hero/hero_1_static__d195o2nfxt26_large.jpg',
-//    },
-//    {
-//       id: 2,
-//       url: 'https://media.wired.com/photos/5f91e9488401fee4b39a2c84/191:100/w_1280,c
-// _limit/Gear-Buying-Guide-iPhone-12_family-lineup.jpg',
-//    },
-//    {
-//       id: 3,
-//       url: 'https://www.apple.com/kg/iphone/home/images/meta/iphone__btp62hy2cbea_og.png',
-//    },
-// ]
 const MainPage = () => {
+   const [size, setSize] = useState({
+      new: 5,
+      recommend: 5,
+      discount: 5,
+   })
+
+   const [compare, setCompare] = useState('')
+
+   const { newProduct, discount, recommend } = useSelector(
+      (state) => state.mainProducts
+   )
+   const { jwt } = useSelector((state) => state.auth.user)
+
+   const dispatch = useDispatch()
+
+   const compareProducts = (id) => {
+      console.log(compare.includes(id))
+
+      if (jwt) {
+         if (!compare.includes(id)) {
+            setCompare([...compare, id])
+            dispatch(addToComparison(id))
+         }
+      } else {
+         toast.error('Пожалуйста сначало авторизуйтесь')
+      }
+   }
+
+   useEffect(() => {
+      dispatch(getMainDiscountProduct(size.discount))
+   }, [size.discount])
+
+   useEffect(() => {
+      dispatch(getMainNewProduct(size.new))
+   }, [size.new])
+
+   useEffect(() => {
+      dispatch(getMainRecommendProduct(size.recommend))
+   }, [size.recommend])
+
+   const loadMore = (type) => {
+      const newSize = { ...size }
+      newSize[type] += 5
+      setSize(newSize)
+   }
+
+   const showLess = (type) => {
+      setSize((prev) => {
+         return {
+            ...prev,
+            [type]: 5,
+         }
+      })
+   }
+
+   const seeMoreDiscount = discount?.map((el) => el)
+   const seeMoreNew = newProduct?.map((el) => el)
+   const seeMoreRecommend = recommend?.map((el) => el)
+
    return (
       <div>
-         {/* <Layout> */}
          <StyledSlider>
-            {/* <div>
-               <img src={slidePhone} alt="" />
-               <img src={slidePhoneTwo} alt="" />
-            </div> */}
             <Carousel />
          </StyledSlider>
          <CardContainer>
-            <Styled> Акции</Styled>
+            {/* <Styled>Акции</Styled> */}
             <StyledCard>
-               {data.map((data) => {
+               {discount?.map((data) => {
                   return (
-                     <div key={data.id}>
+                     <div key={data.productId}>
                         <Card
-                           id={data.id}
+                           id={data.productId}
                            action={data.action}
-                           img={data.img}
+                           img={data.image}
                            status={data.status}
-                           title={data.title}
-                           rating={data.rating}
-                           actualprice={data.actualprice}
-                           noneactualprice={data.noneactualprice}
+                           title={data.nameMemoryColor}
+                           rating={data.stars}
+                           actualprice={data.price}
+                           noneactualprice={data.currentPrice}
                         />
                      </div>
                   )
                })}
             </StyledCard>
             <StyledButton>
-               <Button variant="outlined" width="300px">
-                  Показать еще
-               </Button>
+               {seeMoreDiscount?.length === 5 && (
+                  <div key={seeMoreDiscount.productId}>
+                     <Button
+                        variant="outlined"
+                        width="300px"
+                        onClick={() => loadMore('discount')}
+                     >
+                        Показать еще
+                     </Button>
+                  </div>
+               )}
+               {seeMoreDiscount?.length >= 20 && (
+                  <Button
+                     variant="outlined"
+                     width="300px"
+                     onClick={() => showLess('discount')}
+                  >
+                     Показать меньше
+                  </Button>
+               )}
             </StyledButton>
             <Styled> Новинки</Styled>
             <StyledCard>
-               {data.map((data) => {
+               {newProduct?.map((data) => {
                   return (
-                     <div key={data.id}>
+                     <div key={data.productId}>
                         <Card
-                           id={data.id}
+                           id={data.productId}
                            action={data.action}
-                           img={data.img}
+                           sort={data.sort}
+                           compareProducts={() =>
+                              compareProducts(data.productId)
+                           }
+                           compare={compare}
+                           discount={data.discount}
+                           img={data.image}
                            status={data.status}
-                           title={data.title}
-                           rating={data.rating}
-                           actualprice={data.actualprice}
-                           noneactualprice={data.noneactualprice}
+                           title={data.nameMemoryColor}
+                           rating={data.stars}
+                           actualprice={data.price}
+                           noneactualprice={data.currentPrice}
                         />
                      </div>
                   )
                })}
             </StyledCard>
             <StyledButton>
-               <Button variant="outlined" width="300px">
-                  Показать еще
-               </Button>
+               {seeMoreNew?.length === 5 && (
+                  <div key={seeMoreNew.productId}>
+                     <Button
+                        variant="outlined"
+                        width="300px"
+                        onClick={() => loadMore('new')}
+                     >
+                        Показать еще
+                     </Button>
+                  </div>
+               )}
+               {seeMoreNew?.length >= 20 && (
+                  <Button
+                     variant="outlined"
+                     width="300px"
+                     onClick={() => showLess('new')}
+                  >
+                     Показать меньше
+                  </Button>
+               )}
             </StyledButton>
-            <Styled> Мы рекомендуем</Styled>
+            {/* <Styled> Мы рекомендуем</Styled> */}
             <StyledCard>
-               {data.map((data) => {
+               {recommend?.map((data) => {
                   return (
-                     <div key={data.id}>
+                     <div key={data.productId}>
                         <Card
-                           id={data.id}
+                           id={data.productId}
                            action={data.action}
-                           img={data.img}
+                           img={data.image}
                            status={data.status}
-                           title={data.title}
-                           rating={data.rating}
-                           actualprice={data.actualprice}
-                           noneactualprice={data.noneactualprice}
+                           title={data.nameMemoryColor}
+                           rating={data.stars}
+                           actualprice={data.price}
+                           noneactualprice={data.currentPrice}
                         />
                      </div>
                   )
                })}
             </StyledCard>
             <StyledButton>
-               <Button variant="outlined" width="300px">
-                  Показать еще
-               </Button>
+               {seeMoreRecommend?.length === 5 && (
+                  <div key={seeMoreRecommend.productId}>
+                     <Button
+                        variant="outlined"
+                        width="300px"
+                        onClick={() => loadMore('recommend')}
+                     >
+                        Показать еще
+                     </Button>
+                  </div>
+               )}
+               {seeMoreRecommend?.length >= 100 && (
+                  <Button
+                     variant="outlined"
+                     width="300px"
+                     onClick={() => showLess('recommend')}
+                  >
+                     Показать меньше
+                  </Button>
+               )}
             </StyledButton>
             <StyledContainer>
                <InfoCards />
             </StyledContainer>
          </CardContainer>
-         {/* </Layout> */}
       </div>
    )
 }

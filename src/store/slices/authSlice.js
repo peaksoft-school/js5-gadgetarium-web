@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import { signIn, signUp } from '../../services/authService'
+import { signIn, signUp } from '../../services/authServices'
 import { GADGETARIUM_USER_DATA } from '../../utils/constants/constants'
 import { localStorageHelpers } from '../../utils/helpers/general'
 
@@ -77,7 +77,7 @@ const authSlice = createSlice({
       },
       [login.rejected]: (state, action) => {
          state.loading = false
-         state.error = action.payload.message
+         state.error = action.payload
          toast.error('Ошибка с авторизацией')
       },
       [registration.pending]: (state) => {

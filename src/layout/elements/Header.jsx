@@ -3,16 +3,13 @@ import React from 'react'
 import { styled } from '@mui/material'
 import { Link, NavLink } from 'react-router-dom'
 
-import compare from '../../assets/icons/compare.svg'
 import facebook from '../../assets/icons/facebook.svg'
-import favorites from '../../assets/icons/favorites.svg'
 import instagram from '../../assets/icons/instagram.svg'
 import logo from '../../assets/icons/logo.svg'
 import menu from '../../assets/icons/menu.svg'
-import cart from '../../assets/icons/shopping-cart.svg'
 import whatsapp from '../../assets/icons/whatsapp.svg'
 import UserProfile from '../../components/client/UserProfile'
-import MuiBadge from '../../components/UI/MuiBadge'
+import UserTools from '../../components/client/UserTools'
 
 const Header = () => {
    return (
@@ -73,23 +70,7 @@ const Header = () => {
                      <ImageBox src={whatsapp} />
                   </NavLink>
                </SocialLinks>
-               <UserTools>
-                  <NavLink to="comparison">
-                     <MuiBadge counter={2}>
-                        <ImageBox src={compare} />
-                     </MuiBadge>
-                  </NavLink>
-                  <NavLink to="favourites">
-                     <MuiBadge>
-                        <ImageBox src={favorites} />
-                     </MuiBadge>
-                  </NavLink>
-                  <NavLink to="cart">
-                     <MuiBadge>
-                        <ImageBox src={cart} />
-                     </MuiBadge>
-                  </NavLink>
-               </UserTools>
+               <UserTools />
             </BottomRow>
          </NavBar>
       </HeaderContainer>
@@ -177,9 +158,6 @@ const SocialLinks = styled('div')`
    height: 30px;
    display: flex;
    justify-content: space-between;
-`
-const UserTools = styled(SocialLinks)`
-   width: 115px;
 `
 const Logo = styled('img')`
    width: 221px;
