@@ -16,7 +16,7 @@ const PreviewSlider = ({ images }) => {
          >
             {images.map((img) => (
                <div key={img.id}>
-                  <img src={img} alt="#" />
+                  <img src={img.images} alt="#" />
                </div>
             ))}
          </CarouselStyle>
@@ -25,6 +25,7 @@ const PreviewSlider = ({ images }) => {
 }
 
 export default PreviewSlider
+
 const CarouselStyle = styled(Carousel)`
    .carousel {
       display: flex;
@@ -32,12 +33,10 @@ const CarouselStyle = styled(Carousel)`
       padding-top: 40px;
       background-color: transparent;
    }
-   .carousel .slide {
-      height: 750px;
-   }
    .carousel .slide img {
-      width: 750px;
-      height: 750px;
+      width: 310px;
+      height: 370px;
+      object-fit: contain;
    }
    .thumbs-wrapper {
       margin-top: -0px;

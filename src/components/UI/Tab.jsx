@@ -91,10 +91,3 @@ const StyledTabList = styled(TabList)`
 const StyledTabPanel = styled(TabPanel)`
    padding: 30px 0 0 0;
 `
-
-// const StyledTabContext = styled(StyledTab)`
-//    .MuiButtonBase-root-MuiTab-root.Mui-selected {
-//       background: '#384255';
-//       color: '#ffffff';
-//    }
-// `

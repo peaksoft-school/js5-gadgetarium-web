@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 
 import { styled } from '@mui/material'
 import Table from '@mui/material/Table'
@@ -8,18 +8,17 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
-import Checkbox from '../UI/Checkbox'
+import { ReactComponent as CheckMark } from '../../../assets/icons/check-mark-in-a-circle-svgrepo-com.svg'
+import Checkbox from '../../UI/Checkbox'
 
-function TableList({ columns, data, width, checkbox, onNavigetToInnerPage }) {
-   const [checked, setChecked] = useState(0)
-   const countChecked = (event) => {
-      if (event.target.checked === true) {
-         setChecked((prevState) => prevState + 1)
-      } else {
-         setChecked((prevState) => prevState - 1)
-      }
-   }
-
+function TableList({
+   columns,
+   data,
+   width,
+   checkbox,
+   onNavigetToInnerPage,
+   getProductId,
+}) {
    return (
       <TableContainer>
          <MuiTable width={width}>
@@ -28,8 +27,10 @@ function TableList({ columns, data, width, checkbox, onNavigetToInnerPage }) {
                   <DivHead>
                      {checkbox && (
                         <HeadCell>
-                           <div style={{ width: '42px', textAlign: 'center' }}>
-                              {checked}
+                           <div
+                              style={{ marginTop: '8px', textAlign: 'center' }}
+                           >
+                              <CheckMark />
                            </div>
                         </HeadCell>
                      )}
@@ -60,7 +61,13 @@ function TableList({ columns, data, width, checkbox, onNavigetToInnerPage }) {
                         <Div>
                            {checkbox && (
                               <BodyCell>
-                                 <Checkbox onChange={countChecked} />
+                                 <Checkbox
+                                    onChange={(event) =>
+                                       getProductId(event, row.productId)
+                                    }
+                                    onClick={(event) => event.stopPropagation()}
+                                    value={row.productId}
+                                 />
                               </BodyCell>
                            )}
                            {columns.map((col) => {

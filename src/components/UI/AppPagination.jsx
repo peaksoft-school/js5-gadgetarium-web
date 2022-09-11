@@ -3,7 +3,7 @@ import React from 'react'
 import { Box, styled } from '@mui/material'
 import Pagination from '@mui/material/Pagination'
 
-const AppPagination = ({ totalPage, onChange, page }) => {
+const AppPagination = ({ totalPage = 0, onChange, page }) => {
    return (
       <Box justifyContent="center" alignItems="center" display="flex">
          <PaginationStyled

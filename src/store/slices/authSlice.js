@@ -87,7 +87,6 @@ const authSlice = createSlice({
          state.loading = false
          const user = action.payload
          localStorageHelpers.saveToLocalStorage(GADGETARIUM_USER_DATA, user)
-         toast.success('Успешно!')
          state.user = user
          toast.success('Вы успешно зарегистрирвались!')
       },

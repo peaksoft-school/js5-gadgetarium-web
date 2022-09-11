@@ -2,7 +2,7 @@ import React from 'react'
 
 import { styled } from '@mui/material'
 
-import googleMap from '../../assets/images/googleMap.svg'
+import googleMap from '../../assets/icons/googleMap.svg'
 import BreadCrumbs from '../../components/UI/Bredcrumbs'
 import Button from '../../components/UI/Button'
 import Input from '../../components/UI/inputs/Input'

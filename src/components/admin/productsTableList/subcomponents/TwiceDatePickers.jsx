@@ -15,12 +15,14 @@ const TwiceDatePickers = ({ start, finish, onStartChange, onFinishChange }) => {
             onChange={onFirstChange}
             width="139px"
             height="35px"
+            placeholder="От"
          />
          <DatePicker
             value={finish}
             onChange={onSecondChange}
             width="139px"
             height="35px"
+            placeholder="До"
          />
       </>
    )

@@ -6,6 +6,8 @@ import {
    createProductSecondStage,
    createProductThirdStage,
    fileUpload,
+   createDiscount,
+   getAllProducts,
 } from '../../../services/productServices'
 
 export const createFirstStage = createAsyncThunk(
@@ -78,6 +80,20 @@ export const createThirdStage = createAsyncThunk(
          return response.data
       } catch (error) {
          toast.error(`${error.response.data.message}`)
+         return console.error(error.response.data.message)
+      }
+   }
+)
+
+export const createDiscountProducts = createAsyncThunk(
+   'product/createDiscountProducts',
+   async (formData, dispatch) => {
+      try {
+         const response = await createDiscount(formData)
+         console.log(response.data)
+         dispatch(getAllProducts())
+         return response.data
+      } catch (error) {
          return console.error(error.response.data.message)
       }
    }

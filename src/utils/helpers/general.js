@@ -48,6 +48,12 @@ export const getRequestOptions = {
    size: null,
 }
 
+export const reduceDates = (date) =>
+   date
+      ?.split('-')
+      .map((el) => Number(el))
+      .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
+
 // export function requestWithSorting(requestObj) {
 //    let text = ''
 //    for (const key in requestObj) {

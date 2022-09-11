@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import { IconButton } from '@mui/material'
 // import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
 
 import { ReactComponent as SearchIcon } from '../../../assets/icons/searchIcon.svg'
-import Infographic from '../../../components/admin/Infographic'
+import CreateDiscount from '../../../components/admin/adminActions/CreateDiscount'
+import Infographic from '../../../components/admin/adminUI/Infographic'
 import AllProducts from '../../../components/admin/productsTableList/AllProducts'
 import BasketProducts from '../../../components/admin/productsTableList/BasketProducts'
 import OnSaleProducts from '../../../components/admin/productsTableList/OnSaleProducts'
@@ -15,35 +17,55 @@ import Button from '../../../components/UI/Button'
 import Tab from '../../../components/UI/Tab'
 // import { setSearchQuery } from '../../../store/slices/productSlice'
 
-const tabsArray = [
-   {
-      id: 1,
-      value: 'Все товары',
-      label: 'Все товары',
-      Component: <AllProducts />,
-   },
-   {
-      id: 2,
-      value: 'В продаже',
-      label: 'В продаже',
-      Component: <OnSaleProducts />,
-   },
-   {
-      id: 3,
-      value: 'В избранном',
-      label: 'В избранном',
-      Component: <WishListProducts />,
-   },
-   {
-      id: 4,
-      value: 'В корзине',
-      label: 'В корзине',
-      Component: <BasketProducts />,
-   },
-]
-
 const ProductsPage = () => {
    const [search, setSearch] = useState('')
+   const [checkedProducts, setCheckedProducts] = useState({
+      productId: [],
+   })
+   const [open, setOpen] = useState(false)
+
+   const openModal = () => {
+      if (checkedProducts.productId.length > 0) {
+         setOpen(true)
+      } else {
+         toast.error('Выберите сначала товар')
+      }
+   }
+   const closeModal = () => {
+      setOpen(false)
+   }
+
+   const tabsArray = [
+      {
+         id: 1,
+         value: 'Все товары',
+         label: 'Все товары',
+         Component: (
+            <AllProducts
+               checkedProducts={checkedProducts}
+               setCheckedProducts={setCheckedProducts}
+            />
+         ),
+      },
+      {
+         id: 2,
+         value: 'В продаже',
+         label: 'В продаже',
+         Component: <OnSaleProducts />,
+      },
+      {
+         id: 3,
+         value: 'В избранном',
+         label: 'В избранном',
+         Component: <WishListProducts />,
+      },
+      {
+         id: 4,
+         value: 'В корзине',
+         label: 'В корзине',
+         Component: <BasketProducts />,
+      },
+   ]
    return (
       <Container>
          <FirsContentContainer>
@@ -64,9 +86,19 @@ const ProductsPage = () => {
                         Добавить товар
                      </Button>
                   </Link>
-                  <Button variant="outlined" width="184px" height="43px">
+                  <Button
+                     variant="outlined"
+                     width="184px"
+                     height="43px"
+                     onClick={openModal}
+                  >
                      Создать скидку
                   </Button>
+                  <CreateDiscount
+                     open={open}
+                     onClose={closeModal}
+                     productId={checkedProducts.productId}
+                  />
                </StyledButtonContainer>
             </TopContentContainer>
             <TabContainer>
@@ -129,7 +161,7 @@ const StyledButtonContainer = styled.div`
 `
 const FirsContentContainer = styled.div`
    width: 80%;
-   padding-right: 85px;
+   padding-right: 60px;
 `
 const TopContentContainer = styled.div`
    display: flex;

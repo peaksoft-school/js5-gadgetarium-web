@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { createSecondStage } from '../../../store/actions/stages/stagesActions'
 import Button from '../../UI/Button'
 import Input from '../../UI/inputs/Input'
-import TableList from '../TableList'
+import TableList from '../adminUI/TableList'
 
 const data = [
    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35, price: '', amout: '' },

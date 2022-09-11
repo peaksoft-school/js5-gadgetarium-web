@@ -23,7 +23,7 @@ import AdminSelect from '../../UI/AdminSelect'
 import Button from '../../UI/Button'
 import Input from '../../UI/inputs/Input'
 import ImageUpload from '../../UI/uploads/ImageUpload'
-import ColorPalette from '../ColorPalette'
+import ColorPalette from '../adminUI/ColorPalette'
 import SelectCharacter from '../selects/DynamicTextFields'
 
 const SELECTS = [
@@ -93,7 +93,7 @@ const FirstStage = () => {
    const getValue = (data, state) => {
       return state ? data?.find((c) => c.label === state) : ''
    }
-   // onChanes
+   // onChanges
    const handleChange = (event) => {
       const { value } = event.target
       const { name } = event.target

@@ -20,7 +20,10 @@ const theme = createTheme({
 })
 
 const DatePicker = forwardRef(
-   ({ label, width, height, value, onChange, disablePast }, ref) => {
+   (
+      { label, width, height, value, onChange, disablePast, placeholder },
+      ref
+   ) => {
       return (
          <LocalizationProvider adapterLocale={ru} dateAdapter={AdapterDateFns}>
             <StyledDivContainer width={width} height={height}>
@@ -54,7 +57,7 @@ const DatePicker = forwardRef(
                            inputProps={{
                               ...params.inputProps,
                               readOnly: true,
-                              placeholder: 'дд.мм.гг',
+                              placeholder,
                            }}
                         />
                      )}

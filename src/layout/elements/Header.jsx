@@ -75,7 +75,7 @@ const Header = () => {
                </SocialLinks>
                <UserTools>
                   <NavLink to="comparison">
-                     <MuiBadge counter={2}>
+                     <MuiBadge>
                         <ImageBox src={compare} />
                      </MuiBadge>
                   </NavLink>
@@ -103,14 +103,16 @@ const HeaderTop = styled('header')`
    margin-left: auto;
    margin-right: auto;
    height: 82px;
-   padding: 18px 0;
+   padding: 18px 100px;
 
    @media (max-width: 1536px) {
       max-width: 1440px;
+      padding: 18px 30px;
    }
 
    @media (max-width: 1240px) {
       max-width: 1200px;
+      padding: 18px 30px;
    }
 `
 const HeaderContainer = styled('div')`

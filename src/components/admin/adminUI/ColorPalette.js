@@ -4,8 +4,8 @@ import { InputAdornment, Popover } from '@mui/material'
 import { ChromePicker } from 'react-color'
 import styled from 'styled-components'
 
-import { ReactComponent as ColorIcon } from '../../assets/icons/color-icon.svg'
-import Input from '../UI/inputs/Input'
+import { ReactComponent as ColorIcon } from '../../../assets/icons/color-icon.svg'
+import Input from '../../UI/inputs/Input'
 
 const ColorPalette = forwardRef(({ getColor, defaultColor }, ref) => {
    const [color, setColor] = useState(defaultColor && '')

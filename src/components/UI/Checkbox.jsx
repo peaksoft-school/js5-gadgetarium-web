@@ -3,19 +3,27 @@ import MuiCheckbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
 
-const Checkbox = ({ onChange, cheked, label, ...props }) => {
+const Checkbox = ({ onChange, checked, label, ...props }) => {
    return (
-      <FormGroup>
+      <StyledFormGroup>
          <StyledMuiCheckbox
             control={
-               <StyledCheckbox onChange={onChange} cheked={cheked} {...props} />
+               <StyledCheckbox
+                  onChange={onChange}
+                  checked={checked}
+                  {...props}
+               />
             }
             label={label}
          />
-      </FormGroup>
+      </StyledFormGroup>
    )
 }
 export default Checkbox
+
+const StyledFormGroup = styled(FormGroup)`
+   margin-right: -16px;
+`
 
 const StyledMuiCheckbox = styled(FormControlLabel)`
    .MuiFormControlLabel-label {
@@ -24,6 +32,7 @@ const StyledMuiCheckbox = styled(FormControlLabel)`
       font-size: 16px;
       line-height: 140%;
       color: #384255;
+      margin-right: 0 !important;
    }
 `
 const StyledCheckbox = styled(MuiCheckbox)`

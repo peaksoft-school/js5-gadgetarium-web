@@ -2,13 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import adminPanelSlice from './slices/adminPanelSlice'
 import authSlice from './slices/authSlice'
-import formSlice from './slices/formSlice'
+import mainProductSlice from './slices/mainProductSlice'
 import productSlice from './slices/productSlice'
 
 const store = configureStore({
    reducer: {
+      mainProducts: mainProductSlice.reducer,
       auth: authSlice.reducer,
-      form: formSlice.reducer,
       product: productSlice.reducer,
       adminPanel: adminPanelSlice.reducer,
    },

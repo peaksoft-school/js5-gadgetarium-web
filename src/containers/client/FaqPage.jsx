@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 
 import { styled } from '@mui/material'
 
+import Ellise1 from '../../assets/icons/Ellipse1.svg'
+import Ellipse2 from '../../assets/icons/Ellipse2.svg'
+import Ellipse3 from '../../assets/icons/Ellipse3.svg'
+import Ellipse4 from '../../assets/icons/Ellipse4.svg'
+import Ellipse5 from '../../assets/icons/Ellipse5.svg'
 import VectorArrow from '../../assets/icons/VectorArrow.svg'
-import Ellise1 from '../../assets/images/Ellipse1.svg'
-import Ellipse2 from '../../assets/images/Ellipse2.svg'
-import Ellipse3 from '../../assets/images/Ellipse3.svg'
-import Ellipse4 from '../../assets/images/Ellipse4.svg'
-import Ellipse5 from '../../assets/images/Ellipse5.svg'
 import BreadCrumbs from '../../components/UI/Bredcrumbs'
 
 const pathsArray = [
@@ -16,7 +16,7 @@ const pathsArray = [
       name: 'Главная',
    },
    {
-      path: '/about',
+      path: '/faq',
       name: 'FAQ',
    },
 ]

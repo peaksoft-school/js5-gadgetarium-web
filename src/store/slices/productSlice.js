@@ -12,6 +12,7 @@ import {
    createFirstStage,
    createSecondStage,
    createThirdStage,
+   createDiscountProducts,
 } from '../actions/stages/stagesActions'
 
 const initialState = {
@@ -119,6 +120,18 @@ const productSlice = createSlice({
          toast.success('Успешно!')
       },
       [createThirdStage.rejected]: (state, action) => {
+         state.loading = false
+         state.error = action.payload
+      },
+      [createDiscountProducts.pending]: (state) => {
+         state.loading = true
+      },
+      [createDiscountProducts.fulfilled]: (state, action) => {
+         state.loading = false
+         state.products = action.payload
+         toast.success('Скидка на товар успешно установлена')
+      },
+      [createDiscountProducts.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
       },

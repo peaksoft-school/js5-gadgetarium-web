@@ -14,7 +14,7 @@ import {
 } from '../../../store/actions/products/productsActions'
 import { dateFormatter } from '../../../utils/helpers/general'
 import AppPagination from '../../UI/AppPagination'
-import TableList from '../TableList'
+import TableList from '../adminUI/TableList'
 
 import Sorting from './subcomponents/Sorting'
 import TwiceDatePickers from './subcomponents/TwiceDatePickers'
@@ -24,7 +24,7 @@ const override = {
    margin: '150px auto 0 auto',
 }
 
-const AllProducts = () => {
+const AllProducts = ({ setCheckedProducts, checkedProducts }) => {
    const { products, loading, sizeOfProducts, totalPage } = useSelector(
       (state) => state.adminPanel
    )
@@ -40,9 +40,6 @@ const AllProducts = () => {
    const navigate = useNavigate()
 
    const { allproducts } = products
-
-   console.log(sizeOfProducts, totalPage)
-   console.log(queryParams)
 
    const dispatch = useDispatch()
 
@@ -96,12 +93,27 @@ const AllProducts = () => {
    const handleDelete = (e, id) => {
       e.stopPropagation()
       if (window.confirm('Вы хотите удалить этот продукт?')) {
-         dispatch(deleteProductById({ id }))
+         dispatch(deleteProductById(id))
       }
    }
 
    const onNavigetToInnerPage = (id) => {
       navigate(`${id}`)
+   }
+
+   const getProductId = (e) => {
+      const { value, checked } = e.target
+      const { productId } = checkedProducts
+
+      if (checked) {
+         setCheckedProducts({
+            productId: [...productId, value],
+         })
+      } else {
+         setCheckedProducts({
+            productId: productId.filter((e) => e !== value),
+         })
+      }
    }
 
    const onChangeHandler = (key, value) => {
@@ -121,7 +133,7 @@ const AllProducts = () => {
       },
       { key: 'image', header: 'Фото', width: 80 },
       { key: 'article', header: 'Артикул', width: 120 },
-      { key: 'productName', header: 'Наименование товара', width: 200 },
+      { key: 'productName', header: 'Наименование товара', width: 180 },
       {
          key: 'createAt',
          header: 'Дата создания',
@@ -140,7 +152,9 @@ const AllProducts = () => {
          cell: (item) => (
             <div>
                <StyledPrice>{item.price}</StyledPrice>
-               <StyledDiscount>{item.discount}%</StyledDiscount>
+               <StyledDiscount>
+                  {item.discount === 0 ? '' : `${item.discount}%`}
+               </StyledDiscount>
             </div>
          ),
       },
@@ -159,7 +173,9 @@ const AllProducts = () => {
          cell: (item) => {
             return (
                <ActionContainer>
-                  <UpdateIcon />
+                  <IconButton>
+                     <UpdateIcon />
+                  </IconButton>
                   <IconButton onClick={(e) => handleDelete(e, item.productId)}>
                      <DeleteIcon />
                   </IconButton>
@@ -202,6 +218,8 @@ const AllProducts = () => {
                data={allproducts}
                columns={columns}
                onNavigetToInnerPage={onNavigetToInnerPage}
+               checkbox
+               getProductId={getProductId}
             />
             <AppPagination
                totalPage={totalPage}
@@ -242,7 +260,7 @@ const TableListContainer = styled.div`
 `
 const ActionContainer = styled.div`
    display: flex;
-   gap: 25px;
+   gap: 12px;
 
    svg {
       cursor: pointer;

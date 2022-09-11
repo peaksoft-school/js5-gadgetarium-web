@@ -38,9 +38,10 @@ export const getAllProducts = (queryParams) =>
 
 export const getProduct = (id) => axiosInstance.get(`api/products/${id}`)
 
-export const deleteProduct = (id) => axiosInstance.delete(`api/products/${id}`)
+export const deleteProduct = (id) =>
+   axiosInstance.delete(`api/products/${id}/delete`)
 export const deleteManyProducts = (id) =>
-   axiosInstance.delete(`api/products/${id}`)
+   axiosInstance.delete(`api/products/delete/${id}`)
 // ------
 
 export const fileUpload = (formData) =>
@@ -50,3 +51,6 @@ export const fileRemove = (filename) =>
 
 export const getNewProducts = () =>
    axiosInstance.get('api/user/mainPage?sort=RECOMMEND&page=1&size=5')
+
+export const createDiscount = (formData) =>
+   axiosInstance.post('api/discount', formData)

@@ -1,7 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import { getAllProducts, getProduct } from '../../../services/productServices'
+import {
+   getAllProducts,
+   getProduct,
+   deleteProduct,
+} from '../../../services/productServices'
 
 export const getProducts = createAsyncThunk(
    'products/getProducts',
@@ -33,7 +37,7 @@ export const deleteProductById = createAsyncThunk(
    'products/deleteProduct',
    async (id, { rejectWithValue }) => {
       try {
-         const { data } = await getAllProducts(id)
+         const { data } = await deleteProduct(id)
          toast.success('Товар успешно удален')
          console.log(data)
          return data
