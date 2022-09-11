@@ -45,6 +45,7 @@ const initialState = {
       jwt: null,
       role: null,
       email: null,
+      id: null,
    },
    error: '',
    loading: false,

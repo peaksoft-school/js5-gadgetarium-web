@@ -14,6 +14,7 @@ import {
    getMainNewProduct,
    getMainRecommendProduct,
 } from '../../../store/actions/productActions'
+import { addWishProducts } from '../../../store/actions/wishListActions'
 
 const MainPage = () => {
    const [size, setSize] = useState({
@@ -22,22 +23,27 @@ const MainPage = () => {
       discount: 5,
    })
 
-   const [compare, setCompare] = useState('')
-
    const { newProduct, discount, recommend } = useSelector(
       (state) => state.mainProducts
    )
-   const { jwt } = useSelector((state) => state.auth.user)
+   const { jwt, id } = useSelector((state) => state.auth.user)
 
    const dispatch = useDispatch()
 
    const compareProducts = (id) => {
-      console.log(compare.includes(id))
-
       if (jwt) {
-         if (!compare.includes(id)) {
-            setCompare([...compare, id])
+         if (id) {
             dispatch(addToComparison(id))
+         }
+      } else {
+         toast.error('Пожалуйста сначало авторизуйтесь')
+      }
+   }
+
+   const addToFavorites = (productId) => {
+      if (id) {
+         if (productId) {
+            dispatch(addWishProducts(id, productId))
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')
@@ -134,7 +140,7 @@ const MainPage = () => {
                            compareProducts={() =>
                               compareProducts(data.productId)
                            }
-                           compare={compare}
+                           addToFavorites={() => addToFavorites(data.productId)}
                            discount={data.discount}
                            img={data.image}
                            status={data.status}

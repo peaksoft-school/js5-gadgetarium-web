@@ -9,19 +9,12 @@ import {
    addToComparison,
 } from '../actions/comparisonActions'
 
-const checkLocalStorage = () => {
-   return Object.assign(
-      {},
-      ...Object.entries(localStorage).map(([id, value]) => ({
-         [id]: JSON.parse(value),
-      }))
-   )
-}
-
 const initialState = {
-   compareProducts: [],
+   smartPhone: [],
+   laptop: [],
+   tablet: [],
+   smartWatch: [],
    compareHoverProducts: [],
-   compare: checkLocalStorage(),
    message: '',
    error: '',
    loading: false,
@@ -30,29 +23,33 @@ const initialState = {
 const compareProductSlice = createSlice({
    name: 'compareProduct',
    initialState,
-   reducers: {
-      addToCompare: (state, action) => {
-         const jsonProduct = JSON.stringify(action.payload)
-         localStorage.setItem(action.payload.id, jsonProduct)
-         state.compare = {
-            ...state.compare,
-            [action.payload.id]: action.payload,
-         }
-      },
-      removeFromCompare: (state, action) => {
-         localStorage.removeItem(action.payload)
-         state.compare = Object.keys(state.compare)
-            .filter((item) => item !== action.payload(toString()))
-            .reduce((obj, item) => ({ ...obj, [item]: state.compare[item] }))
-      },
-   },
+   reducers: {},
    extraReducers: {
       [getCompareProducts.pending]: (state) => {
          state.loading = true
       },
       [getCompareProducts.fulfilled]: (state, action) => {
          state.loading = false
-         state.compareProducts = action.payload
+         const smartPhone = action.payload.filter(
+            (el) => el.catalogName === 'Смартфоны'
+         )
+         const laptop = action.payload.filter(
+            (el) => el.catalogName === 'Ноутбуки'
+         )
+         const tablet = action.payload.filter(
+            (el) => el.catalogName === 'Планшеты'
+         )
+         const smartWatch = action.payload.filter(
+            (el) => el.catalogName === 'Смарт-часы и браслеты'
+         )
+         console.log(smartPhone)
+         console.log(laptop)
+         console.log(tablet)
+         console.log(smartWatch)
+         state.smartPhone = Object.assign({}, ...smartPhone)
+         state.laptop = Object.assign({}, ...laptop)
+         state.tablet = Object.assign({}, ...tablet)
+         state.smartWatch = smartWatch
       },
       [getCompareProducts.rejected]: (state, action) => {
          state.loading = false
@@ -85,11 +82,21 @@ const compareProductSlice = createSlice({
       },
       [removeCompareProduct.fulfilled]: (state, action) => {
          state.loading = false
-         state.compareProducts = action.payload
+         const {
+            arg: { id },
+         } = action.meta
+         if (id) {
+            state.smartPhone = state.smartPhone.filter((item) => item.id !== id)
+            state.laptop = state.laptop.filter((item) => item.id !== id)
+            state.smartWatch = state.smartWatch.filter((item) => item.id !== id)
+            state.tablet = state.tablet.filter((item) => item.id !== id)
+         }
+         toast.success('Успешно удалено!')
       },
       [removeCompareProduct.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
+         toast.error('Что-то пошло не так')
       },
       [addToComparison.pending]: (state) => {
          state.loading = true
@@ -105,7 +112,5 @@ const compareProductSlice = createSlice({
       },
    },
 })
-
-export const { addToCompare, removeFromCompare } = compareProductSlice.reducer
 
 export default compareProductSlice

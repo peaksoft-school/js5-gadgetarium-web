@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 
 import { IconButton } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ReactComponent as Compare } from '../../assets/icons/compare.svg'
@@ -24,15 +24,19 @@ const UserTools = () => {
    const onClose = () => {
       setIsShown(null)
    }
+
+   // eslint-disable-next-line no-unused-vars
+   const [_, forceUpdate] = useReducer((x) => x + 1, 0)
+
    const handleNavigate = () => {
       navigate('comparison')
       setIsShown(null)
+      forceUpdate()
    }
-
-   console.log(compareHoverProducts)
 
    useEffect(() => {
       dispatch(getHoverCompareProducts())
+      forceUpdate()
    }, [])
 
    return (
@@ -62,11 +66,13 @@ const UserTools = () => {
                handleNavigate={handleNavigate}
             />
          )}
-         <IconButton>
-            <MuiBadge counter={23}>
-               <Favorites />
-            </MuiBadge>
-         </IconButton>
+         <Link to="favourites">
+            <IconButton>
+               <MuiBadge>
+                  <Favorites />
+               </MuiBadge>
+            </IconButton>
+         </Link>
          <IconButton>
             <MuiBadge>
                <Cart />

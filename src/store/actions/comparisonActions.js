@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 import * as api from '../../services/comareService'
 
@@ -28,9 +29,10 @@ export const getHoverCompareProducts = createAsyncThunk(
 
 export const removeAllCompareProducts = createAsyncThunk(
    'compareProducts/removeAllCompareProducts',
-   async (_, { rejectWithValue }) => {
+   async (dispatch, { rejectWithValue }) => {
       try {
          const response = await api.deleteAllCompareProducts()
+         dispatch(getCompareProducts())
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)
@@ -41,8 +43,10 @@ export const removeAllCompareProducts = createAsyncThunk(
 export const removeCompareProduct = createAsyncThunk(
    'compareProducts/removeCompareProduct',
    async (id, { rejectWithValue }) => {
+      console.log(id)
       try {
          const response = await api.deleteCompareProductById(id)
+         toast.success('Успешно удалено!')
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)

@@ -46,7 +46,7 @@ const Card = (props) => {
                      </div>
                   </Tooltip>
                </li>
-               <li onClick={props.addToFavotites}>
+               <li onClick={props.addToFavorites}>
                   <Tooltip title="Добавить в избранное">
                      <div>
                         <Like
