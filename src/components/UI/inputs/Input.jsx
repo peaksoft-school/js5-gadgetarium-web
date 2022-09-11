@@ -17,6 +17,7 @@ const Input = forwardRef((props, ref) => {
          value={value}
          error={error}
          onChange={onChange}
+         autoComplete="off"
          {...others}
       />
    )
