@@ -1,6 +1,7 @@
-import React from 'react'
+import { useState } from 'react'
 
 import { styled } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import logo from '../../assets/icons/footer-logo.svg'
@@ -10,8 +11,22 @@ import messageIcon from '../../assets/icons/icon-message.svg'
 import numberIcon from '../../assets/icons/icon-number.svg'
 import Button from '../../components/UI/Button'
 import Input from '../../components/UI/inputs/Input'
+import { subscribeForMailingList } from '../../store/slices/authSlice'
 
 const Footer = () => {
+   const [email, setEmail] = useState('')
+   const [error, setError] = useState('')
+   const dispatch = useDispatch()
+   function onSubmit(e) {
+      e.preventDefault()
+      if (email) {
+         dispatch(subscribeForMailingList(email))
+         setError('')
+      } else {
+         setError('Введите свой email')
+      }
+   }
+   console.log(email)
    return (
       <FooterPosition>
          <FooterContainer>
@@ -53,11 +68,18 @@ const Footer = () => {
                         <InputSubscribe
                            height="39px"
                            border-radius="4px 0 0 4px"
+                           value={email}
+                           onChange={(e) => setEmail(e.target.value)}
                         />
-                        <ButtonSubscribe width="160px" height="39px">
+                        <ButtonSubscribe
+                           width="160px"
+                           height="39px"
+                           onClick={(e) => onSubmit(e)}
+                        >
                            Подписаться
                         </ButtonSubscribe>
                      </InputButtonContainer>
+                     {error && <ErrorMessage>{error}</ErrorMessage>}
                      <p>
                         Нажимая на кнопку «подписаться» Вы соглашаетесь на
                         обработку персональных данных
@@ -268,4 +290,7 @@ const Copyright = styled('p')`
    color: #858fa4;
    line-height: 20px;
    text-align: center;
+`
+const ErrorMessage = styled('p')`
+   color: red;
 `

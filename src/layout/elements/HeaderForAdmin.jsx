@@ -1,38 +1,39 @@
 import React, { useState } from 'react'
 
-import { Popover, styled } from '@mui/material'
+import { styled } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 
+import { ReactComponent as VectorIcon } from '../../assets/icons/adminDropDown.svg'
 import logo from '../../assets/icons/logo.svg'
-import profileLogo from '../../assets/icons/profile-icon.svg'
-import search from '../../assets/icons/searchForAdmin.svg'
+// import profileLogo from '../../assets/icons/profile-icon.svg'
+import BasicModal from '../../components/UI/BasicModal'
 import Button from '../../components/UI/Button'
 import { logout } from '../../store/slices/authSlice'
 
 const HeaderForAdmin = () => {
-   const [anchorEl, setAnchorEl] = useState(null)
-   const handleClick = (event) => {
-      setAnchorEl(event.currentTarget)
+   const [openModal, setOpenModal] = useState(false)
+   const handleClick = () => {
+      setOpenModal(true)
    }
 
    const handleClose = () => {
-      setAnchorEl(null)
+      setOpenModal(false)
    }
-   const open = Boolean(anchorEl)
-   const id = open ? 'simple-popover' : undefined
    const dispatch = useDispatch()
    // const navigate = useNavigate()
+
    const navigateAfterLogOut = () => {
       dispatch(logout())
       window.location.reload()
-      // navigate('/')
    }
    return (
       <Header>
          <HeaderContainer>
             <UpperRow>
-               <Logo src={logo} />
+               <Link to="/admin/products">
+                  <Logo src={logo} />
+               </Link>
                <MenuNavBar>
                   <li>
                      <StyledNavLink
@@ -54,26 +55,37 @@ const HeaderForAdmin = () => {
                </MenuNavBar>
                <AdminUI>
                   <ButtonPush> Создать рассылку </ButtonPush>
-                  <SearchLogo src={search} />
                   <VerticalLine />
-                  <UserProfile>
-                     <ProfileLogo src={profileLogo} onClick={handleClick} />
-                     <Popover
-                        id={id}
-                        open={open}
-                        anchorEl={anchorEl}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                           vertical: 'bottom',
-                           horizontal: 'left',
-                        }}
-                     >
-                        <LinkItems>
-                           <li onClick={navigateAfterLogOut}>Выйти</li>
-                        </LinkItems>
-                     </Popover>
-                  </UserProfile>
-                  <p>Администратор </p>
+                  <AdminProfile>
+                     <ProfileLogo>G</ProfileLogo>
+                     <p onClick={handleClick}>Администратор </p>
+                     <VectorIcon />
+                  </AdminProfile>
+                  <BasicModal open={openModal} onClose={handleClose}>
+                     <Container>
+                        <ConfirmTitle>
+                           Вы уверены, что хотите выйти?
+                        </ConfirmTitle>
+                        <ButtonContainer>
+                           <Button
+                              variant="outlined"
+                              width="128px"
+                              height="40px"
+                              onClick={handleClose}
+                           >
+                              Отменить
+                           </Button>
+                           <Button
+                              variant="contained"
+                              width="128px"
+                              height="40px"
+                              onClick={navigateAfterLogOut}
+                           >
+                              Выйти
+                           </Button>
+                        </ButtonContainer>
+                     </Container>
+                  </BasicModal>
                </AdminUI>
             </UpperRow>
             <Outlet />
@@ -104,11 +116,6 @@ const HeaderContainer = styled('header')`
    @media (max-width: 1280px) {
       max-width: 1120px;
    }
-
-   /* @media (max-width: 1240px) {
-      max-width: 1200px;
-      padding: 18px 30px;
-   } */
 `
 const UpperRow = styled('div')`
    display: flex;
@@ -119,39 +126,26 @@ const Logo = styled('img')`
    width: 221px;
    height: 39px;
 `
-
-const LinkItems = styled('ul')`
-   padding: 20px;
-   list-style: none;
+const Container = styled('div')`
    display: flex;
    flex-direction: column;
-   gap: 16px;
-
-   & li {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 19px;
-      color: #292929;
-      cursor: pointer;
-
-      :hover {
-         color: #cb11ab;
-      }
-   }
+   gap: 24px;
 `
-// const Menu = styled('div')`
-//    display: flex;
-//    justify-content: space-around;
-//    align-items: center;
-//    padding: 0;
-//    width: 365px;
-//    a {
-//       font-size: 16px;
-//       font-weight: 500;
-//       text-decoration: none;
-//       color: #ffffff;
-//    }
-// `
+
+const ButtonContainer = styled('div')`
+   display: flex;
+   flex-direction: row;
+   gap: 26px;
+`
+
+const ConfirmTitle = styled('p')`
+   font-style: normal;
+   font-weight: 400;
+   font-size: 18px;
+   line-height: 140%;
+   text-align: center;
+   color: #292929;
+`
 
 const StyledNavLink = styled(NavLink)`
    width: 100%;
@@ -205,24 +199,29 @@ const ButtonPush = styled(Button)`
    font-size: 16px;
    background: #e20fbe;
 `
-const UserProfile = styled('div')`
-   width: 44px;
-   height: 44px;
+const AdminProfile = styled('div')`
    display: flex;
    align-items: center;
    justify-content: space-between;
    color: #ffffff;
-`
-const SearchLogo = styled('img')`
-   width: 24px;
-   height: 24px;
+   gap: 12px;
+   cursor: pointer;
 `
 const VerticalLine = styled('div')`
    height: 32px;
    border: 1px solid #d2d4d8;
 `
-const ProfileLogo = styled('img')`
-   width: 24px;
-   height: 24px;
+const ProfileLogo = styled('div')`
+   width: 44px;
+   height: 44px;
+   border-radius: 50%;
+   background-color: #fff;
+   font-style: normal;
+   font-weight: 600;
+   font-size: 26px;
+   line-height: 31px;
+   color: #cb11ab;
+   text-align: center;
+   padding: 7px;
    cursor: pointer;
 `

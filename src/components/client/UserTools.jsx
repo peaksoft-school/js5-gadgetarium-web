@@ -18,6 +18,7 @@ const UserTools = () => {
    const { compareHoverProducts } = useSelector(
       (state) => state.compareProducts
    )
+   const { user } = useSelector((state) => state.auth)
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const [isShown, setIsShown] = useState(null)
@@ -35,8 +36,10 @@ const UserTools = () => {
    }
 
    useEffect(() => {
-      dispatch(getHoverCompareProducts())
-      forceUpdate()
+      if (user.jwt) {
+         dispatch(getHoverCompareProducts())
+         forceUpdate()
+      }
    }, [])
 
    return (

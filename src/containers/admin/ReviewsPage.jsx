@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import Infographic from '../../components/admin/Infographic'
+import Infographic from '../../components/admin/adminUI/Infographic'
 
 const ReviewsPage = () => {
    return (

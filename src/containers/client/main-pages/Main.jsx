@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import styled from '@emotion/styled/'
+import styled from '@emotion/styled'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 

@@ -20,11 +20,18 @@ const Select = ({
    const handleChange = (event) => {
       onChange(event.target.value)
    }
+   /* <Select
+                  options={categories}
+                  getOptionLabel={(arg) => arg.name}
+                  getOptionValue={(arg) => arg.id}
+                  onChange={(arg) => setState(arg)}
+                  value={state}
+               /> */
    return (
       <BoxStyled variant={variant}>
          <StyledInputLabel>{label}</StyledInputLabel>
          <FormControl placeholder={placeholder} fullWidth>
-            <SelectMui onChange={handleChange} value={value}>
+            <StyledSelectMui onChange={handleChange} value={value}>
                {options?.map((item) => {
                   return (
                      <MenuItem value={getOptionValue(item)}>
@@ -32,7 +39,7 @@ const Select = ({
                      </MenuItem>
                   )
                })}
-            </SelectMui>
+            </StyledSelectMui>
          </FormControl>
       </BoxStyled>
    )
@@ -40,8 +47,7 @@ const Select = ({
 export default Select
 
 const BoxStyled = styled(Box)`
-   width: ${(props) => (props.variant === 'sort' ? '271px' : '610px')};
-   height: 35px;
+   width: ${(props) => (props.variant === 'sort' ? '396px' : '610px')};
    background: #ffffff;
    border-radius: 6px;
    & fieldset {
@@ -49,5 +55,8 @@ const BoxStyled = styled(Box)`
    }
 `
 const StyledInputLabel = styled(InputLabel)`
-   margin-bottom: 18px;
+   margin-bottom: 10px;
+`
+const StyledSelectMui = styled(SelectMui)`
+   height: 39px;
 `

@@ -36,6 +36,7 @@ function ImagePicker({ onChange, onDelete, file, id }) {
          <InputFile
             type="file"
             id={id}
+            name="images"
             ref={filesRef}
             onChange={iconHandleChange}
             accept="image/jpeg,image/png,image/gif"
@@ -44,7 +45,7 @@ function ImagePicker({ onChange, onDelete, file, id }) {
             <li>Минимальное разрешение - 450x600</li>
             <li>максимальное количество - 10 фото</li>
          </Ul>
-         <DeleteFile onClick={deleteFileHandler}>удалить</DeleteFile>
+         <DeleteFile onClick={deleteFileHandler}>Удалить</DeleteFile>
       </ImageContainer>
    )
 }

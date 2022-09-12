@@ -1,6 +1,6 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 
-import { Checkbox, styled } from '@mui/material'
+import { styled } from '@mui/material'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -8,15 +8,17 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
-function TableList({ columns, data, width, checkbox }) {
-   const [checked, setChecked] = useState(0)
-   const countChecked = (event) => {
-      if (event.target.checked === true) {
-         setChecked((prevState) => prevState + 1)
-      } else {
-         setChecked((prevState) => prevState - 1)
-      }
-   }
+import { ReactComponent as CheckMark } from '../../../assets/icons/check-mark-in-a-circle-svgrepo-com.svg'
+import Checkbox from '../../UI/Checkbox'
+
+function TableList({
+   columns,
+   data,
+   width,
+   checkbox,
+   onNavigetToInnerPage,
+   getProductId,
+}) {
    return (
       <TableContainer>
          <MuiTable width={width}>
@@ -25,8 +27,10 @@ function TableList({ columns, data, width, checkbox }) {
                   <DivHead>
                      {checkbox && (
                         <HeadCell>
-                           <div style={{ width: '42px', textAlign: 'center' }}>
-                              {checked}
+                           <div
+                              style={{ marginTop: '8px', textAlign: 'center' }}
+                           >
+                              <CheckMark />
                            </div>
                         </HeadCell>
                      )}
@@ -50,17 +54,30 @@ function TableList({ columns, data, width, checkbox }) {
             <TableBody>
                {data.map((row) => {
                   return (
-                     <Row key={row.id}>
+                     <Row
+                        key={row.productId}
+                        onClick={() => onNavigetToInnerPage(row.productId)}
+                     >
                         <Div>
                            {checkbox && (
                               <BodyCell>
-                                 <Checkbox onChange={countChecked} />
+                                 <Checkbox
+                                    onChange={(event) =>
+                                       getProductId(event, row.productId)
+                                    }
+                                    onClick={(event) => event.stopPropagation()}
+                                    value={row.productId}
+                                 />
                               </BodyCell>
                            )}
                            {columns.map((col) => {
                               if (col.cell) {
                                  return (
-                                    <BodyCell width={col.width} key={col.key}>
+                                    <BodyCell
+                                       width={col.width}
+                                       key={col.key}
+                                       style={col.style}
+                                    >
                                        {col.cell(row)}
                                     </BodyCell>
                                  )
@@ -86,6 +103,12 @@ export default TableList
 const MuiTable = styled(Table)`
    table-layout: fixed;
    width: width;
+
+   & .MuiTableCell-root.MuiTableCell-body {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+   }
 `
 
 const HeadCell = styled(TableCell)`
@@ -95,6 +118,8 @@ const HeadCell = styled(TableCell)`
    align-items: center;
    text-align: left;
    color: white;
+   justify-content: flex-start;
+   white-space: nowrap;
 `
 
 const BodyCell = styled(TableCell)`
@@ -110,6 +135,8 @@ const Div = styled('div')`
    border: 1px solid #d5d8de;
    border-radius: 6px;
    margin-top: 8px;
+   display: flex;
+   justify-content: space-between;
    &:hover {
       background-color: rgba(213, 216, 222, 0.5);
    }
@@ -117,8 +144,10 @@ const Div = styled('div')`
 const DivHead = styled('div')`
    height: 40px;
    display: flex;
+   justify-content: space-between;
    background: rgba(56, 66, 85, 0.9);
 `
 const Row = styled(TableRow)`
    font-size: 16px;
+   cursor: pointer;
 `
