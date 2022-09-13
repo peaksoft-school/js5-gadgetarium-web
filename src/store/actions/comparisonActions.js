@@ -3,6 +3,8 @@ import { toast } from 'react-toastify'
 
 import * as api from '../../services/comareService'
 
+import { getMainNewProduct } from './productActions'
+
 export const getCompareProducts = createAsyncThunk(
    'compareProducts/getCompareProducts',
    async (_, { rejectWithValue }) => {
@@ -33,6 +35,7 @@ export const removeAllCompareProducts = createAsyncThunk(
       try {
          const response = await api.deleteAllCompareProducts()
          dispatch(getCompareProducts())
+         dispatch(getHoverCompareProducts())
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)
@@ -42,10 +45,13 @@ export const removeAllCompareProducts = createAsyncThunk(
 
 export const removeCompareProduct = createAsyncThunk(
    'compareProducts/removeCompareProduct',
-   async (id, { rejectWithValue }) => {
+   async ({ id, dispatch }, { rejectWithValue }) => {
       console.log(id)
       try {
          const response = await api.deleteCompareProductById(id)
+         dispatch(getHoverCompareProducts())
+         dispatch(getMainNewProduct())
+         dispatch(getCompareProducts())
          toast.success('Успешно удалено!')
          return response.data
       } catch (err) {
@@ -56,9 +62,12 @@ export const removeCompareProduct = createAsyncThunk(
 
 export const addToComparison = createAsyncThunk(
    'compareProducts/removeCompareProduct',
-   async (id, { rejectWithValue }) => {
+   async ({ id, dispatch }, { rejectWithValue }) => {
       try {
          const response = await api.postToComparison(id)
+         toast.success('Товар успешно добавлен для сравнения')
+         dispatch(getHoverCompareProducts())
+         dispatch(getMainNewProduct())
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)

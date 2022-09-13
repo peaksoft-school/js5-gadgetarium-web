@@ -42,7 +42,9 @@ const Card = (props) => {
                <li onClick={props.compareProducts}>
                   <Tooltip title="Добавить в сравнение">
                      <div>
-                        <Balance fill={props.compare ? '#CB11AB' : '#aaB1bf'} />
+                        <Balance
+                           fill={props.comparison ? '#CB11AB' : '#aaB1bf'}
+                        />
                      </div>
                   </Tooltip>
                </li>
@@ -63,7 +65,9 @@ const Card = (props) => {
          </CardImage>
          <CardTitle>
             <StlyedCardParagraph>
-               {props.status === 'YES' ? 'В наличии' : 'Нет в наличии'}
+               {props.status === 'YES'
+                  ? `В наличии(${props.quantity})`
+                  : 'Нет в наличии'}
             </StlyedCardParagraph>
             <StyledCardHeader>{props.title}</StyledCardHeader>
             <StyledCardRating>

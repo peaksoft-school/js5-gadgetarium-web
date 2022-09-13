@@ -109,6 +109,7 @@ const FirstStage = () => {
    const { guarantee, productName } = productData
    const brandId = selectedBrand
    const subcategoryId = selectedSubcategory?.value
+   console.log(productName)
    // onSubmit
    const onSubmit = (e) => {
       e.preventDefault()

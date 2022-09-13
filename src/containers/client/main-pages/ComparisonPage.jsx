@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -28,8 +28,6 @@ const ComparisonPage = () => {
    )
    const dispatch = useDispatch()
 
-   // eslint-disable-next-line no-unused-vars
-   const [_, forceUpdate] = useReducer((x) => x + 1, 0)
    useEffect(() => {
       dispatch(getCompareProducts())
    }, [])
@@ -37,12 +35,10 @@ const ComparisonPage = () => {
    const handleDeleteById = (e, productId) => {
       e.stopPropagation()
       dispatch(removeCompareProduct(productId))
-      forceUpdate()
    }
 
    const handleDeleteAllProducts = () => {
       dispatch(removeAllCompareProducts(dispatch))
-      forceUpdate()
    }
 
    if (loading) {

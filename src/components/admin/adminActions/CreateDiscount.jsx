@@ -12,14 +12,14 @@ import Button from '../../UI/Button'
 import DatePicker from '../../UI/DatePicker'
 import Input from '../../UI/inputs/Input'
 
-const CreateDiscount = ({ open, onClose, productId }) => {
+const CreateDiscount = ({ open, onClose, productId, setCheckedProducts }) => {
    const dispatch = useDispatch()
    const [discount, setDiscount] = useState({
       percent: '',
       dateOfStart: null,
       dateOfFinish: null,
    })
-   console.log(discount)
+   console.log(productId, discount)
    const handleChange = (event) => {
       const { value } = event.target
       const { name } = event.target
@@ -80,11 +80,14 @@ const CreateDiscount = ({ open, onClose, productId }) => {
          dateOfFinish !== dateOfStart &&
          validate
       ) {
-         dispatch(createDiscountProducts(formData, dispatch))
+         dispatch(createDiscountProducts({ formData, dispatch }))
          setDiscount({
             percent: '',
             dateOfStart: null,
             dateOfFinish: null,
+         })
+         setCheckedProducts({
+            productId: [],
          })
          onClose()
       } else {

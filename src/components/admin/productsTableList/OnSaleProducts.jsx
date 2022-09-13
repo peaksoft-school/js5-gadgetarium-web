@@ -166,7 +166,9 @@ const AllProducts = () => {
          cell: (item) => {
             return (
                <ActionContainer>
-                  <UpdateIcon />
+                  <IconButton>
+                     <UpdateIcon />
+                  </IconButton>
                   <IconButton onClick={(e) => handleDelete(e, item.productId)}>
                      <DeleteIcon />
                   </IconButton>

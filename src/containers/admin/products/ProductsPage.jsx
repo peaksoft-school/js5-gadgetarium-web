@@ -98,6 +98,7 @@ const ProductsPage = () => {
                      open={open}
                      onClose={closeModal}
                      productId={checkedProducts.productId}
+                     setCheckedProducts={setCheckedProducts}
                   />
                </StyledButtonContainer>
             </TopContentContainer>

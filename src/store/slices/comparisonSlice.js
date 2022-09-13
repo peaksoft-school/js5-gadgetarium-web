@@ -104,7 +104,6 @@ const compareProductSlice = createSlice({
       [addToComparison.fulfilled]: (state, action) => {
          state.loading = false
          state.message = action.payload
-         toast.success('Товар успешно добавлен для сравнения')
       },
       [addToComparison.rejected]: (state, action) => {
          state.loading = false

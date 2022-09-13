@@ -7,8 +7,8 @@ import {
    createProductThirdStage,
    fileUpload,
    createDiscount,
-   getAllProducts,
 } from '../../../services/productServices'
+import { getProducts } from '../products/productsActions'
 
 export const createFirstStage = createAsyncThunk(
    'product/createFirstStage',
@@ -64,12 +64,11 @@ export const createSecondStage = createAsyncThunk(
 export const createThirdStage = createAsyncThunk(
    'product/createThirdStage',
    async ({ productId, description, videoReview, pdfFile }) => {
+      const formData = new FormData()
       try {
-         const formData = new FormData()
          formData.append('file', pdfFile)
-
+         console.log(formData)
          const resfile = await fileUpload(formData)
-         console.log(resfile)
 
          const response = await createProductThirdStage(productId, {
             description,
@@ -85,13 +84,23 @@ export const createThirdStage = createAsyncThunk(
    }
 )
 
+const queryParams = {
+   search: 'all',
+   page: 1,
+   size: 7,
+   sort: null,
+   startOfDate: null,
+   finishOfDate: null,
+   status: null,
+}
+
 export const createDiscountProducts = createAsyncThunk(
    'product/createDiscountProducts',
-   async (formData, dispatch) => {
+   async ({ formData, dispatch }) => {
       try {
          const response = await createDiscount(formData)
          toast.success('Cкидка успешно установлена!')
-         dispatch(getAllProducts())
+         dispatch(getProducts(queryParams))
          return response.data
       } catch (error) {
          return console.error(error.response.data.message)

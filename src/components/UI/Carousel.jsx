@@ -4,8 +4,10 @@ import { Slide } from 'react-slideshow-image'
 import 'react-slideshow-image/dist/styles.css'
 import styled from 'styled-components'
 
-import slidePhone from '../../assets/images/slidePhone.png'
-import slidePhoneTwo from '../../assets/images/slidePhoneds.png'
+import macbook from '../../assets/images/ales-nesetril-Im7lZjxeLhg-unsplash.jpg'
+import slidePhoneTwo from '../../assets/images/denis-cherkashin-zgUkIMKeJq4-unsplash.jpg'
+// import slidePhone from '../../assets/images/slidePhone.png'
+import macbookCarousel from '../../assets/images/wallpaperForCarousel.jpg'
 
 const properties = {
    duration: 4000,
@@ -20,16 +22,13 @@ const SimpleSlider = () => {
       <Box className="slider-wrapper">
          <Slide {...properties}>
             <div>
-               <img src={slidePhone} alt="" />
-               <img src={slidePhoneTwo} alt="" />
+               <CarouselImage src={macbookCarousel} alt="" />
             </div>
             <div>
-               <img src={slidePhone} alt="" />
-               <img src={slidePhoneTwo} alt="" />
+               <CarouselImage src={macbook} alt="" />
             </div>
             <div>
-               <img src={slidePhone} alt="" />
-               <img src={slidePhoneTwo} alt="" />
+               <CarouselImage src={slidePhoneTwo} alt="" />
             </div>
          </Slide>
       </Box>
@@ -37,7 +36,7 @@ const SimpleSlider = () => {
 }
 export default SimpleSlider
 const Box = styled.div`
-   height: 500px;
+   height: 650px;
    & > div > div > button > svg {
       width: 12px;
    }
@@ -46,3 +45,9 @@ const Box = styled.div`
 //    width: 1920px;
 //    height: 600px;
 // `
+
+const CarouselImage = styled.img`
+   width: 1620px;
+   height: 650px;
+   object-fit: cover;
+`
