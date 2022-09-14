@@ -7,7 +7,7 @@ import VectorCart from '../../assets/icons/VectorCart.svg'
 import VectorDeliv from '../../assets/icons/VectorDeliv.svg'
 import VectorMoney from '../../assets/icons/VectorMoney.svg'
 import VectorPort from '../../assets/icons/VectorPort.svg'
-import BreadCrumbs from '../../components/UI/Bredcrumbs'
+import BreadCrumbs from '../../components/UI/Breadcrumbs'
 
 const pathsArray = [
    {

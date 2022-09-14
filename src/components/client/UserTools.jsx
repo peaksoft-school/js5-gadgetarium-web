@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from 'react'
+import { useState, useEffect } from 'react'
 
 import { IconButton } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +8,6 @@ import styled from 'styled-components'
 import { ReactComponent as Compare } from '../../assets/icons/compare.svg'
 import { ReactComponent as Favorites } from '../../assets/icons/favorites.svg'
 import { ReactComponent as Cart } from '../../assets/icons/shopping-cart.svg'
-// import Samsung from '../../assets/images/miniSamsung.png'
 import { getHoverCompareProducts } from '../../store/actions/comparisonActions'
 import MuiBadge from '../UI/MuiBadge'
 import ComparisonPopup from '../UI/popupMenus/ComparisonPopup'
@@ -26,19 +25,14 @@ const UserTools = () => {
       setIsShown(null)
    }
 
-   // eslint-disable-next-line no-unused-vars
-   const [_, forceUpdate] = useReducer((x) => x + 1, 0)
-
    const handleNavigate = () => {
       navigate('comparison')
       setIsShown(null)
-      forceUpdate()
    }
 
    useEffect(() => {
       if (user.jwt) {
          dispatch(getHoverCompareProducts())
-         forceUpdate()
       }
    }, [])
 

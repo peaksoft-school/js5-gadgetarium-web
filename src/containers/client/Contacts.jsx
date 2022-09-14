@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 
 import googleMap from '../../assets/icons/googleMap.svg'
-import BreadCrumbs from '../../components/UI/Bredcrumbs'
+import BreadCrumbs from '../../components/UI/Breadcrumbs'
 import Button from '../../components/UI/Button'
 import Input from '../../components/UI/inputs/Input'
 import { postContacts } from '../../store/actions/userContactAction'

@@ -46,7 +46,6 @@ export const removeAllCompareProducts = createAsyncThunk(
 export const removeCompareProduct = createAsyncThunk(
    'compareProducts/removeCompareProduct',
    async ({ id, dispatch }, { rejectWithValue }) => {
-      console.log(id)
       try {
          const response = await api.deleteCompareProductById(id)
          dispatch(getHoverCompareProducts())

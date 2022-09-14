@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { IconButton } from '@mui/material'
-// import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
@@ -15,7 +14,6 @@ import OnSaleProducts from '../../../components/admin/productsTableList/OnSalePr
 import WishListProducts from '../../../components/admin/productsTableList/WishListProducts'
 import Button from '../../../components/UI/Button'
 import Tab from '../../../components/UI/Tab'
-// import { setSearchQuery } from '../../../store/slices/productSlice'
 
 const ProductsPage = () => {
    const [search, setSearch] = useState('')

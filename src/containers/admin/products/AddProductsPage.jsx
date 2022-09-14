@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import FirstStage from '../../../components/admin/stages/FirstStage'
 import SecondStage from '../../../components/admin/stages/SecondStage'
 import ThirdStage from '../../../components/admin/stages/ThirdStage'
-import Breadcrumbs from '../../../components/UI/Bredcrumbs'
+import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import Stepper from '../../../components/UI/Stepper'
 
 const paths = [

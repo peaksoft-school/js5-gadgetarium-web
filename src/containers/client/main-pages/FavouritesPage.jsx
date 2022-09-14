@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-// import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ReactComponent as DeleteCompareList } from '../../../assets/icons/DeleteCompareList.svg'
 import EmptyIcon from '../../../assets/images/notfound.png'
-// import IphoneImg from '../../../assets/images/Phone.png'
-import Breadcrumbs from '../../../components/UI/Bredcrumbs'
+import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
 import {
@@ -99,11 +97,7 @@ const FavouritesPage = () => {
 
 export default FavouritesPage
 
-const ContainerBox = styled.div`
-   /* min-width: 900px;
-   display: flex;
-   justify-content: center; */
-`
+const ContainerBox = styled.div``
 const StyledBox = styled.div`
    display: flex;
    justify-content: center;

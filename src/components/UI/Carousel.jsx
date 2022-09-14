@@ -6,7 +6,6 @@ import styled from 'styled-components'
 
 import macbook from '../../assets/images/ales-nesetril-Im7lZjxeLhg-unsplash.jpg'
 import slidePhoneTwo from '../../assets/images/denis-cherkashin-zgUkIMKeJq4-unsplash.jpg'
-// import slidePhone from '../../assets/images/slidePhone.png'
 import macbookCarousel from '../../assets/images/wallpaperForCarousel.jpg'
 
 const properties = {
@@ -41,11 +40,6 @@ const Box = styled.div`
       width: 12px;
    }
 `
-// const Styledimg = styled.img`
-//    width: 1920px;
-//    height: 600px;
-// `
-
 const CarouselImage = styled.img`
    width: 1620px;
    height: 650px;

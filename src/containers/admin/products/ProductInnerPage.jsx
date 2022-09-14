@@ -10,7 +10,7 @@ import SamsungBrand from '../../../assets/images/brand.png'
 import Samsung from '../../../assets/images/SamsungForSlider.png'
 import BottomContent from '../../../components/admin/innerPageContent/BottomContent'
 import ProductContent from '../../../components/admin/innerPageContent/ProductContent'
-import BreadCrumbs from '../../../components/UI/Bredcrumbs'
+import BreadCrumbs from '../../../components/UI/Breadcrumbs'
 import { getProductById } from '../../../store/actions/products/productsActions'
 
 const paths = [
@@ -40,12 +40,6 @@ const ProductInnerPage = () => {
    const { product, loading } = useSelector((state) => state.adminPanel)
    const { productId } = useParams()
 
-   // useEffect(() => {
-   //    if (productId) {
-   //       dispatch(getProductById(productId))
-   //    }
-   // }, [productId])
-   // console.log(product)
    if (loading) {
       return (
          <RingLoader

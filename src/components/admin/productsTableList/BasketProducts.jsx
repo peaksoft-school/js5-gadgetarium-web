@@ -66,14 +66,7 @@ const BasketProducts = () => {
 
    useEffect(() => {
       dispatch(getProducts(queryParams))
-   }, [
-      queryParams.finishOfDate,
-      queryParams.page,
-      queryParams.search,
-      queryParams.sort,
-      queryParams.startOfDate,
-      queryParams.status,
-   ])
+   }, [queryParams])
 
    const handleChangePage = (newPage) => {
       setQueryParams((prev) => {

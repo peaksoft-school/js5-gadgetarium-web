@@ -9,14 +9,7 @@ const OrdersPage = () => {
       <div>
          <Container>
             <SearchInput placeholder="Поиск по артикулу или ..." />
-            <StyledButtonContainer>
-               {/* <Button variant="outlined" width="184px" height="43px">
-                  Добавить товар
-               </Button>
-               <Button variant="outlined" width="184px" height="43px">
-                  Создать скидку
-               </Button> */}
-            </StyledButtonContainer>
+            <StyledButtonContainer> </StyledButtonContainer>
             <Infographic />
          </Container>
       </div>

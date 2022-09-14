@@ -3,12 +3,11 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
-// import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import EmptyIcon from '../../../assets/images/sammy-finance 1.png'
 import ComparisonContent from '../../../components/client/ComparisonContent'
-import Bredcrumbs from '../../../components/UI/Bredcrumbs'
+import Bredcrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
 import CustomizedTabs from '../../../components/UI/Tab'
 import {

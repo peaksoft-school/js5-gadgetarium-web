@@ -6,7 +6,6 @@ import { Link, NavLink, Outlet } from 'react-router-dom'
 
 import { ReactComponent as VectorIcon } from '../../assets/icons/adminDropDown.svg'
 import logo from '../../assets/icons/logo.svg'
-// import profileLogo from '../../assets/icons/profile-icon.svg'
 import BasicModal from '../../components/UI/BasicModal'
 import Button from '../../components/UI/Button'
 import { logout } from '../../store/slices/authSlice'
@@ -21,7 +20,6 @@ const HeaderForAdmin = () => {
       setOpenModal(false)
    }
    const dispatch = useDispatch()
-   // const navigate = useNavigate()
 
    const navigateAfterLogOut = () => {
       dispatch(logout())

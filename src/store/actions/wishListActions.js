@@ -5,7 +5,7 @@ import {
    removeAllProducts,
    removeProduct,
    addToWishProducts,
-} from '../../services/wishListService'
+} from '../../services/WishListService'
 
 import { getMainNewProduct } from './productActions'
 

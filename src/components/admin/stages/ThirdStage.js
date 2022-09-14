@@ -18,12 +18,9 @@ const ThirdStage = () => {
    const [videoReview, setVideoReview] = useState('')
    const [description, setDescription] = useState('')
    const { products } = useSelector((state) => state.product)
-   console.log(products)
 
    const dispatch = useDispatch()
    const navigate = useNavigate()
-
-   console.log('pdfFile:', pdfFile)
 
    const onChange = (value) => {
       setDescription(value)
@@ -33,9 +30,7 @@ const ThirdStage = () => {
       setVideoReview(event.target.value)
    }
    const productId = products?.productId
-   console.log(pdfFile)
    const onSubmit = () => {
-      // dispatch(formDetails(data))
       if (videoReview && description && pdfFile) {
          dispatch(
             createThirdStage({ productId, videoReview, description, pdfFile })
