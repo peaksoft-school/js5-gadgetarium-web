@@ -1,50 +1,86 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-import { Checkbox, styled, InputLabel } from '@mui/material'
-import { useDispatch } from 'react-redux'
+import {
+   FormControl,
+   FormControlLabel,
+   Radio,
+   RadioGroup,
+   styled,
+} from '@mui/material'
+// import { useSelector } from 'react-redux'
+// import { useNavigate } from 'react-router'
+import { useSearchParams } from 'react-router-dom'
 
-import Arrow from '../../../assets/icons/pinkUp.svg'
-// import Ok from '../../../assets/icons/галочка.svg'
+import CATEGORIES from '../../../assets/data/categories'
 import Iphone from '../../../assets/images/Samsung.png'
+import Sorting from '../../../components/client/Sorting'
 import BreadCrumbs from '../../../components/UI/Bredcrumbs'
 import Card from '../../../components/UI/card/Card'
-import PopUp from '../../../components/UI/PopUp'
-import { getCategories } from '../../../store/actions/CatalogActions'
+import {
+   CATEGORY,
+   SUBCATEGORY,
+   SUBCATEGORYID,
+} from '../../../components/UI/Catalogbutton'
+// import PopUp from '../../../components/UI/PopUp'
+// import { getAllCategories } from '../../../store/actions/CatalogActions'
+
+import Character from './CatalogCharacter'
+import CharacterDiv from './CharacterDiv'
+
+// import Sorting from 'c:/users/techline/desktop/sorting'
 
 const Catalog = () => {
-   const [show, setShow] = useState({
-      category: true,
-      price: false,
-      color: false,
-      memory: false,
-      gb: false,
-   })
-   const dispatch = useDispatch()
-   const [categories, setCategories] = useState()
-   useEffect(() => {
-      dispatch(getCategories(setCategories))
-   }, [])
-   console.log(categories)
-   const showCategory = () => {
-      setShow({ ...show, category: !show.category })
-   }
-   const showPrice = () => {
-      setShow({ ...show, price: !show.price })
-   }
-   const showColor = () => {
-      setShow({ ...show, color: !show.color })
-   }
-   const showMemory = () => {
-      setShow({ ...show, memory: !show.memory })
-   }
-   const showGb = () => {
-      setShow({ ...show, gb: !show.gb })
+   const [searchParam, setSearchParam] = useSearchParams()
+   const [param] = useState(searchParam.get(CATEGORY))
+   const [subParam, setSubParam] = useState(searchParam.get(SUBCATEGORY))
+   // const navigate = useNavigate()
+
+   const [categories] = useState(CATEGORIES.filter((e) => param === e.name))
+   const [cat, setCateg] = useState(true)
+
+   const [, setFilters] = useState()
+
+   const showCatalog = () => setCateg((prev) => !prev)
+
+   const crambs = [
+      {
+         path: 'Главная',
+         name: 'Главная',
+      },
+      {
+         path: param,
+         name: param,
+      },
+   ]
+   // useEffect(() => {}, [filters])
+   // console.log(filters)
+   // const onChangeFilters = (value, checked, key) => {
+   //    // console.log(value, checked, key)
+   //    // const { value, checked } = event.target
+   //    // console.log(value, checked)
+   //    // const updatedFilters = [...filters, { key: keyName, values: name }]
+   //    // const filteredKeyObj = updatedFilters.filter((el) => el.key === keyName)
+   //    // if (filteredKeyObj) {
+   //    //    filteredKeyObj.foreach((el) => el.value.push(name))
+   //    //    setFilters(filteredKeyObj)
+   //    //    // console.log(filters)
+   //    // } else {
+   //    // setFilters([...filters, { key: keyName, values: name }])
+   //    // }
+   // }
+
+   const subCategChange = (id, name) => {
+      console.log(id)
+      searchParam.set(SUBCATEGORYID, id)
+      searchParam.set(SUBCATEGORY, name)
+      setSearchParam(searchParam)
+      setSubParam(searchParam.get(SUBCATEGORY))
    }
    return (
       <div style={{ margin: '30px 0px' }}>
          <BreadCrumbs paths={crambs} />
          <Title>
-            <h1>Cмартфоны</h1>
+            <h1>{param}</h1>
          </Title>
          <Container>
             <div style={{ width: '18%' }}>
@@ -52,104 +88,69 @@ const Catalog = () => {
                <FilterZone>
                   <section>
                      <BlueText>Сбросить все фильтры</BlueText>
-                     <Div>
-                        <Show onClick={showCategory}>
-                           <h4>Категория</h4>
-                           {show.category && <img src={Arrow} alt="arrow" />}
-                           {!show.category && (
-                              <Rotate src={Arrow} alt="arrow" />
-                           )}
-                        </Show>
-                        {show.category &&
-                           example.map((el) => (
-                              <InputLabel key={el.id} sx={checktext}>
-                                 <Checkbox sx={check} />
-                                 {el.name}
-                              </InputLabel>
-                           ))}
-                     </Div>
-                     <Div>
-                        <Show onClick={showPrice}>
-                           <h4>Стоимость</h4>
-                           {show.price && <img src={Arrow} alt="arrow" />}
-                           {!show.price && <Rotate src={Arrow} alt="arrow" />}
-                        </Show>
-                        {show.price && <div>стоимость</div>}
-                     </Div>
-                     <Div>
-                        <Show onClick={showColor}>
-                           <h4>Цвет</h4>
-                           {show.color && <img src={Arrow} alt="arrow" />}
-                           {!show.color && <Rotate src={Arrow} alt="arrow" />}
-                        </Show>
-                        {show.color && (
-                           <>
-                              {color.map((el) => (
-                                 <InputLabel key={el.id} sx={checktext}>
-                                    <Checkbox sx={check} />
-                                    {el.name}
-                                 </InputLabel>
-                              ))}
-                              <BlueText onClick={showColor}>
-                                 &uarr;Скрыть
-                              </BlueText>
-                           </>
-                        )}
-                     </Div>
-                     <Div>
-                        <Show onClick={showMemory}>
-                           <h4>Объем памяти (GB)</h4>
-                           {show.memory && <img src={Arrow} alt="arrow" />}
-                           {!show.memory && <Rotate src={Arrow} alt="arrow" />}
-                        </Show>
-                        {show.memory &&
-                           gb.map((el) => (
-                              <InputLabel key={el.id} sx={checktext}>
-                                 <Checkbox sx={check} />
-                                 {el.name}
-                              </InputLabel>
-                           ))}
-                     </Div>
-                     <Div>
-                        <Show onClick={showGb}>
-                           <h4>Объем оперативной памяти (GB)</h4>
-                           {show.gb && <img src={Arrow} alt="arrow" />}
-                           {!show.gb && <Rotate src={Arrow} alt="arrow" />}
-                        </Show>
-                        {show.gb &&
-                           gb.map((el) => (
-                              <InputLabel key={el.id} sx={checktext}>
-                                 <Checkbox sx={check} />
-                                 {el.name}
-                              </InputLabel>
-                           ))}
-                     </Div>
+                     {/* Подкатегории */}
+                     <CharacterDiv
+                        showDiv={showCatalog}
+                        name="Категории"
+                        show={cat}
+                     >
+                        <FormControl>
+                           <RadioGroup value={subParam}>
+                              {categories.map((el) =>
+                                 el.subCategories.map((e) => (
+                                    <FormControlLabel
+                                       style={labelStyle}
+                                       value={e.name}
+                                       control={
+                                          <Radio
+                                             sx={radio}
+                                             onChange={() =>
+                                                subCategChange(e.id, e.name)
+                                             }
+                                          />
+                                       }
+                                       label={e.name}
+                                    />
+                                 ))
+                              )}
+                           </RadioGroup>
+                        </FormControl>
+                     </CharacterDiv>
+                     {categories.map((el) =>
+                        el.filters.map((e) => (
+                           <Character
+                              setShow={setCateg}
+                              name={e.key}
+                              setCheckbox={setFilters}
+                              // key={e.key}
+                              show={cat}
+                              character={e.values}
+                           />
+                        ))
+                     )}
                   </section>
                </FilterZone>
             </div>
             <Section>
-               <section>
-                  {filters.map((el) => (
-                     <Selected>
-                        {el.name}
-                        <p>&#10006;</p>
-                     </Selected>
-                  ))}
+               <Filter>
+                  <section>
+                     {selects.map((el) => (
+                        <Selected>
+                           {el.name}
+                           <p>&#10006;</p>
+                        </Selected>
+                     ))}
+                  </section>
+                  <Sorting />
+               </Filter>
 
-                  <PopUp
-                     variant="default"
-                     icon="icon"
-                     title="Сортировка"
-                     list={popup}
-                  />
-               </section>
                <CardList>
                   {examples.map((el) => (
                      <Card
                         action={el.action}
-                        compareProducts
+                        // compareProducts
                         //  balance
-                        addToFavotites
+                        // addToFavotites
                         //  like
                         img={el.img}
                         status={el.status}
@@ -157,7 +158,7 @@ const Catalog = () => {
                         rating={el.rating}
                         actualprice={el.actualprice}
                         noneactualprice={el.noneactualprice}
-                        addToCart
+                        // addToCart
                      />
                   ))}
                </CardList>
@@ -167,7 +168,20 @@ const Catalog = () => {
    )
 }
 export default Catalog
-
+const radio = {
+   color: ' #CB11AB',
+   '&.Mui-checked': {
+      color: ' #CB11AB',
+   },
+}
+const labelStyle = {
+   fontFamily: 'Inter',
+   fontStyle: 'normal',
+   fontWeight: '400',
+   fontSize: '16px',
+   lineHeight: ' 140%',
+   color: '#292929',
+}
 const Container = styled('div')`
    display: flex;
    justify-content: space-between;
@@ -254,12 +268,25 @@ const examples = [
       noneactualprice: '57 190 с',
    },
 ]
-const filters = [
+const selects = [
    {
       id: 1,
       name: 'Apple',
    },
+   {
+      id: 2,
+      name: 'Apple',
+   },
+   {
+      id: 3,
+      name: 'Apple',
+   },
 ]
+const Filter = styled('div')`
+   justify-content: space-between;
+   align-items: center;
+   display: flex;
+`
 const Selected = styled('div')`
    width: auto;
    height: 32px;
@@ -267,6 +294,7 @@ const Selected = styled('div')`
    border: 1px solid #cdcdcd;
    border-radius: 4px;
    display: flex;
+   margin: 0px 5px;
    justify-content: space-around;
    align-items: center;
    padding: 0px 10px;
@@ -279,105 +307,87 @@ const Section = styled('div')`
    width: 80%;
    section {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       margin: 10px 0px;
    }
 `
-const gb = [
-   {
-      id: 1,
-      name: 8,
-   },
-   {
-      id: 1,
-      name: 16,
-   },
-   {
-      id: 1,
-      name: 32,
-   },
-   {
-      id: 1,
-      name: 64,
-   },
-]
-const color = [
-   {
-      id: 1,
-      name: 'Black',
-   },
-   {
-      id: 2,
-      name: 'Black',
-   },
-   {
-      id: 3,
-      name: 'Black',
-   },
-   {
-      id: 4,
-      name: 'Black',
-   },
-   {
-      id: 5,
-      name: 'Black',
-   },
-   {
-      id: 6,
-      name: 'Black',
-   },
-]
-const Rotate = styled('img')`
-   transform: rotate(180deg);
-`
-const example = [
-   {
-      id: 1,
-      name: 'Apple',
-   },
-   {
-      id: 2,
-      name: 'Samsung',
-   },
-   {
-      id: 3,
-      name: 'Xiaomi',
-   },
-   {
-      id: 4,
-      name: 'HUAWEI',
-   },
-   {
-      id: 5,
-      name: 'HONOR',
-   },
-   {
-      id: 6,
-      name: 'Nokia',
-   },
-   {
-      id: 7,
-      name: 'Oppo',
-   },
-   {
-      id: 8,
-      name: 'Телефоны-раскладушки',
-   },
-   {
-      id: 9,
-      name: 'Кнопочные телефоны',
-   },
-   {
-      id: 10,
-      name: 'Аксессуары для телефонов',
-   },
-]
-const Show = styled('div')`
-   display: flex;
-   cursor: pointer;
-   justify-content: space-between;
-   align-items: center;
-`
+// const color = [
+//    {
+//       id: 1,
+//       name: 'Black',
+//    },
+//    {
+//       id: 2,
+//       name: 'Black',
+//    },
+//    {
+//       id: 3,
+//       name: 'Black',
+//    },
+//    {
+//       id: 4,
+//       name: 'Black',
+//    },
+//    {
+//       id: 5,
+//       name: 'Black',
+//    },
+//    {
+//       id: 6,
+//       name: 'Black',
+//    },
+// ]
+// const Rotate = styled('img')`
+//    transform: rotate(180deg);
+// `
+// const example = [
+//    {
+//       id: 1,
+//       name: 'Apple',
+//    },
+//    {
+//       id: 2,
+//       name: 'Samsung',
+//    },
+//    {
+//       id: 3,
+//       name: 'Xiaomi',
+//    },
+//    {
+//       id: 4,
+//       name: 'HUAWEI',
+//    },
+//    {
+//       id: 5,
+//       name: 'HONOR',
+//    },
+//    {
+//       id: 6,
+//       name: 'Nokia',
+//    },
+//    {
+//       id: 7,
+//       name: 'Oppo',
+//    },
+//    {
+//       id: 8,
+//       name: 'Телефоны-раскладушки',
+//    },
+//    {
+//       id: 9,
+//       name: 'Кнопочные телефоны',
+//    },
+//    {
+//       id: 10,
+//       name: 'Аксессуары для телефонов',
+//    },
+// ]
+// const Show = styled('div')`
+//    display: flex;
+//    cursor: pointer;
+//    justify-content: space-between;
+//    align-items: center;
+// `
 const BlueText = styled('p')`
    font-family: 'Inter';
    font-style: normal;
@@ -388,24 +398,24 @@ const BlueText = styled('p')`
    cursor: pointer;
    padding: 16px 0px;
 `
-const Div = styled('div')`
-   border-top: 1px solid #e8e8e8;
-   /* border-bottom: 1px solid #e8e8e8; */
-   margin: 10px 0px;
-   padding: 10px 0px;
-`
-const checktext = {
-   fontFamily: 'Inter',
-   fontStyle: 'normal',
-   fontWeight: '400',
-   fontSize: '16px',
-   lineHeight: '140%',
-   color: '#292929',
-   display: 'flex',
-   justifyContent: 'flex-start',
-   alignItems: 'center',
-   padding: '0px',
-}
+// const Div = styled('div')`
+//    border-top: 1px solid #e8e8e8;
+//    /* border-bottom: 1px solid #e8e8e8; */
+//    margin: 10px 0px;
+//    padding: 10px 0px;
+// `
+// const checktext = {
+//    fontFamily: 'Inter',
+//    fontStyle: 'normal',
+//    fontWeight: '400',
+//    fontSize: '16px',
+//    lineHeight: '140%',
+//    color: '#292929',
+//    display: 'flex',
+//    justifyContent: 'flex-start',
+//    alignItems: 'center',
+//    padding: '0px',
+// }
 const CardList = styled('div')`
    /* width: 90%; */
    margin: 0px auto;
@@ -422,21 +432,15 @@ const FilterZone = styled('div')`
       margin: 20px auto;
    }
 `
-const check = {
-   color: ' #909CB5',
-   '&.Mui-checked': {
-      color: '#CB11AB',
-   },
-   '&input': {
-      backgroundColor: 'red',
-   },
-}
-const popup = [
-   {
-      list: 'Telephone',
-      id: 3,
-   },
-]
+// const check = {
+//    color: ' #909CB5',
+//    '&.Mui-checked': {
+//       color: '#CB11AB',
+//    },
+//    '&input': {
+//       backgroundColor: 'red',
+//    },
+// }
 const Options = styled('p')`
    font-family: 'Inter';
    font-style: normal;
@@ -453,21 +457,15 @@ const Title = styled('div')`
       font-weight: 500;
       font-size: 30px;
       line-height: 110%;
+      :first-letter {
+         text-transform: uppercase;
+      }
    }
    border-bottom: 1px solid #cdcdcd;
    margin: 30px 0px;
    padding: 20px 0px;
 `
-const crambs = [
-   {
-      path: 'Главная',
-      name: 'Главная',
-   },
-   {
-      path: 'Смартфоны',
-      name: 'Смартфоны',
-   },
-]
+
 // const Input = styled('div')`
 //    & input {
 //       appearance: none;

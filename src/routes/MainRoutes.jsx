@@ -47,10 +47,11 @@ const MainRoutes = () => {
          <MainLayuot>
             <Routes>
                <Route path="" element={<Main />} />
-               <Route path="catalog" element={<Outlet />}>
-                  <Route index element={<ProductCatalogPage />} />
-                  <Route path=":productId" element={<ProductInnerPage />} />
-               </Route>
+               <Route path="catalog" element={<ProductCatalogPage />} />
+               <Route
+                  path="catalog/:productId"
+                  element={<ProductInnerPage />}
+               />
                <Route path="comparison" element={<ComparisonPage />} />
                <Route path="favourites" element={<FavouritesPage />} />
                <Route path="cart" element={<Outlet />}>

@@ -25,6 +25,7 @@ const PreviewSlider = ({ images }) => {
 }
 
 export default PreviewSlider
+
 const CarouselStyle = styled(Carousel)`
    .carousel {
       display: flex;

@@ -52,13 +52,11 @@ const Header = () => {
          </HeaderTop>
          <NavBar>
             <BottomRow>
-               <StyledLink to="catalog">
-                  {/* <Catalog>
+               {/* <Catalog>
                      <img src={menu} alt="#" />
                      Каталог
                   </Catalog> */}
-                  <CatalogButton />
-               </StyledLink>
+               <CatalogButton />
                <VerticalLine />
                <SearchInput
                   padding="2em"
@@ -245,8 +243,8 @@ const ImageBox = styled('img')`
    width: 24px;
    height: 24px;
 `
-const StyledLink = styled(Link)`
-   text-decoration: none;
-   color: white;
-   padding: 2px;
-`
+// const StyledLink = styled(Link)`
+//    text-decoration: none;
+//    color: white;
+//    padding: 2px;
+// `

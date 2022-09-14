@@ -7,12 +7,12 @@ import Grid from '@mui/material/Grid'
 function MenuItem(props) {
    const { text } = props
 
-   const handleClick = () => {
-      if (props.onClose) props.onClose()
-   }
+   // const handleClick = () => {
+   //    if (props.onClose) props.onClose()
+   // }
    return (
       <Grid container>
-         <StyledButton onClick={handleClick} size="small" fullWidth>
+         <StyledButton onClick={props.onClick} size="small" fullWidth>
             <p>{text}</p>
          </StyledButton>
       </Grid>
@@ -28,7 +28,6 @@ export default MenuItem
 const StyledButton = styled(Button)({
    '& p:hover': {
       fontFamily: 'Inter',
-      lineHeight: '24px',
       color: '#292929',
    },
    '& p': {

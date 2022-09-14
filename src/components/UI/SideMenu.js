@@ -50,7 +50,7 @@ function SideMenu(props) {
                anchorEl={anchorEl}
                onClose={() => {
                   if (props.onClose) props.onClose()
-                  // setAnchorEl(null)
+                  setAnchorEl(null)
                }}
                anchorOrigin={{
                   vertical: 'top',

@@ -1,42 +1,50 @@
-import { useEffect } from 'react'
-
 import Grid from '@mui/material/Grid'
-import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { getCategories } from '../../store/actions/CatalogActions'
+import CATEGORIES from '../../assets/data/categories'
 
 import DropdownMenu from './DropdownMenu'
 import MenuItem from './MenuItem'
 import SideMenu from './SideMenu'
 
+export const CATEGORY = 'category'
+export const SUBCATEGORY = 'subcategory'
+export const SUBCATEGORYID = 'subcategoryId'
+
 function CatalogButton() {
-   const dispatch = useDispatch()
-   // const [data, setData] = useState()
-   const data = useSelector((state) => state.catalogSlice.categories)
-   useEffect(() => {
-      dispatch(getCategories())
-   }, [])
+   const [searchParams, setSearchParams] = useSearchParams({})
+   const navigate = useNavigate()
+   const test = (name, id, sub) => {
+      searchParams.set(CATEGORY, name)
+      searchParams.set(SUBCATEGORYID, id)
+      searchParams.set(SUBCATEGORY, sub)
+      setSearchParams(searchParams)
+      navigate({
+         pathname: '/catalog',
+         search: searchParams.toString(),
+      })
+   }
    return (
       <div>
-         <Grid
-            container
-            direction="row"
-            // justify="space-around"
-            // alignItems="flex-start"
-         >
+         <Grid container direction="row">
             <DropdownMenu text="Каталог" color="primary">
-               {data &&
-                  data.map((el) => (
-                     <SideMenu
-                        onClose={() => console.log('hello')}
-                        key={el.id}
-                        text={el.name}
-                     >
-                        {el.subCategories.map((el) => (
-                           <MenuItem key={el.id} text={el.name} />
-                        ))}
-                     </SideMenu>
-                  ))}
+               {CATEGORIES.map((el) => (
+                  <SideMenu
+                     // onClose={() => console.log('hello')}
+                     key={el.id}
+                     text={el.name}
+                  >
+                     {el.subCategories.map((e) => (
+                        <MenuItem
+                           key={e.id}
+                           onClick={() => {
+                              test(el.name, e.id, e.name)
+                           }}
+                           text={e.name}
+                        />
+                     ))}
+                  </SideMenu>
+               ))}
             </DropdownMenu>
          </Grid>
       </div>

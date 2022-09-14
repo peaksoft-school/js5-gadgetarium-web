@@ -3,12 +3,16 @@ import MuiCheckbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
 
-const Checkbox = ({ onChange, cheked, label, ...props }) => {
+const Checkbox = ({ onChange, checked, label, ...props }) => {
    return (
       <FormGroup>
          <StyledMuiCheckbox
             control={
-               <StyledCheckbox onChange={onChange} cheked={cheked} {...props} />
+               <StyledCheckbox
+                  onChange={onChange}
+                  checked={checked}
+                  {...props}
+               />
             }
             label={label}
          />
