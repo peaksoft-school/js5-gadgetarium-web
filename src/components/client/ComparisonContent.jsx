@@ -112,13 +112,9 @@ const ComparisonContent = ({
                                           </ComparisonCardButton>
                                        </ComparisonPageCard>
                                        <ul>
-                                          {data[0].characterResponses.map(
-                                             (char) => (
-                                                <li key={char.id}>
-                                                   {char.value}
-                                                </li>
-                                             )
-                                          )}
+                                          {el.characterResponses.map((char) => (
+                                             <li key={char.id}>{char.value}</li>
+                                          ))}
                                        </ul>
                                     </ComparisonToolsRightLi>
                                  ))}

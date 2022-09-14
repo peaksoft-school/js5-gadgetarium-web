@@ -16,7 +16,7 @@ const properties = {
    scale: 0.3,
    arrows: true,
 }
-const SimpleSlider = () => {
+const Carousel = () => {
    return (
       <Box className="slider-wrapper">
          <Slide {...properties}>
@@ -33,7 +33,8 @@ const SimpleSlider = () => {
       </Box>
    )
 }
-export default SimpleSlider
+export default Carousel
+
 const Box = styled.div`
    height: 650px;
    & > div > div > button > svg {

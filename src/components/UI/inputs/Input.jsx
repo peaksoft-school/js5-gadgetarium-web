@@ -24,7 +24,6 @@ const Input = forwardRef((props, ref) => {
          placeholder={placeholder}
          name={name}
          id={id}
-         maxR
          value={value}
          error={error}
          onChange={onChange}

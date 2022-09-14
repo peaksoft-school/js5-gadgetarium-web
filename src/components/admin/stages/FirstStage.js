@@ -19,7 +19,6 @@ import {
    getSubcategories,
 } from '../../../store/actions/categories/categoriesActions'
 import { createFirstStage } from '../../../store/actions/stages/stagesActions'
-import { nextStage } from '../../../store/slices/formSlice'
 import AdminSelect from '../../UI/AdminSelect'
 import Button from '../../UI/Button'
 import Input from '../../UI/inputs/Input'
@@ -75,9 +74,6 @@ const FirstStage = () => {
    // useEffects
    useEffect(() => {
       dispatch(getCategories())
-   }, [])
-
-   useEffect(() => {
       dispatch(getBrands())
    }, [])
 
@@ -109,7 +105,6 @@ const FirstStage = () => {
    const { guarantee, productName } = productData
    const brandId = selectedBrand
    const subcategoryId = selectedSubcategory?.value
-   console.log(productName)
    // onSubmit
    const onSubmit = (e) => {
       e.preventDefault()
@@ -124,7 +119,6 @@ const FirstStage = () => {
             color,
             characters: [...characters],
          }
-         console.log(updatedProductData)
          dispatch(
             createFirstStage({
                subcategoryId,
@@ -132,7 +126,6 @@ const FirstStage = () => {
                files,
             })
          )
-         dispatch(nextStage(1))
          navigate('stage2')
       } else {
          toast.error('Заполните все поля')

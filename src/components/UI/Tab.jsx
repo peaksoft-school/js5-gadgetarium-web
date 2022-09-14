@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-// import styled from '@emotion/styled'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
@@ -20,12 +19,6 @@ export default function LabTabs({ tabsArray, variant, baseValue }) {
             onChange={handleChange}
             TabIndicatorProps={{ style: { backgroundColor: '#fff' } }}
             aria-label="lab API tabs example"
-            sx={{
-               '& button.Mui-selected': {
-                  backgroundColor: '#384255',
-                  color: '#fff',
-               },
-            }}
          >
             {tabsArray?.map((el) => (
                <StyledTab
@@ -63,6 +56,10 @@ const StyledTab = styled(Tab)(({ variant }) => ({
    '&:focus-within': {
       background: '#384255',
       color: '#ffffff',
+   },
+   '& button.Mui-selected': {
+      backgroundColor: '#384255',
+      color: '#fff',
    },
    ...(variant === 'pink' && {
       '&:focus-within': {

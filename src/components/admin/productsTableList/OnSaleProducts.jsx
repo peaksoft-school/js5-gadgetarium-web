@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { IconButton } from '@mui/material'
+import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
@@ -13,7 +14,6 @@ import {
    getProducts,
 } from '../../../store/actions/products/productsActions'
 import { STATUS } from '../../../utils/constants/constants'
-import { dateFormatter } from '../../../utils/helpers/general'
 import AppPagination from '../../UI/AppPagination'
 import TableList from '../adminUI/TableList'
 
@@ -42,33 +42,22 @@ const AllProducts = () => {
 
    const { allproducts } = products
 
-   console.log(sizeOfProducts, totalPage)
-   console.log(queryParams)
-
    const dispatch = useDispatch()
 
    const onStartChange = (start) => {
-      const formatDate = new Date(start)
       setQueryParams((prev) => {
          return {
             ...prev,
-            startOfDate:
-               dateFormatter(formatDate) === 'NaN-NaN-NaN'
-                  ? null
-                  : dateFormatter(formatDate),
+            startOfDate: format(start, 'yyyy-MM-dd'),
          }
       })
    }
 
    const onFinishChange = (end) => {
-      const formatDate = new Date(end)
       setQueryParams((prev) => {
          return {
             ...prev,
-            finishOfDate:
-               dateFormatter(formatDate) === 'NaN-NaN-NaN'
-                  ? null
-                  : dateFormatter(formatDate),
+            finishOfDate: format(end, 'yyyy-MM-dd'),
          }
       })
    }
