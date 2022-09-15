@@ -139,8 +139,8 @@ const Contacts = () => {
                            onChange={getValuesHandler}
                            type="text"
                            placeholder="Напишите сообщение"
-                           value={contact.massage}
-                           name="massage"
+                           value={contact.message}
+                           name="message"
                         />
                         <Button
                            width="690px"
