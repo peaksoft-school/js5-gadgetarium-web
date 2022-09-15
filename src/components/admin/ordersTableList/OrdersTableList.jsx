@@ -1,78 +1,72 @@
 import React, { useEffect, useState } from 'react'
 
 import { IconButton } from '@mui/material'
-import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
 import styled from 'styled-components'
 
 import { ReactComponent as DeleteIcon } from '../../../assets/icons/deleteIcon.svg'
-import { ReactComponent as UpdateIcon } from '../../../assets/icons/updateIcon.svg'
-import {
-   deleteProductById,
-   getProducts,
-} from '../../../store/actions/products/productsActions'
-import { STATUS } from '../../../utils/constants/constants'
+import { deleteOrderById, getOrders } from '../../../store/actions/orderActions'
+import { dateFormatter } from '../../../utils/helpers/general'
 import AppPagination from '../../UI/AppPagination'
+import PopUpMenu from '../adminUI/PopUpMenu'
 import TableList from '../adminUI/TableList'
-
-import Sorting from './subcomponents/Sorting'
-import TwiceDatePickers from './subcomponents/TwiceDatePickers'
+import TwiceDatePickers from '../productsTableList/subcomponents/TwiceDatePickers'
 
 const override = {
    display: 'block',
    margin: '150px auto 0 auto',
 }
 
-const AllProducts = () => {
-   const { products, loading, sizeOfProducts, totalPage } = useSelector(
-      (state) => state.adminPanel
+const OrdersTableList = ({ orderType }) => {
+   const { orders, loading, sizeOfProducts, totalPage } = useSelector(
+      (state) => state.orders
    )
    const [queryParams, setQueryParams] = useState({
       search: 'all',
       page: 1,
-      size: 7,
-      sort: null,
-      startOfDate: null,
-      finishOfDate: null,
-      status: STATUS.ON_SALE,
+      size: 5,
+      dateOfStart: null,
+      dateOfFinish: null,
+      status: orderType,
    })
    const navigate = useNavigate()
-
-   const { allproducts } = products
-
-   console.log(sizeOfProducts, totalPage)
-   console.log(queryParams)
-
    const dispatch = useDispatch()
 
    const onStartChange = (start) => {
+      const formatDate = new Date(start)
       setQueryParams((prev) => {
          return {
             ...prev,
-            startOfDate: format(start, 'yyyy-MM-dd'),
+            dateOfStart:
+               dateFormatter(formatDate) === 'NaN-NaN-NaN'
+                  ? null
+                  : dateFormatter(formatDate),
          }
       })
    }
 
    const onFinishChange = (end) => {
+      const formatDate = new Date(end)
       setQueryParams((prev) => {
          return {
             ...prev,
-            finishOfDate: format(end, 'yyyy-MM-dd'),
+            dateOfFinish:
+               dateFormatter(formatDate) === 'NaN-NaN-NaN'
+                  ? null
+                  : dateFormatter(formatDate),
          }
       })
    }
 
    useEffect(() => {
-      dispatch(getProducts(queryParams))
+      dispatch(getOrders(queryParams))
    }, [
-      queryParams.finishOfDate,
+      queryParams.dateOfFinish,
       queryParams.page,
       queryParams.search,
-      queryParams.sort,
-      queryParams.startOfDate,
+      queryParams.dateOfStart,
       queryParams.status,
    ])
 
@@ -88,8 +82,8 @@ const AllProducts = () => {
 
    const handleDelete = (e, id) => {
       e.stopPropagation()
-      if (window.confirm('Вы хотите удалить этот продукт?')) {
-         dispatch(deleteProductById(id))
+      if (window.confirm('Вы хотите удалить этот заказ?')) {
+         dispatch(deleteOrderById(id))
       }
    }
 
@@ -97,58 +91,41 @@ const AllProducts = () => {
       navigate(`${id}`)
    }
 
-   const onChangeHandler = (key, value) => {
-      setQueryParams((prev) => {
-         return {
-            ...prev,
-            [key]: value,
-         }
-      })
-   }
-
    const columns = [
       {
-         key: 'productId',
+         key: 'userId',
          header: 'ID',
          width: 40,
       },
+      { key: 'userName', header: 'ФИО', width: 100 },
       {
-         key: 'image',
-         header: 'Фото',
-         width: 80,
-         // eslint-disable-next-line react/no-unstable-nested-components
-         cell: (item) => <TableImage src={item.image} alt={item.image} />,
-      },
-      { key: 'article', header: 'Артикул', width: 120 },
-      { key: 'productName', header: 'Наименование товара', width: 200 },
-      {
-         key: 'createAt',
-         header: 'Дата создания',
-         width: 90,
+         key: 'Number',
+         header: 'Номер/дата',
+         width: 120,
       },
       {
          key: 'quantity',
-         header: 'Кол-во товара',
+         header: 'Кол-во',
+         width: 80,
+      },
+      {
+         key: 'amounPrice',
+         header: 'Общая сумма',
          width: 100,
       },
       {
-         key: 'priceWithDiscount',
-         header: 'Цена товара',
+         key: 'orderType',
+         header: 'Оформление заказа',
          width: 100,
-         // eslint-disable-next-line react/no-unstable-nested-components
-         cell: (item) => (
-            <div>
-               <StyledPrice>{item.price}</StyledPrice>
-               <StyledDiscount>{item.discount}%</StyledDiscount>
-            </div>
-         ),
       },
       {
-         key: 'currentPrice',
-         header: 'Текущая цена',
+         key: 'status',
+         header: 'Cтатус',
          width: 100,
          // eslint-disable-next-line react/no-unstable-nested-components
-         cell: (item) => <StyledPrice>{item.currentPrice}</StyledPrice>,
+         cell: () => {
+            return <PopUpMenu payment="Наличные" />
+         },
       },
       {
          key: 'actions',
@@ -158,9 +135,6 @@ const AllProducts = () => {
          cell: (item) => {
             return (
                <ActionContainer>
-                  <IconButton>
-                     <UpdateIcon />
-                  </IconButton>
                   <IconButton onClick={(e) => handleDelete(e, item.productId)}>
                      <DeleteIcon />
                   </IconButton>
@@ -186,35 +160,38 @@ const AllProducts = () => {
          <hr />
          <DatePickerContainer>
             <TwiceDatePickers
-               start={queryParams.startOfDate}
-               finish={queryParams.finishOfDate}
+               start={queryParams.dateOfStart}
+               finish={queryParams.dateOfFinish}
                onStartChange={onStartChange}
                onFinishChange={onFinishChange}
             />
          </DatePickerContainer>
          <TopFunctionalContainer>
             <InfoParagraph>{`Найдено ${
-               allproducts.length === 0 ? 0 : sizeOfProducts
+               orders.length === 0 ? 0 : sizeOfProducts
             } товаров`}</InfoParagraph>
-            <Sorting onChange={onChangeHandler} />
          </TopFunctionalContainer>
-         <TableListContainer>
-            <TableList
-               data={allproducts}
-               columns={columns}
-               onNavigetToInnerPage={onNavigetToInnerPage}
-            />
-            <AppPagination
-               totalPage={totalPage}
-               page={queryParams.page}
-               onChange={handleChangePage}
-            />
-         </TableListContainer>
+         {orders.length === 0 ? (
+            <EmptyMessage> ⚠️ Пока что заказов нет...</EmptyMessage>
+         ) : (
+            <TableListContainer>
+               <TableList
+                  data={orders}
+                  columns={columns}
+                  onNavigetToInnerPage={onNavigetToInnerPage}
+               />
+               <AppPagination
+                  totalPage={totalPage}
+                  page={queryParams.page}
+                  onChange={handleChangePage}
+               />
+            </TableListContainer>
+         )}
       </Container>
    )
 }
 
-export default AllProducts
+export default OrdersTableList
 
 const Container = styled.div`
    hr {
@@ -243,26 +220,15 @@ const TableListContainer = styled.div`
 `
 const ActionContainer = styled.div`
    display: flex;
-   gap: 25px;
+   gap: 12px;
 
    svg {
       cursor: pointer;
    }
 `
-const StyledPrice = styled.p`
-   font-style: normal;
-   font-weight: 400;
-   font-size: 16px;
-   color: #2c68f5;
-`
-const StyledDiscount = styled.p`
-   font-style: normal;
-   font-weight: 400;
-   font-size: 16px;
-   color: #f10000;
-`
-const TableImage = styled.img`
-   width: 70px;
-   height: 70px;
-   object-fit: contain;
+const EmptyMessage = styled.div`
+   display: flex;
+   justify-content: center;
+   margin-top: 80px;
+   font-size: 18px;
 `

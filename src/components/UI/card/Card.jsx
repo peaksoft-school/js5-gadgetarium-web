@@ -19,7 +19,7 @@ const renderSwitch = (param) => {
       case 'DISCOUNT':
          return (
             <CardHeaderItemsAction style={{ background: '#F10000CC' }}>
-               <span>-{param.discount}%</span>
+               <span>{param.discount > 0 && `-${param.discount}%`}</span>
             </CardHeaderItemsAction>
          )
       case 'RECCOMMEND':

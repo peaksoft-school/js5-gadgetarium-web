@@ -9,21 +9,20 @@ import {
    styled,
 } from '@mui/material'
 
-import { ReactComponent as VectorDown } from '../../assets/icons/VectorDown.svg'
-import { ReactComponent as VectorUp } from '../../assets/icons/VectorUp.svg'
+import { ReactComponent as VectorDown } from '../../../assets/icons/VectorDown.svg'
+import { ReactComponent as VectorUp } from '../../../assets/icons/VectorUp.svg'
 
 const cardList = [
    { title: 'В ожидании', color: '#CB11AB' },
-   { title: 'Принять заказ', color: '#08A592' },
-   { title: 'В обработке', color: '#F99808' },
+   { title: 'Готов к подаче', color: '#08A592' },
    { title: 'Курьер в пути', color: '#2C68F5' },
    { title: 'Доставлен', color: '#3CDE14' },
    { title: 'Отменить', color: '#F10000' },
 ]
 const cashList = [
    { title: 'В ожидании', color: '#CB11AB' },
-   { title: 'Принять заказ', color: '#08A592' },
-   { title: 'Доставлен', color: '#3CDE14' },
+   { title: 'Готов к подаче', color: '#08A592' },
+   { title: 'Получен', color: '#3CDE14' },
    { title: 'Отменить', color: '#F10000' },
 ]
 

@@ -20,3 +20,12 @@ export const STATUS = {
    WISH_LIST: 'WISH_LIST',
    BASKET: 'BASKET',
 }
+
+export const ORDERS_STATUS = {
+   PENDING: 'PENDING',
+   READY_FOR: 'READY_FOR',
+   ON_THE_WAY: 'ON_THE_WAY',
+   DELIVERED: 'DELIVERED',
+   RECEIVED: 'RECEIVED',
+   CANCEL: 'CANCEL',
+}
