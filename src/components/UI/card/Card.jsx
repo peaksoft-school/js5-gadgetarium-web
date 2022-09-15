@@ -114,7 +114,6 @@ export default Card
 const CardContainer = styled.div`
    display: flex;
    flex-direction: column;
-   width: 300px;
    height: 500px;
    background: #fff;
    border-radius: 4px;

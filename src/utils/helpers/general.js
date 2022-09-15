@@ -54,26 +54,7 @@ export const reduceDates = (date) =>
       .map((el) => Number(el))
       .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
 
-// export function requestWithSorting(requestObj) {
-//    let text = ''
-//    for (const key in requestObj) {
-//       if (obj[key] !== null) {
-
-//       }
-//    }
-// }
-
-// const myCallbackFunction = (event) => {
-//    // standard web api change event
-//    const newValue = event.target.value
-//    // update state based on input field changes
-//    this.setState({ playerName: newValue })
-// }
-
-// const mySubmitFunction = (event) => {
-//    // standard web api submit event
-//    event.preventDefault()
-//    // use state
-//    const url = `https://nba-players.herokuapp.com/players-stats/${this.state.playerName}`
-//    // TODO call axios with dynamic url
-// }
+export const multipleDots = (word) => {
+   const countLength = 60 - word.split('').length
+   return `${word}${'.'.repeat(countLength)}`
+}

@@ -18,13 +18,14 @@ const AdminRoutes = () => {
                <Route index element={<ProductsPage />} />
                <Route path="addproducts/*" element={<AddProductsPage />} />
                <Route path=":productId" element={<ProductInnerPage />} />
+               <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="orders/*" element={<Outlet />}>
                <Route index element={<OrdersPage />} />
                <Route path=":orderId" element={<OrderInfoPage />} />
+               <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="reviews" element={<ReviewsPage />} />
-            <Route path="*" element={<NotFound />} />
          </Routes>
       </AdminLayout>
    )

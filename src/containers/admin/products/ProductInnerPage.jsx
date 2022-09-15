@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,28 +6,10 @@ import { RingLoader } from 'react-spinners'
 import styled from 'styled-components'
 
 import SamsungBrand from '../../../assets/images/brand.png'
-import Samsung from '../../../assets/images/SamsungForSlider.png'
 import BottomContent from '../../../components/admin/innerPageContent/BottomContent'
 import ProductContent from '../../../components/admin/innerPageContent/ProductContent'
 import BreadCrumbs from '../../../components/UI/Bredcrumbs'
 import { getProductById } from '../../../store/actions/products/productsActions'
-
-const paths = [
-   {
-      name: 'Товары',
-      path: '/',
-   },
-   {
-      name: 'Galaxy S21 5G',
-      path: '/:productName',
-   },
-]
-
-const images = [
-   { images: Samsung, id: 2 },
-   { images: Samsung, id: 3 },
-   { images: Samsung, id: 4 },
-]
 
 const override = {
    display: 'block',
@@ -40,12 +21,24 @@ const ProductInnerPage = () => {
    const { product, loading } = useSelector((state) => state.adminPanel)
    const { productId } = useParams()
 
-   // useEffect(() => {
-   //    if (productId) {
-   //       dispatch(getProductById(productId))
-   //    }
-   // }, [productId])
-   // console.log(product)
+   const paths = [
+      {
+         name: 'Товары',
+         path: '/',
+      },
+      {
+         name: product.productName,
+         path: '/:productName',
+      },
+   ]
+
+   useEffect(() => {
+      if (productId) {
+         dispatch(getProductById(productId))
+      }
+   }, [productId])
+
+   const handleDelete = () => {}
    if (loading) {
       return (
          <RingLoader
@@ -60,10 +53,10 @@ const ProductInnerPage = () => {
       <Container>
          <BreadCrumbs paths={paths} />
          <HeaderBrand>
-            <img src={SamsungBrand} alt="samsung" />
+            <img src={product.brandImage || SamsungBrand} alt="samsung" />
          </HeaderBrand>
-         <ProductContent images={images} />
-         <BottomContent />
+         <ProductContent handleDelete={handleDelete} data={product} />
+         <BottomContent data={product} />
       </Container>
    )
 }
@@ -79,6 +72,7 @@ const HeaderBrand = styled.div`
    & img {
       width: 141px;
       height: 28px;
+      object-fit: contain;
       margin: 20px 0px;
    }
 `

@@ -4,7 +4,15 @@ import { styled } from '@mui/material'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
 
-const PreviewSlider = ({ images }) => {
+import Samsung from '../../assets/images/SamsungForSlider.png'
+
+const image = [
+   { images: Samsung, id: 2 },
+   { images: Samsung, id: 3 },
+   { images: Samsung, id: 4 },
+]
+
+const PreviewSlider = () => {
    return (
       <div>
          <CarouselStyle
@@ -14,7 +22,8 @@ const PreviewSlider = ({ images }) => {
             interval={4000}
             showIndicators={false}
          >
-            {images.map((img) => (
+            {image.map((img) => (
+               // eslint-disable-next-line react/no-array-index-key
                <div key={img.id}>
                   <img src={img.images} alt="#" />
                </div>

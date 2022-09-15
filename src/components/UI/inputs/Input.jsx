@@ -18,13 +18,12 @@ const Input = forwardRef((props, ref) => {
    } = props
    return (
       <StyledInput
-         autoComplete={autoComplete}
+         autoComplete="off"
          ref={ref}
          type={type}
          placeholder={placeholder}
          name={name}
          id={id}
-         maxR
          value={value}
          error={error}
          onChange={onChange}

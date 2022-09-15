@@ -10,8 +10,9 @@ import styled from 'styled-components'
 import { ReactComponent as Document } from '../../../assets/icons/Document.svg'
 
 import AboutBlock from './innerPageComponents/AboutBlock'
+import CharactersBlock from './innerPageComponents/CharactersBlock'
 
-export default function BottomContent(props) {
+export default function BottomContent({ data }) {
    const [value, setValue] = React.useState('1')
 
    const handleChange = (event, newValue) => {
@@ -46,13 +47,18 @@ export default function BottomContent(props) {
                </TabList>
                <DownloadDocument>
                   <Document />
-                  <p onClick={props.FileUpload}>Скачать документ.pdf</p>
+                  <a href={data?.pdf || '#'}>Скачать документ.pdf</a>
                </DownloadDocument>
             </Box>
             <TabPanel value="1">
-               <AboutBlock />
+               <AboutBlock
+                  description={data?.description}
+                  videoReview={data?.videoReview}
+               />
             </TabPanel>
-            <TabPanel value="2">Характеристика</TabPanel>
+            <TabPanel value="2">
+               <CharactersBlock />
+            </TabPanel>
             <TabPanel value="3">Отзывы</TabPanel>
          </TabContext>
       </Box>
@@ -73,7 +79,8 @@ const DownloadDocument = styled.div`
    display: flex;
    gap: 10px;
    align-items: center;
-   & p {
+   & a {
+      text-decoration: none;
       font-weight: 400;
       font-size: 14px;
       line-height: 150%;

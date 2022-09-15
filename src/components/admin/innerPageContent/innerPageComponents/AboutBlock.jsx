@@ -3,7 +3,7 @@ import React from 'react'
 import YouTube from 'react-youtube'
 import styled from 'styled-components'
 
-const AboutBlock = () => {
+const AboutBlock = ({ description, videoReview }) => {
    const onReady = (event) => {
       // access to player in all event handlers via event.target
       event.target.pauseVideo()
@@ -15,30 +15,14 @@ const AboutBlock = () => {
    return (
       <div>
          <YoutubVideoBlock>
-            <YouTube videoId="VYLzOakff2g" opts={opts} onReady={onReady} />
+            <YouTube
+               videoId={videoReview || 'VYLzOakff2g'}
+               opts={opts}
+               onReady={onReady}
+            />
          </YoutubVideoBlock>
          <DescriptionBlock>
-            <p>
-               Non ultricies sollicitudin nisi quisque. Morbi integer quis
-               tincidunt vitae penatibus. Feugiat quis tincidunt volutpat
-               scelerisque elit fermentum nullam rhoncus adipiscing. Sem tortor
-               molestie odio. Adipiscing etiam vitae in semper sed eget nec
-               aliquet aliquam. Morbi integer quis tincidunt vitae penatibus.
-               Feugiat quis tincidunt volutpat scelerisque elit fermentum nullam
-               rhoncus adipiscing. Sem tortor molestie odio.Adipiscing etiam
-               vitae in semper sed eget nec aliquet aliquam. Non ultricies
-               sollicitudin nisi quisque. Morbi integer quis tincidunt vitae
-               penatibus. Feugiat quis tincidunt volutpat scelerisque elit
-               fermentum nullam rhoncus adipiscing. Sem tortor molestie odio.
-               Adipiscing etiam vitae in semper sed eget nec aliquet aliquam.
-               Morbi integer quis tincidunt vitae penatibus. Feugiat quis
-               tincidunt volutpat scelerisque elit fermentum nullam rhoncus
-               adipiscing. Sem tortor molestie odio.Adipiscing etiam vitae in
-               semper sed eget nec aliquet aliquam. Non ultricies sollicitudin
-               nisi quisque. Morbi integer quis tincidunt vitae penatibus.
-               Feugiat quis tincidunt volutpat scelerisque elit fermentum nullam
-               rhoncus adipiscing. Sem tortor molestie odio
-            </p>
+            <p>{description}</p>
          </DescriptionBlock>
       </div>
    )

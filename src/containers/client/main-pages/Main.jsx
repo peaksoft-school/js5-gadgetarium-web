@@ -91,9 +91,9 @@ const MainPage = () => {
       })
    }
 
-   const seeMoreDiscount = discount?.map((el) => el)
+   // const seeMoreDiscount = discount?.map((el) => el)
    const seeMoreNew = newProduct?.map((el) => el)
-   const seeMoreRecommend = recommend?.map((el) => el)
+   // const seeMoreRecommend = recommend?.map((el) => el)
 
    return (
       <div>
@@ -101,7 +101,7 @@ const MainPage = () => {
             <Carousel />
          </StyledSlider>
          <CardContainer>
-            <Styled>Акции</Styled>
+            {/* <Styled>Акции</Styled> */}
             <StyledCard>
                {discount?.map((data) => {
                   return (
@@ -134,7 +134,7 @@ const MainPage = () => {
                   )
                })}
             </StyledCard>
-            <StyledButton>
+            {/* <StyledButton>
                {Number(seeMoreDiscount?.length) % 5 === 0 ? (
                   <div key={seeMoreDiscount?.productId}>
                      <Button
@@ -154,7 +154,7 @@ const MainPage = () => {
                      Показать меньше
                   </Button>
                )}
-            </StyledButton>
+            </StyledButton> */}
             <Styled>Новинки</Styled>
             <StyledCard>
                {newProduct?.map((data) => {
@@ -209,7 +209,7 @@ const MainPage = () => {
                   </Button>
                )}
             </StyledButton>
-            <Styled> Мы рекомендуем</Styled>
+            {/* <Styled> Мы рекомендуем</Styled> */}
             <StyledCard>
                {recommend?.map((data) => {
                   return (
@@ -242,7 +242,7 @@ const MainPage = () => {
                   )
                })}
             </StyledCard>
-            <StyledButton>
+            {/* <StyledButton>
                {Number(seeMoreRecommend?.length) % 5 === 0 ? (
                   <div key={seeMoreRecommend?.productId}>
                      <Button
@@ -262,7 +262,7 @@ const MainPage = () => {
                      Показать меньше
                   </Button>
                )}
-            </StyledButton>
+            </StyledButton> */}
             <StyledContainer>
                <InfoCards />
             </StyledContainer>

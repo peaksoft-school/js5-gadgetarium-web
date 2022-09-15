@@ -35,17 +35,17 @@ const override = {
 
 const MainRoutes = () => {
    return (
-      <Suspense
-         fallback={
-            <RingLoader
-               color="#cb11ab"
-               cssOverride={override}
-               speedMultiplier={1.2}
-               size={120}
-            />
-         }
-      >
-         <MainLayuot>
+      <MainLayuot>
+         <Suspense
+            fallback={
+               <RingLoader
+                  color="#cb11ab"
+                  cssOverride={override}
+                  speedMultiplier={1.2}
+                  size={120}
+               />
+            }
+         >
             <Routes>
                <Route path="" element={<Main />} />
                <Route path="catalog" element={<Outlet />}>
@@ -64,8 +64,8 @@ const MainRoutes = () => {
                <Route path="contacts" element={<Contacts />} />
                <Route path="*" element={<NotFound />} />
             </Routes>
-         </MainLayuot>
-      </Suspense>
+         </Suspense>
+      </MainLayuot>
    )
 }
 

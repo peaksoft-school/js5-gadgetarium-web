@@ -5,20 +5,31 @@ import { ReactComponent as DeleteIcon } from '../../../assets/icons/Trash.svg'
 import Button from '../../UI/Button'
 import PreviewSlider from '../../UI/PreviewSlider'
 
-const ProductContent = ({ images }) => {
+import Characters from './innerPageComponents/Characters'
+
+const ProductContent = ({ images, data, handleDelete, handleEdit }) => {
    return (
       <Container>
          <LeftContent>
-            <PreviewSlider images={images} />
+            <PreviewSlider images={data.productImages || images} />
          </LeftContent>
          <RightContent>
-            <ProductNameHeader>Galaxy S21 5G</ProductNameHeader>
+            <ProductNameHeader>{data.productName}</ProductNameHeader>
             <ProductInfoBlock>
-               <StockInfo>В наличии</StockInfo>
-               <ArcticleInfo>Артикул: 030696</ArcticleInfo>
+               {data.stock ? (
+                  <StockInfo>В наличии ({data.quantity})</StockInfo>
+               ) : (
+                  <NotStockInfo>Нет в наличии</NotStockInfo>
+               )}
+               <ArcticleInfo>Артикул: {data.article}</ArcticleInfo>
                <RatingInfo>
-                  <Rating readOnly size="small" name="read-only" value={4} />
-                  <RatingCount>(56)</RatingCount>
+                  <Rating
+                     readOnly
+                     size="small"
+                     name="read-only"
+                     value={data.stars}
+                  />
+                  <RatingCount>({data.countOfUser})</RatingCount>
                </RatingInfo>
             </ProductInfoBlock>
             <StyledHr />
@@ -26,29 +37,46 @@ const ProductContent = ({ images }) => {
                <LeftSide>
                   <ProductColorBlock>
                      <ProductColor>Цвет товара:</ProductColor>
-                     <span>Сиреневый</span>
+                     <span>{data.color}</span>
                   </ProductColorBlock>
                   <ProductCharactersBlock>
                      <ProductColor>Коротко о товаре:</ProductColor>
+                     <Characters characters={data.characters} />
                   </ProductCharactersBlock>
                </LeftSide>
                <RightSide>
                   <ProductPrice>
-                     <DiscountInfo>
-                        <span>-10%</span>
-                     </DiscountInfo>
-                     <ProductDiscountPrice>54 190c</ProductDiscountPrice>
-                     <ProductPrevPrice>57 190 с</ProductPrevPrice>
+                     {data.discount > 0 && (
+                        <DiscountInfo>
+                           <span>-{data.discount}%</span>
+                        </DiscountInfo>
+                     )}
+                     {data.price === data.currentPrice ? (
+                        <ProductDiscountPrice>
+                           {data.currentPrice} c
+                        </ProductDiscountPrice>
+                     ) : (
+                        <>
+                           <ProductDiscountPrice>
+                              {data.currentPrice} c
+                           </ProductDiscountPrice>
+                           <ProductPrevPrice>{data.price} c</ProductPrevPrice>
+                        </>
+                     )}
                   </ProductPrice>
                   <StyledHr />
                   <ProductActions>
                      <DeleteAction>
-                        <IconButton>
+                        <IconButton onClick={handleDelete}>
                            <DeleteIcon />
                         </IconButton>
                      </DeleteAction>
                      <EditAction>
-                        <Button variant="contained" width="194px">
+                        <Button
+                           variant="contained"
+                           width="194px"
+                           onClick={handleEdit}
+                        >
                            Редактировать
                         </Button>
                      </EditAction>
@@ -87,7 +115,7 @@ const ProductNameHeader = styled.h1`
    color: #1a1a25;
 `
 const ProductInfoBlock = styled.div`
-   margin-top: 45px;
+   margin-top: 60px;
    display: flex;
    margin-bottom: 15px;
    flex-direction: row;
@@ -100,6 +128,10 @@ const StockInfo = styled.p`
    line-height: 19px;
    color: #2fc509;
 `
+const NotStockInfo = styled(StockInfo)`
+   color: #9f9c9c;
+`
+
 const ArcticleInfo = styled.p`
    font-weight: 500;
    font-size: 16px;
@@ -147,6 +179,9 @@ const ProductColorBlock = styled.div`
    display: flex;
    flex-direction: column;
    margin-bottom: 15px;
+   & span {
+      text-transform: capitalize;
+   }
 `
 const ProductColor = styled.p`
    font-weight: 700;
@@ -159,7 +194,6 @@ const ProductColor = styled.p`
 const ProductSecondInfoBlock = styled.div`
    display: flex;
    justify-content: flex-start;
-   align-items: center;
    margin-top: 30px;
 `
 
@@ -172,7 +206,9 @@ const RightSide = styled.div`
    width: 270px;
 `
 
-const ProductCharactersBlock = styled.div``
+const ProductCharactersBlock = styled.div`
+   width: 115%;
+`
 
 const ProductPrice = styled.div`
    display: flex;
@@ -214,5 +250,4 @@ const DeleteAction = styled.div`
    border-radius: 4px;
    cursor: pointer;
 `
-
 const EditAction = styled.div``
