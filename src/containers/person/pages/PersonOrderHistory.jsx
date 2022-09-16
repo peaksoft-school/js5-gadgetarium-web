@@ -54,10 +54,10 @@ const data = [
 const PersonOrderHistory = () => {
    const [show, setShow] = useState({
       que: false,
-      // min: null,
-      // model: null,
-      // city: null,
-      // delivery: null,
+      min: false,
+      model: false,
+      city: false,
+      delivery: false,
    })
 
    const showFirst = () => {
@@ -75,7 +75,7 @@ const PersonOrderHistory = () => {
    const showFifth = () => {
       setShow({ ...show, delivery: !show.delivery })
    }
-   console.log(show)
+   // console.log(show)
    return (
       <Container>
          {show.que !== null ? (
@@ -271,8 +271,8 @@ const CardStyled = styled('div')`
 const DivBlockInner = styled('div')`
    width: 100%;
    display: flex;
-   /* flex-direction: column; */
-   justify-content: space-around;
+   justify-content: space-between;
+   align-items: flex-end;
    padding: 0px;
    h1 {
       font-style: normal;
@@ -288,13 +288,7 @@ const DivBlockInner = styled('div')`
       line-height: 150%;
       color: #292929;
    }
-   /* h3 {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 19px;
-      color: #299a0d;
-   } */
+
    span {
       font-style: normal;
       font-weight: 700;
@@ -303,6 +297,8 @@ const DivBlockInner = styled('div')`
       text-align: right;
       color: #292929;
       display: flex;
+      margin-left: 250px;
+      margin-right: 30px;
    }
 `
 const DivBlock = styled('div')`
@@ -314,18 +310,10 @@ const DivBlock = styled('div')`
 
 const Container = styled('div')`
    & .css-gm4yzc {
-      /* display: flex; */
-      /* flex-wrap: nowrap; */
    }
 
-   margin: auto;
-   margin-top: 120px;
+   margin: 120px 0px 0px 0px;
    width: 1010px;
-   /* & h3 {
-      width: 400px;
-      margin: auto;
-      padding: 30px;
-   } */
 `
 const Div = styled('div')`
    width: 1000px;
@@ -386,7 +374,6 @@ const StyledBlock = styled('div')`
 `
 const StyledComponent = styled('div')`
    width: 466px;
-   height: 500px;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -415,9 +402,3 @@ const StyledText = styled('p')`
    text-align: center;
    color: #292929;
 `
-// const StyledCard = styled.div`
-//    display: flex;
-//    flex-direction: row;
-//    gap: 15px;
-//    padding: 30px 0px 0px 0px;
-// `

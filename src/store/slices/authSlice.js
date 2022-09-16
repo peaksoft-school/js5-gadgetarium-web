@@ -21,13 +21,13 @@ export const login = createAsyncThunk(
 export const registration = createAsyncThunk(
    'auth/register',
    async (
-      { firstName, lastname, phoneNumber, password, email, onClose },
+      { firstName, lastName, phoneNumber, password, email, onClose },
       { rejectWithValue }
    ) => {
       try {
          const response = await signUp({
             firstName,
-            lastname,
+            lastName,
             phoneNumber,
             password,
             email,

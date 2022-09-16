@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ReactComponent as DeleteCompareList } from '../../../assets/icons/DeleteCompareList.svg'
@@ -12,6 +13,8 @@ import {
    getAllProducts,
    deleteAllProducts,
 } from '../../../store/actions/wishListActions'
+
+import Main from './Main'
 
 const pathsArray = [
    {
@@ -28,12 +31,18 @@ const FavouritesPage = () => {
    const userId = useSelector((state) => state.auth.user.id)
    const { wishProducts } = useSelector((state) => state.wishProducts)
 
+   const navigate = useNavigate()
    const dispatch = useDispatch()
    useEffect(() => {
       if (userId) {
          dispatch(getAllProducts(userId))
       }
    }, [])
+
+   const navigateMain = () => {
+      dispatch(Main())
+      navigate('/')
+   }
    return (
       <ContainerBox>
          <Breadcrumbs paths={pathsArray} />
@@ -68,7 +77,12 @@ const FavouritesPage = () => {
                   })}
                </StyledCard>
                <StyledBox>
-                  <Button variant="outlined" width="180px" height="41px">
+                  <Button
+                     variant="outlined"
+                     width="180px"
+                     height="41px"
+                     onClick={navigateMain}
+                  >
                      Продолжить покупки
                   </Button>
                </StyledBox>
@@ -82,7 +96,12 @@ const FavouritesPage = () => {
                      Воспользуйтесь поиском или каталогом, выберите нужные
                      товары и добавьте их в избранное!
                   </StyledText>
-                  <Button variant="outlined" width="180px" height="41px">
+                  <Button
+                     variant="outlined"
+                     width="180px"
+                     height="41px"
+                     onClick={navigateMain}
+                  >
                      К покупкам
                   </Button>
                </StyledComponent>
@@ -96,7 +115,6 @@ export default FavouritesPage
 
 const ContainerBox = styled.div`
    min-width: 900px;
-   display: flex;
    justify-content: center;
 `
 const StyledBox = styled.div`
