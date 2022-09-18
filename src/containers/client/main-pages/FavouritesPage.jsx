@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 // import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ReactComponent as DeleteCompareList } from '../../../assets/icons/DeleteCompareList.svg'
@@ -31,12 +31,17 @@ const FavouritesPage = () => {
    const userId = useSelector((state) => state.auth.user.id)
    const { wishProducts } = useSelector((state) => state.wishProducts)
 
+   const navigate = useNavigate()
    const dispatch = useDispatch()
    useEffect(() => {
       if (userId) {
          dispatch(getAllProducts(userId))
       }
    }, [])
+
+   const navigateMain = () => {
+      navigate('/')
+   }
    return (
       <ContainerBox>
          <Breadcrumbs paths={pathsArray} />
@@ -71,7 +76,12 @@ const FavouritesPage = () => {
                   })}
                </StyledCard>
                <StyledBox>
-                  <Button variant="outlined" width="180px" height="41px">
+                  <Button
+                     variant="outlined"
+                     width="180px"
+                     height="41px"
+                     onClick={navigateMain}
+                  >
                      Продолжить покупки
                   </Button>
                </StyledBox>
@@ -100,9 +110,8 @@ const FavouritesPage = () => {
 export default FavouritesPage
 
 const ContainerBox = styled.div`
-   /* min-width: 900px;
-   display: flex;
-   justify-content: center; */
+   min-width: 900px;
+   justify-content: center;
 `
 const StyledBox = styled.div`
    display: flex;

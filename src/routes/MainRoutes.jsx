@@ -3,8 +3,10 @@ import { lazy, Suspense } from 'react'
 import { Outlet, Route, Routes } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
 
-import NotFound from '../components/UI/NotFound'
+import ProtectedRoute from './private/ProtectedRoute'
 
+// import PersonPage from '../containers/person/PersonPage'
+const PersonPage = lazy(() => import('../containers/person/PersonPage'))
 const MainLayuot = lazy(() => import('../layout/MainLayout'))
 const AboutPage = lazy(() => import('../containers/client/AboutPage'))
 const Contacts = lazy(() => import('../containers/client/Contacts'))
@@ -58,11 +60,17 @@ const MainRoutes = () => {
                   <Route index element={<CartPage />} />
                   <Route path="ordering" element={<OrderingPage />} />
                </Route>
+               <Route
+                  path="person"
+                  element={
+                     <ProtectedRoute roles="USER" element={<PersonPage />} />
+                  }
+               />
                <Route path="about" element={<AboutPage />} />
                <Route path="delivery" element={<DeliveryPage />} />
                <Route path="faq" element={<FaqPage />} />
                <Route path="contacts" element={<Contacts />} />
-               <Route path="*" element={<NotFound />} />
+               {/* <Route path="*" element={<NotFound />} /> */}
             </Routes>
          </Suspense>
       </MainLayuot>

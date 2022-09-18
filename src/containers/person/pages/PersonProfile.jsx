@@ -1,45 +1,155 @@
 import { useState } from 'react'
 
-// import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
 
-import Group from '../../../assets/images/337564.png'
+// import avatarLogo from '../../../assets/images/337564.png'
 import Button from '../../../components/UI/Button'
+import ImagePicker from '../../../components/UI/ImagePicker'
 import Input from '../../../components/UI/inputs/Input'
 import InputForPassword from '../../../components/UI/inputs/InputForPassword'
+import { postProfile, putProfile } from '../../../store/actions/userListActions'
+// import { API_URL } from '../../../services/userListService'
 
 const PersonProfile = () => {
-   const [change, setChange] = useState(false)
-   // const { changes } = useSelector((state) => state)
-   // console.log(changes)
+   const { firstName, lastName, phoneNumber, email, address, image } =
+      useSelector((state) => state.userProfile.userInfo)
+   const [user, setUser] = useState({
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      address,
+   })
+   const [inputForPassword, setInputForPassword] = useState({
+      currentPassword: '',
+      newPassword: '',
+      confirmNewPassword: '',
+   })
 
+   const [error, setError] = useState({
+      newPassword: '',
+      confirmNewPassword: '',
+   })
+
+   const [file, setFile] = useState(image)
+   const [other, showOther] = useState(false)
+   const dispatch = useDispatch()
+
+   const validateInput = (e) => {
+      const { name, value } = e.target
+      setError((prev) => {
+         const stateObj = { ...prev, [name]: '' }
+         switch (name) {
+            case 'newPassword':
+               if (!value) {
+                  stateObj[name] = 'Пожалуйста введите пароль.'
+               } else if (
+                  InputForPassword.confirmNewPassword &&
+                  value !== InputForPassword.confirmNewPassword
+               ) {
+                  stateObj.confirmNewPassword =
+                     'Пароль и подтверждение пароля не совпадают.'
+               } else if (value.length < 8) {
+                  stateObj.confirmNewPassword = 'Введите более 8 символов'
+               } else {
+                  stateObj.confirmNewPassword =
+                     InputForPassword.confirmNewPassword
+                        ? ''
+                        : error.confirmNewPassword
+               }
+               break
+
+            case 'confirmNewPassword':
+               if (!value) {
+                  stateObj[name] = 'Пожалуйста, введите Подтвердить пароль.'
+               } else if (
+                  InputForPassword.newPassword &&
+                  value !== InputForPassword.newPassword
+               ) {
+                  stateObj[name] = 'Пароль и подтверждение пароля не совпадают.'
+               }
+               break
+            default:
+               break
+         }
+
+         return stateObj
+      })
+   }
+
+   const handleSubmit = (e) => {
+      e.preventDefault()
+      if (user.firstName && user.lastName && user.phoneNumber && user.email) {
+         dispatch(putProfile({ user, file }))
+      } else {
+         toast.error('Заполните пустые поля')
+      }
+   }
+
+   const { newPassword, currentPassword, confirmNewPassword } = inputForPassword
+
+   const handlePasswordSubmit = (e) => {
+      e.preventDefault()
+      if (newPassword === confirmNewPassword) {
+         dispatch(postProfile({ currentPassword, newPassword, showOther }))
+      } else {
+         setError()
+      }
+   }
+
+   const handlePasswordChange = (e) => {
+      const { value, name } = e.target
+      setInputForPassword((prev) => ({
+         ...prev,
+         [name]: value,
+      }))
+      validateInput(e)
+   }
+
+   const navigate = useNavigate()
+   const handleChange = (e) => {
+      setUser({ ...user, [e.target.name]: e.target.value })
+   }
+
+   const onChange = (newValue) => {
+      setFile(newValue)
+   }
+
+   const navigateBack = () => {
+      navigate(-1)
+   }
    return (
       <div>
-         <div>
-            {/* <div> */}
+         <DivContainer>
             <StyledProgileImg>
-               <img src={Group} alt="" />
-               <p>Нажмите для добавления фотографии</p>
+               <ImagePicker onChange={onChange} newFile={image} />
             </StyledProgileImg>
             <ComponentContainer>
                <StyledTextH3>Личные данные</StyledTextH3>
-
                <StyledBox>
                   <StyledDiv>
                      <StyledText>Имя *</StyledText>
-
                      <Input
                         width="338px"
                         height="48px"
                         borderRadius="6px"
-                        value="Azamat"
+                        name="firstName"
+                        onChange={handleChange}
+                        defaultValue={firstName}
+                        placeholder="Введите свое имя"
                      />
                      <StyledText>E-mail *</StyledText>
                      <Input
                         width="338px"
                         height="48px"
+                        name="email"
+                        onChange={handleChange}
                         borderRadius="6px"
-                        value="aza@gmail.com"
+                        placeholder="Введите свою почту"
+                        value={email}
                      />
                   </StyledDiv>
                   <StyledDiv>
@@ -47,72 +157,110 @@ const PersonProfile = () => {
                      <Input
                         width="338px"
                         height="48px"
+                        name="lastName"
                         borderRadius="6px"
-                        value="Azamatov"
+                        onChange={handleChange}
+                        defaultValue={lastName}
+                        placeholder="Введите свою фамилию"
                      />
                      <StyledText>Телефон *</StyledText>
                      <Input
                         width="338px"
                         height="48px"
                         borderRadius="6px"
-                        value="+996555123456"
+                        defaultValue={phoneNumber}
+                        onChange={handleChange}
+                        placeholder="Введите свой телефон"
                      />
                   </StyledDiv>
                </StyledBox>
-               {/* </div> */}
-
                <div>
-                  <div>
+                  <div
+                     style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                     }}
+                  >
                      <StyledText>Адрес доставки *</StyledText>
-                     <Input
-                        width="686px"
-                        height=" 48px"
-                        borderRadius="6px"
-                        placeholder="ул.Московская 120, кв 4, дом 9"
-                     />
+                     <AddressDiv>
+                        <Input
+                           width="686px"
+                           height=" 48px"
+                           name="address"
+                           onChange={handleChange}
+                           defaultValue={address}
+                           borderRadius="6px"
+                           placeholder="Введите свой адресс"
+                        />
+                     </AddressDiv>
                   </div>
-                  {change ? (
+                  <ChangePasswordDiv>
+                     <ChangePasswordButton
+                        onClick={() => {
+                           showOther(true)
+                        }}
+                     >
+                        Сменить пароль
+                     </ChangePasswordButton>
+                  </ChangePasswordDiv>
+                  {other ? (
                      <>
-                        <ChangePasswordDiv>
-                           <ChangePasswordButton>
-                              Сменить пароль
-                           </ChangePasswordButton>
-                        </ChangePasswordDiv>
-
                         <ChangePasswordBox>
                            <ChangePasswordInput>
-                              <StyledText>Старый пароль *</StyledText>
-                              <InputForPassword
-                                 width="338px"
-                                 height="48px"
-                                 borderRadius="6px"
-                                 placeholder="Подтвердите пароль"
-                                 id="confirmedPassword"
-                                 // error={!!errors.confirmedPassword?.message}
-                                 // name="confirmedPassword"
-                                 // {...register('confirmedPassword')}
-                              />
-                              <StyledText>Новый пароль *</StyledText>
-                              <Input
-                                 width="338px"
-                                 height="48px"
-                                 borderRadius="6px"
-                              />
+                              <div>
+                                 <StyledText>Старый пароль *</StyledText>
+                                 <InputForPassword
+                                    width="338px"
+                                    height="48px"
+                                    borderRadius="6px"
+                                    placeholder="Подтвердите пароль"
+                                    id="currentPassword"
+                                    name="currentPassword"
+                                    onChange={handlePasswordChange}
+                                 />
+                              </div>
+                              <div>
+                                 <StyledText>Новый пароль *</StyledText>
+                                 <InputForPassword
+                                    width="338px"
+                                    height="48px"
+                                    borderRadius="6px"
+                                    placeholder="Новый пароль"
+                                    name="newPassword"
+                                    onBlur={validateInput}
+                                    onChange={handlePasswordChange}
+                                 />
+                                 {error.newPassword && (
+                                    <StyledError>
+                                       {error.newPassword}
+                                    </StyledError>
+                                 )}
+                              </div>
                            </ChangePasswordInput>
-
                            <StyledText>Подтвердите новый пароль *</StyledText>
-                           <Input
+                           <InputForPassword
                               width="338px"
                               height="48px"
                               borderRadius="6px"
+                              placeholder="Подтвердите новый пароль"
+                              name="confirmNewPassword"
+                              onBlur={validateInput}
+                              onChange={handlePasswordChange}
                            />
+                           {error.confirmNewPassword && (
+                              <StyledError>
+                                 {error.confirmNewPassword}
+                              </StyledError>
+                           )}
                         </ChangePasswordBox>
-
                         <StyledTextButton>
                            <Button
                               variant="outlined"
                               width="338px"
                               height="47px"
+                              onClick={() => {
+                                 showOther(false)
+                              }}
                            >
                               Отменить
                            </Button>
@@ -120,6 +268,7 @@ const PersonProfile = () => {
                               variant="contained"
                               width="338px"
                               height="47px"
+                              onClick={handlePasswordSubmit}
                            >
                               Сохранить
                            </Button>
@@ -127,11 +276,16 @@ const PersonProfile = () => {
                      </>
                   ) : (
                      <StyledTextButton>
-                        <Button variant="outlined" width="338px" height="47px">
+                        <Button
+                           variant="outlined"
+                           width="338px"
+                           height="47px"
+                           onClick={navigateBack}
+                        >
                            Назад
                         </Button>
                         <Button
-                           onClick={() => setChange(true)}
+                           onClick={handleSubmit}
                            variant="contained"
                            width="338px"
                            height="47px"
@@ -142,12 +296,18 @@ const PersonProfile = () => {
                   )}
                </div>
             </ComponentContainer>
-         </div>
+         </DivContainer>
       </div>
    )
 }
 
 export default PersonProfile
+
+const DivContainer = styled.div`
+   display: flex;
+   justify-content: space-between;
+   margin-top: 70px;
+`
 const StyledTextH3 = styled.h3`
    font-style: normal;
    font-weight: 700;
@@ -159,7 +319,6 @@ const StyledProgileImg = styled.div`
    display: flex;
    flex-direction: column;
    align-items: center;
-   justify-content: center;
    width: 148px;
    font-family: 'Inter';
    font-style: normal;
@@ -168,7 +327,7 @@ const StyledProgileImg = styled.div`
    line-height: 130%;
    text-align: center;
    color: #91969e;
-   border: 1px solid red;
+   border-color: red 1px solid;
 `
 
 const ComponentContainer = styled.div`
@@ -176,17 +335,12 @@ const ComponentContainer = styled.div`
    flex-direction: column;
    align-content: space-around;
    justify-content: center;
-   /* width: 688px; */
-   margin-left: 500px;
-   margin-top: -150px;
-   /* padding: 30px; */
+   margin-left: 200px;
 `
 const StyledBox = styled.div`
    display: flex;
-   /* margin: 10px;  */
 `
 const StyledDiv = styled.div`
-   /* padding: 10px; */
    margin: 5px;
 `
 const StyledText = styled.p`
@@ -195,16 +349,23 @@ const StyledText = styled.p`
    font-size: 16px;
    line-height: 150%;
    color: #384255;
-   margin: 15px;
+   margin: 15px 0px;
+   .span {
+      margin-left: 5px;
+   }
+`
+const AddressDiv = styled.div`
+   margin-left: 5px;
 `
 const StyledTextButton = styled('div')`
-   /* margin: 5px; */
+   margin: 20px 5px;
    display: flex;
    justify-content: space-between;
 `
 const ChangePasswordDiv = styled('div')`
    display: flex;
    justify-content: flex-end;
+   margin-top: 15px;
 `
 const ChangePasswordButton = styled('button')`
    font-style: normal;
@@ -215,95 +376,16 @@ const ChangePasswordButton = styled('button')`
    border: none;
    cursor: pointer;
 `
-const ChangePasswordBox = styled.div``
+const ChangePasswordBox = styled.div`
+   margin: 5px;
+`
 const ChangePasswordInput = styled.div`
    display: flex;
+   justify-content: space-between;
 `
-// const StyledGroup = styled('div')`
-//    width: 148px;
-//    height: 130px;
-//    left: 195px;
-//    top: 470px;
-//    p {
-//       font-style: normal;
-//       font-weight: 500;
-//       font-size: 12px;
-//       line-height: 130%;
-//       text-align: center;
-//       color: #91969e;
-//    }
-// `
-
-// const ComponentForm = styled.div`
-//    width: 100%;
-//    display: flex;
-//    justify-content: center;
-//    /* display: grid;
-//    grid-template-columns: 1fr;
-//    grid-row-gap: 24px; */
-//    /* margin: 0 auto; */
-// `
-
-// const StyledH4 = styled.h4`
-//    font-style: normal;
-//    font-weight: 700;
-//    font-size: 24px;
-//    line-height: 110%;
-//    color: #292929;
-// `
-// const StyledBox = styled.div`
-//    display: flex;
-//    gap: 10px;
-// `
-// const StyledContainerDiv = styled.div`
-//    display: flex;
-//    /* flex-direction: column; */
-//    /* margin-top: 24px; */
-//    margin-bottom: 12px;
-//    gap: 10px;
-//    /* width: 1532px; */
-//    height: 632px;
-//    /* margin-top: 40px; */
-//    /* display: grid;
-//    grid-template-columns: repeat(5, 1fr);
-//    grid-template-rows: repeat(3, 1fr); */
-//    /* grid-column-gap: 10px; */
-//    /* grid-row-gap: 10px; */
-//    p {
-//       font-style: normal;
-//       font-weight: 400;
-//       font-size: 16px;
-//       line-height: 150%;
-//       color: #384255;
-//    }
-// `
-
-// // const StyledDiv = styled.div`
-// //    p {
-// //       font-style: normal;
-// //       font-weight: 400;
-// //       font-size: 16px;
-// //       line-height: 150%;
-// //       color: #384255;
-// //    }
-// // `
-// // const ContainerDiv = styled.div`
-// //    display: flex;
-// //    flex-direction: column;
-// // `
-
-// const StyledAdress = styled.div`
-//    font-style: normal;
-//    font-weight: 400;
-//    font-size: 16px;
-//    line-height: 150%;
-//    color: #384255;
-//    &.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-//       padding: 8px, 12px, 8px, 12px;
-//    }
-// `
-// const ContainerBox = styled.div`
-//    display: flex;
-//    margin-top: 15px;
-//    gap: 10px;
-// `
+const StyledError = styled.span`
+   display: flex;
+   margin: 4px 0 0 0;
+   font-size: 13px;
+   color: #e64646;
+`

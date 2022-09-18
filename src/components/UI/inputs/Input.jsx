@@ -14,6 +14,7 @@ const Input = forwardRef((props, ref) => {
       value,
       autoComplete,
       maxLength,
+      defaultValue,
       ...others
    } = props
    return (
@@ -23,6 +24,7 @@ const Input = forwardRef((props, ref) => {
          type={type}
          placeholder={placeholder}
          name={name}
+         defaultValue={defaultValue}
          id={id}
          value={value}
          error={error}
