@@ -1,13 +1,13 @@
 import * as React from 'react'
 
-import styled from '@emotion/styled'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
+import { styled } from '@mui/material'
 import Tab from '@mui/material/Tab'
 
-export default function LabTabs({ tabsArray, variant }) {
-   const [value, setValue] = React.useState('1')
+export default function LabTabs({ tabsArray, variant, baseValue }) {
+   const [value, setValue] = React.useState(baseValue)
 
    const handleChange = (event, newValue) => {
       setValue(newValue)
@@ -15,12 +15,12 @@ export default function LabTabs({ tabsArray, variant }) {
 
    return (
       <TabContext value={value}>
-         <TabList
+         <StyledTabList
             onChange={handleChange}
             TabIndicatorProps={{ style: { backgroundColor: '#fff' } }}
             aria-label="lab API tabs example"
          >
-            {tabsArray.map((el) => (
+            {tabsArray?.map((el) => (
                <StyledTab
                   variant={variant}
                   key={el.id}
@@ -28,12 +28,12 @@ export default function LabTabs({ tabsArray, variant }) {
                   value={el.value}
                />
             ))}
-         </TabList>
-         {tabsArray.map((el) => {
+         </StyledTabList>
+         {tabsArray?.map((el) => {
             return (
-               <TabPanel key={el.id} value={el.value}>
+               <StyledTabPanel key={el.id} value={el.value}>
                   {el.Component}
-               </TabPanel>
+               </StyledTabPanel>
             )
          })}
       </TabContext>
@@ -48,7 +48,7 @@ const StyledTab = styled(Tab)(({ variant }) => ({
    textTransform: 'none',
    fontFamily: 'Inter, sans-serif',
    fontStyle: 'normal',
-   fontWeight: '600',
+   fontWeight: '400',
    fontSize: '14px',
    lineHeight: '19px',
    backgroundColor: '#e0e2e7',
@@ -57,6 +57,10 @@ const StyledTab = styled(Tab)(({ variant }) => ({
       background: '#384255',
       color: '#ffffff',
    },
+   '& button.Mui-selected': {
+      backgroundColor: '#384255',
+      color: '#fff',
+   },
    ...(variant === 'pink' && {
       '&:focus-within': {
          background: '#CB11AB',
@@ -64,3 +68,23 @@ const StyledTab = styled(Tab)(({ variant }) => ({
       },
    }),
 }))
+
+const StyledTabList = styled(TabList)`
+   & .MuiTabs-indicator {
+      display: none;
+   }
+   & button.Mui-selected {
+      background: '#384255';
+      span {
+         color: white;
+      }
+      h4 {
+         color: #8639b5;
+         background-color: white;
+      }
+   }
+`
+
+const StyledTabPanel = styled(TabPanel)`
+   padding: 30px 0 0 0;
+`

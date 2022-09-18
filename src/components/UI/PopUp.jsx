@@ -35,7 +35,7 @@ const PopUp = ({ icon, variant, ...props }) => {
             <Stack>
                <Paper>
                   <MenuList>
-                     {props.list.map((el) => (
+                     {props.lists.map((el) => (
                         <MenuItem onClick={() => clickHandler(el)} key={el.id}>
                            {el.list}
                         </MenuItem>

@@ -2,15 +2,12 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-// import Breadcrumbs from '../../components/UI/Bredcrumbs'
-import MainLayout from '../../layout/MainLayout'
-
 const PersonPage = () => {
-   return <StyledMainLayout>Личный кабинет</StyledMainLayout>
+   return <ContainerComponent> </ContainerComponent>
 }
 
 export default PersonPage
 
-const StyledMainLayout = styled(MainLayout)`
-   height: 100vh;
+const ContainerComponent = styled.div`
+   width: 100%;
 `

@@ -11,9 +11,7 @@ export default function MuiBadge({ onClick, children, counter }) {
 
 const StyledBadge = styled(Badge)({
    '& .MuiBadge-badge': {
-      right: -3,
-      top: 0,
-      padding: '0 4px',
+      padding: '2px',
       fontSize: '10px',
       fontWeight: '400',
       color: '#FFFFFF',

@@ -9,8 +9,8 @@ import {
    styled,
 } from '@mui/material'
 
-import { ReactComponent as VectorDown } from '../../assets/icons/VectorDown.svg'
-import { ReactComponent as VectorUp } from '../../assets/icons/VectorUp.svg'
+import { ReactComponent as VectorDown } from '../../../assets/icons/VectorDown.svg'
+import { ReactComponent as VectorUp } from '../../../assets/icons/VectorUp.svg'
 
 const cardList = [
    { title: 'В ожидании', color: '#CB11AB' },

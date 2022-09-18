@@ -8,7 +8,7 @@ import Ellipse3 from '../../assets/icons/Ellipse3.svg'
 import Ellipse4 from '../../assets/icons/Ellipse4.svg'
 import Ellipse5 from '../../assets/icons/Ellipse5.svg'
 import VectorArrow from '../../assets/icons/VectorArrow.svg'
-import BreadCrumbs from '../../components/UI/Bredcrumbs'
+import BreadCrumbs from '../../components/UI/Breadcrumbs'
 
 const pathsArray = [
    {

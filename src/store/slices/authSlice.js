@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import { signIn, signUp } from '../../services/authServices'
+import { signIn, signUp, subscribe } from '../../services/authServices'
 import { GADGETARIUM_USER_DATA } from '../../utils/constants/constants'
 import { localStorageHelpers } from '../../utils/helpers/general'
 
@@ -40,11 +40,26 @@ export const registration = createAsyncThunk(
    }
 )
 
+export const subscribeForMailingList = createAsyncThunk(
+   'auth/subscribe',
+   async ({ email }, { rejectWithValue }) => {
+      try {
+         const response = await subscribe({ email })
+         toast.success('Вы успешно подписались')
+         return response.data
+      } catch (err) {
+         toast.error(`${err.response.data.error}`)
+         return rejectWithValue(err.response.data)
+      }
+   }
+)
+
 const initialState = {
    user: {
       jwt: null,
       role: null,
       email: null,
+      id: null,
    },
    error: '',
    loading: false,
@@ -94,6 +109,9 @@ const authSlice = createSlice({
          state.loading = false
          state.error = action.payload
          toast.error('Ошибка с авторизацией')
+      },
+      [subscribeForMailingList.fulfilled]: (state) => {
+         state.loading = false
       },
    },
 })
