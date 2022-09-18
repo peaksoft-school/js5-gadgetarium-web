@@ -44,7 +44,9 @@ const FavouritesPage = () => {
          {wishProducts.length > 0 ? (
             <>
                <ListClearButton
-                  onClick={() => dispatch(deleteAllProducts(userId))}
+                  onClick={() =>
+                     dispatch(deleteAllProducts({ userId, dispatch }))
+                  }
                >
                   <DeleteCompareList />
                   <p>Oчистить список товаров</p>

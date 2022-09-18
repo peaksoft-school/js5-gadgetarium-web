@@ -1,10 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 import {
    getAllWishProducts,
    removeAllProducts,
    removeProduct,
    addToWishProducts,
+   getAllHoverWishProducts,
 } from '../../services/WishListService'
 
 import { getMainNewProduct } from './productActions'
@@ -20,11 +22,24 @@ export const getAllProducts = createAsyncThunk(
       }
    }
 )
+
+export const getHoverWishProducts = createAsyncThunk(
+   'compareProducts/getHoverWishProducts',
+   async (_, { rejectWithValue }) => {
+      try {
+         const response = await getAllHoverWishProducts()
+         return response.data
+      } catch (err) {
+         return rejectWithValue(err.response.data)
+      }
+   }
+)
 export const deleteAllProducts = createAsyncThunk(
    'wishProducts/deleteAllProducts',
-   async (userId, { rejectWithValue }) => {
+   async ({ userId, dispatch }, { rejectWithValue }) => {
       try {
          const response = await removeAllProducts(userId)
+         dispatch(getHoverWishProducts())
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)
@@ -38,6 +53,8 @@ export const deleteWishProducts = createAsyncThunk(
       try {
          const response = await removeProduct(id, productId)
          dispatch(getMainNewProduct())
+         dispatch(getHoverWishProducts())
+         toast.success('Товар успешно удален')
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)
@@ -48,11 +65,10 @@ export const deleteWishProducts = createAsyncThunk(
 export const addWishProducts = createAsyncThunk(
    'wishProducts/addWishProducts',
    async ({ id, productId, dispatch }, { rejectWithValue }) => {
-      console.log(id, productId)
       try {
-         console.log('click')
          const response = await addToWishProducts(id, productId)
          dispatch(getMainNewProduct())
+         dispatch(getHoverWishProducts())
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)
