@@ -31,21 +31,21 @@ export const getHoverCompareProducts = createAsyncThunk(
 
 export const removeAllCompareProducts = createAsyncThunk(
    'compareProducts/removeAllCompareProducts',
-   async (dispatch, { rejectWithValue }) => {
+   async (_, { dispatch }) => {
       try {
          const response = await api.deleteAllCompareProducts()
          dispatch(getCompareProducts())
          dispatch(getHoverCompareProducts())
          return response.data
       } catch (err) {
-         return rejectWithValue(err.response.data)
+         return console.log(err.response.data)
       }
    }
 )
 
 export const removeCompareProduct = createAsyncThunk(
    'compareProducts/removeCompareProduct',
-   async ({ id, dispatch }, { rejectWithValue }) => {
+   async ({ id }, { dispatch }) => {
       try {
          const response = await api.deleteCompareProductById(id)
          dispatch(getHoverCompareProducts())
@@ -54,14 +54,14 @@ export const removeCompareProduct = createAsyncThunk(
          toast.success('Успешно удалено!')
          return response.data
       } catch (err) {
-         return rejectWithValue(err.response.data)
+         return console.log(err.response.data)
       }
    }
 )
 
 export const addToComparison = createAsyncThunk(
    'compareProducts/removeCompareProduct',
-   async ({ id, dispatch }, { rejectWithValue }) => {
+   async ({ id }, { dispatch }) => {
       try {
          const response = await api.postToComparison(id)
          toast.success('Товар успешно добавлен для сравнения')
@@ -69,7 +69,7 @@ export const addToComparison = createAsyncThunk(
          dispatch(getMainNewProduct())
          return response.data
       } catch (err) {
-         return rejectWithValue(err.response.data)
+         return console.log(err.response.data)
       }
    }
 )

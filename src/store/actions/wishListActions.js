@@ -36,42 +36,43 @@ export const getHoverWishProducts = createAsyncThunk(
 )
 export const deleteAllProducts = createAsyncThunk(
    'wishProducts/deleteAllProducts',
-   async ({ userId, dispatch }, { rejectWithValue }) => {
+   async ({ userId }, { dispatch }) => {
       try {
          const response = await removeAllProducts(userId)
          dispatch(getHoverWishProducts())
          return response.data
       } catch (err) {
-         return rejectWithValue(err.response.data)
+         return console.log(err.response.data)
       }
    }
 )
 
 export const deleteWishProducts = createAsyncThunk(
    'wishProducts/deleteAllProducts',
-   async ({ id, productId, dispatch }, { rejectWithValue }) => {
+   async ({ id, productId }, { dispatch }) => {
       try {
          const response = await removeProduct(id, productId)
+         toast.success('Товар успешно удален')
          dispatch(getMainNewProduct())
          dispatch(getHoverWishProducts())
-         toast.success('Товар успешно удален')
          return response.data
       } catch (err) {
-         return rejectWithValue(err.response.data)
+         console.log(err)
+         return console.log(err.response.data)
       }
    }
 )
 
 export const addWishProducts = createAsyncThunk(
    'wishProducts/addWishProducts',
-   async ({ id, productId, dispatch }, { rejectWithValue }) => {
+   async ({ id, productId }, { dispatch }) => {
       try {
          const response = await addToWishProducts(id, productId)
          dispatch(getMainNewProduct())
          dispatch(getHoverWishProducts())
          return response.data
       } catch (err) {
-         return rejectWithValue(err.response.data)
+         return console.log(err.response.data)
       }
    }
 )
