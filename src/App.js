@@ -1,13 +1,16 @@
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+// import { ToastContainer } from 'react-toastify'
+// import 'react-toastify/dist/ReactToastify.css'
 
-import AppRoutes from './routes/AppRoutes'
+import FeedbacksPage from './components/client/FeedbacksPage'
+
+// import AppRoutes from './routes/AppRoutes'
 
 function App() {
    return (
       <div>
-         <ToastContainer position="top-right" />
-         <AppRoutes />
+         {/* <ToastContainer position="top-right" />
+         <AppRoutes /> */}
+         <FeedbacksPage />
       </div>
    )
 }
