@@ -53,10 +53,10 @@ export default function AccountMenu({
             <MenuBlock>
                <Div>
                   {cart.map((el) => (
-                     <StyledMenuItem key={el.id}>
+                     <StyledMenuItem key={el.id || el.productId}>
                         <img src={el.image} alt="" />
                         <ContainerDates>
-                           <p>{el.name}</p>
+                           <p>{el.name || el.nameColor}</p>
                         </ContainerDates>
                         <ContainerPrice>
                            <p>{el.price}c</p>

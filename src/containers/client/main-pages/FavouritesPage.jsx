@@ -7,8 +7,7 @@ import styled from 'styled-components'
 
 import { ReactComponent as DeleteCompareList } from '../../../assets/icons/DeleteCompareList.svg'
 import EmptyIcon from '../../../assets/images/notfound.png'
-// import IphoneImg from '../../../assets/images/Phone.png'
-import Breadcrumbs from '../../../components/UI/Bredcrumbs'
+import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
 import {
@@ -51,7 +50,7 @@ const FavouritesPage = () => {
          {wishProducts.length > 0 ? (
             <>
                <ListClearButton
-                  onClick={() => dispatch(deleteAllProducts(userId))}
+                  onClick={() => dispatch(deleteAllProducts({ userId }))}
                >
                   <DeleteCompareList />
                   <p>Oчистить список товаров</p>

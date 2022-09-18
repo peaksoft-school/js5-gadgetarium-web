@@ -1,8 +1,5 @@
 import React from 'react'
 
-// import { InputLabel } from '@mui/material'
-// import styled from 'styled-components'
-
 import AdminSelect from '../../UI/AdminSelect'
 
 const SelectCharacter = ({ setCharacters, option }) => {
@@ -35,12 +32,3 @@ const SelectCharacter = ({ setCharacters, option }) => {
 }
 
 export default SelectCharacter
-
-// const StyledInputLabel = styled(InputLabel)`
-//    margin-bottom: 3px;
-//    color: #384255 !important;
-//    font-family: 'Inter' !important;
-// `
-// const RequiredLabel = styled.span`
-//    color: red;
-// `

@@ -8,8 +8,8 @@ import Tooltip from '../Tooltip'
 
 import { Balance, Like } from './CardIcons'
 
-const renderSwitch = (param) => {
-   switch (param.sort) {
+const renderCardByState = (param) => {
+   switch (param) {
       case 'NEW':
          return (
             <CardHeaderItemsAction style={{ background: '#2FC509' }}>
@@ -37,7 +37,7 @@ const Card = (props) => {
    return (
       <CardContainer>
          <CardHeaderItems>
-            {renderSwitch(props)}
+            {renderCardByState(props.sort)}
             <CardHeaderItemsIcons>
                <li onClick={props.compareProducts}>
                   <Tooltip title="Добавить в сравнение">

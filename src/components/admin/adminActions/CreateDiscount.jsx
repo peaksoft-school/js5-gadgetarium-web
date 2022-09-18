@@ -19,7 +19,6 @@ const CreateDiscount = ({ open, onClose, productId, setCheckedProducts }) => {
       dateOfStart: null,
       dateOfFinish: null,
    })
-   console.log(productId, discount)
    const handleChange = (event) => {
       const { value } = event.target
       const { name } = event.target
@@ -57,14 +56,6 @@ const CreateDiscount = ({ open, onClose, productId, setCheckedProducts }) => {
          }
       })
    }
-   const onFirstChange = (newValue) => {
-      onStartChange(newValue)
-   }
-
-   const onSecondChange = (newValue) => {
-      onFinishChange(newValue)
-   }
-
    const { percent, dateOfFinish, dateOfStart } = discount
 
    const validate = !(reduceDates(dateOfStart) > reduceDates(dateOfFinish))
@@ -116,7 +107,7 @@ const CreateDiscount = ({ open, onClose, productId, setCheckedProducts }) => {
                <DateBlock>
                   <DatePicker
                      value={discount.dateOfStart}
-                     onChange={onFirstChange}
+                     onChange={(newValue) => onStartChange(newValue)}
                      width="230px"
                      height="35px"
                      disablePast
@@ -124,7 +115,7 @@ const CreateDiscount = ({ open, onClose, productId, setCheckedProducts }) => {
                   />
                   <DatePicker
                      value={discount.dateOfFinish}
-                     onChange={onSecondChange}
+                     onChange={(newValue) => onFinishChange(newValue)}
                      width="230px"
                      height="35px"
                      disablePast

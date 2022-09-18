@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import EmptyIcon from '../../../assets/images/sammy-shopping-1 1.png'
-import Bredcrumbs from '../../../components/UI/Bredcrumbs'
+import Bredcrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
 
 const CartPage = () => {

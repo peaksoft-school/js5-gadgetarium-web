@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import BreadCrumbs from '../../../components/UI/Bredcrumbs'
+import BreadCrumbs from '../../../components/UI/Breadcrumbs'
 
 const paths = [
    {

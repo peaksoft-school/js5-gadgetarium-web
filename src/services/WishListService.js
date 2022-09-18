@@ -11,3 +11,6 @@ export const removeAllProducts = (userId) =>
 
 export const removeProduct = (userId, productId) =>
    axiosInstance.delete(`api/user/wishlist/${userId}/remove/${productId}`)
+
+export const getAllHoverWishProducts = () =>
+   axiosInstance.get('api/user/wishlist/hover')

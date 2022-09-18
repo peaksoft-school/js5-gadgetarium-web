@@ -1,15 +1,15 @@
-import { useState, useEffect, useReducer } from 'react'
+import { useState, useEffect } from 'react'
 
 import { IconButton } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ReactComponent as Compare } from '../../assets/icons/compare.svg'
 import { ReactComponent as Favorites } from '../../assets/icons/favorites.svg'
 import { ReactComponent as Cart } from '../../assets/icons/shopping-cart.svg'
-// import Samsung from '../../assets/images/miniSamsung.png'
 import { getHoverCompareProducts } from '../../store/actions/comparisonActions'
+import { getHoverWishProducts } from '../../store/actions/wishListActions'
 import MuiBadge from '../UI/MuiBadge'
 import ComparisonPopup from '../UI/popupMenus/ComparisonPopup'
 import Tooltip from '../UI/Tooltip'
@@ -18,27 +18,36 @@ const UserTools = () => {
    const { compareHoverProducts } = useSelector(
       (state) => state.compareProducts
    )
+   const { hoverWishProducts } = useSelector((state) => state.wishProducts)
    const { user } = useSelector((state) => state.auth)
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const [isShown, setIsShown] = useState(null)
-   const onClose = () => {
-      setIsShown(null)
-   }
+   const [isWishShown, setIsWishShown] = useState(null)
 
-   // eslint-disable-next-line no-unused-vars
-   const [_, forceUpdate] = useReducer((x) => x + 1, 0)
+   const onClose = () => {
+      setIsWishShown(null)
+   }
 
    const handleNavigate = () => {
       navigate('comparison')
       setIsShown(null)
-      forceUpdate()
+   }
+
+   const handleWishNavigate = () => {
+      navigate('favourites')
+      setIsShown(null)
    }
 
    useEffect(() => {
       if (user.jwt) {
          dispatch(getHoverCompareProducts())
-         forceUpdate()
+      }
+   }, [])
+
+   useEffect(() => {
+      if (user.jwt) {
+         dispatch(getHoverWishProducts())
       }
    }, [])
 
@@ -65,17 +74,35 @@ const UserTools = () => {
                cart={compareHoverProducts}
                title="Перейти в сравнение"
                anchorEl={isShown}
-               onClose={onClose}
+               onClose={() => setIsShown(null)}
                handleNavigate={handleNavigate}
             />
          )}
-         <Link to="favourites">
+         {hoverWishProducts.length === 0 ? (
             <IconButton>
-               <MuiBadge>
+               <Tooltip
+                  title="Выберите товар чтобы добавить в избранное"
+                  placement="bottom"
+               >
+                  <Favorites />
+               </Tooltip>
+            </IconButton>
+         ) : (
+            <IconButton onClick={(e) => setIsWishShown(e.currentTarget)}>
+               <MuiBadge counter={hoverWishProducts.length}>
                   <Favorites />
                </MuiBadge>
             </IconButton>
-         </Link>
+         )}
+         {hoverWishProducts && (
+            <ComparisonPopup
+               cart={hoverWishProducts}
+               title="Перейти в избранное"
+               anchorEl={isWishShown}
+               onClose={onClose}
+               handleNavigate={handleWishNavigate}
+            />
+         )}
          <IconButton>
             <MuiBadge>
                <Cart />

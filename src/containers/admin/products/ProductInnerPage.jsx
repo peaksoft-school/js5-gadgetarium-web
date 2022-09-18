@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import SamsungBrand from '../../../assets/images/brand.png'
 import BottomContent from '../../../components/admin/innerPageContent/BottomContent'
 import ProductContent from '../../../components/admin/innerPageContent/ProductContent'
-import BreadCrumbs from '../../../components/UI/Bredcrumbs'
+import BreadCrumbs from '../../../components/UI/Breadcrumbs'
 import { getProductById } from '../../../store/actions/products/productsActions'
 
 const override = {

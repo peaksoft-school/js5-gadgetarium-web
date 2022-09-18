@@ -20,13 +20,6 @@ const Select = ({
    const handleChange = (event) => {
       onChange(event.target.value)
    }
-   /* <Select
-                  options={categories}
-                  getOptionLabel={(arg) => arg.name}
-                  getOptionValue={(arg) => arg.id}
-                  onChange={(arg) => setState(arg)}
-                  value={state}
-               /> */
    return (
       <BoxStyled variant={variant}>
          <StyledInputLabel>{label}</StyledInputLabel>
@@ -34,7 +27,7 @@ const Select = ({
             <StyledSelectMui onChange={handleChange} value={value}>
                {options?.map((item) => {
                   return (
-                     <MenuItem value={getOptionValue(item)}>
+                     <MenuItem key={item} value={getOptionValue(item)}>
                         {getOptionLabel(item)}
                      </MenuItem>
                   )

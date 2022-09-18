@@ -29,7 +29,6 @@ const Input = forwardRef((props, ref) => {
          value={value}
          error={error}
          onChange={onChange}
-         inputProps={{ maxLength }}
          {...others}
       />
    )

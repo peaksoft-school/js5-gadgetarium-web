@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import EmptyIcon from '../../../assets/images/sammy-finance 1.png'
 import ComparisonContent from '../../../components/client/ComparisonContent'
-import Bredcrumbs from '../../../components/UI/Bredcrumbs'
+import Bredcrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
 import CustomizedTabs from '../../../components/UI/Tab'
 import {

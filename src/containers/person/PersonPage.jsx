@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import Breadcrumbs from '../../components/UI/Bredcrumbs'
+import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import Tab from '../../components/UI/Tab'
 import { getProfile } from '../../store/actions/userListActions'
 
@@ -92,8 +92,6 @@ export default PersonPage
 const ContainerComponent = styled.div`
    width: 1530px;
 `
-// const LargeContainer = styled.div``
-// const LargeContainerDiv = styled.div``
 const TabStyledComponent = styled.div`
    .css-13xfq8m-MuiTabPanel-root {
       padding: 0px;

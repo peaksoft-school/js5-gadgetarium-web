@@ -4,7 +4,7 @@ import { styled } from '@mui/material'
 
 import VectorArrow2 from '../../assets/icons/Vector 2 (1).svg'
 import VectorArrow from '../../assets/icons/VectorArrow.svg'
-import BreadCrumbs from '../../components/UI/Bredcrumbs'
+import BreadCrumbs from '../../components/UI/Breadcrumbs'
 
 const pathsArray = [
    {

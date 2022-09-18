@@ -62,7 +62,6 @@ const Box = styled.div`
       margin-left: 15px;
    }
 `
-
 const CarouselImage = styled.img`
    width: 100%;
    height: 650px;

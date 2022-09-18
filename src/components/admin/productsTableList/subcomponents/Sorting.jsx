@@ -1,4 +1,3 @@
-// import styled from 'styled-components'
 import { SORT } from '../../../../utils/constants/constants'
 import DropdownMenu from '../../../UI/dropdownMenu/DropdownMenu'
 import MenuItem from '../../../UI/dropdownMenu/MenuItem'

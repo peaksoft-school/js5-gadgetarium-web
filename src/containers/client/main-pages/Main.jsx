@@ -37,12 +37,11 @@ const MainPage = () => {
    const dispatch = useDispatch()
 
    const compareProducts = (id, status) => {
-      console.log(status)
       if (jwt) {
          if (status) {
-            dispatch(removeCompareProduct({ id, dispatch }))
+            dispatch(removeCompareProduct({ id }))
          } else {
-            dispatch(addToComparison({ id, dispatch }))
+            dispatch(addToComparison({ id }))
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')
@@ -50,12 +49,11 @@ const MainPage = () => {
    }
 
    const addToFavorites = (productId, status) => {
-      console.log(id, productId, status)
       if (id) {
          if (status) {
-            dispatch(deleteWishProducts({ id, productId, dispatch }))
+            dispatch(deleteWishProducts({ id, productId }))
          } else {
-            dispatch(addWishProducts({ id, productId, dispatch }))
+            dispatch(addWishProducts({ id, productId }))
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')
@@ -73,8 +71,6 @@ const MainPage = () => {
    useEffect(() => {
       dispatch(getMainRecommendProduct(size.recommend))
    }, [size.recommend])
-
-   console.log(newProduct)
 
    const loadMore = (type) => {
       const newSize = { ...size }

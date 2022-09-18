@@ -5,7 +5,7 @@ import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 import regionMap from '../../assets/icons/Carta.svg'
-import BreadCrumbs from '../../components/UI/Bredcrumbs'
+import BreadCrumbs from '../../components/UI/Breadcrumbs'
 
 const pathsArray = [
    {

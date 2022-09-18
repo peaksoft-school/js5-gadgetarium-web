@@ -42,10 +42,6 @@ const compareProductSlice = createSlice({
          const smartWatch = action.payload.filter(
             (el) => el.catalogName === 'Смарт-часы и браслеты'
          )
-         console.log(smartPhone)
-         console.log(laptop)
-         console.log(tablet)
-         console.log(smartWatch)
          state.smartPhone = Object.assign({}, ...smartPhone)
          state.laptop = Object.assign({}, ...laptop)
          state.tablet = Object.assign({}, ...tablet)

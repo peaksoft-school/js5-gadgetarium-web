@@ -5,10 +5,12 @@ import {
    getAllProducts,
    deleteAllProducts,
    addWishProducts,
+   getHoverWishProducts,
 } from '../actions/wishListActions'
 
 const initialState = {
    wishProducts: [],
+   hoverWishProducts: [],
    error: '',
    loading: false,
 }
@@ -26,6 +28,17 @@ const wishListSlice = createSlice({
          state.wishProducts = action.payload
       },
       [getAllProducts.rejected]: (state, action) => {
+         state.loading = false
+         state.error = action.payload
+      },
+      [getHoverWishProducts.pending]: (state) => {
+         state.loading = true
+      },
+      [getHoverWishProducts.fulfilled]: (state, action) => {
+         state.loading = false
+         state.hoverWishProducts = action.payload
+      },
+      [getHoverWishProducts.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
       },
