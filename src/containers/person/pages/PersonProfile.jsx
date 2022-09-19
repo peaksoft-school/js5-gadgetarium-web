@@ -47,8 +47,8 @@ const PersonProfile = () => {
                if (!value) {
                   stateObj[name] = 'Пожалуйста введите пароль.'
                } else if (
-                  InputForPassword.confirmNewPassword &&
-                  value !== InputForPassword.confirmNewPassword
+                  inputForPassword.confirmNewPassword &&
+                  value !== inputForPassword.confirmNewPassword
                ) {
                   stateObj.confirmNewPassword =
                      'Пароль и подтверждение пароля не совпадают.'
@@ -56,7 +56,7 @@ const PersonProfile = () => {
                   stateObj.confirmNewPassword = 'Введите более 8 символов'
                } else {
                   stateObj.confirmNewPassword =
-                     InputForPassword.confirmNewPassword
+                     inputForPassword.confirmNewPassword
                         ? ''
                         : error.confirmNewPassword
                }
@@ -66,8 +66,8 @@ const PersonProfile = () => {
                if (!value) {
                   stateObj[name] = 'Пожалуйста, введите Подтвердить пароль.'
                } else if (
-                  InputForPassword.newPassword &&
-                  value !== InputForPassword.newPassword
+                  inputForPassword.newPassword &&
+                  value !== inputForPassword.newPassword
                ) {
                   stateObj[name] = 'Пароль и подтверждение пароля не совпадают.'
                }

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
 import {
-   getAllProducts,
+   getUserWishList,
    deleteAllProducts,
    addWishProducts,
    getHoverWishProducts,
@@ -20,14 +20,14 @@ const wishListSlice = createSlice({
    initialState,
    reducers: {},
    extraReducers: {
-      [getAllProducts.pending]: (state) => {
+      [getUserWishList.pending]: (state) => {
          state.loading = true
       },
-      [getAllProducts.fulfilled]: (state, action) => {
+      [getUserWishList.fulfilled]: (state, action) => {
          state.loading = false
          state.wishProducts = action.payload
       },
-      [getAllProducts.rejected]: (state, action) => {
+      [getUserWishList.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
       },

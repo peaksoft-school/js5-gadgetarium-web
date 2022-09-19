@@ -11,7 +11,7 @@ import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
 import {
-   getAllProducts,
+   getUserWishList,
    deleteAllProducts,
 } from '../../../store/actions/wishListActions'
 
@@ -34,7 +34,7 @@ const FavouritesPage = () => {
    const dispatch = useDispatch()
    useEffect(() => {
       if (userId) {
-         dispatch(getAllProducts(userId))
+         dispatch(getUserWishList(userId))
       }
    }, [])
 

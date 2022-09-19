@@ -10,7 +10,6 @@ import styled from 'styled-components'
 import { ReactComponent as Document } from '../../../assets/icons/Document.svg'
 
 import AboutBlock from './innerPageComponents/AboutBlock'
-import CharactersBlock from './innerPageComponents/CharactersBlock'
 
 export default function BottomContent({ data }) {
    const [value, setValue] = React.useState('1')
@@ -56,9 +55,7 @@ export default function BottomContent({ data }) {
                   videoReview={data?.videoReview}
                />
             </TabPanel>
-            <TabPanel value="2">
-               <CharactersBlock />
-            </TabPanel>
+            <TabPanel value="2">Здесь будет характеристика товаре</TabPanel>
             <TabPanel value="3">Отзывы</TabPanel>
          </TabContext>
       </Box>

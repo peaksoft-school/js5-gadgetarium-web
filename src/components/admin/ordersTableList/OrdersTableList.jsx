@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { IconButton } from '@mui/material'
+import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
@@ -8,7 +9,6 @@ import styled from 'styled-components'
 
 import { ReactComponent as DeleteIcon } from '../../../assets/icons/deleteIcon.svg'
 import { deleteOrderById, getOrders } from '../../../store/actions/orderActions'
-import { dateFormatter } from '../../../utils/helpers/general'
 import AppPagination from '../../UI/AppPagination'
 import PopUpMenu from '../adminUI/PopUpMenu'
 import TableList from '../adminUI/TableList'
@@ -35,27 +35,19 @@ const OrdersTableList = ({ orderType }) => {
    const dispatch = useDispatch()
 
    const onStartChange = (start) => {
-      const formatDate = new Date(start)
       setQueryParams((prev) => {
          return {
             ...prev,
-            dateOfStart:
-               dateFormatter(formatDate) === 'NaN-NaN-NaN'
-                  ? null
-                  : dateFormatter(formatDate),
+            dateOfStart: format(start, 'yyyy-MM-dd'),
          }
       })
    }
 
    const onFinishChange = (end) => {
-      const formatDate = new Date(end)
       setQueryParams((prev) => {
          return {
             ...prev,
-            dateOfFinish:
-               dateFormatter(formatDate) === 'NaN-NaN-NaN'
-                  ? null
-                  : dateFormatter(formatDate),
+            dateOfFinish: format(end, 'yyyy-MM-dd'),
          }
       })
    }
@@ -82,6 +74,7 @@ const OrdersTableList = ({ orderType }) => {
 
    const handleDelete = (e, id) => {
       e.stopPropagation()
+      // eslint-disable-next-line no-alert
       if (window.confirm('Вы хотите удалить этот заказ?')) {
          dispatch(deleteOrderById(id))
       }
