@@ -102,12 +102,10 @@ export default PersonPage
 const ContainerComponent = styled.div`
    width: 1530px;
 `
-
 const TabStyledComponent = styled.div`
    .css-13xfq8m-MuiTabPanel-root {
       padding: 0px;
    }
-
    .css-1s62zzw-MuiButtonBase-root-MuiTab-root.Mui-selected {
       background: #384255;
       color: #ffffff;
@@ -131,7 +129,6 @@ const Horizontal = styled.div`
    transform: rotate(180deg);
    margin-bottom: 30px;
 `
-
 const StyledUser = styled.div`
    justify-self: flex-end;
 `
