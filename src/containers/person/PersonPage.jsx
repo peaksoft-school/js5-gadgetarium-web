@@ -102,11 +102,7 @@ export default PersonPage
 const ContainerComponent = styled.div`
    width: 1530px;
 `
-// const LargeContainer = styled.div`
-//   display: 'flex',
-//   justifyContent: 'space-between'
-//   `
-// const LargeContainerDiv = styled.div``
+
 const TabStyledComponent = styled.div`
    .css-13xfq8m-MuiTabPanel-root {
       padding: 0px;
