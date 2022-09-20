@@ -2,11 +2,7 @@ import React, { useState } from 'react'
 
 import { styled } from '@mui/material'
 
-import Ellise1 from '../../assets/icons/Ellipse1.svg'
-import Ellipse2 from '../../assets/icons/Ellipse2.svg'
-import Ellipse3 from '../../assets/icons/Ellipse3.svg'
-import Ellipse4 from '../../assets/icons/Ellipse4.svg'
-import Ellipse5 from '../../assets/icons/Ellipse5.svg'
+import VectorArrow2 from '../../assets/icons/Vector 2 (1).svg'
 import VectorArrow from '../../assets/icons/VectorArrow.svg'
 import BreadCrumbs from '../../components/UI/Breadcrumbs'
 
@@ -16,11 +12,10 @@ const pathsArray = [
       name: 'Главная',
    },
    {
-      path: '/faq',
+      path: '/about',
       name: 'FAQ',
    },
 ]
-
 const FaqPage = () => {
    const [show, setShow] = useState({
       que: null,
@@ -44,7 +39,6 @@ const FaqPage = () => {
    const showFifth = () => {
       setShow({ ...show, delivery: !show.delivery })
    }
-
    return (
       <div>
          <BreadCrumbs paths={pathsArray} />
@@ -57,10 +51,13 @@ const FaqPage = () => {
                <Div onClick={showFirst}>
                   <DivBlock>
                      <DivBlockInner>
-                        <img src={Ellise1} alt="" />
+                        <Numbers>
+                           <p> 1</p>
+                        </Numbers>
                         <p>Как можно оплатить заказ?</p>
                      </DivBlockInner>
-                     <img src={VectorArrow} alt="" />
+                     {show.que && <img src={VectorArrow2} alt="" />}
+                     {!show.que && <img src={VectorArrow} alt="" />}
                   </DivBlock>
                   {show.que && (
                      <AnswersTitle>
@@ -78,10 +75,13 @@ const FaqPage = () => {
                <Div onClick={showSecond}>
                   <DivBlock>
                      <DivBlockInner>
-                        <img src={Ellipse2} alt="" />
+                        <Numbers>
+                           <p> 2</p>
+                        </Numbers>
                         <p>Какой мининимальный заказ?</p>
                      </DivBlockInner>
-                     <img src={VectorArrow} alt="" />
+                     {show.min && <img src={VectorArrow2} alt="" />}
+                     {!show.min && <img src={VectorArrow} alt="" />}
                   </DivBlock>
                   {show.min && (
                      <AnswersTitle>
@@ -98,10 +98,13 @@ const FaqPage = () => {
                <Div onClick={showThird}>
                   <DivBlock>
                      <DivBlockInner>
-                        <img src={Ellipse3} alt="" />
+                        <Numbers>
+                           <p> 3</p>
+                        </Numbers>
                         <p> Какие еще модели есть?</p>
                      </DivBlockInner>
-                     <img src={VectorArrow} alt="" />
+                     {show.model && <img src={VectorArrow2} alt="" />}
+                     {!show.model && <img src={VectorArrow} alt="" />}
                   </DivBlock>
                   {show.model && (
                      <AnswersTitle>
@@ -121,10 +124,13 @@ const FaqPage = () => {
                <Div onClick={showFourth}>
                   <DivBlock>
                      <DivBlockInner>
-                        <img src={Ellipse4} alt="" />
+                        <Numbers>
+                           <p> 4</p>
+                        </Numbers>
                         <p>В других городах есть еще филиалы?</p>
                      </DivBlockInner>
-                     <img src={VectorArrow} alt="" />
+                     {show.city && <img src={VectorArrow2} alt="" />}
+                     {!show.city && <img src={VectorArrow} alt="" />}
                   </DivBlock>
                   {show.city && (
                      <AnswersTitle>
@@ -138,10 +144,13 @@ const FaqPage = () => {
                <Div onClick={showFifth}>
                   <DivBlock>
                      <DivBlockInner>
-                        <img src={Ellipse5} alt="" />
+                        <Numbers>
+                           <p> 5</p>
+                        </Numbers>
                         <p>У вас есть доставка?</p>
                      </DivBlockInner>
-                     <img src={VectorArrow} alt="" />
+                     {show.delivery && <img src={VectorArrow2} alt="" />}
+                     {!show.delivery && <img src={VectorArrow} alt="" />}
                   </DivBlock>
                   {show.delivery && (
                      <AnswersTitle>
@@ -156,9 +165,7 @@ const FaqPage = () => {
       </div>
    )
 }
-
 export default FaqPage
-
 const DivBlockInner = styled('div')`
    display: flex;
    align-items: center;
@@ -211,10 +218,31 @@ const Div = styled('div')`
       line-height: 24px;
    }
 `
-
 const AnswersTitle = styled('p')`
    padding: 20px 0 20px 80px;
    font-weight: 400;
    font-size: 16px;
    line-height: 24px;
+`
+const Numbers = styled('div')`
+   width: 40px;
+   height: 40px;
+   border-radius: 50px;
+   background-color: #f0d9ec;
+   color: #cb11ab;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+   :hover {
+      background-color: #cb11ab;
+      color: #ffffff;
+   }
+   p {
+      font-weight: 700px;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 30px;
+      margin-right: 18px;
+   }
 `

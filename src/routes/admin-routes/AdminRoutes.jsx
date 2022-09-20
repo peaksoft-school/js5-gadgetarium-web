@@ -1,6 +1,8 @@
 import { Route, Routes, Navigate, Outlet } from 'react-router-dom'
 
-import OrdersPage from '../../containers/admin/OrdersPage'
+import NotFound from '../../components/UI/NotFound'
+import OrderInfoPage from '../../containers/admin/orders/OrderInfoPage'
+import OrdersPage from '../../containers/admin/orders/OrdersPage'
 import AddProductsPage from '../../containers/admin/products/AddProductsPage'
 import ProductInnerPage from '../../containers/admin/products/ProductInnerPage'
 import ProductsPage from '../../containers/admin/products/ProductsPage'
@@ -16,8 +18,13 @@ const AdminRoutes = () => {
                <Route index element={<ProductsPage />} />
                <Route path="addproducts/*" element={<AddProductsPage />} />
                <Route path=":productId" element={<ProductInnerPage />} />
+               <Route path="*" element={<NotFound />} />
             </Route>
-            <Route path="orders" element={<OrdersPage />} />
+            <Route path="orders/*" element={<Outlet />}>
+               <Route index element={<OrdersPage />} />
+               <Route path=":orderId" element={<OrderInfoPage />} />
+               <Route path="*" element={<NotFound />} />
+            </Route>
             <Route path="reviews" element={<ReviewsPage />} />
          </Routes>
       </AdminLayout>

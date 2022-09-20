@@ -13,6 +13,7 @@ export const login = createAsyncThunk(
          onClose()
          return response.data
       } catch (err) {
+         toast.error(`${err.response.data.message}`)
          return rejectWithValue(err.response.data)
       }
    }
@@ -21,20 +22,22 @@ export const login = createAsyncThunk(
 export const registration = createAsyncThunk(
    'auth/register',
    async (
-      { firstName, lastname, phoneNumber, password, email, onClose },
+      { firstName, lastName, phoneNumber, password, email, onClose, reset },
       { rejectWithValue }
    ) => {
       try {
          const response = await signUp({
             firstName,
-            lastname,
+            lastName,
             phoneNumber,
             password,
             email,
          })
          onClose()
+         reset()
          return response.data
       } catch (err) {
+         toast.error(`${err.response.data.message}`)
          return rejectWithValue(err.response.data)
       }
    }
@@ -48,7 +51,7 @@ export const subscribeForMailingList = createAsyncThunk(
          toast.success('Вы успешно подписались')
          return response.data
       } catch (err) {
-         toast.error(`${err.response.data.error}`)
+         toast.error(`${err.response.data.message}`)
          return rejectWithValue(err.response.data)
       }
    }
@@ -108,7 +111,6 @@ const authSlice = createSlice({
       [registration.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
-         toast.error('Ошибка с авторизацией')
       },
       [subscribeForMailingList.fulfilled]: (state) => {
          state.loading = false

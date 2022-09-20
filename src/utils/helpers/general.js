@@ -53,3 +53,8 @@ export const reduceDates = (date) =>
       ?.split('-')
       .map((el) => Number(el))
       .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
+
+export const multipleDots = (word) => {
+   const countLength = 60 - word.split('').length
+   return `${word}${'.'.repeat(countLength)}`
+}

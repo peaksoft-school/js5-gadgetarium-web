@@ -1,10 +1,12 @@
 import * as React from 'react'
 
+// import styled from '@emotion/styled'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import { styled } from '@mui/material'
 import Tab from '@mui/material/Tab'
+import { Outlet, Route, Routes, Link } from 'react-router-dom'
 
 export default function LabTabs({ tabsArray, variant, baseValue }) {
    const [value, setValue] = React.useState(baseValue)
@@ -18,30 +20,42 @@ export default function LabTabs({ tabsArray, variant, baseValue }) {
          <StyledTabList
             onChange={handleChange}
             TabIndicatorProps={{ style: { backgroundColor: '#fff' } }}
+            aria-label="lab API tabs example"
             sx={{
                '& button.Mui-selected': {
                   backgroundColor: '#384255',
                   color: '#fff',
                },
             }}
-            aria-label="lab API tabs example"
          >
             {tabsArray?.map((el) => (
-               <StyledTab
-                  variant={variant}
-                  key={el.id}
-                  label={el.label}
-                  value={el.value}
-               />
+               <Link to={el.value} key={el.id}>
+                  <StyledTab
+                     variant={variant}
+                     key={el.id}
+                     label={el.label}
+                     value={el.value}
+                  />
+               </Link>
             ))}
          </StyledTabList>
-         {tabsArray?.map((el) => {
+         <StyledTabPanel>
+            <Outlet />
+         </StyledTabPanel>
+         <Routes>
+            <Route>
+               {tabsArray.map((i) => (
+                  <Route path={i.value} element={i.Component} />
+               ))}
+            </Route>
+         </Routes>
+         {/* {tabsArray?.map((el) => {
             return (
                <StyledTabPanel key={el.id} value={el.value}>
                   {el.Component}
                </StyledTabPanel>
             )
-         })}
+         })} */}
       </TabContext>
    )
 }
