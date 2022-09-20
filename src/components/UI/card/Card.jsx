@@ -66,7 +66,7 @@ const Card = (props) => {
          <CardTitle>
             <StlyedCardParagraph>
                {props.status === 'YES'
-                  ? `В наличии(${props.quantity})`
+                  ? `В наличии ${props.quantity ? `(${props.quantity})` : ''} `
                   : 'Нет в наличии'}
             </StlyedCardParagraph>
             <StyledCardHeader>{props.title}</StyledCardHeader>
@@ -115,6 +115,7 @@ const CardContainer = styled.div`
    display: flex;
    flex-direction: column;
    height: 500px;
+   min-width: 315px;
    background: #fff;
    border-radius: 4px;
    padding: 15px;
@@ -163,6 +164,7 @@ const StyledCardHeader = styled.h1`
    text-transform: capitalize;
    text-overflow: ellipsis;
    overflow: hidden;
+   width: 240px;
    color: #292929;
 `
 const CardTitle = styled.div`

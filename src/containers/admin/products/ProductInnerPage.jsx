@@ -13,6 +13,7 @@ import { getProductById } from '../../../store/actions/products/productsActions'
 
 const override = {
    display: 'block',
+   height: '100vh',
    margin: '150px auto 0 auto',
 }
 
