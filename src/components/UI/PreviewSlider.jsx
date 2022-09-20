@@ -33,10 +33,11 @@ const CarouselStyle = styled(Carousel)`
       padding-top: 40px;
       background-color: transparent;
    }
-   .carousel .slide {
-      /* height: 750px; */
+   .carousel .slide img {
+      width: 310px;
+      height: 370px;
+      object-fit: contain;
    }
-
    .thumbs-wrapper {
       margin-top: -0px;
    }

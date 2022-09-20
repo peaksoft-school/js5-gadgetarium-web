@@ -127,6 +127,7 @@ const Div = styled.div`
    padding: 20px 0px;
    display: flex;
    justify-content: space-between;
+   cursor: pointer;
    & p {
       font-size: 18px;
       margin: 0px 10px;

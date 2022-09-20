@@ -169,7 +169,7 @@ const Color = styled.div`
    }
 `
 const Info = styled.div`
-   width: 780px;
+   width: 50%;
    & span {
       font-family: 'Inter';
       font-style: normal;
@@ -194,15 +194,14 @@ const Info = styled.div`
    }
 `
 const Slide = styled.div`
-   & div {
-      width: 530px;
+   width: 45%;
+   /* & div {
+      width: 50%;
       height: auto;
-   }
+   } */
 `
 const Container = styled.div`
-   width: 1530px;
    height: auto;
-   margin: 30px auto;
 `
 const Samsung = styled.div`
    border-bottom: 1px solid #cdcdcd;

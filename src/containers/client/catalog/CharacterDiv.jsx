@@ -18,14 +18,15 @@ export default CharacterDiv
 const Div = styled('div')`
    border-top: 1px solid #e8e8e8;
    margin: 10px 0px;
-   padding: 10px 0px;
+   padding: 3% 0px;
 `
 const Show = styled('div')`
    display: flex;
-   margin-bottom: 10px;
+   margin-bottom: 3%;
    cursor: pointer;
    justify-content: space-between;
    align-items: center;
+
    h4 {
       font-family: 'Inter';
       font-style: normal;

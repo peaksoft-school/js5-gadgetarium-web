@@ -49,7 +49,7 @@ const ProductInner = () => {
 }
 export default ProductInner
 const Container = styled.div`
-   width: 1530px;
+   /* min-width: 1230px; */
    height: 100%;
    margin: 30px auto;
 `

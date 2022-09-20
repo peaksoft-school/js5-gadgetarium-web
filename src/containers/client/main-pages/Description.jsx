@@ -53,16 +53,15 @@ const Description = () => {
 }
 export default Description
 const Container = styled.div`
-   width: 1530px;
    & img {
-      width: auto;
+      width: 100%;
       padding: 0px;
       margin: 50px 0px;
    }
 `
 const Text = styled.div`
-   width: 1258px;
    margin: 20px auto;
+   width: 85%;
    & p {
       font-family: 'Inter';
       font-style: normal;

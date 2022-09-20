@@ -7,12 +7,13 @@ import Grid from '@mui/material/Grid'
 function MenuItem(props) {
    const { text } = props
 
-   // const handleClick = () => {
-   //    if (props.onClose) props.onClose()
-   // }
+   const handleClick = () => {
+      if (props.onClose) props.onClose()
+      props.onClick()
+   }
    return (
       <Grid container>
-         <StyledButton onClick={props.onClick} size="small" fullWidth>
+         <StyledButton onClick={handleClick} size="small" fullWidth>
             <p>{text}</p>
          </StyledButton>
       </Grid>
