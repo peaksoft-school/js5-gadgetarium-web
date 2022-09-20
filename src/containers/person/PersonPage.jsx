@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import Breadcrumbs from '../../components/UI/Bredcrumbs'
 import Tab from '../../components/UI/Tab'
 import { getProfile } from '../../store/actions/userListActions'
+import { logout } from '../../store/slices/authSlice'
 
 import PersonOrderHistory from './pages/PersonOrderHistory'
 import PersonProfile from './pages/PersonProfile'
@@ -54,17 +55,24 @@ const PersonPage = () => {
       dispatch(getProfile())
    }, [])
    const navigate = useNavigate()
-   const navigateGoout = () => {
+   const navigateAfterLogOut = () => {
+      dispatch(logout())
+      window.location.reload()
       navigate('/')
    }
    return (
       <ContainerComponent>
          <>
             <Breadcrumbs paths={pathsArray} />
-            <StyledH3>История заказов</StyledH3>
+            <StyledH3>Учетная запись</StyledH3>
          </>
          <Horizontal />
-         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+         <div
+            style={{
+               display: 'flex',
+               justifyContent: 'space-between',
+            }}
+         >
             <div>
                <TabStyledComponent>
                   <Tab tabsArray={tabsArray} variant="variant" />
@@ -79,7 +87,9 @@ const PersonPage = () => {
                      <UserStyledTitle>{email}</UserStyledTitle>
                      <UserStyledTitle>{phoneNumber}</UserStyledTitle>
                   </UserData>
-                  <LogoutButton onClick={navigateGoout}>Выйти</LogoutButton>
+                  <LogoutButton onClick={navigateAfterLogOut}>
+                     Выйти
+                  </LogoutButton>
                </StyledUser>
             </div>
          </div>
@@ -92,7 +102,10 @@ export default PersonPage
 const ContainerComponent = styled.div`
    width: 1530px;
 `
-// const LargeContainer = styled.div``
+// const LargeContainer = styled.div`
+//   display: 'flex',
+//   justifyContent: 'space-between'
+//   `
 // const LargeContainerDiv = styled.div``
 const TabStyledComponent = styled.div`
    .css-13xfq8m-MuiTabPanel-root {
