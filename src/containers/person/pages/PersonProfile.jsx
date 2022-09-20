@@ -5,18 +5,15 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 
-// import avatarLogo from '../../../assets/images/337564.png'
 import Button from '../../../components/UI/Button'
 import ImagePicker from '../../../components/UI/ImagePicker'
 import Input from '../../../components/UI/inputs/Input'
 import InputForPassword from '../../../components/UI/inputs/InputForPassword'
 import { postProfile, putProfile } from '../../../store/actions/userListActions'
-// import { API_URL } from '../../../services/userListService'
 
 const PersonProfile = () => {
    const { firstName, lastName, phoneNumber, email, address, image } =
       useSelector((state) => state.userProfile.userInfo)
-   console.log(lastName)
    const [user, setUser] = useState({
       firstName,
       lastName,
@@ -141,7 +138,6 @@ const PersonProfile = () => {
                         borderRadius="6px"
                         name="firstName"
                         onChange={handleChange}
-                        // value={user?.firstName}
                         defaultValue={firstName}
                         placeholder="Введите свое имя"
                      />
@@ -164,7 +160,6 @@ const PersonProfile = () => {
                         name="lastName"
                         borderRadius="6px"
                         onChange={handleChange}
-                        // value={user?.lastName}
                         defaultValue={lastName}
                         placeholder="Введите свою фамилию"
                      />
@@ -173,7 +168,6 @@ const PersonProfile = () => {
                         width="338px"
                         height="48px"
                         borderRadius="6px"
-                        // value={user?.phoneNumber}
                         defaultValue={phoneNumber}
                         onChange={handleChange}
                         placeholder="Введите свой телефон"

@@ -18,7 +18,6 @@ const userOrdersData = [
       orderNumber: '№ 1521751218',
       action: -10,
       img: Rectangle,
-      // orderStatus: 'Курьер в пути',
       title: 'Bluetooth Наушники Yison Е6',
       rating: 5,
       orderTotalSum: 78000,
@@ -42,7 +41,6 @@ const PersonOrderHistory = () => {
 
    const showFirst = () => {
       setShow({ ...show, que: !show.que })
-      // setShow((prev) => !prev)
    }
 
    const showSecond = () => {

@@ -94,10 +94,6 @@ const StyledBox = styled.div`
    display: flex;
    justify-content: center;
 `
-// const StyledBoxButton = styled('button')`
-//    width: 1300px;
-//    margin-left: 700px;
-// `
 
 const StyledBlock = styled.div`
    width: 1300px;
