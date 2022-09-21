@@ -101,6 +101,9 @@ const HeaderTop = styled('header')`
 const HeaderContainer = styled('div')`
    width: 100%;
    background: #1a1a25;
+   position: sticky;
+   top: -5.7rem;
+   z-index: 99;
 `
 const UpperRow = styled('div')`
    display: flex;
@@ -111,10 +114,9 @@ const UpperRow = styled('div')`
 const NavBar = styled('nav')`
    margin: 0px auto;
    width: 1380px;
-   height: 90px;
+   height: 70px;
    /* padding: 8px 0px; */
    background: #1a1a25;
-   position: sticky;
 
    /* @media (max-width: 1536px) {
       max-width: 1440px;

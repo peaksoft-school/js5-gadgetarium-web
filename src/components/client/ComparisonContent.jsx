@@ -10,7 +10,6 @@ import { ReactComponent as Delete } from '../../assets/icons/удалить.svg'
 import EmptyIcon from '../../assets/images/sammy-finance 1.png'
 import * as CHARACTERS from '../../data/characters'
 import Button from '../UI/Button'
-// import Checkbox from '../UI/Checkbox'
 
 const renderSwitch = (param) => {
    switch (param) {
@@ -47,7 +46,6 @@ const ComparisonContent = ({
       <>
          {data?.length > 0 && (
             <ComparisonPageCheckbox>
-               {/* <Checkbox label="Показывать только различия" /> */}
                <ComparisonListClear>
                   <DeleteCompareList />
                   <p onClick={handleAllDelete}>Oчистить список</p>
@@ -221,7 +219,6 @@ const RightArrowSlider = styled(ArrowSlider)`
    }
 `
 const ComparisonPageCheckbox = styled.div`
-   /* margin-left: 195px; */
    display: flex;
    flex-direction: row;
    align-items: center;
@@ -229,7 +226,6 @@ const ComparisonPageCheckbox = styled.div`
 
 const ComparisonPageTools = styled.div`
    margin-top: 34px;
-   height: 100vh;
 `
 
 const ComparisonPageCard = styled.div`
@@ -260,7 +256,6 @@ const ComparisonToolsRightUl = styled.ul`
    overflow-x: scroll;
    list-style: none;
    display: flex;
-   align-items: center;
    scroll-behavior: smooth;
    &::-webkit-scrollbar {
       display: none;

@@ -10,7 +10,7 @@ import Character from './Character'
 import Delivery from './Delivery'
 import Description from './Description'
 
-export default function LabTabs() {
+export default function LabTabs(props) {
    const [value, setValue] = React.useState('1')
 
    const handleChange = (event, newValue) => {
@@ -33,10 +33,14 @@ export default function LabTabs() {
                </TabList>
             </Box>
             <TabPanel value="1">
-               <Description />
+               <Description
+                  video={props.video}
+                  name={props.name}
+                  description={props.description}
+               />
             </TabPanel>
             <TabPanel value="2">
-               <Character />
+               <Character character={props.character} />
             </TabPanel>
             <TabPanel value="3">Item Three</TabPanel>
             <TabPanel value="4">

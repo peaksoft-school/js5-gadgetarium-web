@@ -4,7 +4,7 @@ import { styled } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 
-import googleMap from '../../assets/icons/googleMap.svg'
+import googleMap from '../../assets/images/Mapsicle Map.webp'
 import BreadCrumbs from '../../components/UI/Breadcrumbs'
 import Button from '../../components/UI/Button'
 import Input from '../../components/UI/inputs/Input'
@@ -162,6 +162,7 @@ const Contacts = () => {
                </div>
             </Styled>
             <StyledImg>
+               {/* <Map /> */}
                <img src={googleMap} alt="" />
             </StyledImg>
          </div>
@@ -230,7 +231,9 @@ const Textarea = styled('textarea')`
    margin-bottom: 15px;
 `
 const StyledImg = styled('div')`
+   width: 100%;
+   height: 580px;
    & img {
-      width: 1580px;
+      width: 100%;
    }
 `

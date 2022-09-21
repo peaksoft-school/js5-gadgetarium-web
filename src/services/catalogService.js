@@ -15,3 +15,6 @@ export const getCatalogProducts = (queryParams) => {
       },
    })
 }
+export const getSingle = (id) => {
+   return axiosInstance.get(`api/products/${id}`)
+}

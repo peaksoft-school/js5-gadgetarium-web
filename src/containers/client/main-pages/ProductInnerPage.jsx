@@ -1,49 +1,71 @@
+// import { useState } from 'react'
+
+// import { useSearchParams } from 'react-router-dom'
+import { useEffect } from 'react'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router'
 import styled from 'styled-components'
 
-import samsung from '../../../assets/icons/samsugn.svg'
+// import samsung from '../../../assets/icons/samsugn.svg'
+import { getSingleProduct } from '../../../store/actions/CatalogActions'
+// import { CATEGORY } from '../../../components/UI/Catalogbutton'
 
-import image from './image 33.png'
 import Product from './Product'
 import ProductAbout from './ProductAbout'
+import productImg from './prosuct.png'
 
 const ProductInner = () => {
-   const images = [
-      { images: image, id: 2 },
-      { images: image, id: 3 },
-      { images: image, id: 4 },
-   ]
+   const { category, productId } = useParams()
+   const dispatch = useDispatch()
+   const single = useSelector((state) => state.catalogSlice.single)
+   useEffect(() => {
+      dispatch(getSingleProduct(productId))
+   }, [])
+   console.log(single)
    const paths = [
       {
          name: 'Главная',
          path: 'Главная',
       },
       {
-         name: 'Смартфоны',
-         path: 'Смартфоны',
+         name: category,
+         path: category,
       },
       {
-         name: 'Galaxy S21 5G',
-         path: 'Galaxy S21 5G',
+         name: single?.productName.toString(),
+         path: single?.productName.toString(),
       },
    ]
+   const imgs = [productImg, productImg]
    return (
       <Container>
          <Product
+            article={single?.article}
             paths={paths}
-            productImages={images}
-            brandIcon={samsung}
-            ProductName="Galaxy S21 5G"
-            available="34"
-            color="Black"
-            price="54 770 c"
+            productImages={imgs}
+            // productImages={single?.productImages}
+            brandIcon={single?.brandImage}
+            ProductName={single?.productName}
+            available={single?.quantity}
+            stock={single?.stock}
+            color={single?.color}
+            price={single?.price}
+            // discount=
             screen="53 (2340×1080) IPS"
             date="Март 2022"
             os="Android 12"
             memory="128GB"
-            guarantee="12"
+            guarantee={single?.guarantee}
             proccessor="Exynos 1280 (5 nm)"
+            characters={single?.characters}
          />
-         <ProductAbout />
+         <ProductAbout
+            video={single?.videoReview}
+            name={single?.productName}
+            description={single?.description}
+            character={single?.characters}
+         />
       </Container>
    )
 }

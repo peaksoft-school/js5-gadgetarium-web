@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-// import PreviewSlider from '../../../../components/UI/PreviewSlider'
+import Characters from '../../../components/admin/innerPageContent/innerPageComponents/Characters'
 import BreadCrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
 import CardRating from '../../../components/UI/card/CardRating'
@@ -11,14 +11,14 @@ import PreviewSlider from '../../../components/UI/PreviewSlider'
 import Sale from '../../../components/UI/SALE'
 
 const Product = (props) => {
-   const count = (val) => {
-      console.log(val)
+   const count = (value) => {
+      console.log(value)
    }
    return (
       <Container>
          <BreadCrumbs paths={props.paths} />
          <Samsung>
-            <img src={props.brandIcon} alt="samsung" />
+            {props.brandIcon && <img src={props.brandIcon} alt="samsung" />}
          </Samsung>
          <Content>
             <Slide>
@@ -27,8 +27,9 @@ const Product = (props) => {
             <Info>
                <h1>{props.ProductName}</h1>
                <section>
-                  <p>В наличии {props.available}</p>
-                  <span>Артикул: 030696</span>
+                  {props.stock === 'YES' && <p>В наличии {props.available}</p>}
+                  {props.stock === 'NO' && <p>Нет в наличии</p>}
+                  <span>Артикул: {props.article}</span>
                   <div>
                      <CardRating />
                   </div>
@@ -41,20 +42,12 @@ const Product = (props) => {
                   <Counter count={count} />
                   <Prices>
                      <Price>
-                        <Sale salePrice="-10%" />
-                        <h1>{props.price}</h1>
-                        <p>54 770 c</p>
+                        {props.discount && <Sale salePrice="-10%" />}
+
+                        <h1>{props.price} c</h1>
+                        {props.discount && <p>{props.discount} c</p>}
                      </Price>
                      <Buttons>
-                        <Button
-                           style={{
-                              width: '24px',
-                              border: '1px solid grey',
-                           }}
-                           variant="outlined"
-                        >
-                           <p>&#10084;</p>
-                        </Button>
                         <Button style={{ width: '196px' }} variant="contained">
                            Корзина
                         </Button>
@@ -63,34 +56,7 @@ const Product = (props) => {
                </Infos>
                <div>
                   <span>Коротко о товаре:</span>
-                  <Short>
-                     Экран............................................
-                     <p>{props.screen}</p>
-                  </Short>
-                  <Short>
-                     Цвет..............................................{' '}
-                     <p>{props.color}</p>
-                  </Short>
-                  <Short>
-                     Дата выпуска..............................
-                     <p>{props.date}</p>
-                  </Short>
-                  <Short>
-                     Операционная система............
-                     <p>{props.os}</p>
-                  </Short>
-                  <Short>
-                     Память.........................................
-                     <p>{props.memory}</p>
-                  </Short>
-                  <Short>
-                     Гарантия (месяцев)...................
-                     <p>{props.guarantee}</p>
-                  </Short>
-                  <Short>
-                     Процессор..................................
-                     <p>{props.proccessor}</p>
-                  </Short>
+                  <Characters characters={props.characters} />
                </div>
             </Info>
          </Content>
@@ -99,24 +65,6 @@ const Product = (props) => {
 }
 
 export default Product
-const Short = styled.span`
-   display: flex;
-   margin: 10px 0px;
-   font-family: 'Inter';
-   font-style: normal;
-   font-weight: 400;
-   font-size: 16px;
-   line-height: 150%;
-   color: #91969e;
-   & p {
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 150%;
-      color: #292929;
-   }
-`
 const Prices = styled.div`
    width: 273px;
 `

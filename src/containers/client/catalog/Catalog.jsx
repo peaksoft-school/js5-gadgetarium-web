@@ -158,10 +158,8 @@ const Catalog = () => {
       if (id) {
          if (status) {
             dispatch(deleteWishProducts({ id, productId, queryParams }))
-            // dispatch(getProductsCatalog(queryParams))
          } else {
             dispatch(addWishProducts({ id, productId, queryParams }))
-            // dispatch(getProductsCatalog(queryParams))
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')
@@ -171,14 +169,15 @@ const Catalog = () => {
       if (jwt) {
          if (status) {
             dispatch(removeCompareProduct({ id, queryParams }))
-            // dispatch(getProductsCatalog(queryParams))
          } else {
             dispatch(addToComparison({ id, queryParams }))
-            // dispatch(getProductsCatalog(queryParams))
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')
       }
+   }
+   const goToInnerPage = (id) => {
+      navigate(`${param}/${id}`)
    }
    return (
       <div style={{ margin: '30px 0px' }}>
@@ -258,6 +257,7 @@ const Catalog = () => {
                <CardList>
                   {products?.filtersProducts.map((data) => (
                      <Card
+                        onClick={() => goToInnerPage(data.productId)}
                         id={data.productId}
                         action={data.action}
                         sort={data.sort}

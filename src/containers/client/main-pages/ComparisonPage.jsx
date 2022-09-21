@@ -18,6 +18,7 @@ import {
 
 const override = {
    display: 'block',
+   height: '100vh',
    margin: '150px auto 0 auto',
 }
 
@@ -37,7 +38,7 @@ const ComparisonPage = () => {
    }
 
    const handleDeleteAllProducts = () => {
-      dispatch(removeAllCompareProducts(dispatch))
+      dispatch(removeAllCompareProducts())
    }
 
    if (loading) {

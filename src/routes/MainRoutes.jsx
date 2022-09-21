@@ -6,7 +6,6 @@ import { RingLoader } from 'react-spinners'
 
 import ProtectedRoute from './private/ProtectedRoute'
 
-// import PersonPage from '../containers/person/PersonPage'
 const PersonPage = lazy(() => import('../containers/person/PersonPage'))
 const MainLayuot = lazy(() => import('../layout/MainLayout'))
 const AboutPage = lazy(() => import('../containers/client/AboutPage'))
@@ -34,6 +33,7 @@ const ProductInnerPage = lazy(
 const Loader = () => {
    const override = {
       display: 'block',
+      height: '100vh',
       margin: '150px auto 0 auto',
    }
    return (
@@ -51,7 +51,7 @@ const MainRoutes = () => {
       <MainLayuot>
          <Routes>
             <Route
-               path=""
+               path="/"
                element={
                   <Suspense fallback={<Loader />}>
                      <Main />
@@ -68,7 +68,7 @@ const MainRoutes = () => {
                   }
                />
                <Route
-                  path=":productId"
+                  path=":category/:productId"
                   element={
                      <Suspense fallback={<Loader />}>
                         <ProductInnerPage />
@@ -113,7 +113,9 @@ const MainRoutes = () => {
             <Route
                path="person"
                element={
-                  <ProtectedRoute roles="USER" element={<PersonPage />} />
+                  <Suspense fallback={<Loader />}>
+                     <ProtectedRoute roles="USER" element={<PersonPage />} />
+                  </Suspense>
                }
             />
             <Route

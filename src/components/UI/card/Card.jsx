@@ -34,12 +34,21 @@ const renderCardByState = (param) => {
 }
 
 const Card = (props) => {
+   const goToInnerPage = (e) => {
+      e.stopPropagation()
+      props.onClick()
+   }
    return (
-      <CardContainer>
+      <CardContainer onClick={goToInnerPage}>
          <CardHeaderItems>
             {renderCardByState(props.sort)}
             <CardHeaderItemsIcons>
-               <li onClick={props.compareProducts}>
+               <li
+                  onClick={(e) => {
+                     e.stopPropagation()
+                     props.compareProducts()
+                  }}
+               >
                   <Tooltip title="Добавить в сравнение">
                      <div>
                         <Balance
@@ -48,7 +57,12 @@ const Card = (props) => {
                      </div>
                   </Tooltip>
                </li>
-               <li onClick={props.addToFavorites}>
+               <li
+                  onClick={(e) => {
+                     e.stopPropagation()
+                     props.addToFavorites()
+                  }}
+               >
                   <Tooltip title="Добавить в избранное">
                      <div>
                         <Like
@@ -66,7 +80,7 @@ const Card = (props) => {
          <CardTitle>
             <StlyedCardParagraph>
                {props.status === 'YES'
-                  ? `В наличии(${props.quantity})`
+                  ? `В наличии ${props.quantity ? `(${props.quantity})` : ''} `
                   : 'Нет в наличии'}
             </StlyedCardParagraph>
             <StyledCardHeader>{props.title}</StyledCardHeader>
@@ -99,7 +113,10 @@ const Card = (props) => {
             )}
             <Button
                variant="contained"
-               onClick={props.addToCart}
+               onClick={(e) => {
+                  e.stopPropagation()
+                  props.addToCart()
+               }}
                startIcon={<Busket />}
             >
                В корзину
@@ -115,6 +132,7 @@ const CardContainer = styled.div`
    display: flex;
    flex-direction: column;
    height: 500px;
+   min-width: 270px;
    background: #fff;
    border-radius: 4px;
    padding: 15px;
@@ -164,6 +182,7 @@ const StyledCardHeader = styled.h1`
    text-transform: capitalize;
    text-overflow: ellipsis;
    overflow: hidden;
+   width: 240px;
    color: #292929;
 `
 const CardTitle = styled.div`

@@ -25,9 +25,10 @@ const override = {
 }
 
 const AllProducts = ({ setCheckedProducts, checkedProducts }) => {
-   const { products, loading, sizeOfProducts, totalPage } = useSelector(
+   const { products, loading, sizeOfProducts } = useSelector(
       (state) => state.adminPanel
    )
+
    const [queryParams, setQueryParams] = useState({
       search: 'all',
       page: 1,
@@ -200,7 +201,7 @@ const AllProducts = ({ setCheckedProducts, checkedProducts }) => {
          </DatePickerContainer>
          <TopFunctionalContainer>
             <InfoParagraph>{`Найдено ${
-               sizeOfProducts && 0
+               sizeOfProducts || 0
             } товаров`}</InfoParagraph>
             <Sorting onChange={onChangeHandler} />
          </TopFunctionalContainer>
@@ -213,7 +214,7 @@ const AllProducts = ({ setCheckedProducts, checkedProducts }) => {
                getProductId={getProductId}
             />
             <AppPagination
-               totalPage={totalPage}
+               totalPage={sizeOfProducts / queryParams.size}
                page={queryParams.page}
                onChange={handleChangePage}
             />

@@ -2,7 +2,15 @@ import { useState } from 'react'
 
 import styled from 'styled-components'
 
-const Info = () => {
+const Shows = (props) => {
+   return (
+      <Show>
+         {props.name} <p>{props.text}</p>{' '}
+      </Show>
+   )
+}
+
+const Info = (props) => {
    const [show, setShow] = useState({
       character: false,
       memory: false,
@@ -26,44 +34,7 @@ const Info = () => {
          </Div>
          {show.character &&
             info.map((el) => (
-               <>
-                  <Show>
-                     {' '}
-                     Тип дорожки: <p>{el.trackType}</p>{' '}
-                  </Show>
-                  <Show>
-                     {' '}
-                     Мощность двигателя <p>{el.motorPower}</p>
-                  </Show>
-                  <Show>
-                     {' '}
-                     Тип двигателя<p>{el.engineType}</p>
-                  </Show>
-                  <Show>
-                     {' '}
-                     Регулировка скорости<p>{el.speedControl}</p>
-                  </Show>
-                  <Show>
-                     {' '}
-                     Беговое полотно<p>{el.runningBelt}</p>
-                  </Show>
-                  <Show>
-                     {' '}
-                     Наклон бегового полотна <p> {el.treadmillIncline}</p>
-                  </Show>
-                  <Show>
-                     {' '}
-                     Размер бегового полотна (ДхШ) <p>{el.treadmillSize}</p>
-                  </Show>
-                  <Show>
-                     {' '}
-                     Диаметр задних валов<p>{el.rearShaftDiameter}</p>
-                  </Show>
-                  <Show>
-                     {' '}
-                     Программы тренировки<p>{el.workoutPrograms}</p>
-                  </Show>
-               </>
+               <Shows key={el.name} name={el.name} text={el.text} />
             ))}
 
          <Div onClick={memoryShow}>
@@ -71,6 +42,10 @@ const Info = () => {
             {!show.memory && <p>&#9658;</p>}
             {show.memory && <p> &#9660;</p>}
          </Div>
+         {show.memory &&
+            props.character.map((el) => (
+               <Shows key={el.id} name={el.key} text={el.value} />
+            ))}
          <Div onClick={optionsShow}>
             <h1>Дополнительные xарактеристики</h1>
             {!show.options && <p>&#9658;</p>}
@@ -80,11 +55,11 @@ const Info = () => {
    )
 }
 
-const Character = () => {
+const Character = (props) => {
    return (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
          <h1>Характеристики</h1>
-         <Info />
+         <Info character={props.character} />
       </div>
    )
 }
@@ -107,19 +82,42 @@ const Show = styled.div`
 `
 const info = [
    {
-      trackType: 'Домашняя',
-      motorPower: '3,5 л.с. постоянная',
-      engineType: 'DC',
-      speedControl: '1-19.3 км/ч',
-      runningBelt: '3-х слойное, усиленное 2,5 мм',
-      treadmillIncline: '0 - 15%',
-      treadmillSize: '152 x 51 см',
-      rearShaftDiameter: '70 мм',
-      workoutPrograms:
-         '9 предустановленных + возможность сохранения пользовательских программ',
+      name: 'Тип дорожки',
+      text: 'Домашняя',
+   },
+   {
+      name: 'Мощность двигателя',
+      text: '3,5 л.с. постоянная',
+   },
+   {
+      name: 'Тип двигателя',
+      text: 'DC',
+   },
+   {
+      name: 'Регулировка скорости',
+      text: '1-19.3 км/ч',
+   },
+   {
+      name: 'Беговое полотно',
+      text: '3-х слойное, усиленное 2,5 мм',
+   },
+   {
+      name: ' Наклон бегового полотна',
+      text: '0 - 15%',
+   },
+   {
+      name: ' Размер бегового полотна (ДхШ)',
+      text: '152 x 51 см',
+   },
+   {
+      name: ' Диаметр задних валов',
+      text: '70 мм',
+   },
+   {
+      name: 'Программы тренировки',
+      text: '9 предустановленных + возможность сохранения пользовательских программ',
    },
 ]
-console.log(info)
 const Div = styled.div`
    /* border-top: 1px solid #c2c7d1; */
    border-bottom: 1px solid #c2c7d1;

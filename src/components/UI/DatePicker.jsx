@@ -78,7 +78,7 @@ const TextFieldStyle = styled(TextField)`
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
-      color: #8d949e;
+      color: #292929;
       outline: none;
       input {
          padding: 9px 10px;
