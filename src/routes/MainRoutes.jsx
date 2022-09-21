@@ -54,8 +54,8 @@ const MainRoutes = () => {
                </Route>
                <Route path="comparison" element={<ComparisonPage />} />
                <Route path="favourites" element={<FavouritesPage />} />
-               <Route path="cart" element={<Outlet />}>
-                  <Route index element={<CartPage />} />
+               <Route path="cart" element={<CartPage />} />
+               <Route path="catalog" element={<Outlet />}>
                   <Route path="ordering" element={<OrderingPage />} />
                </Route>
                <Route path="about" element={<AboutPage />} />

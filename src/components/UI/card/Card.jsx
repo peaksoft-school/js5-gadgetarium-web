@@ -99,7 +99,7 @@ const Card = (props) => {
             )}
             <Button
                variant="contained"
-               onClick={props.addToCart}
+               onClick={() => props.addToCart(props.id)}
                startIcon={<Busket />}
             >
                В корзину

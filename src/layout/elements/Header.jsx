@@ -85,7 +85,6 @@ const HeaderTop = styled('header')`
    margin-right: auto;
    height: 82px;
    padding: 18px 100px;
-
    @media (max-width: 1536px) {
       max-width: 1440px;
       padding: 18px 30px;
@@ -99,6 +98,9 @@ const HeaderTop = styled('header')`
 const HeaderContainer = styled('div')`
    width: 100%;
    background: #1a1a25;
+   position: sticky;
+   top: -5.2em;
+   z-index: 99;
 `
 const UpperRow = styled('div')`
    display: flex;
@@ -113,10 +115,6 @@ const NavBar = styled('nav')`
    height: 90px;
    padding: 18px 100px;
    background: #1a1a25;
-   position: sticky;
-   top: 0;
-   z-index: 99;
-
    @media (max-width: 1536px) {
       max-width: 1440px;
       padding: 18px 30px;

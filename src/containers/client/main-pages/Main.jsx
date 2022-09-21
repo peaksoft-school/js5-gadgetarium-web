@@ -8,6 +8,7 @@ import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
 import Carousel from '../../../components/UI/Carousel'
 import InfoCards from '../../../components/UI/InfoCards'
+import { postProducts } from '../../../store/actions/cartActions'
 import {
    addToComparison,
    removeCompareProduct,
@@ -58,6 +59,9 @@ const MainPage = () => {
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')
       }
+   }
+   const addProductsToCart = (productId) => {
+      dispatch(postProducts(productId))
    }
 
    useEffect(() => {
@@ -173,6 +177,7 @@ const MainPage = () => {
                            }
                            discount={data.discount}
                            img={data.image}
+                           addToCart={addProductsToCart}
                            quantity={data.quantity}
                            status={data.status}
                            title={data.nameMemoryColor}
