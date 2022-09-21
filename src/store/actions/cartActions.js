@@ -51,6 +51,7 @@ export const deleteProducts = createAsyncThunk(
          const response = await api.deleteCartItemById(productId)
          dispatch(getMainNewProduct())
          dispatch(getAllProducts())
+         dispatch(getAllHoverProducts())
          toast.success('Успешно удалено!')
          return response.data
       } catch (err) {

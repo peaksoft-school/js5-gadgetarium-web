@@ -13,7 +13,7 @@ const initialState = {
       basket: [],
       wish_list: [],
    },
-   product: {},
+   product: [],
    sizeOfProducts: null,
    totalPage: null,
    error: '',

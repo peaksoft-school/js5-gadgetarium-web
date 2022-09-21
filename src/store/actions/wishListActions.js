@@ -11,7 +11,7 @@ import {
 
 import { getMainNewProduct } from './productActions'
 
-export const getAllProducts = createAsyncThunk(
+export const getUserWishList = createAsyncThunk(
    'wishProducts/getAllProducts',
    async (userId, { rejectWithValue }) => {
       try {
@@ -42,7 +42,7 @@ export const deleteAllProducts = createAsyncThunk(
          dispatch(getHoverWishProducts())
          return response.data
       } catch (err) {
-         return console.log(err.response.data)
+         return console.error(err.response.data)
       }
    }
 )
@@ -57,8 +57,7 @@ export const deleteWishProducts = createAsyncThunk(
          dispatch(getHoverWishProducts())
          return response.data
       } catch (err) {
-         console.log(err)
-         return console.log(err.response.data)
+         return console.error(err.response.data)
       }
    }
 )
@@ -72,7 +71,7 @@ export const addWishProducts = createAsyncThunk(
          dispatch(getHoverWishProducts())
          return response.data
       } catch (err) {
-         return console.log(err.response.data)
+         return console.error(err.response.data)
       }
    }
 )

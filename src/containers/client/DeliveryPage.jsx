@@ -168,6 +168,7 @@ const MinContainer = styled('div')`
    justify-content: flex-start;
    align-items: center;
    margin-top: 30px;
+   margin-left: 50px;
 
    & div {
       display: flex;

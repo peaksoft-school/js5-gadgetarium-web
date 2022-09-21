@@ -50,14 +50,9 @@ const UserTools = () => {
    useEffect(() => {
       if (user.jwt) {
          dispatch(getHoverCompareProducts())
-      }
-   }, [])
-
-   useEffect(() => {
-      if (user.jwt) {
          dispatch(getHoverWishProducts())
+         dispatch(getAllHoverProducts())
       }
-      dispatch(getAllHoverProducts())
    }, [])
 
    return (
