@@ -4,6 +4,7 @@ import adminPanelSlice from './slices/adminPanelSlice'
 import authSlice from './slices/authSlice'
 import compareProductSlice from './slices/comparisonSlice'
 import mainProductSlice from './slices/mainProductSlice'
+import orderHistorySlice from './slices/orderHistorySlice'
 import ordersPanelSilce from './slices/ordersPanelSlice'
 import productSlice from './slices/productSlice'
 import userContactSlice from './slices/userContactSlice'
@@ -21,6 +22,7 @@ const store = configureStore({
       contactUs: userContactSlice.reducer,
       orders: ordersPanelSilce.reducer,
       userProfile: userListSlice.reducer,
+      userOrders: orderHistorySlice.reducer,
    },
 })
 

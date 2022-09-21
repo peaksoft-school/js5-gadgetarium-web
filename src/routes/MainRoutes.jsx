@@ -112,7 +112,9 @@ const MainRoutes = () => {
             <Route
                path="person"
                element={
-                  <ProtectedRoute roles="USER" element={<PersonPage />} />
+                  <Suspense fallback={<Loader />}>
+                     <ProtectedRoute roles="USER" element={<PersonPage />} />
+                  </Suspense>
                }
             />
             <Route

@@ -5,13 +5,11 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 
-// import avatarLogo from '../../../assets/images/337564.png'
 import Button from '../../../components/UI/Button'
 import ImagePicker from '../../../components/UI/ImagePicker'
 import Input from '../../../components/UI/inputs/Input'
 import InputForPassword from '../../../components/UI/inputs/InputForPassword'
 import { postProfile, putProfile } from '../../../store/actions/userListActions'
-// import { API_URL } from '../../../services/userListService'
 
 const PersonProfile = () => {
    const { firstName, lastName, phoneNumber, email, address, image } =
