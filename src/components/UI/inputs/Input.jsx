@@ -4,15 +4,27 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import styled from 'styled-components'
 
 const Input = forwardRef((props, ref) => {
-   const { type, placeholder, name, id, onChange, error, value, ...others } =
-      props
+   const {
+      type,
+      placeholder,
+      name,
+      id,
+      onChange,
+      error,
+      value,
+      autoComplete,
+      maxLength,
+      defaultValue,
+      ...others
+   } = props
    return (
       <StyledInput
+         autoComplete="off"
          ref={ref}
          type={type}
          placeholder={placeholder}
          name={name}
-         // helperText={helperText}
+         defaultValue={defaultValue}
          id={id}
          value={value}
          error={error}
@@ -32,7 +44,7 @@ const StyledInput = styled(OutlinedInput)((props) => ({
    fontStyle: 'normal',
    fontWeight: '400',
    fontSize: '16px',
-   borderRadius: props.borderRadius,
+   borderRadius: '6px',
    backgroundColor: '#FFFFFF;',
 
    background: `${props.variant === 'default' ? '#F7F7F7' : ''}`,

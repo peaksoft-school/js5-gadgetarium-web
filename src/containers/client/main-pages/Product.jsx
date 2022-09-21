@@ -2,7 +2,8 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import BreadCrumbs from '../../../components/UI/Bredcrumbs'
+// import PreviewSlider from '../../../../components/UI/PreviewSlider'
+import BreadCrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
 import CardRating from '../../../components/UI/card/CardRating'
 import Counter from '../../../components/UI/Counter'

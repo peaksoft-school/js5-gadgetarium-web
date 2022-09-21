@@ -1,13 +1,17 @@
-import { forwardRef } from 'react'
+import { forwardRef, useMemo } from 'react'
 
 import JoditEditor from 'jodit-react'
 
 const TextEditor = forwardRef(({ onChange, value }, ref) => {
-   const config = {
-      toolbar: true,
-      buttons: ['bold', 'italic', 'underline', 'ul', 'ol'],
-      placeholder: '',
-   }
+   const config = useMemo(
+      () => ({
+         buttons: ['bold', 'italic', 'underline', 'ul', 'ol'],
+         placeholder: 'Введите описание о товаре',
+         height: '348px',
+         toolbarAdaptive: false,
+      }),
+      []
+   )
    return (
       <JoditEditor
          ref={ref}

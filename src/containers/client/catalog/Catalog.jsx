@@ -9,11 +9,12 @@ import {
 } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import CATEGORIES from '../../../assets/data/categories'
 // import Iphone from '../../../assets/images/Samsung.png'
 import Sorting from '../../../components/client/Sorting'
-import BreadCrumbs from '../../../components/UI/Bredcrumbs'
+import BreadCrumbs from '../../../components/UI/Breadcrumbs'
 import Card from '../../../components/UI/card/Card'
 import {
    CATEGORY,
@@ -22,6 +23,14 @@ import {
 } from '../../../components/UI/Catalogbutton'
 import RangeSlider from '../../../components/UI/RangeSlider'
 import { getProductsCatalog } from '../../../store/actions/CatalogActions'
+import {
+   addToComparison,
+   removeCompareProduct,
+} from '../../../store/actions/comparisonActions'
+import {
+   addWishProducts,
+   deleteWishProducts,
+} from '../../../store/actions/wishListActions'
 
 import Character from './CatalogCharacter'
 import CharacterDiv from './CharacterDiv'
@@ -31,7 +40,6 @@ const Catalog = () => {
    const [param] = useState(searchParam.get(CATEGORY))
    const [subParam, setSubParam] = useState(searchParam.get(SUBCATEGORY))
    const [fromto, setFromTo] = useState({})
-   const [selected, setSelected] = useState([subParam])
    const [filtered, setFiltered] = useState([])
    const [queryParams, setQueryParams] = useState({
       search: 'all',
@@ -45,9 +53,9 @@ const Catalog = () => {
    })
    const navigate = useNavigate()
    const products = useSelector((state) => state.catalogSlice.products)
-   console.log(products)
 
    const [categories] = useState(CATEGORIES.filter((e) => param === e.name))
+   const { jwt, id } = useSelector((state) => state.auth.user)
    const [cat, setCateg] = useState(true)
    const [showPrice, setShowPrice] = useState(true)
    const dispatch = useDispatch()
@@ -68,9 +76,6 @@ const Catalog = () => {
          name: param,
       },
    ]
-   // const selectedItem = filtered.map((el) => el.values)
-   // const selectedItems = [subParam, ...selectedItem]
-   // console.log(...selectedItem)
 
    useEffect(() => {
       filterChange(filtered)
@@ -98,7 +103,6 @@ const Catalog = () => {
    const onChangeFilter = (e, key) => {
       const { value, checked } = e.target
       if (checked) {
-         setSelected([...selected, value])
          if (!filtered.length) {
             return setFiltered([{ key, values: [value] }])
          }
@@ -119,24 +123,21 @@ const Catalog = () => {
 
          return setFiltered(updatedFilters)
       }
-      const removedSelected = selected.filter((el) => {
-         if (selected.indexOf(value) > -1) {
-            return selected.splice(selected.indexOf(value), 1)
-         }
-         return el
-      })
-      setSelected(removedSelected)
       const updatedFiltered = filtered.filter((el) => {
          if (el.key === key) {
             if (el.values.indexOf(value) > -1) {
                return el.values.splice(el.values.indexOf(value), 1)
+            }
+            if (el.values.length === 0) {
+               if (filtered.indexOf(el) > -1) {
+                  return filtered.splice(filtered.indexOf(el), 1)
+               }
             }
          }
          return el
       })
       return setFiltered(updatedFiltered)
    }
-   console.log(selected)
    const sliderChangeHandler = (from, to) => {
       setFromTo({ priceFrom: from, priceTo: to })
       setQueryParams({
@@ -153,7 +154,32 @@ const Catalog = () => {
          }
       })
    }
-
+   const addToFavorites = (productId, status) => {
+      if (id) {
+         if (status) {
+            dispatch(deleteWishProducts({ id, productId, queryParams }))
+            // dispatch(getProductsCatalog(queryParams))
+         } else {
+            dispatch(addWishProducts({ id, productId, queryParams }))
+            // dispatch(getProductsCatalog(queryParams))
+         }
+      } else {
+         toast.error('Пожалуйста сначало авторизуйтесь')
+      }
+   }
+   const compareProducts = (id, status) => {
+      if (jwt) {
+         if (status) {
+            dispatch(removeCompareProduct({ id, queryParams }))
+            // dispatch(getProductsCatalog(queryParams))
+         } else {
+            dispatch(addToComparison({ id, queryParams }))
+            // dispatch(getProductsCatalog(queryParams))
+         }
+      } else {
+         toast.error('Пожалуйста сначало авторизуйтесь')
+      }
+   }
    return (
       <div style={{ margin: '30px 0px' }}>
          <BreadCrumbs paths={crambs} />
@@ -230,20 +256,30 @@ const Catalog = () => {
                </Filter>
 
                <CardList>
-                  {products?.filtersProducts.map((el) => (
+                  {products?.filtersProducts.map((data) => (
                      <Card
-                        action={el.action}
-                        // compareProducts
-                        //  balance
-                        // addToFavotites
-                        //  like
-                        img={el.img}
-                        status={el.status}
-                        title={el.title}
-                        rating={el.rating}
-                        actualprice={el.actualprice}
-                        noneactualprice={el.noneactualprice}
-                        // addToCart
+                        id={data.productId}
+                        action={data.action}
+                        sort={data.sort}
+                        compareProducts={() =>
+                           compareProducts(
+                              data.productId,
+                              Boolean(data.comparison)
+                           )
+                        }
+                        comparison={data.comparison}
+                        like={data.like}
+                        addToFavorites={() =>
+                           addToFavorites(data.productId, Boolean(data.like))
+                        }
+                        discount={data.discount}
+                        img={data.image}
+                        quantity={data.quantity}
+                        status={data.status}
+                        title={data.nameMemoryColor}
+                        rating={data.stars}
+                        actualprice={data.price}
+                        noneactualprice={data.currentPrice}
                      />
                   ))}
                </CardList>
@@ -407,10 +443,12 @@ const BlueText = styled('p')`
    padding: 16px 0px;
 `
 const CardList = styled('div')`
-   margin: 0px auto;
-   display: flex;
-   justify-content: flex-end;
-   flex-wrap: wrap;
+   margin-top: 30px;
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   grid-template-rows: repeat(3, 1fr);
+   grid-column-gap: 8px;
+   grid-row-gap: 8px;
 `
 const FilterZone = styled('div')`
    border-radius: 4px;
