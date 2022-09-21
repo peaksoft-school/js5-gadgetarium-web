@@ -59,7 +59,6 @@ const SignIn = ({ onClose, open, openRegistationModal }) => {
                   id="email"
                   name="email"
                   error={!!errors.email?.message && !!error}
-                  // error={!!errors.email?.message || !!error}
                   variant="default"
                   {...register('email', {
                      required: true,
