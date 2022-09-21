@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import EmptyIcon from '../../../assets/images/notfound.png'
 import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
-import { getAllProducts } from '../../../store/actions/wishListActions'
+import { getUserWishList } from '../../../store/actions/wishListActions'
 import Main from '../../client/main-pages/Main'
 
 const PersonWishList = () => {
@@ -18,7 +18,7 @@ const PersonWishList = () => {
    const dispatch = useDispatch()
    useEffect(() => {
       if (userId) {
-         dispatch(getAllProducts(userId))
+         dispatch(getUserWishList(userId))
       }
    }, [])
 
@@ -77,7 +77,6 @@ const PersonWishList = () => {
                   >
                      К покупкам
                   </Button>
-                  {/* </StyledBoxButton> */}
                </StyledComponent>
             </StyledBlock>
          )}

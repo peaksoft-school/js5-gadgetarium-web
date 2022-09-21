@@ -1,9 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
-import { getAllProducts, deleteAllProducts } from '../actions/wishListActions'
+import {
+   getUserWishList,
+   deleteAllProducts,
+   addWishProducts,
+   getHoverWishProducts,
+} from '../actions/wishListActions'
 
 const initialState = {
    wishProducts: [],
+   hoverWishProducts: [],
    error: '',
    loading: false,
 }
@@ -13,14 +20,25 @@ const wishListSlice = createSlice({
    initialState,
    reducers: {},
    extraReducers: {
-      [getAllProducts.pending]: (state) => {
+      [getUserWishList.pending]: (state) => {
          state.loading = true
       },
-      [getAllProducts.fulfilled]: (state, action) => {
+      [getUserWishList.fulfilled]: (state, action) => {
          state.loading = false
          state.wishProducts = action.payload
       },
-      [getAllProducts.rejected]: (state, action) => {
+      [getUserWishList.rejected]: (state, action) => {
+         state.loading = false
+         state.error = action.payload
+      },
+      [getHoverWishProducts.pending]: (state) => {
+         state.loading = true
+      },
+      [getHoverWishProducts.fulfilled]: (state, action) => {
+         state.loading = false
+         state.hoverWishProducts = action.payload
+      },
+      [getHoverWishProducts.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
       },
@@ -32,6 +50,17 @@ const wishListSlice = createSlice({
          state.wishProducts = action.payload
       },
       [deleteAllProducts.rejected]: (state, action) => {
+         state.loading = false
+         state.error = action.payload
+      },
+      [addWishProducts.pending]: (state) => {
+         state.loading = true
+      },
+      [addWishProducts.fulfilled]: (state) => {
+         state.loading = false
+         toast.success('Товар успешно добавлен')
+      },
+      [addWishProducts.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
       },

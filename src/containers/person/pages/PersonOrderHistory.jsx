@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { styled } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
 
 import Vector2Arrow from '../../../assets/icons/Vector 2.png'
 import VectorArrow from '../../../assets/icons/VectorArrow.svg'
@@ -9,12 +8,11 @@ import EmptyIcon from '../../../assets/images/document.png'
 import Rectangle from '../../../assets/images/Rectangle.png'
 import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
-import { getOrders } from '../../../store/actions/orderHistoryListActions'
 
 const userOrdersData = [
    {
       orderId: 1,
-      orderDate: '2022-09-20',
+      // orderDate: '2022-09-20',
       orderNumber: '№ 1521751218',
       action: -10,
       img: Rectangle,
@@ -25,18 +23,6 @@ const userOrdersData = [
 ]
 
 const PersonOrderHistory = () => {
-   const { userOrders, userProducts } = useSelector((state) => state.userOrders)
-   console.log(userOrders, userProducts, 'store')
-   const userId = useSelector((state) => state.auth?.user?.id)
-   console.log(userId, 'id')
-   const dispatch = useDispatch()
-
-   useEffect(() => {
-      if (userId) {
-         dispatch(getOrders(userId))
-      }
-   }, [userId])
-
    const [show, setShow] = useState(false)
 
    const showFirst = () => {
@@ -65,10 +51,10 @@ const PersonOrderHistory = () => {
                      <Div onClick={showFirst}>
                         <DivBlock>
                            <DivBlockInner>
-                              <h1>{data.orderDate}</h1>
+                              <h1>21.09.2022</h1>
                               <h2> {data.orderNumber}</h2>
                               <StyledTitle> Доставлены</StyledTitle>
-                              <span>{data.orderTotalSum}</span>
+                              <span>2 000c</span>
                            </DivBlockInner>
                            {show && <img src={Vector2Arrow} alt="" />}
                            {!show && <img src={VectorArrow} alt="" />}
@@ -100,17 +86,17 @@ const PersonOrderHistory = () => {
                      <Div onClick={showSecond}>
                         <DivBlock>
                            <DivBlockInner>
-                              <h1>{data.orderDate}</h1>
+                              <h1>22.09.2022</h1>
                               <h2> {data.orderNumber}</h2>
                               <StyledTitle>Доставлены</StyledTitle>
-                              <span>{data.orderTotalSum}</span>
+                              <span>10 000c</span>
                            </DivBlockInner>
                            {show.min && <img src={Vector2Arrow} alt="" />}
                            {!show.min && <img src={VectorArrow} alt="" />}
                         </DivBlock>
                         {show.min && (
                            <AnswersTitle>
-                              {userProducts &&
+                              {userOrdersData &&
                                  userOrdersData.map((product) => {
                                     return (
                                        <div key={product.id}>
@@ -135,17 +121,17 @@ const PersonOrderHistory = () => {
                      <Div onClick={showThird}>
                         <DivBlock>
                            <DivBlockInner>
-                              <h1>{data.orderDate}</h1>
+                              <h1>22.09.2022</h1>
                               <h2>{data.orderNumber}</h2>
                               <H3> Ожидает оплаты</H3>
-                              <span>{data.orderTotalSum}</span>
+                              <span>65 000c</span>
                            </DivBlockInner>
                            {show.model && <img src={Vector2Arrow} alt="" />}
                            {!show.model && <img src={VectorArrow} alt="" />}
                         </DivBlock>
                         {show.model && (
                            <AnswersTitle>
-                              {userProducts.map((orderhistory) => {
+                              {userOrdersData.map((orderhistory) => {
                                  return (
                                     <div key={orderhistory.id}>
                                        <Card
@@ -171,17 +157,17 @@ const PersonOrderHistory = () => {
                      <Div onClick={showFourth}>
                         <DivBlock>
                            <DivBlockInner>
-                              <h1>{data.orderDate}</h1>
+                              <h1>23.09.22</h1>
                               <h2>{data.orderNumber}</h2>
                               <StyledH5>В обработке</StyledH5>
-                              <span>{data.orderTotalSum}</span>
+                              <span>50 000c</span>
                            </DivBlockInner>
                            {show.city && <img src={Vector2Arrow} alt="" />}
                            {!show.city && <img src={VectorArrow} alt="" />}
                         </DivBlock>
                         {show.city && (
                            <AnswersTitle>
-                              {userProducts.map((orderhistory) => {
+                              {userOrdersData.map((orderhistory) => {
                                  return (
                                     <div key={orderhistory.id}>
                                        <Card
@@ -207,17 +193,17 @@ const PersonOrderHistory = () => {
                      <Div onClick={showFifth}>
                         <DivBlock>
                            <DivBlockInner>
-                              <h1>{data.orderDate}</h1>
+                              <h1>23.09.2022</h1>
                               <h2> {data.orderNumber}</h2>
                               <StyledH4>Курьер в пути</StyledH4>
-                              <span>{data.orderTotalSum}</span>
+                              <span>15 000c</span>
                            </DivBlockInner>
                            {show.delivery && <img src={Vector2Arrow} alt="" />}
                            {!show.delivery && <img src={VectorArrow} alt="" />}
                         </DivBlock>
                         {show.delivery && (
                            <AnswersTitle>
-                              {userProducts.map((orderhistory) => {
+                              {userOrdersData.map((orderhistory) => {
                                  return (
                                     <div key={orderhistory.id}>
                                        <Card
@@ -310,10 +296,7 @@ const DivBlock = styled('div')`
 `
 
 const Container = styled('div')`
-   & .css-gm4yzc {
-   }
-
-   margin: 120px 0px 0px 0px;
+   /* margin: 120px 0px 0px 0px; */
    width: 1010px;
 `
 const Div = styled('div')`

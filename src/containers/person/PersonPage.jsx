@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import Breadcrumbs from '../../components/UI/Bredcrumbs'
+import Breadcrumbs from '../../components/UI/Breadcrumbs'
 import Tab from '../../components/UI/Tab'
 import { getProfile } from '../../store/actions/userListActions'
 import { logout } from '../../store/slices/authSlice'
@@ -75,7 +75,7 @@ const PersonPage = () => {
          >
             <div>
                <TabStyledComponent>
-                  <Tab tabsArray={tabsArray} variant="variant" />
+                  <Tab tabsArray={tabsArray} variant="variant" baseValue="1" />
                </TabStyledComponent>
             </div>
             <div>

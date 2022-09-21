@@ -1,17 +1,26 @@
 import styled from '@emotion/styled'
+import { IconButton } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
 import { ReactComponent as IconDelete } from '../../../assets/icons/Vertor-delete.svg'
 import Button from '../Button'
 
-export default function AccountMenu({ cart, title, open, onClose, ...props }) {
+export default function AccountMenu({
+   cart,
+   title,
+   open,
+   onClose,
+   anchorEl,
+   ...props
+}) {
    return (
       <div>
          <Menu
             id="account-menu"
-            open={open}
+            open={Boolean(anchorEl)}
             onClose={onClose}
+            anchorEl={anchorEl}
             PaperProps={{
                elevation: 0,
                sx: {
@@ -44,29 +53,30 @@ export default function AccountMenu({ cart, title, open, onClose, ...props }) {
             <MenuBlock>
                <Div>
                   {cart.map((el) => (
-                     <StyledMenuItem key={el.id} img={el.img}>
+                     <StyledMenuItem key={el.id || el.productId}>
+                        <img src={el.image} alt="" />
                         <ContainerDates>
-                           <div>{el.title}</div>
-                           <div>{el.color}</div>
+                           <p>{el.name || el.nameColor}</p>
                         </ContainerDates>
-                        <ContainerPrice>{el.price}</ContainerPrice>
-                        <img src={el.img} alt="" />
-                        <ContainerIcon onClick={props.handlerClick}>
+                        <ContainerPrice>
+                           <p>{el.price}c</p>
+                        </ContainerPrice>
+                        <IconButton onClick={props.handlerClick}>
                            <IconDelete />
-                        </ContainerIcon>
+                        </IconButton>
                      </StyledMenuItem>
                   ))}
                </Div>
-               <ContainerButton>
+               <ButtonContainer>
                   <Button
                      variant="contained"
-                     width="117px"
                      height="43px"
-                     onClick={props.handleChange}
+                     width="50%"
+                     onClick={props.handleNavigate}
                   >
                      {title}
                   </Button>
-               </ContainerButton>
+               </ButtonContainer>
             </MenuBlock>
          </Menu>
       </div>
@@ -74,8 +84,6 @@ export default function AccountMenu({ cart, title, open, onClose, ...props }) {
 }
 
 const MenuBlock = styled('div')`
-   width: 510px;
-   height: 277px;
    padding-right: 3px;
    display: flex;
    flex-direction: column;
@@ -84,7 +92,12 @@ const MenuBlock = styled('div')`
 const StyledMenuItem = styled(MenuItem)`
    width: 456px;
    height: 89px;
+   align-items: flex-start;
    border-bottom: 1px solid rgba(133, 143, 164, 0.15);
+   & img {
+      height: 90px;
+      object-fit: contain;
+   }
 `
 
 const Div = styled('div')`
@@ -92,8 +105,9 @@ const Div = styled('div')`
    width: 100%;
    display: flex;
    align-items: center;
-   flex-wrap: wrap;
-   justify-content: space-around;
+   flex-wrap: nowrap;
+   flex-direction: column;
+   height: 180px;
 
    overflow: auto;
    ::-webkit-scrollbar {
@@ -114,22 +128,34 @@ const Div = styled('div')`
       background: #555;
    }
 `
-const ContainerButton = styled(Div)`
-   height: 140px;
-`
 const ContainerDates = styled('div')`
-   width: 255px;
-   height: 48px;
-   margin-left: 72px;
+   margin-left: 8px;
+   width: 240px;
+   & p {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 150%;
+      color: #292929;
+      white-space: normal;
+   }
 `
 
 const ContainerPrice = styled('div')`
    width: 72px;
-   height: 17px;
-   margin-right: 25px;
-   margin-bottom: 30px;
+   margin-left: 12px;
+   margin-right: 30px;
+
+   & p {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 17px;
+      color: #384255;
+   }
 `
-const ContainerIcon = styled('p')`
-   margin-bottom: 30px;
-   margin-right: -15px;
+const ButtonContainer = styled('div')`
+   padding: 0px 24px 20px 24px;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 `

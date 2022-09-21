@@ -36,8 +36,6 @@ const PersonProfile = () => {
    const [other, showOther] = useState(false)
    const dispatch = useDispatch()
 
-   console.log(setInputForPassword)
-
    const validateInput = (e) => {
       const { name, value } = e.target
       setError((prev) => {
@@ -47,8 +45,8 @@ const PersonProfile = () => {
                if (!value) {
                   stateObj[name] = 'Пожалуйста введите пароль.'
                } else if (
-                  InputForPassword.confirmNewPassword &&
-                  value !== InputForPassword.confirmNewPassword
+                  inputForPassword.confirmNewPassword &&
+                  value !== inputForPassword.confirmNewPassword
                ) {
                   stateObj.confirmNewPassword =
                      'Пароль и подтверждение пароля не совпадают.'
@@ -56,7 +54,7 @@ const PersonProfile = () => {
                   stateObj.confirmNewPassword = 'Введите более 8 символов'
                } else {
                   stateObj.confirmNewPassword =
-                     InputForPassword.confirmNewPassword
+                     inputForPassword.confirmNewPassword
                         ? ''
                         : error.confirmNewPassword
                }
@@ -66,8 +64,8 @@ const PersonProfile = () => {
                if (!value) {
                   stateObj[name] = 'Пожалуйста, введите Подтвердить пароль.'
                } else if (
-                  InputForPassword.newPassword &&
-                  value !== InputForPassword.newPassword
+                  inputForPassword.newPassword &&
+                  value !== inputForPassword.newPassword
                ) {
                   stateObj[name] = 'Пароль и подтверждение пароля не совпадают.'
                }
@@ -83,7 +81,7 @@ const PersonProfile = () => {
    const handleSubmit = (e) => {
       e.preventDefault()
       if (user.firstName && user.lastName && user.phoneNumber && user.email) {
-         dispatch(putProfile({ user, file, dispatch }))
+         dispatch(putProfile({ user, file }))
       } else {
          toast.error('Заполните пустые поля')
       }
@@ -188,7 +186,6 @@ const PersonProfile = () => {
                            height=" 48px"
                            name="address"
                            onChange={handleChange}
-                           // value={user?.address}
                            defaultValue={address}
                            borderRadius="6px"
                            placeholder="Введите свой адресс"

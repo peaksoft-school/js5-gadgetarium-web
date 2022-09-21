@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import { toast } from 'react-toastify'
 
 let store
 
@@ -11,7 +12,7 @@ const BASE_URL =
 
 const headers = {
    Accept: 'application/json',
-   'Content-Type': 'application/json;charset=UTF-8',
+   'Content-Type': 'application/json; charset=utf-8',
 }
 
 const axiosInstance = axios.create({

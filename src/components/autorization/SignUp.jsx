@@ -42,9 +42,9 @@ const SignUp = ({ onClose, open, openLoginModal }) => {
                password,
                email,
                onClose,
+               reset,
             })
          )
-      reset()
    }
 
    return (

@@ -8,3 +8,9 @@ export const addToWishProducts = (userId, productId) =>
 
 export const removeAllProducts = (userId) =>
    axiosInstance.delete(`api/user/wishlist/${userId}/removeAll`)
+
+export const removeProduct = (userId, productId) =>
+   axiosInstance.delete(`api/user/wishlist/${userId}/remove/${productId}`)
+
+export const getAllHoverWishProducts = () =>
+   axiosInstance.get('api/user/wishlist/hover')

@@ -23,7 +23,7 @@ export const getProfile = createAsyncThunk(
 
 export const putProfile = createAsyncThunk(
    'user/putProfile',
-   async ({ file, user, dispatch }, { rejectWithValue }) => {
+   async ({ file, user }, { dispatch }) => {
       console.log(user, file)
       const formData = new FormData()
       try {
@@ -46,7 +46,7 @@ export const putProfile = createAsyncThunk(
          dispatch(getProfile())
          return response.data
       } catch (err) {
-         return rejectWithValue(err.response.data)
+         return console.log(err.response.data)
       }
    }
 )

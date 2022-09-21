@@ -94,6 +94,7 @@
       "react/button-has-type": ["off"],
       "consistent-return": ["error"],
       "jsx-a11y/media-has-caption": ["off"],
-      "no-constant-condition": "off"
+      "no-constant-condition": "off",
+      "default-param-last": 0
    }
 }
