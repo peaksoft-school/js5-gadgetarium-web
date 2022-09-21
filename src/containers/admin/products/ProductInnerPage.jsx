@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
 import styled from 'styled-components'
 
@@ -9,7 +9,10 @@ import SamsungBrand from '../../../assets/images/brand.png'
 import BottomContent from '../../../components/admin/innerPageContent/BottomContent'
 import ProductContent from '../../../components/admin/innerPageContent/ProductContent'
 import BreadCrumbs from '../../../components/UI/Breadcrumbs'
-import { getProductById } from '../../../store/actions/products/productsActions'
+import {
+   deleteProductById,
+   getProductById,
+} from '../../../store/actions/products/productsActions'
 
 const override = {
    display: 'block',
@@ -21,11 +24,12 @@ const ProductInnerPage = () => {
    const dispatch = useDispatch()
    const { product, loading } = useSelector((state) => state.adminPanel)
    const { productId } = useParams()
+   const navigate = useNavigate()
 
    const paths = [
       {
          name: 'Товары',
-         path: '/',
+         path: '/admin/products',
       },
       {
          name: product.productName,
@@ -39,7 +43,9 @@ const ProductInnerPage = () => {
       }
    }, [productId])
 
-   const handleDelete = () => {}
+   const handleDelete = () => {
+      dispatch(deleteProductById({ productId, navigate }))
+   }
    if (loading) {
       return (
          <RingLoader

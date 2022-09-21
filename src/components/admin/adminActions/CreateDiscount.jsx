@@ -1,12 +1,13 @@
 import { useState } from 'react'
 
 import { InputLabel } from '@mui/material'
+import { format } from 'date-fns'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 
 import { createDiscountProducts } from '../../../store/actions/stages/stagesActions'
-import { dateFormatter, reduceDates } from '../../../utils/helpers/general'
+import { reduceDates } from '../../../utils/helpers/general'
 import BasicModal from '../../UI/BasicModal'
 import Button from '../../UI/Button'
 import DatePicker from '../../UI/DatePicker'
@@ -32,27 +33,19 @@ const CreateDiscount = ({ open, onClose, productId, setCheckedProducts }) => {
    }
 
    const onStartChange = (start) => {
-      const formatDate = new Date(start)
       setDiscount((prev) => {
          return {
             ...prev,
-            dateOfStart:
-               dateFormatter(formatDate) === 'NaN-NaN-NaN'
-                  ? null
-                  : dateFormatter(formatDate),
+            dateOfStart: format(start, 'yyyy-MM-dd'),
          }
       })
    }
 
    const onFinishChange = (end) => {
-      const formatDate = new Date(end)
       setDiscount((prev) => {
          return {
             ...prev,
-            dateOfFinish:
-               dateFormatter(formatDate) === 'NaN-NaN-NaN'
-                  ? null
-                  : dateFormatter(formatDate),
+            dateOfFinish: format(end, 'yyyy-MM-dd'),
          }
       })
    }

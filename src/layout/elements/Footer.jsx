@@ -86,22 +86,22 @@ const Footer = () => {
                      </p>
                   </Distribution>
                   <Contacts>
-                     <NavLink to="/number">
+                     <a href="tel: +996 500 34 44 33">
                         <Icons src={numberIcon} />
-                        <p> +996 (400) 00 00 00 </p>
-                     </NavLink>
-                     <NavLink to="/gadgetarium">
+                        <p> +996 500 34 44 33 </p>
+                     </a>
+                     <a href="mailto:school@peaksoft.us">
                         <Icons src={messageIcon} />
                         <p> Gadgetarium.kg </p>
-                     </NavLink>
-                     <NavLink to="/address">
+                     </a>
+                     <a href=" ">
                         <Icons src={gpsIcon} />
                         <p> г.Бишкек, ул. Гражданская 119 </p>
-                     </NavLink>
-                     <NavLink to="/">
+                     </a>
+                     <a href=" ">
                         <Icons src={clockIcon} />
                         <p> С 10:00 до 21:00 (без выходных) </p>
-                     </NavLink>
+                     </a>
                   </Contacts>
                </ContactsBox>
             </BoxCategories>
