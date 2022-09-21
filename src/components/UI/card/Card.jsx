@@ -115,7 +115,7 @@ const Card = (props) => {
                variant="contained"
                onClick={(e) => {
                   e.stopPropagation()
-                  props.addToCart()
+                  props.addToCart(props.id)
                }}
                startIcon={<Busket />}
             >

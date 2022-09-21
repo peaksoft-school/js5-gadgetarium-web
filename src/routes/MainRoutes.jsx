@@ -150,7 +150,6 @@ const MainRoutes = () => {
                   </Suspense>
                }
             />
-            {/* <Route path="*" element={<NotFound />} /> */}
          </Routes>
       </MainLayuot>
    )

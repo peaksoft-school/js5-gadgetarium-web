@@ -89,6 +89,12 @@ const HeaderTop = styled('header')`
    /* padding: 18px 100px; */
 
    /* @media (max-width: 1536px) {
+   max-width: 1920px;
+   margin-left: auto;
+   margin-right: auto;
+   height: 82px;
+   padding: 18px 100px;
+   @media (max-width: 1536px) {
       max-width: 1440px;
       padding: 18px 30px;
    }
@@ -102,7 +108,7 @@ const HeaderContainer = styled('div')`
    width: 100%;
    background: #1a1a25;
    position: sticky;
-   top: -5.7rem;
+   top: -5.2em;
    z-index: 99;
 `
 const UpperRow = styled('div')`
@@ -119,6 +125,7 @@ const NavBar = styled('nav')`
    background: #1a1a25;
 
    /* @media (max-width: 1536px) {
+   @media (max-width: 1536px) {
       max-width: 1440px;
       padding: 18px 30px;
    } */

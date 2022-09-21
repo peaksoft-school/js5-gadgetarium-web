@@ -39,7 +39,7 @@ export const removeAllCompareProducts = createAsyncThunk(
          dispatch(getHoverCompareProducts())
          return response.data
       } catch (err) {
-         return console.log(err.response.data)
+         return err.response.data
       }
    }
 )
@@ -56,7 +56,7 @@ export const removeCompareProduct = createAsyncThunk(
          toast.success('Успешно удалено!')
          return response.data
       } catch (err) {
-         return console.log(err.response.data)
+         return err.response.data
       }
    }
 )
@@ -72,7 +72,7 @@ export const addToComparison = createAsyncThunk(
          dispatch(getProductsCatalog(queryParams))
          return response.data
       } catch (err) {
-         return console.log(err.response.data)
+         return err.response.data
       }
    }
 )

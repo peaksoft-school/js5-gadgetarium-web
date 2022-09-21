@@ -9,60 +9,26 @@ import Rectangle from '../../../assets/images/Rectangle.png'
 import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
 
-const data = [
+const userOrdersData = [
    {
-      id: 1,
+      orderId: 1,
+      // orderDate: '2022-09-20',
+      orderNumber: '№ 1521751218',
       action: -10,
       img: Rectangle,
-      status: 'В наличии',
       title: 'Bluetooth Наушники Yison Е6',
       rating: 5,
-      actualprice: 78000,
-      noneactualprice: 80000,
-   },
-   {
-      id: 2,
-      action: -20,
-      img: Rectangle,
-      status: 'В наличии',
-      title: 'Bluetooth Наушники Yison Е6',
-      rating: 2,
-      actualprice: 78000,
-      noneactualprice: 80000,
-   },
-   {
-      id: 3,
-      action: -10,
-      img: Rectangle,
-      status: 'В наличии',
-      title: 'Bluetooth Наушники Yison Е6',
-      rating: 3,
-      actualprice: 78000,
-      noneactualprice: 80000,
-   },
-   {
-      id: 4,
-      action: -10,
-      img: Rectangle,
-      status: 'В наличии',
-      title: 'Bluetooth Наушники Yison Е6',
-      rating: 4,
-      actualprice: 78000,
-      noneactualprice: 80000,
+      orderTotalSum: 78000,
    },
 ]
+
 const PersonOrderHistory = () => {
-   const [show, setShow] = useState({
-      que: false,
-      min: false,
-      model: false,
-      city: false,
-      delivery: false,
-   })
+   const [show, setShow] = useState(false)
 
    const showFirst = () => {
       setShow({ ...show, que: !show.que })
    }
+
    const showSecond = () => {
       setShow({ ...show, min: !show.min })
    }
@@ -75,173 +41,194 @@ const PersonOrderHistory = () => {
    const showFifth = () => {
       setShow({ ...show, delivery: !show.delivery })
    }
-   // console.log(show)
+
    return (
       <Container>
-         {show.que !== null ? (
-            <>
-               <Div onClick={showFirst}>
-                  <DivBlock>
-                     <DivBlockInner>
-                        <h1>26.03.2021</h1>
-                        <h2> № 1521751218</h2>
-                        <StyledTitle> Доставлены</StyledTitle>
-                        <span>54 000 с</span>
-                     </DivBlockInner>
-                     {show.que && <img src={Vector2Arrow} alt="" />}
-                     {!show.que && <img src={VectorArrow} alt="" />}
-                  </DivBlock>
-                  {show.que && (
-                     <CardStyled>
-                        {data.map((data) => {
-                           return (
-                              <div key={data.id}>
-                                 <Card
-                                    id={data.id}
-                                    action={data.discount}
-                                    img={data.image}
-                                    status={data.stock}
-                                    title={data.model}
-                                    rating={data.average}
-                                    actualprice={data.afterDiscount}
-                                    noneactualprice={data.beforeDiscount}
-                                 />
-                              </div>
-                           )
-                        })}
-                     </CardStyled>
-                  )}
-               </Div>
-               <Div onClick={showSecond}>
-                  <DivBlock>
-                     <DivBlockInner>
-                        <h1>26.03.2021</h1>
-                        <h2> № 1521751218</h2>
-                        <StyledTitle> Доставлены</StyledTitle>
-                        <span>54 000 с</span>
-                     </DivBlockInner>
-                     {show.min && <img src={Vector2Arrow} alt="" />}
-                     {!show.min && <img src={VectorArrow} alt="" />}
-                  </DivBlock>
+         {userOrdersData.length > 0 ? (
+            userOrdersData.map((data) => {
+               return (
+                  <div key={data.id}>
+                     <Div onClick={showFirst}>
+                        <DivBlock>
+                           <DivBlockInner>
+                              <h1>21.09.2022</h1>
+                              <h2> {data.orderNumber}</h2>
+                              <StyledTitle> Доставлены</StyledTitle>
+                              <span>2 000c</span>
+                           </DivBlockInner>
+                           {show && <img src={Vector2Arrow} alt="" />}
+                           {!show && <img src={VectorArrow} alt="" />}
+                        </DivBlock>
+                        {show.que && (
+                           <CardStyled>
+                              {userOrdersData.map((product) => {
+                                 return (
+                                    <div key={product.id}>
+                                       <Card
+                                          id={product.id}
+                                          action={product.discount}
+                                          img={product.image}
+                                          status={product.stock}
+                                          title={product.model}
+                                          rating={product.average}
+                                          actualprice={product.afterDiscount}
+                                          noneactualprice={
+                                             product.beforeDiscount
+                                          }
+                                       />
+                                    </div>
+                                 )
+                              })}
+                           </CardStyled>
+                        )}
+                     </Div>
 
-                  {show.min && (
-                     <AnswersTitle>
-                        {data.map((data) => {
-                           return (
-                              <div key={data.id}>
-                                 <Card
-                                    id={data.id}
-                                    action={data.discount}
-                                    img={data.image}
-                                    status={data.stock}
-                                    title={data.model}
-                                    rating={data.average}
-                                    actualprice={data.afterDiscount}
-                                    noneactualprice={data.beforeDiscount}
-                                 />
-                              </div>
-                           )
-                        })}
-                     </AnswersTitle>
-                  )}
-               </Div>
-               <Div onClick={showThird}>
-                  <DivBlock>
-                     <DivBlockInner>
-                        <h1>26.03.2021</h1>
-                        <h2> № 1521751218</h2>
-                        <H3> Ожидает оплаты</H3>
-                        <span>54 000 с</span>
-                     </DivBlockInner>
-                     {show.model && <img src={Vector2Arrow} alt="" />}
-                     {!show.model && <img src={VectorArrow} alt="" />}
-                  </DivBlock>
-                  {show.model && (
-                     <AnswersTitle>
-                        {data.map((data) => {
-                           return (
-                              <div key={data.id}>
-                                 <Card
-                                    id={data.id}
-                                    action={data.discount}
-                                    img={data.image}
-                                    status={data.stock}
-                                    title={data.model}
-                                    rating={data.average}
-                                    actualprice={data.afterDiscount}
-                                    noneactualprice={data.beforeDiscount}
-                                 />
-                              </div>
-                           )
-                        })}
-                     </AnswersTitle>
-                  )}
-               </Div>
-               <Div onClick={showFourth}>
-                  <DivBlock>
-                     <DivBlockInner>
-                        <h1>26.03.2021</h1>
-                        <h2> № 1521751218</h2>
-                        <StyledH5> В обработке</StyledH5>
-                        <span>54 000 с</span>
-                     </DivBlockInner>
-                     {show.city && <img src={Vector2Arrow} alt="" />}
-                     {!show.city && <img src={VectorArrow} alt="" />}
-                  </DivBlock>
-                  {show.city && (
-                     <AnswersTitle>
-                        {data.map((data) => {
-                           return (
-                              <div key={data.id}>
-                                 <Card
-                                    id={data.id}
-                                    action={data.discount}
-                                    img={data.image}
-                                    status={data.stock}
-                                    title={data.model}
-                                    rating={data.average}
-                                    actualprice={data.afterDiscount}
-                                    noneactualprice={data.beforeDiscount}
-                                 />
-                              </div>
-                           )
-                        })}
-                     </AnswersTitle>
-                  )}
-               </Div>
-               <Div onClick={showFifth}>
-                  <DivBlock>
-                     <DivBlockInner>
-                        <h1>26.03.2021</h1>
-                        <h2> № 1521751218</h2>
-                        <StyledH4> Курьер в пути</StyledH4>
-                        <span>54 000 с</span>
-                     </DivBlockInner>
-                     {show.delivery && <img src={Vector2Arrow} alt="" />}
-                     {!show.delivery && <img src={VectorArrow} alt="" />}
-                  </DivBlock>
-                  {show.delivery && (
-                     <AnswersTitle>
-                        {data.map((data) => {
-                           return (
-                              <div key={data.id}>
-                                 <Card
-                                    id={data.id}
-                                    action={data.discount}
-                                    img={data.image}
-                                    status={data.stock}
-                                    title={data.model}
-                                    rating={data.average}
-                                    actualprice={data.afterDiscount}
-                                    noneactualprice={data.beforeDiscount}
-                                 />
-                              </div>
-                           )
-                        })}
-                     </AnswersTitle>
-                  )}
-               </Div>
-            </>
+                     <Div onClick={showSecond}>
+                        <DivBlock>
+                           <DivBlockInner>
+                              <h1>22.09.2022</h1>
+                              <h2> {data.orderNumber}</h2>
+                              <StyledTitle>Доставлены</StyledTitle>
+                              <span>10 000c</span>
+                           </DivBlockInner>
+                           {show.min && <img src={Vector2Arrow} alt="" />}
+                           {!show.min && <img src={VectorArrow} alt="" />}
+                        </DivBlock>
+                        {show.min && (
+                           <AnswersTitle>
+                              {userOrdersData &&
+                                 userOrdersData.map((product) => {
+                                    return (
+                                       <div key={product.id}>
+                                          <Card
+                                             id={product.id}
+                                             action={product.discount}
+                                             img={product.image}
+                                             status={product.stock}
+                                             title={product.model}
+                                             rating={product.average}
+                                             actualprice={product.afterDiscount}
+                                             noneactualprice={
+                                                product.beforeDiscount
+                                             }
+                                          />
+                                       </div>
+                                    )
+                                 })}
+                           </AnswersTitle>
+                        )}
+                     </Div>
+                     <Div onClick={showThird}>
+                        <DivBlock>
+                           <DivBlockInner>
+                              <h1>22.09.2022</h1>
+                              <h2>{data.orderNumber}</h2>
+                              <H3> Ожидает оплаты</H3>
+                              <span>65 000c</span>
+                           </DivBlockInner>
+                           {show.model && <img src={Vector2Arrow} alt="" />}
+                           {!show.model && <img src={VectorArrow} alt="" />}
+                        </DivBlock>
+                        {show.model && (
+                           <AnswersTitle>
+                              {userOrdersData.map((orderhistory) => {
+                                 return (
+                                    <div key={orderhistory.id}>
+                                       <Card
+                                          id={orderhistory.id}
+                                          action={orderhistory.discount}
+                                          img={orderhistory.image}
+                                          status={orderhistory.stock}
+                                          title={orderhistory.model}
+                                          rating={orderhistory.average}
+                                          actualprice={
+                                             orderhistory.afterDiscount
+                                          }
+                                          noneactualprice={
+                                             orderhistory.beforeDiscount
+                                          }
+                                       />
+                                    </div>
+                                 )
+                              })}
+                           </AnswersTitle>
+                        )}
+                     </Div>
+                     <Div onClick={showFourth}>
+                        <DivBlock>
+                           <DivBlockInner>
+                              <h1>23.09.22</h1>
+                              <h2>{data.orderNumber}</h2>
+                              <StyledH5>В обработке</StyledH5>
+                              <span>50 000c</span>
+                           </DivBlockInner>
+                           {show.city && <img src={Vector2Arrow} alt="" />}
+                           {!show.city && <img src={VectorArrow} alt="" />}
+                        </DivBlock>
+                        {show.city && (
+                           <AnswersTitle>
+                              {userOrdersData.map((orderhistory) => {
+                                 return (
+                                    <div key={orderhistory.id}>
+                                       <Card
+                                          id={orderhistory.id}
+                                          action={orderhistory.discount}
+                                          img={orderhistory.image}
+                                          status={orderhistory.stock}
+                                          title={orderhistory.model}
+                                          rating={orderhistory.average}
+                                          actualprice={
+                                             orderhistory.afterDiscount
+                                          }
+                                          noneactualprice={
+                                             orderhistory.beforeDiscount
+                                          }
+                                       />
+                                    </div>
+                                 )
+                              })}
+                           </AnswersTitle>
+                        )}
+                     </Div>
+                     <Div onClick={showFifth}>
+                        <DivBlock>
+                           <DivBlockInner>
+                              <h1>23.09.2022</h1>
+                              <h2> {data.orderNumber}</h2>
+                              <StyledH4>Курьер в пути</StyledH4>
+                              <span>15 000c</span>
+                           </DivBlockInner>
+                           {show.delivery && <img src={Vector2Arrow} alt="" />}
+                           {!show.delivery && <img src={VectorArrow} alt="" />}
+                        </DivBlock>
+                        {show.delivery && (
+                           <AnswersTitle>
+                              {userOrdersData.map((orderhistory) => {
+                                 return (
+                                    <div key={orderhistory.id}>
+                                       <Card
+                                          id={orderhistory.id}
+                                          action={orderhistory.discount}
+                                          img={orderhistory.image}
+                                          status={orderhistory.stock}
+                                          title={orderhistory.model}
+                                          rating={orderhistory.average}
+                                          actualprice={
+                                             orderhistory.afterDiscount
+                                          }
+                                          noneactualprice={
+                                             orderhistory.beforeDiscount
+                                          }
+                                       />
+                                    </div>
+                                 )
+                              })}
+                           </AnswersTitle>
+                        )}
+                     </Div>
+                  </div>
+               )
+            })
          ) : (
             <StyledBlock>
                <StyledComponent>
@@ -364,13 +351,17 @@ const StyledH4 = styled('h3')`
    color: #08a592;
 `
 const StyledBlock = styled('div')`
-   width: 100%;
+   width: 1300px;
+   text-align: center;
+   margin: 10px auto;
    display: flex;
    justify-content: center;
-   padding: 120px 0px 120px 0px;
+   padding: 120px 0px;
 `
 const StyledComponent = styled('div')`
    width: 466px;
+   height: 500px;
+   margin-left: 300px;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -386,7 +377,7 @@ const StyledF2 = styled('h2')`
    line-height: 110%;
    display: flex;
    align-items: flex-end;
-   text-transform: capitalize;
+   text-transform: normal;
    color: #292929;
 `
 const StyledText = styled('p')`
