@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import Rating from '@mui/material/Rating'
 import styled from 'styled-components'
 
@@ -34,6 +36,8 @@ const renderCardByState = (param) => {
 }
 
 const Card = (props) => {
+   const [like, setLike] = useState(props.like)
+   const [compare, setCompare] = useState(props.comparison)
    const goToInnerPage = (e) => {
       e.stopPropagation()
       props.onClick()
@@ -45,20 +49,20 @@ const Card = (props) => {
             <CardHeaderItemsIcons>
                <li
                   onClick={(e) => {
+                     setCompare((prev) => !prev)
                      e.stopPropagation()
                      props.compareProducts()
                   }}
                >
                   <Tooltip title="Добавить в сравнение">
                      <div>
-                        <Balance
-                           fill={props.comparison ? '#CB11AB' : '#aaB1bf'}
-                        />
+                        <Balance fill={compare ? '#CB11AB' : '#aaB1bf'} />
                      </div>
                   </Tooltip>
                </li>
                <li
                   onClick={(e) => {
+                     setLike((prev) => !prev)
                      e.stopPropagation()
                      props.addToFavorites()
                   }}
@@ -66,8 +70,8 @@ const Card = (props) => {
                   <Tooltip title="Добавить в избранное">
                      <div>
                         <Like
-                           fill={props.like ? '#f53b49' : 'transparent'}
-                           stroke={props.like ? '#f53b49' : '#aaB1bf'}
+                           fill={like ? '#f53b49' : 'transparent'}
+                           stroke={like ? '#f53b49' : '#aaB1bf'}
                         />
                      </div>
                   </Tooltip>
