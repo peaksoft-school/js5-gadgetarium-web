@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import { ReactComponent as Compare } from '../../assets/icons/compare.svg'
 import { ReactComponent as Favorites } from '../../assets/icons/favorites.svg'
 import { ReactComponent as Cart } from '../../assets/icons/shopping-cart.svg'
+import { getAllHoverProducts } from '../../store/actions/cartActions'
 import { getHoverCompareProducts } from '../../store/actions/comparisonActions'
 import { getHoverWishProducts } from '../../store/actions/wishListActions'
 import MuiBadge from '../UI/MuiBadge'
@@ -18,12 +19,15 @@ const UserTools = () => {
    const { compareHoverProducts } = useSelector(
       (state) => state.compareProducts
    )
+   const { cartHoverProducts } = useSelector((state) => state.cart)
    const { hoverWishProducts } = useSelector((state) => state.wishProducts)
+
    const { user } = useSelector((state) => state.auth)
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const [isShown, setIsShown] = useState(null)
    const [isWishShown, setIsWishShown] = useState(null)
+   const [isCartShow, setIsCartShow] = useState(null)
 
    const onClose = () => {
       setIsWishShown(null)
@@ -38,16 +42,16 @@ const UserTools = () => {
       navigate('favourites')
       setIsShown(null)
    }
+   const handleCartNavigate = () => {
+      navigate('cart')
+      setIsCartShow(null)
+   }
 
    useEffect(() => {
       if (user.jwt) {
          dispatch(getHoverCompareProducts())
-      }
-   }, [])
-
-   useEffect(() => {
-      if (user.jwt) {
          dispatch(getHoverWishProducts())
+         dispatch(getAllHoverProducts())
       }
    }, [])
 
@@ -103,11 +107,31 @@ const UserTools = () => {
                handleNavigate={handleWishNavigate}
             />
          )}
-         <IconButton>
-            <MuiBadge>
-               <Cart />
-            </MuiBadge>
-         </IconButton>
+         {cartHoverProducts.length === 0 ? (
+            <IconButton>
+               <Tooltip
+                  title="Выберите товар чтобы добавить в корзину"
+                  placement="bottom"
+               >
+                  <Cart />
+               </Tooltip>
+            </IconButton>
+         ) : (
+            <IconButton onClick={(e) => setIsCartShow(e.currentTarget)}>
+               <MuiBadge counter={cartHoverProducts.length}>
+                  <Cart />
+               </MuiBadge>
+            </IconButton>
+         )}
+         {cartHoverProducts && (
+            <ComparisonPopup
+               cart={cartHoverProducts}
+               title="Перейти в корзину"
+               onClose={onClose}
+               anchorEl={isCartShow}
+               handleNavigate={handleCartNavigate}
+            />
+         )}
       </Container>
    )
 }
