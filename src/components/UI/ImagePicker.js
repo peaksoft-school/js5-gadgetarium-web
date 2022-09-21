@@ -52,16 +52,17 @@ const DeleteButton = styled.button`
    display: none;
    cursor: pointer;
    display: none;
-   &:hover { */
-   /* /* text-decoration: underline; */
-   opacity: 3;
-   border-radius: 2px;
-   font-family: 'Inter', sans-serif;
-   align-items: center;
-   margin-right: 3px;
-   text-decoration: none; 
+   &:hover {
+      /* /* text-decoration: underline; */
+      opacity: 3;
+      border-radius: 2px;
+      font-family: 'Inter', sans-serif;
+      align-items: center;
+      margin-right: 3px;
+      text-decoration: none;
    }
 `
+
 const ImagePickerContainer = styled.div`
    background-repeat: no-repeat;
    background-position: 50% 50%;
