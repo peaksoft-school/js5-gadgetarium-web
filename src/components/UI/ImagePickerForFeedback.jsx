@@ -119,9 +119,11 @@ const IconAndTextContiner = styled.div`
    gap: 20px;
    cursor: pointer;
    & p {
-      width: 300px;
-      font-size: 12px;
+      width: 400px;
+      height: 39px;
+      font-size: 80%;
       color: #292929;
+      margin-top: -5px;
    }
    & ul {
       font-size: 12px;

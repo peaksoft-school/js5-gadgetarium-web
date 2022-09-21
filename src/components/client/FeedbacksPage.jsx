@@ -9,7 +9,7 @@ import {
    leaveFeedback,
 } from '../../store/slices/feedbackSlice'
 import Button from '../UI/Button'
-import ImagePicker from '../UI/ImagePicker'
+import ImagePicker from '../UI/ImagePickerForFeedback'
 
 import FeedbackStars from './FeedbackStars'
 
