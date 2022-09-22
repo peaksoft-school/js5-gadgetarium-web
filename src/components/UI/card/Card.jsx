@@ -42,31 +42,29 @@ const Card = (props) => {
       e.stopPropagation()
       props.onClick()
    }
+   const clickCompare = (e) => {
+      setCompare((prev) => !prev)
+      e.stopPropagation()
+      props.compareProducts()
+   }
+   const addToFavorites = (e) => {
+      setLike((prev) => !prev)
+      e.stopPropagation()
+      props.addToFavorites()
+   }
    return (
       <CardContainer onClick={goToInnerPage}>
          <CardHeaderItems>
             {renderCardByState(props.sort)}
             <CardHeaderItemsIcons>
-               <li
-                  onClick={(e) => {
-                     setCompare((prev) => !prev)
-                     e.stopPropagation()
-                     props.compareProducts()
-                  }}
-               >
+               <li onClick={clickCompare}>
                   <Tooltip title="Добавить в сравнение">
                      <div>
                         <Balance fill={compare ? '#CB11AB' : '#aaB1bf'} />
                      </div>
                   </Tooltip>
                </li>
-               <li
-                  onClick={(e) => {
-                     setLike((prev) => !prev)
-                     e.stopPropagation()
-                     props.addToFavorites()
-                  }}
-               >
+               <li onClick={addToFavorites}>
                   <Tooltip title="Добавить в избранное">
                      <div>
                         <Like

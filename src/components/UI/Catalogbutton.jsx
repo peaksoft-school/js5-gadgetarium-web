@@ -33,16 +33,20 @@ function CatalogButton() {
       <div>
          <Grid container direction="row">
             <DropdownMenu onClose text="Каталог" color="primary">
-               {CATEGORIES.map((el) => (
-                  <SideMenu onClose key={el.id} text={el.name}>
-                     {el.subCategories.map((e) => (
+               {CATEGORIES.map((category) => (
+                  <SideMenu onClose key={category.id} text={category.name}>
+                     {category.subCategories.map((subcategory) => (
                         <MenuItem
-                           key={e.id}
+                           key={subcategory.id}
                            onClose
                            onClick={() => {
-                              searchParamHandler(el.name, e.id, e.name)
+                              searchParamHandler(
+                                 category.name,
+                                 subcategory.id,
+                                 subcategory.name
+                              )
                            }}
-                           text={e.name}
+                           text={subcategory.name}
                         />
                      ))}
                   </SideMenu>

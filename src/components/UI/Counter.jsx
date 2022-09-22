@@ -2,15 +2,17 @@ import { useState } from 'react'
 
 import styled from 'styled-components'
 
-const Counter = (props) => {
+const Counter = ({ onChange }) => {
    const [count, setCount] = useState(0)
    const plus = () => {
       setCount((prev) => prev + 1)
+      onChange(count)
    }
    const minus = () => {
       setCount((prev) => prev - 1)
+      onChange(count)
    }
-   props.count(count)
+
    return (
       <div>
          <Total>Количество:</Total>

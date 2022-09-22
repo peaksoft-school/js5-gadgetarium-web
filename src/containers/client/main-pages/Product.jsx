@@ -11,7 +11,7 @@ import PreviewSlider from '../../../components/UI/PreviewSlider'
 import Sale from '../../../components/UI/SALE'
 
 const Product = (props) => {
-   const count = (value) => {
+   const onChangeCounter = (value) => {
       console.log(value)
    }
    return (
@@ -39,7 +39,7 @@ const Product = (props) => {
                      <p>Цвет товара:</p>
                      <p>{props.color}</p>
                   </Color>
-                  <Counter count={count} />
+                  <Counter onChange={onChangeCounter} />
                   <Prices>
                      <Price>
                         {props.discount && <Sale salePrice="-10%" />}
