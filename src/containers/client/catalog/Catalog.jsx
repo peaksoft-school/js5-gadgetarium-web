@@ -12,7 +12,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import CATEGORIES from '../../../assets/data/categories'
-// import Iphone from '../../../assets/images/Samsung.png'
 import Sorting from '../../../components/client/Sorting'
 import BreadCrumbs from '../../../components/UI/Breadcrumbs'
 import Card from '../../../components/UI/card/Card'
@@ -243,14 +242,6 @@ const Catalog = () => {
             </div>
             <Section>
                <Filter>
-                  {/* <section>
-                     {selected.map((el) => (
-                        <Selected>
-                           {el}
-                           <p>&#10006;</p>
-                        </Selected>
-                     ))}
-                  </section> */}
                   <Sorting onChange={sortChangeHandler} />
                </Filter>
 
@@ -307,123 +298,11 @@ const Container = styled('div')`
    display: flex;
    justify-content: space-between;
 `
-// const examples = [
-//    {
-//       action: '-10%',
-//       id: 4,
-//       img: Iphone,
-//       status: 'В наличии (54)',
-//       title: 'Samsung Galaxy S21 128gb синий 9(MLP3RU...',
-//       rating: '3',
-//       actualprice: '54 190 с',
-//       noneactualprice: '57 190 с',
-//    },
-//    {
-//       action: '-10%',
-//       id: 5,
-//       img: Iphone,
-//       status: 'В наличии (54)',
-//       title: 'Samsung Galaxy S21 128gb синий 9(MLP3RU...',
-//       rating: '3',
-//       actualprice: '54 190 с',
-//       noneactualprice: '57 190 с',
-//    },
-//    {
-//       action: '-10%',
-//       id: 6,
-//       img: Iphone,
-//       status: 'В наличии (54)',
-//       title: 'Samsung Galaxy S21 128gb синий 9(MLP3RU...',
-//       rating: '3',
-//       actualprice: '54 190 с',
-//       noneactualprice: '57 190 с',
-//    },
-//    {
-//       action: '-10%',
-//       id: 98,
-//       img: Iphone,
-//       status: 'В наличии (54)',
-//       title: 'Samsung Galaxy S21 128gb синий 9(MLP3RU...',
-//       rating: '3',
-//       actualprice: '54 190 с',
-//       noneactualprice: '57 190 с',
-//    },
-//    {
-//       action: '-10%',
-//       id: 43,
-//       img: Iphone,
-//       status: 'В наличии (54)',
-//       title: 'Samsung Galaxy S21 128gb синий 9(MLP3RU...',
-//       rating: '3',
-//       actualprice: '54 190 с',
-//       noneactualprice: '57 190 с',
-//    },
-//    {
-//       action: '-10%',
-//       id: 28,
-//       img: Iphone,
-//       status: 'В наличии (54)',
-//       title: 'Samsung Galaxy S21 128gb синий 9(MLP3RU...',
-//       rating: '3',
-//       actualprice: '54 190 с',
-//       noneactualprice: '57 190 с',
-//    },
-//    {
-//       action: '-10%',
-//       id: 7,
-//       img: Iphone,
-//       status: 'В наличии (54)',
-//       title: 'Samsung Galaxy S21 128gb синий 9(MLP3RU...',
-//       rating: '3',
-//       actualprice: '54 190 с',
-//       noneactualprice: '57 190 с',
-//    },
-//    {
-//       action: '-10%',
-//       id: 9,
-//       img: Iphone,
-//       status: 'В наличии (54)',
-//       title: 'Samsung Galaxy S21 128gb синий 9(MLP3RU...',
-//       rating: '3',
-//       actualprice: '54 190 с',
-//       noneactualprice: '57 190 с',
-//    },
-// ]
-// const selects = [
-//    {
-//       id: 1,
-//       name: 'Apple',
-//    },
-//    {
-//       id: 2,
-//       name: 'Apple',
-//    },
-//    {
-//       id: 3,
-//       name: 'Apple',
-//    },
-// ]
 const Filter = styled('div')`
    justify-content: flex-end;
    align-items: center;
    display: flex;
 `
-// const Selected = styled('div')`
-//    width: auto;
-//    height: 32px;
-//    background: #e8e8e8;
-//    border: 1px solid #cdcdcd;
-//    border-radius: 4px;
-//    display: flex;
-//    margin: 0px 5px;
-//    justify-content: space-around;
-//    align-items: center;
-//    padding: 0px 10px;
-//    p {
-//       margin: 0px 5px;
-//       cursor: pointer;
-//    }
-// `
 const Section = styled('div')`
    width: 80%;
    section {
@@ -481,25 +360,3 @@ const Title = styled('div')`
    margin: 30px 0px;
    padding: 20px 0px;
 `
-
-// const Input = styled('div')`
-//    & input {
-//       appearance: none;
-//       border: 1px solid #d3d3d3;
-//       width: 20px;
-//       height: 20px;
-//       /* content: none;
-//       outline: none; */
-//       margin: 0;
-//       cursor: pointer;
-//       /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
-//    }
-//    & input:checked {
-// eslint-disable-next-line max-len
-//       background: url('https://flyclipart.com/ru/white-hammer-clip-art-at-clker-hammer-vector-white-texture-white-board-text-hd-png-download-1033562');
-//       background-repeat: no-repeat;
-//       background-position: center center;
-//       background-size: 30px 30px;
-//       background-color: #cb11ab;
-//    }
-// `

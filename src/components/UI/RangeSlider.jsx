@@ -3,8 +3,6 @@ import * as React from 'react'
 import { styled } from '@mui/material'
 import Slider from '@mui/material/Slider'
 
-// import InputText from '../../Components/UI/Inputs/InputText'
-
 function valuetext(value) {
    return `${value}°C`
 }
@@ -79,7 +77,6 @@ const InputsPrice = styled('div')`
    justify-content: space-between;
 `
 const PriceItem = styled('div')`
-   /* padding: 10px 10px; */
    padding-left: ${(props) => props.left || ''};
    padding-right: ${(props) => props.right || ''};
    width: 50%;
