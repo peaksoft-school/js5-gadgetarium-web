@@ -1,6 +1,6 @@
 import React, { Fragment, useRef } from 'react'
 
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ReactComponent as ArrowSlider } from '../../assets/icons/arrow2.svg'
@@ -10,7 +10,6 @@ import { ReactComponent as Delete } from '../../assets/icons/удалить.svg'
 import EmptyIcon from '../../assets/images/sammy-finance 1.png'
 import * as CHARACTERS from '../../data/characters'
 import Button from '../UI/Button'
-import Checkbox from '../UI/Checkbox'
 
 const renderSwitch = (param) => {
    switch (param) {
@@ -34,6 +33,7 @@ const ComparisonContent = ({
    addToCart,
    handleAllDelete,
 }) => {
+   const navigate = useNavigate()
    const slideRef = useRef(null)
 
    const slideLeft = () => {
@@ -47,7 +47,6 @@ const ComparisonContent = ({
       <>
          {data?.length > 0 && (
             <ComparisonPageCheckbox>
-               <Checkbox label="Показывать только различия" />
                <ComparisonListClear>
                   <DeleteCompareList />
                   <p onClick={handleAllDelete}>Oчистить список</p>
@@ -134,11 +133,14 @@ const ComparisonContent = ({
                      Добавляйте сюда товары, чтобы сравнить их характеристики.
                      Так выбрать станет проще!
                   </StyledText>
-                  <StyledLink to="/catalog">
-                     <Button variant="outlined" width="180px" height="41px">
-                        К покупкам
-                     </Button>
-                  </StyledLink>
+                  <Button
+                     variant="outlined"
+                     width="180px"
+                     height="41px"
+                     onClick={() => navigate('/')}
+                  >
+                     К покупкам
+                  </Button>
                </StyledComponent>
             </StyledBlock>
          )}
@@ -221,7 +223,6 @@ const RightArrowSlider = styled(ArrowSlider)`
    }
 `
 const ComparisonPageCheckbox = styled.div`
-   /* margin-left: 195px; */
    display: flex;
    flex-direction: row;
    align-items: center;
@@ -229,7 +230,6 @@ const ComparisonPageCheckbox = styled.div`
 
 const ComparisonPageTools = styled.div`
    margin-top: 34px;
-   height: 100vh;
 `
 
 const ComparisonPageCard = styled.div`
@@ -260,7 +260,6 @@ const ComparisonToolsRightUl = styled.ul`
    overflow-x: scroll;
    list-style: none;
    display: flex;
-   align-items: center;
    scroll-behavior: smooth;
    &::-webkit-scrollbar {
       display: none;
@@ -367,9 +366,6 @@ const StyledText = styled.p`
    align-items: flex-end;
    text-align: center;
    color: #292929;
-`
-const StyledLink = styled(Link)`
-   text-decoration: none;
 `
 
 const StyledBlock = styled.div`

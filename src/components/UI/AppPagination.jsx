@@ -7,7 +7,7 @@ const AppPagination = ({ totalPage = 0, onChange, page }) => {
    return (
       <Box justifyContent="center" alignItems="center" display="flex">
          <PaginationStyled
-            count={totalPage}
+            count={Math.ceil(totalPage)}
             onChange={(e) => onChange(e.target.textContent)}
             page={Number(page)}
             color="secondary"

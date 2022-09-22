@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import Rating from '@mui/material/Rating'
 import styled from 'styled-components'
 
@@ -34,26 +36,40 @@ const renderCardByState = (param) => {
 }
 
 const Card = (props) => {
+   const [like, setLike] = useState(props.like)
+   const [compare, setCompare] = useState(props.comparison)
+   const goToInnerPage = (e) => {
+      e.stopPropagation()
+      props.onClick()
+   }
+   const clickCompare = (e) => {
+      setCompare((prev) => !prev)
+      e.stopPropagation()
+      props.compareProducts()
+   }
+   const addToFavorites = (e) => {
+      setLike((prev) => !prev)
+      e.stopPropagation()
+      props.addToFavorites()
+   }
    return (
-      <CardContainer>
+      <CardContainer onClick={goToInnerPage}>
          <CardHeaderItems>
             {renderCardByState(props.sort)}
             <CardHeaderItemsIcons>
-               <li onClick={props.compareProducts}>
+               <li onClick={clickCompare}>
                   <Tooltip title="Добавить в сравнение">
                      <div>
-                        <Balance
-                           fill={props.comparison ? '#CB11AB' : '#aaB1bf'}
-                        />
+                        <Balance fill={compare ? '#CB11AB' : '#aaB1bf'} />
                      </div>
                   </Tooltip>
                </li>
-               <li onClick={props.addToFavorites}>
+               <li onClick={addToFavorites}>
                   <Tooltip title="Добавить в избранное">
                      <div>
                         <Like
-                           fill={props.like ? '#f53b49' : 'transparent'}
-                           stroke={props.like ? '#f53b49' : '#aaB1bf'}
+                           fill={like ? '#f53b49' : 'transparent'}
+                           stroke={like ? '#f53b49' : '#aaB1bf'}
                         />
                      </div>
                   </Tooltip>
@@ -66,7 +82,7 @@ const Card = (props) => {
          <CardTitle>
             <StlyedCardParagraph>
                {props.status === 'YES'
-                  ? `В наличии(${props.quantity})`
+                  ? `В наличии ${props.quantity ? `(${props.quantity})` : ''} `
                   : 'Нет в наличии'}
             </StlyedCardParagraph>
             <StyledCardHeader>{props.title}</StyledCardHeader>
@@ -99,7 +115,10 @@ const Card = (props) => {
             )}
             <Button
                variant="contained"
-               onClick={() => props.addToCart(props.id)}
+               onClick={(e) => {
+                  e.stopPropagation()
+                  props.addToCart(props.id)
+               }}
                startIcon={<Busket />}
             >
                В корзину
@@ -115,6 +134,7 @@ const CardContainer = styled.div`
    display: flex;
    flex-direction: column;
    height: 500px;
+   min-width: 270px;
    background: #fff;
    border-radius: 4px;
    padding: 15px;
@@ -128,7 +148,8 @@ const CardContainer = styled.div`
 
 const CardHeaderItems = styled.div`
    display: flex;
-   flex-direction: row;
+   width: 100%;
+   /* flex-direction: row; */
    justify-content: space-between;
    align-items: center;
 `
@@ -163,6 +184,7 @@ const StyledCardHeader = styled.h1`
    text-transform: capitalize;
    text-overflow: ellipsis;
    overflow: hidden;
+   width: 240px;
    color: #292929;
 `
 const CardTitle = styled.div`
@@ -225,13 +247,12 @@ const StyledCardPriceNoneActual = styled.span`
 `
 const CardHeaderItemsIcons = styled.ul`
    list-style: none;
-   display: grid;
-   grid-template-columns: repeat(2, 1fr);
-   grid-template-rows: 1fr;
-   grid-column-gap: 16px;
+   display: flex;
    align-items: center;
+
    & svg {
       cursor: pointer;
+      margin-left: 10px;
    }
 `
 

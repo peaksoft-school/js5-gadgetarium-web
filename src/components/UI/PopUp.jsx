@@ -25,7 +25,7 @@ const PopUp = ({ icon, variant, ...props }) => {
       <div>
          {variant === 'default' ? (
             <Div onClick={handleClick}>
-               <Span>{props}</Span>
+               <Span>{props.title}</Span>
                {icon === 'icon' ? <img src={CheckIcon} alt="" /> : ''}
             </Div>
          ) : (

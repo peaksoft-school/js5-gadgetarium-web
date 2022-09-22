@@ -55,7 +55,7 @@ export default function BottomContent({ data }) {
                   videoReview={data?.videoReview}
                />
             </TabPanel>
-            <TabPanel value="2">Здесь будет характеристика товаре</TabPanel>
+            <TabPanel value="2">Здесь будет характеристика товарa</TabPanel>
             <TabPanel value="3">Отзывы</TabPanel>
          </TabContext>
       </Box>

@@ -2,10 +2,10 @@ import { lazy, Suspense } from 'react'
 
 import { Outlet, Route, Routes } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
+// import Catalog from '../containers/client/catalog/Catalog'
 
 import ProtectedRoute from './private/ProtectedRoute'
 
-// import PersonPage from '../containers/person/PersonPage'
 const PersonPage = lazy(() => import('../containers/person/PersonPage'))
 const MainLayuot = lazy(() => import('../layout/MainLayout'))
 const AboutPage = lazy(() => import('../containers/client/AboutPage'))
@@ -24,7 +24,7 @@ const OrderingPage = lazy(
    () => import('../containers/client/main-pages/OrderingPage')
 )
 const ProductCatalogPage = lazy(
-   () => import('../containers/client/main-pages/ProductCatalogPage')
+   () => import('../containers/client/catalog/Catalog')
 )
 const ProductInnerPage = lazy(
    () => import('../containers/client/main-pages/ProductInnerPage')
@@ -33,6 +33,7 @@ const ProductInnerPage = lazy(
 const Loader = () => {
    const override = {
       display: 'block',
+      height: '100vh',
       margin: '150px auto 0 auto',
    }
    return (
@@ -50,7 +51,7 @@ const MainRoutes = () => {
       <MainLayuot>
          <Routes>
             <Route
-               path=""
+               path="/"
                element={
                   <Suspense fallback={<Loader />}>
                      <Main />
@@ -67,7 +68,7 @@ const MainRoutes = () => {
                   }
                />
                <Route
-                  path=":productId"
+                  path=":category/:productId"
                   element={
                      <Suspense fallback={<Loader />}>
                         <ProductInnerPage />

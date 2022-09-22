@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 
 import * as api from '../../services/comareService'
 
+import { getProductsCatalog } from './CatalogActions'
 import { getMainNewProduct } from './productActions'
 
 export const getCompareProducts = createAsyncThunk(
@@ -45,12 +46,13 @@ export const removeAllCompareProducts = createAsyncThunk(
 
 export const removeCompareProduct = createAsyncThunk(
    'compareProducts/removeCompareProduct',
-   async ({ id }, { dispatch }) => {
+   async ({ id, queryParams }, { dispatch }) => {
       try {
          const response = await api.deleteCompareProductById(id)
          dispatch(getHoverCompareProducts())
          dispatch(getMainNewProduct())
          dispatch(getCompareProducts())
+         dispatch(getProductsCatalog(queryParams))
          toast.success('Успешно удалено!')
          return response.data
       } catch (err) {
@@ -61,12 +63,13 @@ export const removeCompareProduct = createAsyncThunk(
 
 export const addToComparison = createAsyncThunk(
    'compareProducts/removeCompareProduct',
-   async ({ id }, { dispatch }) => {
+   async ({ id, queryParams }, { dispatch }) => {
       try {
          const response = await api.postToComparison(id)
          toast.success('Товар успешно добавлен для сравнения')
          dispatch(getHoverCompareProducts())
          dispatch(getMainNewProduct())
+         dispatch(getProductsCatalog(queryParams))
          return response.data
       } catch (err) {
          return err.response.data

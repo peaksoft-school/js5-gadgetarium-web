@@ -62,13 +62,18 @@ const FavouritesPage = () => {
                         <div key={data.id}>
                            <Card
                               id={data.id}
-                              action={data.discount}
+                              action={data.action}
+                              sort={data.sort}
+                              comparison={data.comparison}
+                              like={data.like}
+                              discount={data.discount}
                               img={data.image}
+                              quantity={data.quantity}
                               status={data.stock}
                               title={data.model}
                               rating={data.average}
-                              actualprice={data.afterDiscount}
-                              noneactualprice={data.beforeDiscount}
+                              actualprice={data.beforeDiscount}
+                              noneactualprice={data.afterDiscount}
                            />
                         </div>
                      )

@@ -24,11 +24,11 @@ const Main = styled.main`
 `
 
 const Container = styled.div`
-   margin: 45px auto 120px auto;
-   max-width: 1380px;
+   margin: 45px auto;
+   width: 1380px;
 
    @media screen and (min-width: 1537px) {
-      max-width: 1620px;
+      max-width: 1720px;
    }
 
    @media screen and (max-width: 1240px) {

@@ -35,11 +35,10 @@ export const getProductById = createAsyncThunk(
 
 export const deleteProductById = createAsyncThunk(
    'products/deleteProduct',
-   async (id, { rejectWithValue }) => {
+   async (productId, { rejectWithValue }) => {
       try {
-         const { data } = await deleteProduct(id)
+         const { data } = await deleteProduct(productId)
          toast.success('Товар успешно удален')
-         console.log(data)
          return data
       } catch (error) {
          toast.error('Что-то пошло не так')
