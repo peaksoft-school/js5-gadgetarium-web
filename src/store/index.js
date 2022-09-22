@@ -5,6 +5,7 @@ import authSlice from './slices/authSlice'
 import { cartSlice } from './slices/cartSlice'
 import catalogSlice from './slices/catalogSlice'
 import compareProductSlice from './slices/comparisonSlice'
+import feedbackSlice from './slices/feedbackSlice'
 import mainProductSlice from './slices/mainProductSlice'
 import orderHistorySlice from './slices/orderHistorySlice'
 import ordersPanelSilce from './slices/ordersPanelSlice'
@@ -23,6 +24,7 @@ export const store = configureStore({
       product: productSlice.reducer,
       adminPanel: adminPanelSlice.reducer,
       contactUs: userContactSlice.reducer,
+      feedback: feedbackSlice.reducer,
       orders: ordersPanelSilce.reducer,
       mainProducts: mainProductSlice.reducer,
       userProfile: userListSlice.reducer,

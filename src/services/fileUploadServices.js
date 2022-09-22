@@ -1,5 +1,4 @@
 import axiosFileInstance from '../config/axiosFileInstance'
-
 // Authorization api services
 export const fileUpload = (formData) =>
    axiosFileInstance.post('api/file/upload', formData)

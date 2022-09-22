@@ -6,7 +6,6 @@ const BASE_URL =
 const headers = {
    'Content-Type': 'multipart/form-data',
 }
-
 const axiosFileInstance = axios.create({
    baseURL: BASE_URL,
    headers,
