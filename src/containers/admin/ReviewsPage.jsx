@@ -4,6 +4,8 @@ import styled from 'styled-components'
 
 import AllReviews from '../../components/admin/AllReviews'
 import Infographic from '../../components/admin/Infographic'
+import ReadReviews from '../../components/admin/ReadReviews'
+import UnreadReviews from '../../components/admin/UnreadReviews'
 import Tab from '../../components/UI/Tab'
 
 const tabsArray = [
@@ -17,10 +19,13 @@ const tabsArray = [
       id: 2,
       label: 'Неотвеченные ',
       value: '2',
+      Component: <UnreadReviews />,
    },
    {
       id: 3,
       label: 'Отвеченные',
+      value: '3',
+      Component: <ReadReviews />,
    },
 ]
 

@@ -1,58 +1,94 @@
+/* eslint-disable max-len */
+/* eslint-disable import/no-useless-path-segments */
 import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
+import { useDispatch } from 'react-redux'
 
 import CheckVector from '../../assets/icons/CheckVector.svg'
 import GroupIcon from '../../assets/icons/GroupIcon.svg'
-import Image from '../../assets/icons/Rectangle 6269.svg'
-import Starrrr from '../../assets/icons/Starrrr.svg'
 import VectorCheck from '../../assets/icons/VectorCheck.svg'
 import VectorDelete from '../../assets/icons/VectorDelete.svg'
+// import { readAction } from '../../store/actions/adminReviewAction'
+import {
+   deleteReview,
+   postReviews,
+} from '../../store/actions/adminReviewAction'
+import Rating from '../admin/Rating'
 import Button from '../UI/Button'
 
-function RenderRevies() {
+function RenderRevies(props) {
+   const { id } = props
+   const dispatch = useDispatch()
    const [show, setShow] = useState({ que: false })
-   const [isBoldShow, setisBoldShow] = useState(false)
-   //    const [allFeedbacks, setAllFeedbacks] = useState({
-   //       productImage,
-   //       name,
-   //       model,
-   //       vendorCode,
-   //       adminResponse,
-   //       comment,
-   //    })
+   const [seeMore, setSeeMore] = useState(false)
+   const [isEdit, setIsEdit] = useState(false)
+   const [saveOrCancel, setsaveOrCancel] = useState(true)
+   const [value, setValue] = useState(props.adminResponse)
 
    const showHandler = () => {
       setShow({ ...show, que: !show.que })
-      setisBoldShow(true)
+      setSeeMore(!seeMore)
+      if (props.adminResponse !== null) {
+         setIsEdit(true)
+      }
+      // dispatch(readAction(props.id))
+   }
+   const changeHandler = (e) => {
+      setValue(e.target.value)
+   }
+   const sendMassageHandler = () => {
+      setsaveOrCancel(!saveOrCancel)
+      setIsEdit(false)
    }
 
-   const text =
-      'These lines dont work because any text without quotes around it is assumed to be a variable name, property name, a reserved word, or similar. If the browser cant find it, then an error is raised (e.g. missing; before statement"). If the browser can see where a string starts, but cant find the end of the string, as indicated by the 2nd quote'
-   const textLen = show.que ? text : text.trim().slice(0, 90).concat('...')
+   const answerChangeHandler = () => {
+      if (value !== '') {
+         dispatch(postReviews({ id, value }))
+      }
+   }
 
+   const saveChangeHandler = () => {
+      dispatch(postReviews({ id, value }))
+      setsaveOrCancel(true)
+      setIsEdit(true)
+   }
+   const cancelEditHandler = () => {
+      setsaveOrCancel(true)
+      setIsEdit(true)
+   }
+
+   const deleteChangeHandler = (event) => {
+      dispatch(deleteReview(id))
+      event.stopPropagation()
+   }
    return (
       <WrapperRevies>
          <Topic>
-            <p>1</p>
+            <p>{id}</p>
             <Foto>
-               <img src={Image} alt="" />
+               <Img src={props.productImage} alt="" />
             </Foto>
             <Model>
-               <b> Asus</b>
-               <p>Модель</p>
-               <p> Арт.1212121212</p>
+               <b>{props.model}</b>
+               <p>{props.name}</p>
+               <p>{props.vendorCode}</p>
             </Model>
          </Topic>
-         <Review isBold={isBoldShow}>
-            <span>{textLen}</span>
-            <p>20.06.22 - 14:15</p>
+         <Review isBold={props.status}>
+            <span>
+               {seeMore ? (
+                  <span>{props.comment}</span>
+               ) : (
+                  <span>{props.comment.trim().slice(0, 90).concat('...')}</span>
+               )}
+            </span>
+            <p>{props.localDateTime}</p>
             {show.que && (
                <WrapperPhotos>
-                  <img src={Image} alt="" />
-                  <img src={Image} alt="" />
-                  <img src={Image} alt="" />
-                  <img src={Image} alt="" />
+                  <ImgComment src={props.productImage} alt="" />
+                  <ImgComment src={props.productImage} alt="" />
+                  <ImgComment src={props.productImage} alt="" />
                </WrapperPhotos>
             )}
          </Review>
@@ -60,7 +96,7 @@ function RenderRevies() {
          <UserContainer>
             <UserGroup>
                <div>
-                  <img src={Starrrr} alt="" />
+                  <Rating defaultValue={props.average} />
                </div>
                <Div>
                   <img
@@ -69,14 +105,18 @@ function RenderRevies() {
                      alt=""
                   />
                   <div>
-                     <b> Адыл Бакытов</b>
-                     <p> Adyl@mail.com</p>
+                     <b>{props.fullName}</b>
+                     <p>{props.email}</p>
                   </div>
                   <WrapperIcons>
-                     <img src={VectorDelete} alt="" />
+                     <img
+                        src={VectorDelete}
+                        alt=""
+                        onClick={deleteChangeHandler}
+                     />
                      <div role="button" tabIndex={0} onClick={showHandler}>
-                        {show.que && <img src={CheckVector} alt="" />}
                         {!show.que && <img src={VectorCheck} alt="" />}
+                        {show.que && <img src={CheckVector} alt="" />}
                      </div>
                   </WrapperIcons>
                </Div>
@@ -84,12 +124,45 @@ function RenderRevies() {
             {show.que && (
                <DivBlock>
                   <label htmlFor="text"> Ответить на комментарий</label>
-                  <Textarea type="text" />
-                  <div>
-                     <Button variant="contained" width="180px" height="43px">
-                        Ответить
-                     </Button>
-                  </div>
+                  <Textarea
+                     disabled={isEdit}
+                     type="text"
+                     value={value}
+                     onChange={changeHandler}
+                  />
+                  {saveOrCancel ? (
+                     <>
+                        {' '}
+                        {props.adminResponse === null ? (
+                           <Button
+                              variant="contained"
+                              width="160px"
+                              height="43px"
+                              onClick={answerChangeHandler}
+                           >
+                              Ответить
+                           </Button>
+                        ) : (
+                           <Button
+                              variant="contained"
+                              width="170px"
+                              height="43"
+                              onClick={sendMassageHandler}
+                           >
+                              Редактировать
+                           </Button>
+                        )}
+                     </>
+                  ) : (
+                     <WrapperLastButton>
+                        <Button variant="outlined" onClick={cancelEditHandler}>
+                           Отменить
+                        </Button>
+                        <Button variant="contained" onClick={saveChangeHandler}>
+                           Сохранить
+                        </Button>
+                     </WrapperLastButton>
+                  )}
                </DivBlock>
             )}
          </UserContainer>
@@ -108,12 +181,18 @@ const Topic = styled('div')`
       color: #384255;
    }
 `
+const WrapperLastButton = styled('span')`
+   display: flex;
+   justify-content: space-between;
+   button {
+      margin: 0;
+   }
+`
 const WrapperPhotos = styled('div')`
    display: flex;
    margin-top: 10px;
-   img {
-      margin: 0 10px 0 0;
-   }
+   width: 200px;
+   height: 60px;
 `
 const WrapperIcons = styled('div')`
    display: flex;
@@ -138,10 +217,11 @@ const Model = styled('div')`
    }
 `
 const Review = styled('div')`
+   width: 600px;
    overflow-wrap: break-word;
    margin-left: 20px;
    span {
-      font-weight: ${(props) => (props.isBold ? 400 : 600)};
+      font-weight: ${(props) => (props.isBold === 'READ' ? 400 : 600)};
       font-size: 14px;
       font-style: normal;
       line-height: 21px;
@@ -159,6 +239,8 @@ const Review = styled('div')`
 `
 const Foto = styled('div')`
    margin-left: 20px;
+   width: 56px;
+   height: 62px;
 `
 const UserGroup = styled('div')`
    width: 400px;
@@ -173,15 +255,26 @@ const Div = styled('div')`
    }
 `
 const Textarea = styled('textarea')`
-   width: 400px;
+   width: 380px;
    height: 130px;
    border-radius: 4px;
    padding: 10px 10px;
 `
 const DivBlock = styled('div')`
-   margin: 0 0 40px 20px;
-   div {
-      display: flex;
-      justify-content: flex-end;
+   margin: 0 20px 40px 20px;
+   button {
+      margin-left: 208px;
+      width: 170px;
    }
+`
+const Img = styled('img')`
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+`
+const ImgComment = styled('img')`
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   margin: 0 10px 0 0;
 `

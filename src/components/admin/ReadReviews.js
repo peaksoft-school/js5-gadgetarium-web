@@ -7,14 +7,14 @@ import { getReviews } from '../../store/actions/adminReviewAction'
 
 import RenderRevies from './RenderRevies'
 
-const AllReviews = () => {
+const ReadReviews = () => {
    const dispatch = useDispatch()
 
    useEffect(() => {
       dispatch(getReviews())
    }, [])
 
-   const { feedbacks } = useSelector((state) => state.adminFeedbacks)
+   const { read } = useSelector((state) => state.adminFeedbacks)
 
    return (
       <ComponentContainer>
@@ -27,12 +27,12 @@ const AllReviews = () => {
             </Topic>
             <Text>
                <Popup>
-                  <p> Oценки </p>
+                  <p>Оценки</p>
                </Popup>
                <p>Пользователь</p>
             </Text>
          </Container>
-         {feedbacks.map((el) =>
+         {read.map((el) =>
             el.map((el) => (
                <RenderRevies
                   adminResponse={el.adminResponse}
@@ -56,7 +56,8 @@ const AllReviews = () => {
    )
 }
 
-export default AllReviews
+export default ReadReviews
+
 const ComponentContainer = styled('div')`
    width: 900px;
    margin: auto;
@@ -105,7 +106,7 @@ const Contents = styled('p')`
 `
 
 const Popup = styled('div')`
-   width: 165px;
+   width: 170px;
    display: flex;
    justify-content: space-between;
    p {
