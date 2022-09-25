@@ -3,16 +3,16 @@ import React from 'react'
 import { styled } from '@mui/material'
 import { Link, NavLink } from 'react-router-dom'
 
-import compare from '../../assets/icons/compare.svg'
 import facebook from '../../assets/icons/facebook.svg'
-import favorites from '../../assets/icons/favorites.svg'
 import instagram from '../../assets/icons/instagram.svg'
 import logo from '../../assets/icons/logo.svg'
-import menu from '../../assets/icons/menu.svg'
-import cart from '../../assets/icons/shopping-cart.svg'
+// import menu from '../../assets/icons/menu.svg'
+// import cart from '../../assets/icons/shopping-cart.svg'
 import whatsapp from '../../assets/icons/whatsapp.svg'
+// import MuiBadge from '../../components/UI/MuiBadge'
 import UserProfile from '../../components/client/UserProfile'
-import MuiBadge from '../../components/UI/MuiBadge'
+import UserTools from '../../components/client/UserTools'
+import CatalogButton from '../../components/UI/Catalogbutton'
 
 const Header = () => {
    return (
@@ -51,12 +51,11 @@ const Header = () => {
          </HeaderTop>
          <NavBar>
             <BottomRow>
-               <StyledLink to="catalog">
-                  <Catalog>
+               {/* <Catalog>
                      <img src={menu} alt="#" />
                      Каталог
-                  </Catalog>
-               </StyledLink>
+                  </Catalog> */}
+               <CatalogButton />
                <VerticalLine />
                <SearchInput
                   padding="2em"
@@ -73,23 +72,7 @@ const Header = () => {
                      <ImageBox src={whatsapp} />
                   </NavLink>
                </SocialLinks>
-               <UserTools>
-                  <NavLink to="comparison">
-                     <MuiBadge>
-                        <ImageBox src={compare} />
-                     </MuiBadge>
-                  </NavLink>
-                  <NavLink to="favourites">
-                     <MuiBadge>
-                        <ImageBox src={favorites} />
-                     </MuiBadge>
-                  </NavLink>
-                  <NavLink to="cart">
-                     <MuiBadge>
-                        <ImageBox src={cart} />
-                     </MuiBadge>
-                  </NavLink>
-               </UserTools>
+               <UserTools />
             </BottomRow>
          </NavBar>
       </HeaderContainer>
@@ -99,12 +82,18 @@ const Header = () => {
 export default Header
 
 const HeaderTop = styled('header')`
+   width: 1380px;
+   padding: 30px 0px;
+   margin: 0px auto;
+   /* height: 82px; */
+   /* padding: 18px 100px; */
+
+   /* @media (max-width: 1536px) {
    max-width: 1920px;
    margin-left: auto;
    margin-right: auto;
    height: 82px;
    padding: 18px 100px;
-
    @media (max-width: 1536px) {
       max-width: 1440px;
       padding: 18px 30px;
@@ -113,11 +102,14 @@ const HeaderTop = styled('header')`
    @media (max-width: 1240px) {
       max-width: 1200px;
       padding: 18px 30px;
-   }
+   } */
 `
 const HeaderContainer = styled('div')`
    width: 100%;
    background: #1a1a25;
+   position: sticky;
+   top: -5.2em;
+   z-index: 99;
 `
 const UpperRow = styled('div')`
    display: flex;
@@ -126,20 +118,17 @@ const UpperRow = styled('div')`
    padding: 0 0 20px 0;
 `
 const NavBar = styled('nav')`
-   max-width: 1920px;
-   margin-left: auto;
-   margin-right: auto;
-   height: 90px;
-   padding: 18px 100px;
+   margin: 0px auto;
+   width: 1380px;
+   height: 70px;
+   /* padding: 8px 0px; */
    background: #1a1a25;
-   position: sticky;
-   top: 0;
-   z-index: 99;
 
+   /* @media (max-width: 1536px) {
    @media (max-width: 1536px) {
       max-width: 1440px;
       padding: 18px 30px;
-   }
+   } */
 `
 const BottomRow = styled('div')`
    display: flex;
@@ -178,9 +167,6 @@ const SocialLinks = styled('div')`
    display: flex;
    justify-content: space-between;
 `
-const UserTools = styled(SocialLinks)`
-   width: 115px;
-`
 const Logo = styled('img')`
    width: 221px;
    height: 39px;
@@ -199,10 +185,10 @@ const StyledNavLink = styled(NavLink)`
       border-radius: 4px;
       background: rgba(133, 143, 164, 0.15);
    }
-   @media (max-width: 1536px) {
+   /* @media (max-width: 1536px) {
       font-size: 14px;
       padding: 12px 10px;
-   }
+   } */
 `
 const MenuNavBar = styled('ul')`
    list-style: none;
@@ -224,19 +210,19 @@ const MenuNavBar = styled('ul')`
       background: rgba(133, 143, 164, 0.15);
    }
 `
-const Catalog = styled('button')`
-   width: 136px;
-   height: 49px;
-   background: #cb11ab;
-   color: #ffffff;
-   border-radius: 4px;
-   display: flex;
-   align-items: center;
-   justify-content: space-evenly;
-   font-size: 16px;
-   cursor: pointer;
-   text-decoration: none;
-`
+// const Catalog = styled('button')`
+//    width: 136px;
+//    height: 49px;
+//    background: #cb11ab;
+//    color: #ffffff;
+//    border-radius: 4px;
+//    display: flex;
+//    align-items: center;
+//    justify-content: space-evenly;
+//    font-size: 16px;
+//    cursor: pointer;
+//    text-decoration: none;
+// `
 const VerticalLine = styled('div')`
    width: 1.07px;
    height: 40px;
@@ -246,8 +232,8 @@ const ImageBox = styled('img')`
    width: 24px;
    height: 24px;
 `
-const StyledLink = styled(Link)`
-   text-decoration: none;
-   color: white;
-   padding: 2px;
-`
+// const StyledLink = styled(Link)`
+//    text-decoration: none;
+//    color: white;
+//    padding: 2px;
+// `

@@ -27,6 +27,8 @@ const PopUp = ({ icon, variant, ...props }) => {
             <Div onClick={handleClick}>
                <Span>{props}</Span>
                {icon === 'icon' ? <img src={UserIcon} alt="" /> : ''}
+               <Span>{props.title}</Span>
+               {icon === 'icon' ? <img src={CheckIcon} alt="" /> : ''}
             </Div>
          ) : (
             <div>
@@ -52,12 +54,11 @@ const PopUp = ({ icon, variant, ...props }) => {
 }
 
 export default PopUp
+
 const PaperStyle = styled(Paper)`
    z-index: auto;
 `
-// const StackStyle = styled(Stack)`
-//    position: relative;
-// `
+
 const Span = styled('span')`
    font-size: 16px;
    font-family: 'Inter';

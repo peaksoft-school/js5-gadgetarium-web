@@ -19,7 +19,7 @@ const SignUp = ({ onClose, open, openLoginModal }) => {
       formState: { errors },
       reset,
    } = useForm({
-      mode: 'on',
+      mode: 'onSubmit',
       resolver: yupResolver(RegisterFormSchema),
    })
 
@@ -42,9 +42,9 @@ const SignUp = ({ onClose, open, openLoginModal }) => {
                password,
                email,
                onClose,
+               reset,
             })
          )
-      reset()
    }
 
    return (

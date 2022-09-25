@@ -1,17 +1,27 @@
 import { useEffect, useState } from 'react'
 
-import styled from '@emotion/styled/'
+import styled from '@emotion/styled'
 import { useSelector, useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 
 import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
-// import Carousel from '../../../components/UI/Carousel'
-// import InfoCards from '../../../components/UI/InfoCards'
+import Carousel from '../../../components/UI/Carousel'
+import InfoCards from '../../../components/UI/InfoCards'
+import { postProducts } from '../../../store/actions/cartActions'
+import {
+   addToComparison,
+   removeCompareProduct,
+} from '../../../store/actions/comparisonActions'
 import {
    getMainDiscountProduct,
    getMainNewProduct,
    getMainRecommendProduct,
 } from '../../../store/actions/productActions'
+import {
+   addWishProducts,
+   deleteWishProducts,
+} from '../../../store/actions/wishListActions'
 
 const MainPage = () => {
    const [size, setSize] = useState({
@@ -23,8 +33,36 @@ const MainPage = () => {
    const { newProduct, discount, recommend } = useSelector(
       (state) => state.mainProducts
    )
+   const { jwt, id } = useSelector((state) => state.auth.user)
 
    const dispatch = useDispatch()
+
+   const compareProducts = (id, status) => {
+      if (jwt) {
+         if (status) {
+            dispatch(removeCompareProduct({ id }))
+         } else {
+            dispatch(addToComparison({ id }))
+         }
+      } else {
+         toast.error('Пожалуйста сначало авторизуйтесь')
+      }
+   }
+
+   const addToFavorites = (productId, status) => {
+      if (id) {
+         if (status) {
+            dispatch(deleteWishProducts({ id, productId }))
+         } else {
+            dispatch(addWishProducts({ id, productId }))
+         }
+      } else {
+         toast.error('Пожалуйста сначало авторизуйтесь')
+      }
+   }
+   const addProductsToCart = (productId) => {
+      dispatch(postProducts(productId))
+   }
 
    useEffect(() => {
       dispatch(getMainDiscountProduct(size.discount))
@@ -53,15 +91,17 @@ const MainPage = () => {
       })
    }
 
-   const seeMoreDiscount = discount?.map((el) => el)
+   // const seeMoreDiscount = discount?.map((el) => el)
    const seeMoreNew = newProduct?.map((el) => el)
-   const seeMoreRecommend = recommend?.map((el) => el)
+   // const seeMoreRecommend = recommend?.map((el) => el)
 
    return (
       <div>
-         <StyledSlider>{/* <Carousel /> */}</StyledSlider>
+         <StyledSlider>
+            <Carousel />
+         </StyledSlider>
          <CardContainer>
-            <Styled>Акции</Styled>
+            {/* <Styled>Акции</Styled> */}
             <StyledCard>
                {discount?.map((data) => {
                   return (
@@ -69,7 +109,21 @@ const MainPage = () => {
                         <Card
                            id={data.productId}
                            action={data.action}
+                           sort={data.sort}
+                           compareProducts={() =>
+                              compareProducts(
+                                 data.productId,
+                                 Boolean(data.comparison)
+                              )
+                           }
+                           comparison={data.comparison}
+                           like={data.like}
+                           addToFavorites={() =>
+                              addToFavorites(data.productId, Boolean(data.like))
+                           }
+                           discount={data.discount}
                            img={data.image}
+                           quantity={data.quantity}
                            status={data.status}
                            title={data.nameMemoryColor}
                            rating={data.stars}
@@ -80,50 +134,9 @@ const MainPage = () => {
                   )
                })}
             </StyledCard>
-            <StyledButton>
-               {seeMoreDiscount?.length === 5 && (
-                  <div key={seeMoreDiscount.productId}>
-                     <Button
-                        variant="outlined"
-                        width="300px"
-                        onClick={() => loadMore('discount')}
-                     >
-                        Показать еще
-                     </Button>
-                  </div>
-               )}
-               {seeMoreDiscount?.length >= 20 && (
-                  <Button
-                     variant="outlined"
-                     width="300px"
-                     onClick={() => showLess('discount')}
-                  >
-                     Показать меньше
-                  </Button>
-               )}
-            </StyledButton>
-            <Styled> Новинки</Styled>
-            <StyledCard>
-               {newProduct?.map((data) => {
-                  return (
-                     <div key={data.productId}>
-                        <Card
-                           id={data.productId}
-                           action={data.action}
-                           img={data.image}
-                           status={data.status}
-                           title={data.nameMemoryColor}
-                           rating={data.stars}
-                           actualprice={data.price}
-                           noneactualprice={data.currentPrice}
-                        />
-                     </div>
-                  )
-               })}
-            </StyledCard>
-            <StyledButton>
-               {seeMoreNew?.length === 5 && (
-                  <div key={seeMoreNew.productId}>
+            {/* <StyledButton>
+               {Number(seeMoreDiscount?.length) % 5 === 0 ? (
+                  <div key={seeMoreDiscount?.productId}>
                      <Button
                         variant="outlined"
                         width="300px"
@@ -132,8 +145,62 @@ const MainPage = () => {
                         Показать еще
                      </Button>
                   </div>
+               ) : (
+                  <Button
+                     variant="outlined"
+                     width="300px"
+                     onClick={() => showLess('new')}
+                  >
+                     Показать меньше
+                  </Button>
                )}
-               {seeMoreNew?.length >= 20 && (
+            </StyledButton> */}
+            <Styled>Новинки</Styled>
+            <StyledCard>
+               {newProduct?.map((data) => {
+                  return (
+                     <div key={data.productId}>
+                        <Card
+                           id={data.productId}
+                           action={data.action}
+                           sort={data.sort}
+                           compareProducts={() =>
+                              compareProducts(
+                                 data.productId,
+                                 Boolean(data.comparison)
+                              )
+                           }
+                           comparison={data.comparison}
+                           like={data.like}
+                           addToFavorites={() =>
+                              addToFavorites(data.productId, Boolean(data.like))
+                           }
+                           discount={data.discount}
+                           img={data.image}
+                           addToCart={addProductsToCart}
+                           quantity={data.quantity}
+                           status={data.status}
+                           title={data.nameMemoryColor}
+                           rating={data.stars}
+                           actualprice={data.price}
+                           noneactualprice={data.currentPrice}
+                        />
+                     </div>
+                  )
+               })}
+            </StyledCard>
+            <StyledButton>
+               {Number(seeMoreNew?.length) % 5 === 0 ? (
+                  <div key={seeMoreNew?.productId}>
+                     <Button
+                        variant="outlined"
+                        width="300px"
+                        onClick={() => loadMore('new')}
+                     >
+                        Показать еще
+                     </Button>
+                  </div>
+               ) : (
                   <Button
                      variant="outlined"
                      width="300px"
@@ -143,7 +210,7 @@ const MainPage = () => {
                   </Button>
                )}
             </StyledButton>
-            <Styled> Мы рекомендуем</Styled>
+            {/* <Styled> Мы рекомендуем</Styled> */}
             <StyledCard>
                {recommend?.map((data) => {
                   return (
@@ -151,7 +218,21 @@ const MainPage = () => {
                         <Card
                            id={data.productId}
                            action={data.action}
+                           sort={data.sort}
+                           compareProducts={() =>
+                              compareProducts(
+                                 data.productId,
+                                 Boolean(data.comparison)
+                              )
+                           }
+                           comparison={data.comparison}
+                           like={data.like}
+                           addToFavorites={() =>
+                              addToFavorites(data.productId, Boolean(data.like))
+                           }
+                           discount={data.discount}
                            img={data.image}
+                           quantity={data.quantity}
                            status={data.status}
                            title={data.nameMemoryColor}
                            rating={data.stars}
@@ -162,29 +243,30 @@ const MainPage = () => {
                   )
                })}
             </StyledCard>
-            <StyledButton>
-               {seeMoreRecommend?.length === 5 && (
-                  <div key={seeMoreRecommend.productId}>
+            {/* <StyledButton>
+               {Number(seeMoreRecommend?.length) % 5 === 0 ? (
+                  <div key={seeMoreRecommend?.productId}>
                      <Button
                         variant="outlined"
                         width="300px"
-                        onClick={() => loadMore('recommend')}
+                        onClick={() => loadMore('new')}
                      >
                         Показать еще
                      </Button>
                   </div>
-               )}
-               {seeMoreRecommend?.length >= 100 && (
+               ) : (
                   <Button
                      variant="outlined"
                      width="300px"
-                     onClick={() => showLess('recommend')}
+                     onClick={() => showLess('new')}
                   >
                      Показать меньше
                   </Button>
                )}
-            </StyledButton>
-            <StyledContainer>{/* <InfoCards /> */}</StyledContainer>
+            </StyledButton> */}
+            <StyledContainer>
+               <InfoCards />
+            </StyledContainer>
          </CardContainer>
       </div>
    )

@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import { toast } from 'react-toastify'
 
 let store
 
@@ -6,12 +7,12 @@ export const injectStore = (_store) => {
    store = _store
 }
 
-const BASE_URL =
+export const BASE_URL =
    'http://gadgetarium-env.eba-edpzzr3j.eu-central-1.elasticbeanstalk.com/'
 
 const headers = {
    Accept: 'application/json',
-   'Content-Type': 'application/json;charset=UTF-8',
+   'Content-Type': 'application/json; charset=utf-8',
 }
 
 const axiosInstance = axios.create({

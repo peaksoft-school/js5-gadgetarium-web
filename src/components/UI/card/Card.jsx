@@ -1,27 +1,78 @@
+import { useState } from 'react'
+
+import Rating from '@mui/material/Rating'
 import styled from 'styled-components'
 
 import { ReactComponent as Busket } from '../../../assets/icons/busket.svg'
+import { ReactComponent as Recommend } from '../../../assets/icons/recommend.svg'
 import Button from '../Button'
+import Tooltip from '../Tooltip'
 
 import { Balance, Like } from './CardIcons'
-import CardRating from './CardRating'
+
+const renderCardByState = (param) => {
+   switch (param) {
+      case 'NEW':
+         return (
+            <CardHeaderItemsAction style={{ background: '#2FC509' }}>
+               <span>New</span>
+            </CardHeaderItemsAction>
+         )
+      case 'DISCOUNT':
+         return (
+            <CardHeaderItemsAction style={{ background: '#F10000CC' }}>
+               <span>{param.discount > 0 && `-${param.discount}%`}</span>
+            </CardHeaderItemsAction>
+         )
+      case 'RECCOMMEND':
+         return (
+            <CardHeaderItemsAction style={{ background: '#2C68F5E5' }}>
+               <Recommend />
+            </CardHeaderItemsAction>
+         )
+      default:
+         return <div> </div>
+   }
+}
 
 const Card = (props) => {
+   const [like, setLike] = useState(props.like)
+   const [compare, setCompare] = useState(props.comparison)
+   const goToInnerPage = (e) => {
+      e.stopPropagation()
+      props.onClick()
+   }
+   const clickCompare = (e) => {
+      setCompare((prev) => !prev)
+      e.stopPropagation()
+      props.compareProducts()
+   }
+   const addToFavorites = (e) => {
+      setLike((prev) => !prev)
+      e.stopPropagation()
+      props.addToFavorites()
+   }
    return (
-      <CardContainer>
+      <CardContainer onClick={goToInnerPage}>
          <CardHeaderItems>
-            <CardHeaderItemsAction>
-               <span>{props.action}</span>
-            </CardHeaderItemsAction>
+            {renderCardByState(props.sort)}
             <CardHeaderItemsIcons>
-               <li onClick={props.compareProducts}>
-                  <Balance fill={props.balance ? '#CB11AB' : '#aaB1bf'} />
+               <li onClick={clickCompare}>
+                  <Tooltip title="Добавить в сравнение">
+                     <div>
+                        <Balance fill={compare ? '#CB11AB' : '#aaB1bf'} />
+                     </div>
+                  </Tooltip>
                </li>
-               <li onClick={props.addToFavotites}>
-                  <Like
-                     fill={props.like ? '#f53b49' : 'transparent'}
-                     stroke={props.like ? '#f53b49' : '#aaB1bf'}
-                  />
+               <li onClick={addToFavorites}>
+                  <Tooltip title="Добавить в избранное">
+                     <div>
+                        <Like
+                           fill={like ? '#f53b49' : 'transparent'}
+                           stroke={like ? '#f53b49' : '#aaB1bf'}
+                        />
+                     </div>
+                  </Tooltip>
                </li>
             </CardHeaderItemsIcons>
          </CardHeaderItems>
@@ -29,27 +80,45 @@ const Card = (props) => {
             <img src={props.img} alt={props.title} />
          </CardImage>
          <CardTitle>
-            <StlyedCardParagraph>{props.status}</StlyedCardParagraph>
+            <StlyedCardParagraph>
+               {props.status === 'YES'
+                  ? `В наличии ${props.quantity ? `(${props.quantity})` : ''} `
+                  : 'Нет в наличии'}
+            </StlyedCardParagraph>
             <StyledCardHeader>{props.title}</StyledCardHeader>
             <StyledCardRating>
                <StyledCardRatingSpan>Рейтинг</StyledCardRatingSpan>
-               <div key={props.rating}>
-                  <CardRating rating={props.rating} />
-               </div>
+               <Rating
+                  name="read-only"
+                  value={props.rating}
+                  readOnly
+                  size="small"
+               />
             </StyledCardRating>
          </CardTitle>
          <CardShopItems>
-            <StyledCardPrice>
-               <StyledCardPriceActual>
-                  {props.actualprice} с
-               </StyledCardPriceActual>
-               <StyledCardPriceNoneActual>
-                  {props.noneactualprice} с
-               </StyledCardPriceNoneActual>
-            </StyledCardPrice>
+            {props.discount === 0 ? (
+               <StyledCardPriceEmpty>
+                  <StyledCardPriceActual>
+                     {props.actualprice} с
+                  </StyledCardPriceActual>
+               </StyledCardPriceEmpty>
+            ) : (
+               <StyledCardPrice>
+                  <StyledCardPriceActual>
+                     {props.actualprice} с
+                  </StyledCardPriceActual>
+                  <StyledCardPriceNoneActual>
+                     {props.noneactualprice} с
+                  </StyledCardPriceNoneActual>
+               </StyledCardPrice>
+            )}
             <Button
                variant="contained"
-               onClick={props.addToCart}
+               onClick={(e) => {
+                  e.stopPropagation()
+                  props.addToCart(props.id)
+               }}
                startIcon={<Busket />}
             >
                В корзину
@@ -62,11 +131,10 @@ const Card = (props) => {
 export default Card
 
 const CardContainer = styled.div`
-   /* margin: 70px; */
    display: flex;
    flex-direction: column;
-   max-width: 300px;
-   max-height: 500px;
+   height: 500px;
+   min-width: 270px;
    background: #fff;
    border-radius: 4px;
    padding: 15px;
@@ -80,7 +148,8 @@ const CardContainer = styled.div`
 
 const CardHeaderItems = styled.div`
    display: flex;
-   flex-direction: row;
+   width: 100%;
+   /* flex-direction: row; */
    justify-content: space-between;
    align-items: center;
 `
@@ -91,6 +160,11 @@ const CardImage = styled.div`
    margin-top: 12px;
    width: 100%;
    height: 100%;
+   & img {
+      height: 240px;
+      width: 200px;
+      object-fit: contain;
+   }
 `
 
 const StlyedCardParagraph = styled.p`
@@ -110,6 +184,7 @@ const StyledCardHeader = styled.h1`
    text-transform: capitalize;
    text-overflow: ellipsis;
    overflow: hidden;
+   width: 240px;
    color: #292929;
 `
 const CardTitle = styled.div`
@@ -146,6 +221,12 @@ const StyledCardPrice = styled.div`
    margin-left: 6px;
 `
 
+const StyledCardPriceEmpty = styled.div`
+   display: flex;
+   align-items: center;
+   margin-left: 6px;
+`
+
 const StyledCardPriceActual = styled.span`
    font-family: 'Inter';
    font-style: normal;
@@ -166,18 +247,16 @@ const StyledCardPriceNoneActual = styled.span`
 `
 const CardHeaderItemsIcons = styled.ul`
    list-style: none;
-   display: grid;
-   grid-template-columns: repeat(2, 1fr);
-   grid-template-rows: 1fr;
-   grid-column-gap: 16px;
+   display: flex;
    align-items: center;
+
    & svg {
       cursor: pointer;
+      margin-left: 10px;
    }
 `
 
 const CardHeaderItemsAction = styled.div`
-   background: #f53b49;
    border-radius: 50px;
    width: 36px;
    height: 36px;
@@ -185,9 +264,8 @@ const CardHeaderItemsAction = styled.div`
    align-items: center;
    justify-content: center;
    & span {
-      font-family: 'Inter';
       font-style: normal;
-      font-weight: 900;
+      font-weight: 700;
       font-size: 12px;
       line-height: 15px;
       color: #ffffff;

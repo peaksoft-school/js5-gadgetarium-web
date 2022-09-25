@@ -1,25 +1,27 @@
-/* eslint-disable max-len */
-/* eslint-disable import/no-useless-path-segments */
 import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import CheckVector from '../../assets/icons/CheckVector.svg'
 import GroupIcon from '../../assets/icons/GroupIcon.svg'
 import VectorCheck from '../../assets/icons/VectorCheck.svg'
 import VectorDelete from '../../assets/icons/VectorDelete.svg'
-// import { readAction } from '../../store/actions/adminReviewAction'
 import {
    deleteReview,
    postReviews,
+   putReviews,
+   readAction,
 } from '../../store/actions/adminReviewAction'
-import Rating from '../admin/Rating'
 import Button from '../UI/Button'
+
+import Rating from './Rating'
 
 function RenderRevies(props) {
    const { id } = props
    const dispatch = useDispatch()
+   const { postStatus } = useSelector((state) => state.adminFeedbacks)
+
    const [show, setShow] = useState({ que: false })
    const [seeMore, setSeeMore] = useState(false)
    const [isEdit, setIsEdit] = useState(false)
@@ -32,11 +34,12 @@ function RenderRevies(props) {
       if (props.adminResponse !== null) {
          setIsEdit(true)
       }
-      // dispatch(readAction(props.id))
    }
+
    const changeHandler = (e) => {
       setValue(e.target.value)
    }
+
    const sendMassageHandler = () => {
       setsaveOrCancel(!saveOrCancel)
       setIsEdit(false)
@@ -45,14 +48,20 @@ function RenderRevies(props) {
    const answerChangeHandler = () => {
       if (value !== '') {
          dispatch(postReviews({ id, value }))
+         dispatch(readAction(id))
+         setsaveOrCancel(true)
+         setIsEdit(true)
       }
    }
 
    const saveChangeHandler = () => {
-      dispatch(postReviews({ id, value }))
-      setsaveOrCancel(true)
-      setIsEdit(true)
+      dispatch(putReviews({ id, value }))
+      if (postStatus.status === 'OK') {
+         setsaveOrCancel(true)
+         setIsEdit(true)
+      }
    }
+
    const cancelEditHandler = () => {
       setsaveOrCancel(true)
       setIsEdit(true)
@@ -62,6 +71,7 @@ function RenderRevies(props) {
       dispatch(deleteReview(id))
       event.stopPropagation()
    }
+
    return (
       <WrapperRevies>
          <Topic>
@@ -109,11 +119,13 @@ function RenderRevies(props) {
                      <p>{props.email}</p>
                   </div>
                   <WrapperIcons>
-                     <img
-                        src={VectorDelete}
-                        alt=""
-                        onClick={deleteChangeHandler}
-                     />
+                     <div>
+                        <img
+                           src={VectorDelete}
+                           alt=""
+                           onClick={deleteChangeHandler}
+                        />
+                     </div>
                      <div role="button" tabIndex={0} onClick={showHandler}>
                         {!show.que && <img src={VectorCheck} alt="" />}
                         {show.que && <img src={CheckVector} alt="" />}
@@ -196,6 +208,9 @@ const WrapperPhotos = styled('div')`
 `
 const WrapperIcons = styled('div')`
    display: flex;
+   img {
+      cursor: pointer;
+   }
 `
 const WrapperRevies = styled('div')`
    width: 920px;

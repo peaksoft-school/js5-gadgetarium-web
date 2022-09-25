@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import { signIn, signUp } from '../../services/authServices'
+import { signIn, signUp, subscribe } from '../../services/authServices'
 import { GADGETARIUM_USER_DATA } from '../../utils/constants/constants'
 import { localStorageHelpers } from '../../utils/helpers/general'
 
@@ -13,6 +13,7 @@ export const login = createAsyncThunk(
          onClose()
          return response.data
       } catch (err) {
+         toast.error(`${err.response.data.message}`)
          return rejectWithValue(err.response.data)
       }
    }
@@ -21,20 +22,36 @@ export const login = createAsyncThunk(
 export const registration = createAsyncThunk(
    'auth/register',
    async (
-      { firstName, lastname, phoneNumber, password, email, onClose },
+      { firstName, lastName, phoneNumber, password, email, onClose, reset },
       { rejectWithValue }
    ) => {
       try {
          const response = await signUp({
             firstName,
-            lastname,
+            lastName,
             phoneNumber,
             password,
             email,
          })
          onClose()
+         reset()
          return response.data
       } catch (err) {
+         toast.error(`${err.response.data.message}`)
+         return rejectWithValue(err.response.data)
+      }
+   }
+)
+
+export const subscribeForMailingList = createAsyncThunk(
+   'auth/subscribe',
+   async ({ email }, { rejectWithValue }) => {
+      try {
+         const response = await subscribe({ email })
+         toast.success('Вы успешно подписались')
+         return response.data
+      } catch (err) {
+         toast.error(`${err.response.data.message}`)
          return rejectWithValue(err.response.data)
       }
    }
@@ -45,6 +62,7 @@ const initialState = {
       jwt: null,
       role: null,
       email: null,
+      id: null,
    },
    error: '',
    loading: false,
@@ -93,7 +111,9 @@ const authSlice = createSlice({
       [registration.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
-         toast.error('Ошибка с авторизацией')
+      },
+      [subscribeForMailingList.fulfilled]: (state) => {
+         state.loading = false
       },
    },
 })

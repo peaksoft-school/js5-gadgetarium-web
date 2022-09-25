@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
    getReviews,
    postReviews,
+   putReviews,
    deleteReview,
 } from '../actions/adminReviewAction'
 
@@ -42,22 +43,33 @@ const adminReviewSlice = createSlice({
       [postReviews.pending]: (state) => {
          state.loading = true
       },
-      [postReviews.pending]: (state, action) => {
+      [postReviews.fulfilled]: (state, action) => {
          state.loading = false
-         state.postReviews = action.payload
+         state.putReviews = action.payload
       },
-      [postReviews.pending]: (state, action) => {
+      [postReviews.rejected]: (state, action) => {
+         state.loading = false
+         state.error = action.payload
+      },
+      [putReviews.pending]: (state) => {
+         state.loading = true
+      },
+      [putReviews.fulfilled]: (state, action) => {
+         state.loading = false
+         state.postStatus = action.payload
+      },
+      [putReviews.pending]: (state, action) => {
          state.loading = false
          state.error = action.payload
       },
       [deleteReview.pending]: (state) => {
          state.loading = true
       },
-      [deleteReview.pending]: (state, action) => {
+      [deleteReview.fulfilled]: (state, action) => {
          state.loading = false
          state.deleteReviews = action.payload
       },
-      [deleteReview.pending]: (state, action) => {
+      [deleteReview.rejected]: (state, action) => {
          state.loading = false
          state.error = action.payload
       },

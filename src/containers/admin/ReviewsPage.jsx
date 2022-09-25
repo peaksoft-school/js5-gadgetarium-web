@@ -2,8 +2,8 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+import Infographic from '../../components/admin/adminUI/Infographic'
 import AllReviews from '../../components/admin/AllReviews'
-import Infographic from '../../components/admin/Infographic'
 import ReadReviews from '../../components/admin/ReadReviews'
 import UnreadReviews from '../../components/admin/UnreadReviews'
 import Tab from '../../components/UI/Tab'
@@ -31,14 +31,12 @@ const tabsArray = [
 
 const ReviewsPage = () => {
    return (
-      <div>
-         <Div>
-            <TabStyledComponent>
-               <Tab tabsArray={tabsArray} variant="pink" />
-            </TabStyledComponent>
-            <Infographic />
-         </Div>
-      </div>
+      <Div>
+         <TabStyledComponent>
+            <Tab tabsArray={tabsArray} variant="pink" />
+         </TabStyledComponent>
+         <Infographic />
+      </Div>
    )
 }
 

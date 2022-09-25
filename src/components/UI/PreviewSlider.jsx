@@ -14,8 +14,9 @@ const PreviewSlider = ({ images }) => {
             interval={4000}
             showIndicators={false}
          >
-            {images.map((img) => (
-               <div key={img.id}>
+            {images?.map((img, id) => (
+               // eslint-disable-next-line react/no-array-index-key
+               <div key={id}>
                   <img src={img} alt="#" />
                </div>
             ))}
@@ -33,12 +34,10 @@ const CarouselStyle = styled(Carousel)`
       padding-top: 40px;
       background-color: transparent;
    }
-   .carousel .slide {
-      height: 750px;
-   }
    .carousel .slide img {
-      width: 750px;
-      height: 750px;
+      width: 310px;
+      height: 370px;
+      object-fit: contain;
    }
    .thumbs-wrapper {
       margin-top: -0px;
