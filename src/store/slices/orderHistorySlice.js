@@ -20,7 +20,6 @@ const orderHistorySlice = createSlice({
       [getProducts.fulfilled]: (state, action) => {
          state.loading = false
          state.userProducts = action.payload
-         console.log(action.payload)
       },
       [getProducts.rejected]: (state, action) => {
          state.loading = false
@@ -32,7 +31,6 @@ const orderHistorySlice = createSlice({
       [getOrders.fulfilled]: (state, action) => {
          state.loading = false
          state.userOrders = action.payload
-         console.log(action.payload)
       },
       [getOrders.rejected]: (state, action) => {
          state.loading = false

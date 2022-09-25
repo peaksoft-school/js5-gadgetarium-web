@@ -14,8 +14,6 @@ export const createFirstStage = createAsyncThunk(
    'product/createFirstStage',
    async ({ subcategoryId, updatedProductData, files }) => {
       try {
-         console.log({ updatedProductData })
-         console.log({ files })
          const fullField = {
             ...updatedProductData,
             images: [],
@@ -27,15 +25,12 @@ export const createFirstStage = createAsyncThunk(
             formData.append('file', image.file)
             // eslint-disable-next-line no-await-in-loop
             const response = await fileUpload(formData)
-            console.log(response)
             fullField.images.push(response?.data.link)
          }
-         console.log(fullField)
          const response = await createProductFirstStage(
             fullField,
             subcategoryId
          )
-         console.log(response.data)
          return response.data
       } catch (error) {
          toast.error(`${error.response.data.message}`)
@@ -52,7 +47,6 @@ export const createSecondStage = createAsyncThunk(
             quantity,
             price,
          })
-         console.log(response.data)
          return response.data
       } catch (error) {
          toast.error(`${error.response.data.message}`)
@@ -67,7 +61,6 @@ export const createThirdStage = createAsyncThunk(
       const formData = new FormData()
       try {
          formData.append('file', pdfFile)
-         console.log(formData)
          const resfile = await fileUpload(formData)
 
          const response = await createProductThirdStage(productId, {
@@ -75,7 +68,6 @@ export const createThirdStage = createAsyncThunk(
             videoReview,
             pdf: resfile.data.link,
          })
-         console.log(response.data)
          return response.data
       } catch (error) {
          toast.error(`${error.response.data.message}`)

@@ -10,7 +10,6 @@ export const getOrders = createAsyncThunk(
    async (userId, { rejectWithValue }) => {
       try {
          const response = await getorderHistoryOrders(userId)
-         console.log(response, 'response')
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)

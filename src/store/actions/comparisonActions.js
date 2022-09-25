@@ -4,7 +4,24 @@ import { toast } from 'react-toastify'
 import * as api from '../../services/comareService'
 
 import { getProductsCatalog } from './CatalogActions'
-import { getMainNewProduct } from './productActions'
+import {
+   getMainNewProduct,
+   getMainDiscountProduct,
+   getMainRecommendProduct,
+} from './productActions'
+
+const getBySort = (param) => {
+   switch (param) {
+      case 'NEW':
+         return getMainNewProduct()
+      case 'DISCOUNT':
+         return getMainDiscountProduct()
+      case 'RECOMMEND':
+         return getMainRecommendProduct()
+      default:
+         return getMainNewProduct()
+   }
+}
 
 export const getCompareProducts = createAsyncThunk(
    'compareProducts/getCompareProducts',
@@ -46,11 +63,12 @@ export const removeAllCompareProducts = createAsyncThunk(
 
 export const removeCompareProduct = createAsyncThunk(
    'compareProducts/removeCompareProduct',
-   async ({ id, queryParams }, { dispatch }) => {
+   async ({ id, queryParams, sort, productId }, { dispatch }) => {
+      console.log(productId)
       try {
-         const response = await api.deleteCompareProductById(id)
+         const response = await api.deleteCompareProductById(id || productId)
          dispatch(getHoverCompareProducts())
-         dispatch(getMainNewProduct())
+         dispatch(getBySort(sort))
          dispatch(getCompareProducts())
          dispatch(getProductsCatalog(queryParams))
          toast.success('Успешно удалено!')
@@ -63,12 +81,12 @@ export const removeCompareProduct = createAsyncThunk(
 
 export const addToComparison = createAsyncThunk(
    'compareProducts/removeCompareProduct',
-   async ({ id, queryParams }, { dispatch }) => {
+   async ({ id, queryParams, sort }, { dispatch }) => {
       try {
          const response = await api.postToComparison(id)
          toast.success('Товар успешно добавлен для сравнения')
          dispatch(getHoverCompareProducts())
-         dispatch(getMainNewProduct())
+         dispatch(getBySort(sort))
          dispatch(getProductsCatalog(queryParams))
          return response.data
       } catch (err) {

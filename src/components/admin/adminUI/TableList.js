@@ -52,7 +52,7 @@ function TableList({
                </TableRow>
             </TableHead>
             <TableBody>
-               {data.map((row) => {
+               {data?.map((row) => {
                   return (
                      <Row
                         key={row.productId}

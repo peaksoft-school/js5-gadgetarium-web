@@ -33,8 +33,9 @@ const ComparisonPage = () => {
    }, [])
 
    const handleDeleteById = (e, productId) => {
+      console.log(productId)
       e.stopPropagation()
-      dispatch(removeCompareProduct(productId))
+      dispatch(removeCompareProduct({ productId }))
    }
 
    const handleDeleteAllProducts = () => {

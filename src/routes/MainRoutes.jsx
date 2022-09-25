@@ -1,8 +1,8 @@
 import { lazy, Suspense } from 'react'
 
 import { Outlet, Route, Routes } from 'react-router-dom'
-import { RingLoader } from 'react-spinners'
-// import Catalog from '../containers/client/catalog/Catalog'
+
+import { Loader } from '../components/UI/Loader'
 
 import ProtectedRoute from './private/ProtectedRoute'
 
@@ -29,22 +29,6 @@ const ProductCatalogPage = lazy(
 const ProductInnerPage = lazy(
    () => import('../containers/client/main-pages/ProductInnerPage')
 )
-
-const Loader = () => {
-   const override = {
-      display: 'block',
-      height: '100vh',
-      margin: '150px auto 0 auto',
-   }
-   return (
-      <RingLoader
-         color="#cb11ab"
-         cssOverride={override}
-         speedMultiplier={1.2}
-         size={120}
-      />
-   )
-}
 
 const MainRoutes = () => {
    return (

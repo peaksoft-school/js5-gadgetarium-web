@@ -11,14 +11,6 @@ function DropdownMenu(props) {
    const [anchorEl, setAnchorEl] = React.useState(null)
    const open = Boolean(anchorEl)
 
-   // function handleClick(event) {
-   //    setAnchorEl(event.currentTarget)
-   // }
-
-   // function handleClose() {
-   //    setAnchorEl(null)
-   // }
-
    const childrenWithNewProps = React.Children.map(props.children, (child) =>
       React.cloneElement(child, { onClose: () => setAnchorEl(null) })
    )

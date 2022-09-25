@@ -13,7 +13,6 @@ export const getOrders = createAsyncThunk(
    async (queryParams, { rejectWithValue }) => {
       try {
          const { data } = await getAllOrders(queryParams)
-         console.log(data)
          return data
       } catch (err) {
          return rejectWithValue(err.response.data.error)
@@ -26,7 +25,6 @@ export const getOrderInfographic = createAsyncThunk(
    async (_, { rejectWithValue }) => {
       try {
          const { data } = await getOrderInfo()
-         console.log(data)
          return data
       } catch (err) {
          return rejectWithValue(err.response.data.error)
@@ -39,7 +37,6 @@ export const updateOrdersStatusById = createAsyncThunk(
    async (id, { rejectWithValue }) => {
       try {
          const { data } = await updateOrdersStatus(id)
-         console.log(data)
          return data
       } catch (err) {
          return rejectWithValue(err.response.data.error)
@@ -53,7 +50,6 @@ export const deleteOrderById = createAsyncThunk(
       try {
          const { data } = await deleteOrders(id)
          toast.success('Товар успешно удален')
-         console.log(data)
          return data
       } catch (error) {
          toast.error('Что-то пошло не так')

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -8,19 +8,35 @@ import EmptyIcon from '../../../assets/images/sammy-shopping-1 1.png'
 import Bredcrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
 import BasketCard from '../../../components/UI/card/BasketCard'
+// import { Loader } from '../../../components/UI/Loader'
 import {
+   deleteProducts,
    getAllProducts,
    getProductsTotalSum,
 } from '../../../store/actions/cartActions'
 
 const CartPage = () => {
    const { cartProducts, cartTotalSum } = useSelector((state) => state.cart)
+   const [checkedProducts, setCheckedProducts] = useState({
+      productId: [],
+   })
    const dispatch = useDispatch()
 
    useEffect(() => {
       dispatch(getAllProducts())
-      dispatch(getProductsTotalSum())
    }, [])
+
+   console.log(cartTotalSum)
+   console.log(checkedProducts)
+
+   const { productId } = checkedProducts
+   const getTotalSumByIds = (productIds) => productIds.join(',')
+
+   useEffect(() => {
+      if (checkedProducts.productId.length > 0) {
+         dispatch(getProductsTotalSum(getTotalSumByIds(productId)))
+      }
+   }, [checkedProducts])
 
    const pathsArray = [
       {
@@ -32,6 +48,30 @@ const CartPage = () => {
          name: 'Корзина',
       },
    ]
+
+   const handleDeleteById = (e, productId) => {
+      console.log(productId)
+      e.stopPropagation()
+      dispatch(deleteProducts(productId))
+   }
+
+   const getProductId = (e) => {
+      const { value, checked } = e.target
+      const { productId } = checkedProducts
+
+      if (checked) {
+         setCheckedProducts({
+            productId: [...productId, value],
+         })
+      } else {
+         setCheckedProducts({
+            productId: productId.filter((e) => e !== value),
+         })
+      }
+   }
+
+   const { amountOfProducts, discount, price, totalSum } = cartTotalSum
+
    return (
       <>
          <Container>
@@ -46,14 +86,18 @@ const CartPage = () => {
                      return (
                         <div key={data.id}>
                            <BasketCard
+                              getProductId={getProductId}
                               id={data.id}
-                              img={data.img}
+                              img={data.image}
                               title={data.model}
-                              quantity={data.quantity}
+                              quantity={data.amountOfProducts}
                               rating={data.average}
-                              actual={data.afterDicount}
+                              price={data.price}
                               status={data.stock}
-                              noneactualprice={data.beforeDiscount}
+                              productCode={data.vendorCode}
+                              handleDeleteById={(e) =>
+                                 handleDeleteById(e, data.id)
+                              }
                            />
                         </div>
                      )
@@ -62,23 +106,31 @@ const CartPage = () => {
                <StyledTotalSum>
                   <p>Сумма заказов</p>
                   <Horizontal />
-                  <StyledTitleSum>
-                     <div>
-                        <span>Количество товаров: </span>
-                        <span>Ваша скидка: </span>
-                        <span>Сумма:</span>
-                        <h3>Итого</h3>
-                     </div>
-                     <div>
-                        <span> 3 шт{cartTotalSum.amountOfProducts} </span>
-                        <RedTitle> -1000с {cartTotalSum.discount} </RedTitle>
-                        <span> 45300c{cartTotalSum.totalSum} </span>
-                        <h3> 44300с {cartTotalSum.price} </h3>
-                     </div>
-                  </StyledTitleSum>
-                  <Button variant="contained" width="390px" height="45px">
-                     ПЕРЕЙТИ К ОФОРМЛЕНИЮ
-                  </Button>
+                  {checkedProducts.productId.length > 0 ? (
+                     <StyledTitleSum>
+                        <StyledContainer>
+                           <div>
+                              <span>Количество товаров: </span>
+                              {discount > 0 && <span>Ваша скидка: </span>}
+                              <span>Сумма:</span>
+                              <h3>Итого</h3>
+                           </div>
+                           <div>
+                              <span>{amountOfProducts} шт</span>
+                              {discount > 0 && (
+                                 <RedTitle>{`-${discount}c`}</RedTitle>
+                              )}
+                              <span>{price}c</span>
+                              <h3>{totalSum}c</h3>
+                           </div>
+                        </StyledContainer>
+                        <Button variant="contained" width="300px" height="45px">
+                           ПЕРЕЙТИ К ОФОРМЛЕНИЮ
+                        </Button>
+                     </StyledTitleSum>
+                  ) : (
+                     <EmptyMessage>👈Выберите товар</EmptyMessage>
+                  )}
                </StyledTotalSum>
             </CartContainer>
          ) : (
@@ -164,6 +216,7 @@ const CartContainer = styled.div`
    display: flex;
    justify-content: space-between;
    padding: 0 20px;
+   min-height: 60vh;
 `
 const StyledCard = styled.div`
    display: flex;
@@ -175,8 +228,8 @@ const StyledCard = styled.div`
 `
 const StyledTotalSum = styled.div`
    font-family: 'Inter';
-   width: 450px;
-   height: 280px;
+   width: 350px;
+   height: 300px;
    background: #fff;
    margin-top: 20px;
    border-radius: 4px;
@@ -187,16 +240,28 @@ const StyledTotalSum = styled.div`
    }
 `
 const StyledTitleSum = styled.div`
-   width: 300px;
    display: flex;
+   flex-direction: column;
+   gap: 14px;
+`
+
+const StyledContainer = styled.div`
+   display: flex;
+   flex-direction: row;
    justify-content: space-between;
-   margin-bottom: 16px;
-   div {
+   & span {
+      margin-top: 8px;
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+   }
+   & h3 {
+      margin-top: 8px;
    }
 `
 const RedTitle = styled.span`
    color: red;
+`
+const EmptyMessage = styled.div`
+   display: flex;
+   justify-content: center;
+   margin-top: 100px;
 `

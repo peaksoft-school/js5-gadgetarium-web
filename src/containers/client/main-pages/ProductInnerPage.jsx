@@ -22,7 +22,6 @@ const ProductInner = () => {
    useEffect(() => {
       dispatch(getSingleProduct(productId))
    }, [])
-   console.log(single)
    const paths = [
       {
          name: 'Главная',

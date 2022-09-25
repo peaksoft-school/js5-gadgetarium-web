@@ -51,10 +51,6 @@ const Header = () => {
          </HeaderTop>
          <NavBar>
             <BottomRow>
-               {/* <Catalog>
-                     <img src={menu} alt="#" />
-                     Каталог
-                  </Catalog> */}
                <CatalogButton />
                <VerticalLine />
                <SearchInput
@@ -62,15 +58,15 @@ const Header = () => {
                   placeholder="Поиск по каталогу магазина"
                />
                <SocialLinks>
-                  <NavLink to="">
+                  <a href="https://www.facebook.com/">
                      <ImageBox src={facebook} />
-                  </NavLink>
-                  <NavLink to="">
+                  </a>
+                  <a href="https://www.instagram.com/">
                      <ImageBox src={instagram} />
-                  </NavLink>
-                  <NavLink to="">
+                  </a>
+                  <a href="https://api.whatsapp.com/send/?phone=996500344433&text&type=phone_number&app_absent=0">
                      <ImageBox src={whatsapp} />
-                  </NavLink>
+                  </a>
                </SocialLinks>
                <UserTools />
             </BottomRow>
@@ -85,30 +81,12 @@ const HeaderTop = styled('header')`
    width: 1380px;
    padding: 30px 0px;
    margin: 0px auto;
-   /* height: 82px; */
-   /* padding: 18px 100px; */
-
-   /* @media (max-width: 1536px) {
-   max-width: 1920px;
-   margin-left: auto;
-   margin-right: auto;
-   height: 82px;
-   padding: 18px 100px;
-   @media (max-width: 1536px) {
-      max-width: 1440px;
-      padding: 18px 30px;
-   }
-
-   @media (max-width: 1240px) {
-      max-width: 1200px;
-      padding: 18px 30px;
-   } */
 `
 const HeaderContainer = styled('div')`
    width: 100%;
    background: #1a1a25;
    position: sticky;
-   top: -5.2em;
+   top: -6.2em;
    z-index: 99;
 `
 const UpperRow = styled('div')`

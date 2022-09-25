@@ -1,84 +1,27 @@
-import { useState } from 'react'
-
 import Rating from '@mui/material/Rating'
 import styled from 'styled-components'
 
 import { ReactComponent as Busket } from '../../../assets/icons/busket.svg'
-import { ReactComponent as Recommend } from '../../../assets/icons/recommend.svg'
 import Button from '../Button'
-import Tooltip from '../Tooltip'
 
-import { Balance, Like } from './CardIcons'
+import { Like } from './CardIcons'
 
-const renderCardByState = (param) => {
-   switch (param.sort) {
-      case 'NEW':
-         return (
-            <CardHeaderItemsAction style={{ background: '#2FC509' }}>
-               <span>New</span>
-            </CardHeaderItemsAction>
-         )
-      case 'DISCOUNT':
-         return (
-            <CardHeaderItemsAction style={{ background: '#F10000CC' }}>
-               <span>{param.discount > 0 && `-${param.discount}%`}</span>
-            </CardHeaderItemsAction>
-         )
-      case 'RECOMMEND':
-         return (
-            <CardHeaderItemsAction style={{ background: '#2C68F5E5' }}>
-               <Recommend />
-            </CardHeaderItemsAction>
-         )
-      default:
-         return <div> </div>
-   }
-}
-
-const Card = (props) => {
-   const [like, setLike] = useState(props.like)
-   const [compare, setCompare] = useState(props.comparison)
-   const [cart, setCart] = useState(props.cart)
-   const goToInnerPage = (e) => {
-      e.stopPropagation()
-      props.onClick()
-   }
-   const clickOnBasket = (e) => {
-      e.stopPropagation()
-      setCart((prev) => !prev)
-      props.addToCart()
-   }
-   const clickCompare = (e) => {
-      e.stopPropagation()
-      setCompare((prev) => !prev)
-      props.compareProducts()
-   }
-   const addToFavorites = (e) => {
-      e.stopPropagation()
-      setLike((prev) => !prev)
-      props.addToFavorites()
-   }
+const WishCard = (props) => {
    return (
-      <CardContainer onClick={goToInnerPage}>
+      <CardContainer>
          <CardHeaderItems>
-            {renderCardByState(props)}
+            {props.discount > 0 ? (
+               <CardHeaderItemsAction style={{ background: '#F10000CC' }}>
+                  <span>{`-${props.discount}%`}</span>
+               </CardHeaderItemsAction>
+            ) : (
+               <CardHeaderItemsAction style={{ background: '#2FC509' }}>
+                  <span>New</span>
+               </CardHeaderItemsAction>
+            )}
             <CardHeaderItemsIcons>
-               <li onClick={clickCompare}>
-                  <Tooltip title="Добавить в сравнение">
-                     <div>
-                        <Balance fill={compare ? '#CB11AB' : '#aaB1bf'} />
-                     </div>
-                  </Tooltip>
-               </li>
-               <li onClick={addToFavorites}>
-                  <Tooltip title="Добавить в избранное">
-                     <div>
-                        <Like
-                           fill={like ? '#f53b49' : 'transparent'}
-                           stroke={like ? '#f53b49' : '#aaB1bf'}
-                        />
-                     </div>
-                  </Tooltip>
+               <li>
+                  <Like fill="#f53b49" stroke="#f53b49" />
                </li>
             </CardHeaderItemsIcons>
          </CardHeaderItems>
@@ -123,30 +66,22 @@ const Card = (props) => {
                   </StyledCardPriceNoneActual>
                </StyledCardPrice>
             )}
-            {cart ? (
-               <Button
-                  bgcolor="#2fc509"
-                  variant="contained"
-                  onClick={clickOnBasket}
-                  startIcon={<Busket />}
-               >
-                  В корзине
-               </Button>
-            ) : (
-               <Button
-                  variant="contained"
-                  onClick={clickOnBasket}
-                  startIcon={<Busket />}
-               >
-                  В корзину
-               </Button>
-            )}
+            <Button
+               variant="contained"
+               onClick={(e) => {
+                  e.stopPropagation()
+                  props.addToCart(props.id)
+               }}
+               startIcon={<Busket />}
+            >
+               В корзину
+            </Button>
          </CardShopItems>
       </CardContainer>
    )
 }
 
-export default Card
+export default WishCard
 
 const CardContainer = styled.div`
    display: flex;

@@ -1,15 +1,12 @@
 import styled from '@emotion/styled'
-import { IconButton } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
-import { ReactComponent as IconDelete } from '../../../assets/icons/Vertor-delete.svg'
 import Button from '../Button'
 
 export default function AccountMenu({
    cart,
    title,
-   open,
    onClose,
    anchorEl,
    ...props
@@ -61,9 +58,6 @@ export default function AccountMenu({
                         <ContainerPrice>
                            <p>{el.price}c</p>
                         </ContainerPrice>
-                        <IconButton onClick={props.handlerClick}>
-                           <IconDelete />
-                        </IconButton>
                      </StyledMenuItem>
                   ))}
                </Div>
@@ -95,19 +89,19 @@ const StyledMenuItem = styled(MenuItem)`
    align-items: flex-start;
    border-bottom: 1px solid rgba(133, 143, 164, 0.15);
    & img {
-      height: 90px;
+      height: 80px;
       object-fit: contain;
    }
 `
 
 const Div = styled('div')`
-   padding: 20px 24px 20px 24px;
+   padding: 10px 24px 20px 24px;
    width: 100%;
    display: flex;
    align-items: center;
    flex-wrap: nowrap;
    flex-direction: column;
-   height: 180px;
+   height: 195px;
 
    overflow: auto;
    ::-webkit-scrollbar {

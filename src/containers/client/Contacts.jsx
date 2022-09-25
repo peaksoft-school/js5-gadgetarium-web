@@ -1,10 +1,11 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
 import React, { useState } from 'react'
 
 import { styled } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 
-import googleMap from '../../assets/images/Mapsicle Map.webp'
+// import googleMap from '../../assets/images/Mapsicle Map.webp'
 import BreadCrumbs from '../../components/UI/Breadcrumbs'
 import Button from '../../components/UI/Button'
 import Input from '../../components/UI/inputs/Input'
@@ -162,8 +163,17 @@ const Contacts = () => {
                </div>
             </Styled>
             <StyledImg>
-               {/* <Map /> */}
-               <img src={googleMap} alt="" />
+               <iframe
+                  width="100%"
+                  height="600"
+                  frameBorder="0"
+                  scrolling="no"
+                  marginHeight="0"
+                  marginWidth="0"
+                  src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Bishkek,%20Kyrgyzstan,%20Vostok%205,%20Peaksoft%20House+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+               >
+                  <a href="https://www.gps.ie/sport-gps/">bike gps</a>
+               </iframe>
             </StyledImg>
          </div>
       </div>
