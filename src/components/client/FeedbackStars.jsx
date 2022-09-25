@@ -10,7 +10,6 @@ import Button from '../UI/Button'
 const FeedbackStars = () => {
    const { feedbackRating } = useSelector((state) => state.feedback)
    const dispatch = useDispatch()
-   console.log(feedbackRating)
    useEffect(() => {
       dispatch(getFeedbackRatings())
    }, [])

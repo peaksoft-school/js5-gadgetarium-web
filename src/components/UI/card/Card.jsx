@@ -24,7 +24,7 @@ const renderCardByState = (param) => {
                <span>{param.discount > 0 && `-${param.discount}%`}</span>
             </CardHeaderItemsAction>
          )
-      case 'RECCOMMEND':
+      case 'RECOMMEND':
          return (
             <CardHeaderItemsAction style={{ background: '#2C68F5E5' }}>
                <Recommend />

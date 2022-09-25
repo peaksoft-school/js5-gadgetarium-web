@@ -13,7 +13,6 @@ export const getProfile = createAsyncThunk(
    async (_, { rejectWithValue }) => {
       try {
          const response = await getUserProfile()
-         // console.log(response.data)
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)
@@ -24,7 +23,6 @@ export const getProfile = createAsyncThunk(
 export const putProfile = createAsyncThunk(
    'user/putProfile',
    async ({ file, user }, { dispatch }) => {
-      console.log(user, file)
       const formData = new FormData()
       try {
          const resFile = {}
@@ -32,7 +30,6 @@ export const putProfile = createAsyncThunk(
             formData.append('file', file)
             resFile.link = await fileUpload(formData)
          }
-         console.log(resFile.link.data.link)
          const finalData = {
             firstName: user.firstName,
             lastName: user.lastName,
@@ -46,7 +43,7 @@ export const putProfile = createAsyncThunk(
          dispatch(getProfile())
          return response.data
       } catch (err) {
-         return console.log(err.response.data)
+         return err.response.data
       }
    }
 )

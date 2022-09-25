@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react'
 
 import { Outlet, Route, Routes } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
-// import Catalog from '../containers/client/catalog/Catalog'
 
 import ProtectedRoute from './private/ProtectedRoute'
 

@@ -12,7 +12,6 @@ const catalogSlice = createSlice({
    extraReducers: {
       [getProductsCatalog.fulfilled]: (state, action) => {
          state.products = action.payload
-         console.log(action.payload)
       },
       [getSingleProduct.fulfilled]: (state, action) => {
          state.single = action.payload

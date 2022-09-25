@@ -36,7 +36,7 @@ const ThirdStage = () => {
             createThirdStage({ productId, videoReview, description, pdfFile })
          )
          dispatch(clearSessionStorage())
-         navigate('/products')
+         navigate('/admin/products')
       } else {
          toast.error('Заполните все поля')
       }
