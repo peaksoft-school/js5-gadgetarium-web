@@ -43,9 +43,9 @@ const MainPage = () => {
    const compareProducts = (id, status, sort) => {
       if (jwt) {
          if (status) {
-            dispatch(removeCompareProduct({ id, sort }))
+            dispatch(removeCompareProduct({ productId: id, sort }))
          } else {
-            dispatch(addToComparison({ id, sort }))
+            dispatch(addToComparison({ productd: id, sort }))
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')
@@ -63,12 +63,12 @@ const MainPage = () => {
          toast.error('Пожалуйста сначало авторизуйтесь')
       }
    }
-   const addProductsToCart = (productId, status, sort) => {
+   const addProductsToCart = (productId, status) => {
       if (jwt) {
          if (status) {
-            dispatch(deleteProducts(productId))
+            dispatch(deleteProducts({ productId }))
          } else {
-            dispatch(postProducts({ productId, sort }))
+            dispatch(postProducts({ productId }))
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')

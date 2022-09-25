@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 import {
    getFeedbacks,
@@ -21,10 +22,12 @@ export const getAllFeedbacks = createAsyncThunk(
 
 export const leaveFeedback = createAsyncThunk(
    'feedback/leaveFeedbacks',
-   async ({ feedbackData, files }, { rejectWithValue }) => {
+   async ({ feedbackData, files, id }, { rejectWithValue, dispatch }) => {
+      console.log(feedbackData)
       try {
          const fullData = {
-            ...feedbackData,
+            comment: feedbackData.comment,
+            rating: feedbackData.rating,
             images: [],
          }
          // eslint-disable-next-line no-plusplus
@@ -36,7 +39,9 @@ export const leaveFeedback = createAsyncThunk(
             const response = await fileUpload(formData)
             fullData.images.push(response?.data.link)
          }
-         const response = await postFeedback({ fullData })
+         const response = await postFeedback({ ...fullData }, id)
+         toast.success('Успшено отправлено!')
+         dispatch(getAllFeedbacks(id))
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)

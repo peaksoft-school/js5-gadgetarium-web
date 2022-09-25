@@ -52,7 +52,7 @@ const CartPage = () => {
    const handleDeleteById = (e, productId) => {
       console.log(productId)
       e.stopPropagation()
-      dispatch(deleteProducts(productId))
+      dispatch(deleteProducts({ productId }))
    }
 
    const getProductId = (e) => {

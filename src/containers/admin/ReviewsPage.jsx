@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import Infographic from '../../components/admin/adminUI/Infographic'
@@ -7,6 +8,7 @@ import AllReviews from '../../components/admin/AllReviews'
 import ReadReviews from '../../components/admin/ReadReviews'
 import UnreadReviews from '../../components/admin/UnreadReviews'
 import Tab from '../../components/UI/Tab'
+import { getReviews } from '../../store/actions/adminReviewAction'
 
 const tabsArray = [
    {
@@ -30,10 +32,15 @@ const tabsArray = [
 ]
 
 const ReviewsPage = () => {
+   const dispatch = useDispatch()
+
+   useEffect(() => {
+      dispatch(getReviews())
+   }, [])
    return (
       <Div>
          <TabStyledComponent>
-            <Tab tabsArray={tabsArray} variant="pink" />
+            <Tab tabsArray={tabsArray} variant="pink" baseValue="1" />
          </TabStyledComponent>
          <Infographic />
       </Div>

@@ -51,6 +51,7 @@ const ProductInner = () => {
             characters={single?.characters}
          />
          <ProductAbout
+            id={productId}
             video={single?.videoReview}
             name={single?.productName}
             description={single?.description}

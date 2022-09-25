@@ -31,8 +31,8 @@ const UserProfile = () => {
 
    const navigateAfterLogOut = () => {
       dispatch(logout())
-      window.location.reload()
       navigate('/')
+      window.location.reload()
    }
 
    const open = Boolean(anchorEl)

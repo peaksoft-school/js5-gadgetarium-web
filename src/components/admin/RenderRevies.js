@@ -90,14 +90,12 @@ function RenderRevies(props) {
                {seeMore ? (
                   <span>{props.comment}</span>
                ) : (
-                  <span>{props.comment.trim().slice(0, 90).concat('...')}</span>
+                  <span>{`${props.comment?.slice(0, 90)}...`}</span>
                )}
             </span>
             <p>{props.localDateTime}</p>
             {show.que && (
                <WrapperPhotos>
-                  <ImgComment src={props.productImage} alt="" />
-                  <ImgComment src={props.productImage} alt="" />
                   <ImgComment src={props.productImage} alt="" />
                </WrapperPhotos>
             )}

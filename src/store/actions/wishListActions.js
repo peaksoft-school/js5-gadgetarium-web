@@ -9,26 +9,6 @@ import {
    getAllHoverWishProducts,
 } from '../../services/WishListService'
 
-import { getProductsCatalog } from './CatalogActions'
-import {
-   getMainNewProduct,
-   getMainDiscountProduct,
-   getMainRecommendProduct,
-} from './productActions'
-
-const getBySort = (param) => {
-   switch (param) {
-      case 'NEW':
-         return getMainNewProduct()
-      case 'DISCOUNT':
-         return getMainDiscountProduct()
-      case 'RECOMMEND':
-         return getMainRecommendProduct()
-      default:
-         return getMainNewProduct()
-   }
-}
-
 export const getUserWishList = createAsyncThunk(
    'wishProducts/getAllProducts',
    async (userId, { rejectWithValue }) => {
@@ -67,13 +47,11 @@ export const deleteAllProducts = createAsyncThunk(
 
 export const deleteWishProducts = createAsyncThunk(
    'wishProducts/deleteWishProducts',
-   async ({ id, productId, queryParams, sort }, { dispatch }) => {
+   async ({ id, productId }, { dispatch }) => {
       try {
          const response = await removeProduct(id, productId)
          toast.success('Товар успешно удален')
-         dispatch(getBySort(sort))
          dispatch(getHoverWishProducts())
-         dispatch(getProductsCatalog(queryParams))
          return response.data
       } catch (err) {
          return console.error(err.response.data)
@@ -83,12 +61,10 @@ export const deleteWishProducts = createAsyncThunk(
 
 export const addWishProducts = createAsyncThunk(
    'wishProducts/addWishProducts',
-   async ({ id, productId, queryParams, sort }, { dispatch }) => {
+   async ({ id, productId }, { dispatch }) => {
       try {
          const response = await addToWishProducts(id, productId)
-         dispatch(getBySort(sort))
          dispatch(getHoverWishProducts())
-         dispatch(getProductsCatalog(queryParams))
          return response.data
       } catch (err) {
          return console.error(err.response.data)
