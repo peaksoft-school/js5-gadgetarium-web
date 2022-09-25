@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-// import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -9,7 +8,8 @@ import { ReactComponent as DeleteCompareList } from '../../../assets/icons/Delet
 import EmptyIcon from '../../../assets/images/notfound.png'
 import Breadcrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
-import Card from '../../../components/UI/card/Card'
+import WishCard from '../../../components/UI/card/WishCard'
+import { Loader } from '../../../components/UI/Loader'
 import {
    getUserWishList,
    deleteAllProducts,
@@ -28,10 +28,11 @@ const pathsArray = [
 
 const FavouritesPage = () => {
    const userId = useSelector((state) => state.auth.user.id)
-   const { wishProducts } = useSelector((state) => state.wishProducts)
+   const { wishProducts, loading } = useSelector((state) => state.wishProducts)
 
    const navigate = useNavigate()
    const dispatch = useDispatch()
+
    useEffect(() => {
       if (userId) {
          dispatch(getUserWishList(userId))
@@ -40,6 +41,10 @@ const FavouritesPage = () => {
 
    const navigateMain = () => {
       navigate('/')
+   }
+
+   if (loading) {
+      return <Loader />
    }
    return (
       <ContainerBox>
@@ -60,7 +65,7 @@ const FavouritesPage = () => {
                   {wishProducts.map((data) => {
                      return (
                         <div key={data.id}>
-                           <Card
+                           <WishCard
                               id={data.id}
                               action={data.action}
                               sort={data.sort}
@@ -99,7 +104,7 @@ const FavouritesPage = () => {
                      Воспользуйтесь поиском или каталогом, выберите нужные
                      товары и добавьте их в избранное!
                   </StyledText>
-                  <StyledLink to="/catalog">
+                  <StyledLink to="/">
                      <Button variant="outlined" width="180px" height="41px">
                         К покупкам
                      </Button>
@@ -194,7 +199,8 @@ const StyledText = styled.p`
 const StyledCard = styled.div`
    display: flex;
    flex-direction: row;
-   gap: 15px;
+   flex-wrap: wrap;
+   gap: 5px;
    padding: 30px 0px 0px 0px;
 `
 const StyledLink = styled(Link)`

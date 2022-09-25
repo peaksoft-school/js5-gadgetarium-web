@@ -1,19 +1,9 @@
-import { useEffect } from 'react'
-
 import { styled } from '@mui/material'
-import { useSelector, useDispatch } from 'react-redux'
-
-import { getReviews } from '../../store/actions/adminReviewAction'
+import { useSelector } from 'react-redux'
 
 import RenderRevies from './RenderRevies'
 
 const ReadReviews = () => {
-   const dispatch = useDispatch()
-
-   useEffect(() => {
-      dispatch(getReviews())
-   }, [])
-
    const { read } = useSelector((state) => state.adminFeedbacks)
 
    return (

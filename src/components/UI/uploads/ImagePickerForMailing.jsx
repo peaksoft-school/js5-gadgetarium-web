@@ -2,34 +2,39 @@ import React, { useRef, useState, useEffect } from 'react'
 
 import styled, { css } from 'styled-components'
 
-import File from '../../assets/images/337564.png'
+import File from '../../../assets/images/Group 337583.png'
 
-const ImagePicker = ({ onChange, newFile }) => {
+const ImagePicker = ({ onChange, newFile, id, ...otherProps }) => {
    const refs = useRef()
    const [icons, setIcons] = useState()
    useEffect(() => {
       if (newFile) {
-         //  const Image = URL.createObjectURL(newFile)
          setIcons(newFile)
       }
    }, [newFile])
-   const deleteImageHandler = () => {
+   const deleteImageHandler = (e) => {
+      e.stopPropagation()
+      e.preventDefault()
       refs.current.value = ''
       setIcons('')
    }
    const imageHandler = () => {
       const image = URL.createObjectURL(refs.current.files[0])
-      setIcons(image)
-      onChange(refs.current.files[0])
+      if (refs.current.files[0].size < 1000000) {
+         setIcons(image)
+         onChange(refs.current.files[0])
+      }
    }
    return (
       <ImagePickerContainer icons={icons}>
-         <Label icons={icons} htmlFor="file" />
+         <Label icons={icons} htmlFor={id} />
          <Input
-            id="file"
+            id={id}
+            {...otherProps}
             ref={refs}
             onChange={imageHandler}
             type="file"
+            value=""
             accept="image/jpeg,image/png,image/gif"
          />
          <DeleteButton onClick={deleteImageHandler}>Удалить</DeleteButton>
@@ -37,25 +42,31 @@ const ImagePicker = ({ onChange, newFile }) => {
    )
 }
 export default ImagePicker
-
 const DeleteButton = styled.button`
    border: none;
    position: absolute;
-   left: 5px;
-   top: 130px;
+   top: 87%;
+   left: 60%;
    background-color: rgba(0, 0, 0, 0);
    bottom: 30px;
    font-family: 'Inter', sans-serif;
    font-weight: 400;
    font-size: 18px;
-   color: #cb11ab;
+   color: #ffffff;
    z-index: 10;
+   display: none;
    cursor: pointer;
+   display: none;
    &:hover {
-      color: red;
+      text-decoration: underline;
+      opacity: 3;
+      border-radius: 2px;
+      font-family: 'Inter', sans-serif;
+      align-items: center;
+      margin-right: 3px;
+      text-decoration: none;
    }
 `
-
 const ImagePickerContainer = styled.div`
    background-repeat: no-repeat;
    background-position: 50% 50%;
@@ -63,18 +74,19 @@ const ImagePickerContainer = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
-   width: 90px;
-   height: 90px;
-   background: #f6f6f9;
-   background-size: contain;
+   width: 217px;
+   height: 217px;
+   background: #909cb533;
    border: 1px solid #dcdce4;
-   border-radius: 50%;
+   border-radius: 8px;
    ${(props) =>
       props.icons &&
       css`
-         background: url(${props.icons}) 50% 50% no-repeat;
+         background-image: url(${props.icons});
          background-size: cover;
-         &::after {
+         background-position: center;
+         background-repeat: no-repeat;
+         &: after {
             display: none;
          }
          &:hover {
@@ -94,9 +106,7 @@ const Input = styled.input`
 const Label = styled.label`
    background-image: url(${File});
    display: block;
-   margin-top: 10px;
    width: 200px;
-   height: 100px;
    text-align: center;
    color: #8e8ea9;
    cursor: pointer;
@@ -104,17 +114,13 @@ const Label = styled.label`
    &::after {
       content: 'Нажмите для добавления фотографии';
       position: absolute;
-      top: 110%;
-      right: -57px;
-      width: 148px;
-      font-family: 'Inter';
+      top: 50%;
+      right: 4%;
+      font-family: 'Inter', sans-serif;
       font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 130%;
-      text-align: center;
-      color: #91969e;
-      width: 200px;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 16px;
    }
    ${(props) =>
       props.icons &&
@@ -122,21 +128,24 @@ const Label = styled.label`
          background-image: none;
          display: none;
          &::after {
-            content: 'Сменить фото';
+            content: 'Заменить';
             position: absolute;
-            left: 45px;
-            top: 110%;
+            left: 50px;
+            top: 88%;
             align-items: center;
             font-family: 'Inter', sans-serif;
             font-weight: 400;
             font-size: 18px;
-            color: #cb11ab;
+            color: #fff;
             transform: translateX(-50%);
          }
-         text-decoration: underline;
-         text-decoration: none;
-         display: block;
-         align-items: center;
-         text-align: center;
+         &:hover:after {
+            text-decoration: underline;
+            text-decoration: none;
+            display: block;
+            align-items: center;
+            text-align: center;
+            border-radius: 2px;
+         }
       `}
 `

@@ -34,15 +34,18 @@ const UserTools = () => {
    }
 
    const handleNavigate = () => {
+      window.scrollTo(0, 0)
       navigate('comparison')
       setIsShown(null)
    }
 
    const handleWishNavigate = () => {
+      window.scrollTo(0, 0)
       navigate('favourites')
       setIsShown(null)
    }
    const handleCartNavigate = () => {
+      window.scrollTo(0, 0)
       navigate('cart')
       setIsCartShow(null)
    }
@@ -127,7 +130,7 @@ const UserTools = () => {
             <ComparisonPopup
                cart={cartHoverProducts}
                title="Перейти в корзину"
-               onClose={onClose}
+               onClose={() => setIsCartShow(null)}
                anchorEl={isCartShow}
                handleNavigate={handleCartNavigate}
             />

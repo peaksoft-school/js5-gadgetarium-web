@@ -4,17 +4,20 @@ import { InputLabel, Rating } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import userAvatar from '../../assets/images/avatar.png'
 import {
    getAllFeedbacks,
    leaveFeedback,
+   getFeedbackRatings,
 } from '../../store/slices/feedbackSlice'
 import Button from '../UI/Button'
 import ImagePicker from '../UI/ImagePickerForFeedback'
 
 import FeedbackStars from './FeedbackStars'
 
-const FeedbacksPage = () => {
+const FeedbacksPage = ({ id }) => {
    const { userFeedbacks } = useSelector((state) => state.feedback.feedbacks)
+   const { jwt } = useSelector((state) => state.auth.user)
    const [files, setFiles] = useState([])
    const [comment, setComment] = useState('')
    const [rating, setRating] = useState(null)
@@ -32,13 +35,20 @@ const FeedbacksPage = () => {
 
    const handleSubmit = (e) => {
       e.preventDefault()
+      console.log('submit')
       if (files.length > 0 && rating && comment) {
-         dispatch(leaveFeedback({ feedbackData, files }))
+         dispatch(leaveFeedback({ feedbackData, files, id }))
+         setFiles([])
+         setComment('')
+         setRating(null)
       }
    }
 
    useEffect(() => {
-      dispatch(getAllFeedbacks(2))
+      if (id) {
+         dispatch(getAllFeedbacks(id))
+         dispatch(getFeedbackRatings(id))
+      }
    }, [])
 
    return (
@@ -49,14 +59,14 @@ const FeedbacksPage = () => {
                {userFeedbacks.map((item) => {
                   return (
                      <div key={item.id}>
-                        <Img src="asd" alt="user" />
+                        <Img src={userAvatar} alt="user" />
                         <UsersDiv>
                            <h5>{item.fullName}</h5>
                            <span>{item.localDateTime}</span>
                         </UsersDiv>
                         <ReviewsCont>
-                           <h3> Оценка </h3>{' '}
-                           <Rating readOnly value={item.stars} />
+                           <h3> Оценка </h3>
+                           <Rating readOnly value={item.stars} size="small" />
                         </ReviewsCont>
                         <StyledText>
                            <p>{item.comment}</p>
@@ -64,11 +74,9 @@ const FeedbacksPage = () => {
                         {item.adminResponse && (
                            <StyledCont>
                               <h5>Ответ от представителя</h5>
-                              <p>
-                                 Добрый день! Благодарим Вас за отзыв, рады быть
-                                 полезными. Спасибо, что выбираете нас. Хорошего
-                                 дня!
-                              </p>
+                              <AdminResponseTitle>
+                                 {item.adminResponse}
+                              </AdminResponseTitle>
                            </StyledCont>
                         )}
                         <Border />
@@ -79,37 +87,45 @@ const FeedbacksPage = () => {
             <FeedbackStars />
          </AllFeedbacks>
          <LeaveFeedback>
-            <Feedback>Оставьте свой отзыв</Feedback>
-            <SetRating>
-               Оценка
-               <Rating onChange={setStars} value={rating} />
-            </SetRating>
-            <DescriptionBlock>
-               <InputLabel>Ваш комментарий</InputLabel>
-               <Textarea
-                  onChange={(e) => setComment(e.target.value)}
-                  type="text"
-                  value={comment}
-                  placeholder="Напишите сообщение"
-                  name="comment"
-               />
-            </DescriptionBlock>
-            <ImagePickerBlock>
-               <ImagePicker
-                  getPhoto={setFiles}
-                  allPhotos={files}
-                  width="570px"
-                  height="120px"
-               />
-            </ImagePickerBlock>
-            <Button
-               variant="contained"
-               width="570px"
-               height="47px"
-               onClick={handleSubmit}
-            >
-               Отправить отзыв
-            </Button>
+            {jwt ? (
+               <>
+                  <Feedback>Оставьте свой отзыв</Feedback>
+                  <SetRating>
+                     Оценка
+                     <Rating onChange={setStars} value={rating} />
+                  </SetRating>
+                  <DescriptionBlock>
+                     <InputLabel>Ваш комментарий</InputLabel>
+                     <Textarea
+                        onChange={(e) => setComment(e.target.value)}
+                        type="text"
+                        value={comment}
+                        placeholder="Напишите сообщение"
+                        name="comment"
+                     />
+                  </DescriptionBlock>
+                  <ImagePickerBlock>
+                     <ImagePicker
+                        getPhoto={setFiles}
+                        allPhotos={files}
+                        width="570px"
+                        height="120px"
+                     />
+                  </ImagePickerBlock>
+                  <Button
+                     variant="contained"
+                     width="570px"
+                     height="47px"
+                     onClick={handleSubmit}
+                  >
+                     Отправить отзыв
+                  </Button>
+               </>
+            ) : (
+               <AuthorizeMessage>
+                  ⚠️ Авторизуйтесь чтобы оставить свой отзыв
+               </AuthorizeMessage>
+            )}
          </LeaveFeedback>
       </StyledDiv>
    )
@@ -156,6 +172,9 @@ const Img = styled.img`
 `
 const ReviewsCont = styled.div`
    display: flex;
+   align-items: center;
+   flex-direction: row;
+   gap: 10px;
    align-items: center;
    width: 270px;
    margin-left: 63px;
@@ -210,3 +229,16 @@ const AllFeedbacks = styled.div`
    display: flex;
 `
 const ImagePickerBlock = styled.div``
+
+const AuthorizeMessage = styled.div`
+   display: flex;
+   justify-content: center;
+   font-size: 20px;
+`
+
+const AdminResponseTitle = styled.p`
+   font-size: 16px;
+   line-height: 150%;
+   color: #384255;
+   margin: 10px;
+`

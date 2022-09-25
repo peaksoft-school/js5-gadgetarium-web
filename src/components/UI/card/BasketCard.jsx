@@ -1,21 +1,16 @@
 import { Rating } from '@mui/material'
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-import { deleteProducts } from '../../../store/actions/cartActions'
 import Checkbox from '../Checkbox'
 
 const BasketCard = (props) => {
-   const dispatch = useDispatch()
-
-   const handleDeleteById = (e, productId) => {
-      e.stopPropagation()
-      dispatch(deleteProducts(productId))
-   }
-
    return (
       <CardWrapper>
-         <Checkbox />
+         <Checkbox
+            onChange={(event) => props.getProductId(event)}
+            onClick={(event) => event.stopPropagation()}
+            value={props.id}
+         />
          <CardContainer>
             <CardImage>
                <img src={props.img} alt={props.title} />
@@ -30,9 +25,10 @@ const BasketCard = (props) => {
                      readOnly
                      size="small"
                   />
+                  {props.amountStars > 0 && <p>{`(${props.amountStars})`}</p>}
                </StyledCardRating>
                <StlyedCardParagraph>
-                  {props.status === 'YES'
+                  {props.quantity > 0
                      ? `В наличии(${props.quantity})`
                      : 'Нет в наличии'}
                </StlyedCardParagraph>
@@ -41,12 +37,9 @@ const BasketCard = (props) => {
                   {props.productCode}
                </StyledProductCode>
             </CardTitle>
-            <StyledCount>
-               <StyledButton> - </StyledButton>1<StyledButton> + </StyledButton>
-               number
-            </StyledCount>
-            <StyledDelete onClick={(e) => handleDeleteById(e, props.id)}>
-               × удалить
+            <StyledCount>{props.price}с</StyledCount>
+            <StyledDelete onClick={props.handleDeleteById}>
+               × Удалить
             </StyledDelete>
          </CardContainer>
       </CardWrapper>
@@ -82,6 +75,7 @@ const CardImage = styled.div`
    & img {
       height: 121px;
       width: 106px;
+      object-fit: contain;
    }
 `
 const CardTitle = styled.div`
@@ -138,22 +132,6 @@ const StyledCount = styled.div`
    justify-content: space-between;
    align-items: center;
    margin: 10px;
-`
-const StyledButton = styled.button`
-   text-align: center;
-   width: 30px;
-   height: 30px;
-   border-radius: 50px;
-   border: 1px solid #384255;
-   background: transparent;
-   font-size: 22px;
-   :hover {
-      box-shadow: 1px 1px 5px 1px rgba(34, 60, 80, 0.2);
-   }
-   :active {
-      transition: 0.2s;
-      box-shadow: none;
-   }
 `
 const StyledDelete = styled.div`
    display: flex;

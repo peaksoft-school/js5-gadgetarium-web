@@ -48,10 +48,6 @@ const Header = () => {
          </HeaderTop>
          <NavBar>
             <BottomRow>
-               {/* <Catalog>
-                     <img src={menu} alt="#" />
-                     Каталог
-                  </Catalog> */}
                <CatalogButton />
                <VerticalLine />
                <SearchInput
@@ -59,15 +55,15 @@ const Header = () => {
                   placeholder="Поиск по каталогу магазина"
                />
                <SocialLinks>
-                  <NavLink to="">
+                  <a href="https://www.facebook.com/">
                      <ImageBox src={facebook} />
-                  </NavLink>
-                  <NavLink to="">
+                  </a>
+                  <a href="https://www.instagram.com/">
                      <ImageBox src={instagram} />
-                  </NavLink>
-                  <NavLink to="">
+                  </a>
+                  <a href="https://api.whatsapp.com/send/?phone=996500344433&text&type=phone_number&app_absent=0">
                      <ImageBox src={whatsapp} />
-                  </NavLink>
+                  </a>
                </SocialLinks>
                <UserTools />
             </BottomRow>
@@ -87,7 +83,7 @@ const HeaderContainer = styled('div')`
    width: 100%;
    background: #1a1a25;
    position: sticky;
-   top: -5.2em;
+   top: -6.2em;
    z-index: 99;
 `
 const UpperRow = styled('div')`

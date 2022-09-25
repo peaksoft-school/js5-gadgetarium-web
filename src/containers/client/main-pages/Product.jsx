@@ -6,14 +6,14 @@ import Characters from '../../../components/admin/innerPageContent/innerPageComp
 import BreadCrumbs from '../../../components/UI/Breadcrumbs'
 import Button from '../../../components/UI/Button'
 import CardRating from '../../../components/UI/card/CardRating'
-import Counter from '../../../components/UI/Counter'
+// import Counter from '../../../components/UI/Counter'
 import PreviewSlider from '../../../components/UI/PreviewSlider'
 import Sale from '../../../components/UI/SALE'
 
 const Product = (props) => {
-   const onChangeCounter = (value) => {
-      console.log(value)
-   }
+   // const onChangeCounter = (value) => {
+   //    console.log(value)
+   // }
    return (
       <Container>
          <BreadCrumbs paths={props.paths} />
@@ -36,10 +36,10 @@ const Product = (props) => {
                </section>
                <Infos>
                   <Color>
-                     <p>Цвет товара:</p>
+                     <span>Цвет товара:</span>
                      <p>{props.color}</p>
                   </Color>
-                  <Counter onChange={onChangeCounter} />
+                  {/* <Counter onChange={onChangeCounter} /> */}
                   <Prices>
                      <Price>
                         {props.discount && <Sale salePrice="-10%" />}
@@ -109,6 +109,15 @@ const Price = styled.div`
 `
 const Color = styled.div`
    & p {
+      margin: 10px 0px;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 150%;
+      text-transform: capitalize;
+   }
+   & span {
       margin: 10px 0px;
       font-family: 'Inter';
       font-style: normal;

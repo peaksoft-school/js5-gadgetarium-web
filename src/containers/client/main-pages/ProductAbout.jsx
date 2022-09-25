@@ -6,6 +6,8 @@ import TabPanel from '@mui/lab/TabPanel'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 
+import FeedbacksPage from '../../../components/client/FeedbacksPage'
+
 import Character from './Character'
 import Delivery from './Delivery'
 import Description from './Description'
@@ -42,7 +44,9 @@ export default function LabTabs(props) {
             <TabPanel value="2">
                <Character character={props.character} />
             </TabPanel>
-            <TabPanel value="3">Item Three</TabPanel>
+            <TabPanel value="3">
+               <FeedbacksPage id={props.id} />
+            </TabPanel>
             <TabPanel value="4">
                <Delivery />
             </TabPanel>

@@ -145,7 +145,7 @@ const AllProducts = ({ setCheckedProducts, checkedProducts }) => {
             <div>
                <StyledPrice>{item.price}</StyledPrice>
                <StyledDiscount>
-                  {item.discount === 0 ? '' : `${item.discount}%`}
+                  {item.discount ? `${item.discount}%` : ''}
                </StyledDiscount>
             </div>
          ),

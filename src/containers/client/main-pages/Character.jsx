@@ -43,7 +43,7 @@ const Info = (props) => {
             {show.memory && <p> &#9660;</p>}
          </Div>
          {show.memory &&
-            props.character.map((el) => (
+            props.character?.map((el) => (
                <Shows key={el.id} name={el.key} text={el.value} />
             ))}
          <Div onClick={optionsShow}>

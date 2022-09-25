@@ -43,7 +43,7 @@ export const putProfile = createAsyncThunk(
          dispatch(getProfile())
          return response.data
       } catch (err) {
-         return err.response.data
+         return console.error(err.response.data)
       }
    }
 )

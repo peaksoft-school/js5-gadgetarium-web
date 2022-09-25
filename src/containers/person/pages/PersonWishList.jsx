@@ -138,4 +138,5 @@ const StyledCard = styled.div`
    display: flex;
    flex-direction: row;
    padding: 30px 0px 0px 0px;
+   gap: 20px;
 `

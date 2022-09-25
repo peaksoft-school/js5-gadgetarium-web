@@ -3,16 +3,29 @@ import { toast } from 'react-toastify'
 
 import * as api from '../../services/cartServices'
 
-import { getMainNewProduct } from './productActions'
-
 export const postProducts = createAsyncThunk(
    'cartProducts/postToCart',
-   async (productId, { dispatch }) => {
+   async ({ productId }, { dispatch }) => {
       try {
          const response = await api.postToCart(productId)
-         dispatch(getMainNewProduct())
+         // dispatch(getBySort(sort))
          dispatch(getAllHoverProducts())
+
          toast.success('Товар успешно добавлен в корзину')
+         return response.data
+      } catch (err) {
+         return err.response.data
+      }
+   }
+)
+
+export const deleteProducts = createAsyncThunk(
+   'cartProducts/deleteProduct',
+   async ({ productId }, { dispatch }) => {
+      try {
+         const response = await api.deleteCartItemById(productId)
+         dispatch(getAllHoverProducts())
+         toast.success('Товар успешно удален!')
          return response.data
       } catch (err) {
          return err.response.data
@@ -44,27 +57,11 @@ export const getAllHoverProducts = createAsyncThunk(
    }
 )
 
-export const deleteProducts = createAsyncThunk(
-   'cartProducts/deleteProduct',
-   async (productId, { dispatch }) => {
-      try {
-         const response = await api.deleteCartItemById(productId)
-         dispatch(getMainNewProduct())
-         dispatch(getAllProducts())
-         dispatch(getAllHoverProducts())
-         toast.success('Успешно удалено!')
-         return response.data
-      } catch (err) {
-         return err.response.data
-      }
-   }
-)
-
 export const getProductsTotalSum = createAsyncThunk(
    'cartProducts/getTotalSum',
-   async (productId, { rejectWithValue }) => {
+   async (productIds, { rejectWithValue }) => {
       try {
-         const response = await api.getTotalSum(productId)
+         const response = await api.getTotalSum(productIds)
          return response.data
       } catch (err) {
          return rejectWithValue(err.response.data)
