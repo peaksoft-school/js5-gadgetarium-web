@@ -6,10 +6,7 @@ import { Link, NavLink } from 'react-router-dom'
 import facebook from '../../assets/icons/facebook.svg'
 import instagram from '../../assets/icons/instagram.svg'
 import logo from '../../assets/icons/logo.svg'
-// import menu from '../../assets/icons/menu.svg'
-// import cart from '../../assets/icons/shopping-cart.svg'
 import whatsapp from '../../assets/icons/whatsapp.svg'
-// import MuiBadge from '../../components/UI/MuiBadge'
 import UserProfile from '../../components/client/UserProfile'
 import UserTools from '../../components/client/UserTools'
 import CatalogButton from '../../components/UI/Catalogbutton'
@@ -99,14 +96,7 @@ const NavBar = styled('nav')`
    margin: 0px auto;
    width: 1380px;
    height: 70px;
-   /* padding: 8px 0px; */
    background: #1a1a25;
-
-   /* @media (max-width: 1536px) {
-   @media (max-width: 1536px) {
-      max-width: 1440px;
-      padding: 18px 30px;
-   } */
 `
 const BottomRow = styled('div')`
    display: flex;
@@ -163,10 +153,6 @@ const StyledNavLink = styled(NavLink)`
       border-radius: 4px;
       background: rgba(133, 143, 164, 0.15);
    }
-   /* @media (max-width: 1536px) {
-      font-size: 14px;
-      padding: 12px 10px;
-   } */
 `
 const MenuNavBar = styled('ul')`
    list-style: none;
@@ -188,19 +174,6 @@ const MenuNavBar = styled('ul')`
       background: rgba(133, 143, 164, 0.15);
    }
 `
-// const Catalog = styled('button')`
-//    width: 136px;
-//    height: 49px;
-//    background: #cb11ab;
-//    color: #ffffff;
-//    border-radius: 4px;
-//    display: flex;
-//    align-items: center;
-//    justify-content: space-evenly;
-//    font-size: 16px;
-//    cursor: pointer;
-//    text-decoration: none;
-// `
 const VerticalLine = styled('div')`
    width: 1.07px;
    height: 40px;
@@ -210,8 +183,3 @@ const ImageBox = styled('img')`
    width: 24px;
    height: 24px;
 `
-// const StyledLink = styled(Link)`
-//    text-decoration: none;
-//    color: white;
-//    padding: 2px;
-// `

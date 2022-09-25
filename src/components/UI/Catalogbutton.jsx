@@ -32,7 +32,7 @@ function CatalogButton() {
    return (
       <div>
          <Grid container direction="row">
-            <DropdownMenu onClose text="Каталог" color="primary">
+            <DropdownMenu onClose text="Каталог">
                {CATEGORIES.map((category) => (
                   <SideMenu onClose key={category.id} text={category.name}>
                      {category.subCategories.map((subcategory) => (

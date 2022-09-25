@@ -11,16 +11,6 @@ function SideMenu(props) {
    const [anchorEl, setAnchorEl] = React.useState(null)
    const open = Boolean(anchorEl)
 
-   // function handleClick(event) {
-   //    setAnchorEl(event.currentTarget)
-   //    props.onSideMenu()
-   // }
-
-   // function handleClose() {
-   //    if (props.onClose) props.onClose()
-   //    setAnchorEl(null)
-   // }
-
    const childrenWithNewProps = React.Children.map(props.children, (child) =>
       React.cloneElement(child, {
          onClose: () => {
@@ -95,40 +85,16 @@ const StyledButton = styled(Button)({
    minWidth: '100%',
    textAlign: 'left',
    borderRadius: '30px',
-   // padding: '10px 5px',
    margin: '0px',
    '&:hover': {
       backgroundColor: '#CB11AB',
       color: 'white',
    },
 })
-// const butt = {
-//    display: 'flex',
-//    justifyContent: 'space-between',
-//    alignItems: 'center',
-//    minWidth: '100%',
-//    textAlign: 'left',
-//    borderRadius: '30px',
-//    // padding: '10px 5px',
-//    margin: '0px',
-//    '&:hover': {
-//       backgroundColor: '#CB11AB',
-//       color: 'white',
-//    },
-// }
 const style = {
-   // '&:active': {
-   //    backgroundColor: '#CB11AB;',
-   // },
-   // '&:hover': {
-   //    backgroundColor: '#CB11AB;',
-   //    color: 'white',
-   // },
    borderRadius: 6,
    display: 'flex',
    alignItems: 'flex-start',
-   // justify="center"
-   // alignItems="flex-start"
    width: 'auto',
    color: 'rgb(55, 65, 81)',
    boxShadow:
