@@ -15,15 +15,17 @@ export default function LabTabs({ tabsArray, variant, baseValue }) {
 
    return (
       <TabContext value={value}>
-         <StyledTabList
+         <TabList
             onChange={handleChange}
             TabIndicatorProps={{ style: { backgroundColor: '#fff' } }}
-            sx={{
-               '& button.Mui-selected': {
-                  backgroundColor: '#384255',
-                  color: '#fff',
-               },
-            }}
+            sx={
+               {
+                  // '& button.Mui-selected': {
+                  //    backgroundColor: '#384255',
+                  //    color: '#fff',
+                  // },
+               }
+            }
             aria-label="lab API tabs example"
          >
             {tabsArray?.map((el) => (
@@ -34,7 +36,7 @@ export default function LabTabs({ tabsArray, variant, baseValue }) {
                   value={el.value}
                />
             ))}
-         </StyledTabList>
+         </TabList>
          {tabsArray?.map((el) => {
             return (
                <StyledTabPanel key={el.id} value={el.value}>
@@ -71,21 +73,21 @@ const StyledTab = styled(Tab)(({ variant }) => ({
    }),
 }))
 
-const StyledTabList = styled(TabList)`
-   & .MuiTabs-indicator {
-      display: none;
-   }
-   & button.Mui-selected {
-      background: '#384255';
-      span {
-         color: white;
-      }
-      h4 {
-         color: #8639b5;
-         background-color: white;
-      }
-   }
-`
+// const StyledTabList = styled(TabList)`
+//    & .MuiTabs-indicator {
+//       display: none;
+//    }
+//    & button.Mui-selected {
+//       background: '#384255';
+//       span {
+//          color: white;
+//       }
+//       h4 {
+//          color: #8639b5;
+//          background-color: white;
+//       }
+//    }
+// `
 
 const StyledTabPanel = styled(TabPanel)`
    padding: 30px 0 0 0;
