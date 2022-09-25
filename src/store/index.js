@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import adminPanelSlice from './slices/adminPanelSlice'
+import adminReviewSlice from './slices/adminReviewSlice'
 import authSlice from './slices/authSlice'
 import { cartSlice } from './slices/cartSlice'
 import catalogSlice from './slices/catalogSlice'
@@ -24,6 +25,7 @@ export const store = configureStore({
       product: productSlice.reducer,
       adminPanel: adminPanelSlice.reducer,
       contactUs: userContactSlice.reducer,
+      adminFeedbacks: adminReviewSlice.reducer,
       feedback: feedbackSlice.reducer,
       orders: ordersPanelSilce.reducer,
       mainProducts: mainProductSlice.reducer,
