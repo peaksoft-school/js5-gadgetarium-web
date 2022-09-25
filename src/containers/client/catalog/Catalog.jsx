@@ -67,11 +67,11 @@ const Catalog = () => {
 
    const crambs = [
       {
-         path: 'Главная',
+         path: '/',
          name: 'Главная',
       },
       {
-         path: param,
+         path: '/',
          name: param,
       },
    ]
@@ -186,7 +186,9 @@ const Catalog = () => {
          </Title>
          <Container>
             <div style={{ width: '18%' }}>
-               <Options>Найдено 167 Товаров</Options>
+               <Options>
+                  Найдено {products?.filtersProducts.length} Товаров
+               </Options>
                <FilterZone>
                   <section>
                      <BlueText>Сбросить все фильтры</BlueText>
@@ -244,41 +246,52 @@ const Catalog = () => {
                <Filter>
                   <Sorting onChange={sortChangeHandler} />
                </Filter>
-
-               <CardList>
-                  {products?.filtersProducts.map((data) => (
-                     <Card
-                        onClick={() => goToInnerPage(data.productId)}
-                        id={data.productId}
-                        action={data.action}
-                        sort={data.sort}
-                        compareProducts={() =>
-                           compareProducts(
-                              data.productId,
-                              Boolean(data.comparison)
-                           )
-                        }
-                        comparison={data.comparison}
-                        like={data.like}
-                        addToFavorites={() =>
-                           addToFavorites(data.productId, Boolean(data.like))
-                        }
-                        discount={data.discount}
-                        img={data.image}
-                        quantity={data.quantity}
-                        status={data.status}
-                        title={data.nameMemoryColor}
-                        rating={data.stars}
-                        actualprice={data.price}
-                        noneactualprice={data.currentPrice}
+               {!products?.filtersProducts.length && (
+                  <NotFound>
+                     <img
+                        src="https://cdni.iconscout.com/illustration/premium/thumb/shopping-cart-4024110-3328725.png"
+                        alt="not found"
                      />
-                  ))}
-               </CardList>
+                     <h1>По вашему запросу ничего не найдено</h1>
+                  </NotFound>
+               )}
+               {products?.filtersProducts.length > 0 && (
+                  <CardList>
+                     {products?.filtersProducts.map((data) => (
+                        <Card
+                           onClick={() => goToInnerPage(data.productId)}
+                           id={data.productId}
+                           action={data.action}
+                           sort={data.sort}
+                           compareProducts={() =>
+                              compareProducts(
+                                 data.productId,
+                                 Boolean(data.comparison)
+                              )
+                           }
+                           comparison={data.comparison}
+                           like={data.like}
+                           addToFavorites={() =>
+                              addToFavorites(data.productId, Boolean(data.like))
+                           }
+                           discount={data.discount}
+                           img={data.image}
+                           quantity={data.quantity}
+                           status={data.status}
+                           title={data.nameMemoryColor}
+                           rating={data.stars}
+                           actualprice={data.price}
+                           noneactualprice={data.currentPrice}
+                        />
+                     ))}
+                  </CardList>
+               )}
             </Section>
          </Container>
       </div>
    )
 }
+
 export default Catalog
 const radio = {
    color: ' #CB11AB',
@@ -286,6 +299,12 @@ const radio = {
       color: ' #CB11AB',
    },
 }
+const NotFound = styled('div')`
+   text-align: center;
+   img {
+      width: 30%;
+   }
+`
 const labelStyle = {
    fontFamily: 'Inter',
    fontStyle: 'normal',

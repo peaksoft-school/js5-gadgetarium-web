@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-// import banner from '../../../assets/images/banner.jpg'
-
 const Description = (props) => {
    return (
       <Container>
