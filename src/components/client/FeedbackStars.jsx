@@ -1,21 +1,11 @@
-import { useEffect } from 'react'
-
 import { Rating } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { getFeedbackRatings } from '../../store/slices/feedbackSlice'
 import Button from '../UI/Button'
 
 const FeedbackStars = () => {
    const { feedbackRating } = useSelector((state) => state.feedback)
-   const dispatch = useDispatch()
-   useEffect(() => {
-      dispatch(getFeedbackRatings())
-   }, [])
-   const submitHandler = (e) => {
-      e.preventDefault()
-   }
    return (
       <Stars>
          <StyledDiv>
@@ -23,18 +13,28 @@ const FeedbackStars = () => {
             <Rating readOnly value={feedbackRating.avg} />
             <AllFeedback>
                <ul>
-                  <Rating readOnly value={5} />
-                  <Rating readOnly value={4} />
-                  <Rating readOnly value={3} />
-                  <Rating readOnly value={2} />
-                  <Rating readOnly value={1} />
+                  <li>
+                     <Rating readOnly value={5} />
+                  </li>
+                  <li>
+                     <Rating readOnly value={4} />
+                  </li>
+                  <li>
+                     <Rating readOnly value={3} />
+                  </li>
+                  <li>
+                     <Rating readOnly value={2} />
+                  </li>
+                  <li>
+                     <Rating readOnly value={1} />
+                  </li>
                </ul>
-               <ul>
-                  <li>{feedbackRating.one} отзывов</li>
-                  <li>{feedbackRating.two} отзывов</li>
-                  <li>{feedbackRating.three}отзывов</li>
-                  <li>{feedbackRating.four} отзывов</li>
+               <ul style={{ gap: '13px' }}>
                   <li>{feedbackRating.five} отзывов</li>
+                  <li>{feedbackRating.four} отзывов</li>
+                  <li>{feedbackRating.three} отзывов</li>
+                  <li>{feedbackRating.two} отзывов</li>
+                  <li>{feedbackRating.one} отзывов</li>
                </ul>
             </AllFeedback>
          </StyledDiv>
@@ -43,7 +43,7 @@ const FeedbackStars = () => {
             variant="contained"
             width="390px"
             height="47px"
-            onClick={submitHandler}
+            onClick={() => window.scrollTo(0, 1630)}
          >
             Оставить отзыв
          </Button>
@@ -58,8 +58,8 @@ const Stars = styled.div`
    margin-top: -3%;
    display: block;
    padding: 20px;
-   width: 429px;
-   height: 223px;
+   padding-bottom: 0px;
+   height: 300px;
    background: #e8e8e8;
    border-radius: 6px;
    & h1 {
@@ -74,19 +74,15 @@ const StyledDiv = styled.div`
 `
 const AllFeedback = styled.div`
    display: flex;
-   margin-left: 15px;
-   margin-top: -7px;
-   width: 245px;
-   height: 140px;
+   margin-bottom: 10px;
    & ul {
-      width: 130px;
-      height: 140px;
-      margin-left: -2%;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
    }
    & li {
-      list-style: none;
-      margin-left: -0px;
-      line-height: 170%;
+      margin-left: 10px;
+      white-space: nowrap;
    }
 `
 const AllFeedbacks = styled.div`

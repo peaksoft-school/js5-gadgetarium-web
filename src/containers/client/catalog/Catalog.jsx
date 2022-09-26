@@ -21,6 +21,10 @@ import {
    SUBCATEGORYID,
 } from '../../../components/UI/Catalogbutton'
 import RangeSlider from '../../../components/UI/RangeSlider'
+import {
+   deleteProducts,
+   postProducts,
+} from '../../../store/actions/cartActions'
 import { getProductsCatalog } from '../../../store/actions/CatalogActions'
 import {
    addToComparison,
@@ -156,9 +160,17 @@ const Catalog = () => {
    const addToFavorites = (productId, status) => {
       if (id) {
          if (status) {
-            dispatch(deleteWishProducts({ id, productId, queryParams }))
+            dispatch(deleteWishProducts({ id, productId }))
+               .unwrap()
+               .then(() => {
+                  dispatch(getProductsCatalog(queryParams))
+               })
          } else {
-            dispatch(addWishProducts({ id, productId, queryParams }))
+            dispatch(addWishProducts({ id, productId }))
+               .unwrap()
+               .then(() => {
+                  dispatch(getProductsCatalog(queryParams))
+               })
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')
@@ -167,9 +179,17 @@ const Catalog = () => {
    const compareProducts = (id, status) => {
       if (jwt) {
          if (status) {
-            dispatch(removeCompareProduct({ id, queryParams }))
+            dispatch(removeCompareProduct({ productId: id }))
+               .unwrap()
+               .then(() => {
+                  dispatch(getProductsCatalog(queryParams))
+               })
          } else {
-            dispatch(addToComparison({ id, queryParams }))
+            dispatch(addToComparison({ productId: id }))
+               .unwrap()
+               .then(() => {
+                  dispatch(getProductsCatalog(queryParams))
+               })
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')
@@ -177,6 +197,25 @@ const Catalog = () => {
    }
    const goToInnerPage = (id) => {
       navigate(`${param}/${id}`)
+   }
+   const clickOnBasket = (id, status) => {
+      if (jwt) {
+         if (status) {
+            dispatch(deleteProducts({ productId: id }))
+               .unwrap()
+               .then(() => {
+                  dispatch(getProductsCatalog(queryParams))
+               })
+         } else {
+            dispatch(postProducts({ productId: id }))
+               .unwrap()
+               .then(() => {
+                  dispatch(getProductsCatalog(queryParams))
+               })
+         }
+      } else {
+         toast.error('Пожалуйста сначало авторизуйтесь')
+      }
    }
    return (
       <div style={{ margin: '30px 0px' }}>
@@ -273,6 +312,9 @@ const Catalog = () => {
                            like={data.like}
                            addToFavorites={() =>
                               addToFavorites(data.productId, Boolean(data.like))
+                           }
+                           addToCart={() =>
+                              clickOnBasket(data.productId, Boolean(data.cart))
                            }
                            discount={data.discount}
                            img={data.image}

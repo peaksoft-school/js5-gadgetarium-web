@@ -26,7 +26,7 @@ const override = {
 }
 
 const AllProducts = () => {
-   const { products, loading, sizeOfProducts, totalPage } = useSelector(
+   const { products, loading, sizeOfProducts } = useSelector(
       (state) => state.adminPanel
    )
    const [queryParams, setQueryParams] = useState({
@@ -41,6 +41,8 @@ const AllProducts = () => {
    const navigate = useNavigate()
 
    const { allproducts } = products
+
+   console.log(allproducts)
 
    const dispatch = useDispatch()
 
@@ -129,7 +131,9 @@ const AllProducts = () => {
          cell: (item) => (
             <div>
                <StyledPrice>{item.price}</StyledPrice>
-               <StyledDiscount>{item.discount}%</StyledDiscount>
+               <StyledDiscount>
+                  {item.discount ? `${item.discount}%` : ''}
+               </StyledDiscount>
             </div>
          ),
       },
@@ -184,7 +188,7 @@ const AllProducts = () => {
          </DatePickerContainer>
          <TopFunctionalContainer>
             <InfoParagraph>{`Найдено ${
-               allproducts.length === 0 ? 0 : sizeOfProducts
+               allproducts ? sizeOfProducts : 0
             } товаров`}</InfoParagraph>
             <Sorting onChange={onChangeHandler} />
          </TopFunctionalContainer>
@@ -195,7 +199,7 @@ const AllProducts = () => {
                onNavigetToInnerPage={onNavigetToInnerPage}
             />
             <AppPagination
-               totalPage={totalPage}
+               totalPage={sizeOfProducts / queryParams.size}
                page={queryParams.page}
                onChange={handleChangePage}
             />

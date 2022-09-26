@@ -154,21 +154,27 @@ const WishListProducts = () => {
          </DatePickerContainer>
          <TopFunctionalContainer>
             <InfoParagraph>{`Найдено ${
-               allproducts.length === 0 ? 0 : sizeOfProducts
+               allproducts ? sizeOfProducts : 0
             } товаров`}</InfoParagraph>
             <Sorting onChange={onChangeHandler} />
          </TopFunctionalContainer>
          <TableListContainer>
-            <TableList
-               data={allproducts}
-               columns={columns}
-               onNavigetToInnerPage={onNavigetToInnerPage}
-            />
-            <AppPagination
-               totalPage={totalPage}
-               page={queryParams.page}
-               onChange={handleChangePage}
-            />
+            {allproducts ? (
+               <>
+                  <TableList
+                     data={allproducts}
+                     columns={columns}
+                     onNavigetToInnerPage={onNavigetToInnerPage}
+                  />
+                  <AppPagination
+                     totalPage={totalPage}
+                     page={queryParams.page}
+                     onChange={handleChangePage}
+                  />
+               </>
+            ) : (
+               <EmptyMessage>⚠️ Пока что товаров нет...</EmptyMessage>
+            )}
          </TableListContainer>
       </Container>
    )
@@ -217,4 +223,10 @@ const TableImage = styled.img`
    width: 70px;
    height: 70px;
    object-fit: contain;
+`
+const EmptyMessage = styled.div`
+   display: flex;
+   justify-content: center;
+   margin-top: 80px;
+   font-size: 18px;
 `

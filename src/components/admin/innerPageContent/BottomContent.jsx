@@ -8,6 +8,7 @@ import Tab from '@mui/material/Tab'
 import styled from 'styled-components'
 
 import { ReactComponent as Document } from '../../../assets/icons/Document.svg'
+import Character from '../../../containers/client/main-pages/Character'
 
 import AboutBlock from './innerPageComponents/AboutBlock'
 
@@ -42,7 +43,6 @@ export default function BottomContent({ data }) {
                >
                   <Tab style={styleTab} label="Описание" value="1" />
                   <Tab style={styleTab} label="Характеристики" value="2" />
-                  <Tab style={styleTab} label="Отзывы" value="3" />
                </TabList>
                <DownloadDocument>
                   <Document />
@@ -55,8 +55,9 @@ export default function BottomContent({ data }) {
                   videoReview={data?.videoReview}
                />
             </TabPanel>
-            <TabPanel value="2">Здесь будет характеристика товарa</TabPanel>
-            <TabPanel value="3">Отзывы</TabPanel>
+            <TabPanel value="2">
+               <Character />
+            </TabPanel>
          </TabContext>
       </Box>
    )

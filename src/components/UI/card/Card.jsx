@@ -11,7 +11,7 @@ import Tooltip from '../Tooltip'
 import { Balance, Like } from './CardIcons'
 
 const renderCardByState = (param) => {
-   switch (param) {
+   switch (param.sort) {
       case 'NEW':
          return (
             <CardHeaderItemsAction style={{ background: '#2FC509' }}>
@@ -38,24 +38,30 @@ const renderCardByState = (param) => {
 const Card = (props) => {
    const [like, setLike] = useState(props.like)
    const [compare, setCompare] = useState(props.comparison)
+   const [cart, setCart] = useState(props.cart)
    const goToInnerPage = (e) => {
       e.stopPropagation()
       props.onClick()
    }
-   const clickCompare = (e) => {
-      setCompare((prev) => !prev)
+   const clickOnBasket = (e) => {
       e.stopPropagation()
+      setCart((prev) => !prev)
+      props.addToCart()
+   }
+   const clickCompare = (e) => {
+      e.stopPropagation()
+      setCompare((prev) => !prev)
       props.compareProducts()
    }
    const addToFavorites = (e) => {
-      setLike((prev) => !prev)
       e.stopPropagation()
+      setLike((prev) => !prev)
       props.addToFavorites()
    }
    return (
       <CardContainer onClick={goToInnerPage}>
          <CardHeaderItems>
-            {renderCardByState(props.sort)}
+            {renderCardByState(props)}
             <CardHeaderItemsIcons>
                <li onClick={clickCompare}>
                   <Tooltip title="Добавить в сравнение">
@@ -82,10 +88,14 @@ const Card = (props) => {
          <CardTitle>
             <StlyedCardParagraph>
                {props.status === 'YES'
-                  ? `В наличии ${props.quantity ? `(${props.quantity})` : ''} `
+                  ? `В наличии ${props.quantity ? `(${props.quantity})` : ''}`
                   : 'Нет в наличии'}
             </StlyedCardParagraph>
-            <StyledCardHeader>{props.title}</StyledCardHeader>
+            <StyledCardHeader>
+               {props.title.length > 40
+                  ? `${props.title.slice(0, 40)}...`
+                  : props.title}
+            </StyledCardHeader>
             <StyledCardRating>
                <StyledCardRatingSpan>Рейтинг</StyledCardRatingSpan>
                <Rating
@@ -113,16 +123,24 @@ const Card = (props) => {
                   </StyledCardPriceNoneActual>
                </StyledCardPrice>
             )}
-            <Button
-               variant="contained"
-               onClick={(e) => {
-                  e.stopPropagation()
-                  props.addToCart(props.id)
-               }}
-               startIcon={<Busket />}
-            >
-               В корзину
-            </Button>
+            {cart ? (
+               <Button
+                  bgcolor="#2fc509"
+                  variant="contained"
+                  onClick={clickOnBasket}
+                  startIcon={<Busket />}
+               >
+                  В корзине
+               </Button>
+            ) : (
+               <Button
+                  variant="contained"
+                  onClick={clickOnBasket}
+                  startIcon={<Busket />}
+               >
+                  В корзину
+               </Button>
+            )}
          </CardShopItems>
       </CardContainer>
    )

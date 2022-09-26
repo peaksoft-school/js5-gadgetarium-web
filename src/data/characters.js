@@ -102,6 +102,113 @@ export const phoneCharacters = [
          },
       ],
    },
+   {
+      id: 4,
+      placeholder: 'Процессор',
+      option: [
+         {
+            key: 'Процессор',
+            value: 'A16 Bionic',
+            label: 'A16 Bionic',
+         },
+         {
+            key: 'Процессор',
+            value: 'A15 Bionic',
+            label: 'A15 Bionic',
+         },
+         {
+            key: 'Процессор',
+            value: 'Snapdragon 8 Gen 1',
+            label: 'Snapdragon 8 Gen 1',
+         },
+         {
+            key: 'Процессор',
+            value: 'Snapdragon 8 Plus Gen 1',
+            label: 'Snapdragon 8 Plus Gen 1',
+         },
+         {
+            key: 'Процессор',
+            value: 'Snapdragon 888',
+            label: 'Snapdragon 888',
+         },
+         {
+            key: 'Процессор',
+            value: 'Snapdragon 888 Plus',
+            label: 'Snapdragon 888 Plus',
+         },
+         {
+            key: 'Процессор',
+            value: 'Kirin 9000s',
+            label: 'Kirin 9000',
+         },
+         {
+            key: 'Процессор',
+            value: 'Exynos 2100',
+            label: 'Exynos 2100',
+         },
+         {
+            key: 'Процессор',
+            value: 'Snapdragon 865 Plus',
+            label: 'Snapdragon 865 Plus',
+         },
+         {
+            key: 'Процессор',
+            value: 'Snapdragon 845',
+            label: 'Snapdragon 845',
+         },
+         {
+            key: 'Процессор',
+            value: 'Snapdragon 695',
+            label: 'Snapdragon 695',
+         },
+      ],
+   },
+   {
+      id: 5,
+      placeholder: 'Камера(Мп)',
+      option: [
+         {
+            key: 'Камера(Мп)',
+            value: '12 Мп',
+            label: '12 Мп',
+         },
+         {
+            key: 'Камера(Мп)',
+            value: '16 Мп',
+            label: '16 Мп',
+         },
+         {
+            key: 'Камера(Мп)',
+            value: '20 Мп',
+            label: '20 Мп',
+         },
+         {
+            key: 'Камера(Мп)',
+            value: '24 Мп',
+            label: '24 Мп',
+         },
+         {
+            key: 'Камера(Мп)',
+            value: '48 Мп',
+            label: '48 Мп',
+         },
+         {
+            key: 'Камера(Мп)',
+            value: '50 Мп',
+            label: '50 Мп',
+         },
+         {
+            key: 'Камера(Мп)',
+            value: '60 Мп',
+            label: '60 Мп',
+         },
+         {
+            key: 'Камера(Мп)',
+            value: '108 Мп',
+            label: '108 Мп',
+         },
+      ],
+   },
 ]
 export const laptopCharacters = [
    {

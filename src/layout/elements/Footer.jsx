@@ -26,38 +26,42 @@ const Footer = () => {
          setError('Введите свой email')
       }
    }
+
+   const scrollTo = (value) => {
+      window.scrollTo({
+         top: value,
+         behavior: 'smooth',
+      })
+   }
    return (
       <FooterPosition>
          <FooterContainer>
             <BoxCategories>
                <BoxLinks>
-                  <Catalog>
-                     <NavLink to="/catalog">
-                        <Title> Каталог </Title>
-                     </NavLink>
-                     <NavLink to="/smartphones"> Смартфоны </NavLink>
-                     <NavLink to="/laptops"> Ноутбуки и планшеты </NavLink>
-                     <NavLink to="/watches"> Смарт-часы и браслеты </NavLink>
-                     <NavLink to="/accesories"> Акссесуары </NavLink>
-                  </Catalog>
                   <BeWithUs>
-                     <NavLink to="/catalog">
+                     <li>
                         <Title> Будь с нами </Title>
-                     </NavLink>
-                     <NavLink to="/sales"> Акции </NavLink>
-                     <NavLink to="/novelties"> Новинки </NavLink>
-                     <NavLink to="/popular-categories">
-                        Популярыне категории
-                     </NavLink>
+                     </li>
+                     <li onClick={() => scrollTo(900)}>Акции</li>
+                     <li onClick={() => scrollTo(1650)}>Новинки</li>
+                     <li onClick={() => scrollTo(2400)}>Рекомендуемые</li>
                   </BeWithUs>
                   <Services>
                      <NavLink to="/catalog">
                         <Title> Помощь и сервисы </Title>
                      </NavLink>
-                     <NavLink to="/about-store"> О Магазине </NavLink>
-                     <NavLink to="/delivery"> Доставка </NavLink>
-                     <NavLink to="/faq"> FAQ </NavLink>
-                     <NavLink to="/contacts"> Контакты </NavLink>
+                     <NavLink to="/about" onClick={() => scrollTo(0, 0)}>
+                        О магазине
+                     </NavLink>
+                     <NavLink to="/delivery" onClick={() => scrollTo(0, 0)}>
+                        Доставка
+                     </NavLink>
+                     <NavLink to="/faq" onClick={() => scrollTo(0, 0)}>
+                        FAQ
+                     </NavLink>
+                     <NavLink to="/contacts" onClick={() => scrollTo(0, 0)}>
+                        Контакты
+                     </NavLink>
                   </Services>
                </BoxLinks>
                <ContactsBox>
@@ -93,14 +97,14 @@ const Footer = () => {
                         <Icons src={messageIcon} />
                         <p> Gadgetarium.kg </p>
                      </a>
-                     <a href=" ">
+                     <div>
                         <Icons src={gpsIcon} />
                         <p> г.Бишкек, ул. Гражданская 119 </p>
-                     </a>
-                     <a href=" ">
+                     </div>
+                     <div>
                         <Icons src={clockIcon} />
                         <p> С 10:00 до 21:00 (без выходных) </p>
-                     </a>
+                     </div>
                   </Contacts>
                </ContactsBox>
             </BoxCategories>
@@ -151,7 +155,7 @@ const BoxCategories = styled('div')`
 const BoxLinks = styled('div')`
    display: flex;
    height: 300px;
-   gap: 60px;
+   gap: 120px;
    margin-right: 50px;
 `
 const ContactsBox = styled('div')`
@@ -176,35 +180,18 @@ const Title = styled('span')`
    margin-bottom: 15px;
    cursor: pointer;
 `
-const Catalog = styled('div')`
-   white-space: nowrap;
-   height: 171px;
-   display: flex;
-   flex-direction: column;
-   align-items: flex-start;
-   gap: 20px;
-   a {
-      color: #858fa4;
-      text-decoration: none;
-   }
-   a:hover {
-      color: #ffffff;
-      transition: 0.4s;
-      cursor: pointer;
-   }
-`
-const BeWithUs = styled('div')`
+const BeWithUs = styled('ul')`
    white-space: nowrap;
    height: 138px;
    display: flex;
    flex-direction: column;
    align-items: flex-start;
    gap: 19px;
-   a {
+   li {
       color: #858fa4;
       text-decoration: none;
    }
-   a:hover {
+   li:hover {
       color: #ffffff;
       transition: 0.4s;
       cursor: pointer;
@@ -235,18 +222,18 @@ const Contacts = styled('div')`
    flex-direction: column;
    align-items: centers;
    gap: 18px;
+   div {
+      display: flex;
+      gap: 15px;
+   }
    a {
       text-decoration: none;
       display: flex;
       gap: 15px;
    }
-   p {
+   div {
       color: #858fa4;
       line-height: 23px;
-   }
-   p:hover {
-      transition: 0.4s;
-      cursor: pointer;
    }
 `
 const Icons = styled('img')`
@@ -264,6 +251,7 @@ const Distribution = styled('div')`
       line-height: 20px;
       color: #ffffff;
       font-size: 14px;
+      width: 360px;
    }
 `
 const InputButtonContainer = styled('div')`

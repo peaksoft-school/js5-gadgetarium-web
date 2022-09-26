@@ -19,6 +19,7 @@ const UserProfile = () => {
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const { user } = useSelector((state) => state.auth)
+   const { image } = useSelector((state) => state.userProfile.userInfo)
 
    const handleClick = (event) => {
       setAnchorEl(event.currentTarget)
@@ -30,8 +31,8 @@ const UserProfile = () => {
 
    const navigateAfterLogOut = () => {
       dispatch(logout())
-      window.location.reload()
       navigate('/')
+      window.location.reload()
    }
 
    const open = Boolean(anchorEl)
@@ -65,8 +66,8 @@ const UserProfile = () => {
 
    return (
       <StyledDiv>
-         <p onClick={handleClick}>{user?.email || 'Войти / Регистрация'}</p>
-         <ProfileLogo src={profileLogo} />
+         <p onClick={handleClick}>{user?.email || 'Войти | Регистрация'}</p>
+         <ProfileLogo src={image || profileLogo} />
          <Popover
             id={id}
             open={open}
@@ -118,8 +119,10 @@ const StyledDiv = styled('div')`
 `
 
 const ProfileLogo = styled('img')`
-   width: 24px;
-   height: 24px;
+   width: 35px;
+   height: 35px;
+   object-fit: cover;
+   border-radius: 50%;
 `
 
 const LinkItems = styled.ul`

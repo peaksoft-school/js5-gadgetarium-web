@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import styled from 'styled-components'
 
+import { postProducts } from '../../../store/actions/cartActions'
 import { getSingleProduct } from '../../../store/actions/CatalogActions'
 
 import Product from './Product'
@@ -30,6 +31,10 @@ const ProductInner = () => {
          path: single?.productName.toString(),
       },
    ]
+   console.log(single)
+   const addProductsToCart = (id) => {
+      dispatch(postProducts({ productId: id }))
+   }
    return (
       <Container>
          <Product
@@ -49,8 +54,10 @@ const ProductInner = () => {
             guarantee={single?.guarantee}
             proccessor="Exynos 1280 (5 nm)"
             characters={single?.characters}
+            addProductsToCart={() => addProductsToCart(single?.productId)}
          />
          <ProductAbout
+            id={productId}
             video={single?.videoReview}
             name={single?.productName}
             description={single?.description}

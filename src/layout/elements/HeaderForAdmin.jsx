@@ -6,16 +6,17 @@ import { Link, NavLink, Outlet } from 'react-router-dom'
 
 import { ReactComponent as VectorIcon } from '../../assets/icons/adminDropDown.svg'
 import logo from '../../assets/icons/logo.svg'
+import CreateMailingList from '../../components/admin/adminActions/CreateMailingList'
 import BasicModal from '../../components/UI/BasicModal'
 import Button from '../../components/UI/Button'
 import { logout } from '../../store/slices/authSlice'
 
 const HeaderForAdmin = () => {
    const [openModal, setOpenModal] = useState(false)
+   const [openMailing, setOpenMailing] = useState(false)
    const handleClick = () => {
       setOpenModal(true)
    }
-
    const handleClose = () => {
       setOpenModal(false)
    }
@@ -52,7 +53,13 @@ const HeaderForAdmin = () => {
                   </li>
                </MenuNavBar>
                <AdminUI>
-                  <ButtonPush> Создать рассылку </ButtonPush>
+                  <ButtonPush onClick={() => setOpenMailing(true)}>
+                     Создать рассылку
+                  </ButtonPush>
+                  <CreateMailingList
+                     onClose={() => setOpenMailing(false)}
+                     open={openMailing}
+                  />
                   <VerticalLine />
                   <AdminProfile>
                      <ProfileLogo>G</ProfileLogo>

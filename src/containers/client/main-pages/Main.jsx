@@ -8,7 +8,10 @@ import Button from '../../../components/UI/Button'
 import Card from '../../../components/UI/card/Card'
 import Carousel from '../../../components/UI/Carousel'
 import InfoCards from '../../../components/UI/InfoCards'
-import { postProducts } from '../../../store/actions/cartActions'
+import {
+   deleteProducts,
+   postProducts,
+} from '../../../store/actions/cartActions'
 import {
    addToComparison,
    removeCompareProduct,
@@ -40,9 +43,9 @@ const MainPage = () => {
    const compareProducts = (id, status) => {
       if (jwt) {
          if (status) {
-            dispatch(removeCompareProduct({ id }))
+            dispatch(removeCompareProduct({ productId: id }))
          } else {
-            dispatch(addToComparison({ id }))
+            dispatch(addToComparison({ productId: id }))
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')
@@ -60,8 +63,16 @@ const MainPage = () => {
          toast.error('Пожалуйста сначало авторизуйтесь')
       }
    }
-   const addProductsToCart = (productId) => {
-      dispatch(postProducts(productId))
+   const addProductsToCart = (productId, status) => {
+      if (jwt) {
+         if (status) {
+            dispatch(deleteProducts({ productId }))
+         } else {
+            dispatch(postProducts({ productId }))
+         }
+      } else {
+         toast.error('Пожалуйста сначало авторизуйтесь')
+      }
    }
 
    useEffect(() => {
@@ -91,9 +102,9 @@ const MainPage = () => {
       })
    }
 
-   // const seeMoreDiscount = discount?.map((el) => el)
+   const seeMoreDiscount = discount?.map((el) => el)
    const seeMoreNew = newProduct?.map((el) => el)
-   // const seeMoreRecommend = recommend?.map((el) => el)
+   const seeMoreRecommend = recommend?.map((el) => el)
 
    return (
       <div>
@@ -101,7 +112,7 @@ const MainPage = () => {
             <Carousel />
          </StyledSlider>
          <CardContainer>
-            {/* <Styled>Акции</Styled> */}
+            <Styled>Акции</Styled>
             <StyledCard>
                {discount?.map((data) => {
                   return (
@@ -110,16 +121,29 @@ const MainPage = () => {
                            id={data.productId}
                            action={data.action}
                            sort={data.sort}
+                           comparison={data.comparison}
                            compareProducts={() =>
                               compareProducts(
                                  data.productId,
-                                 Boolean(data.comparison)
+                                 Boolean(data.comparison),
+                                 data.sort
                               )
                            }
-                           comparison={data.comparison}
                            like={data.like}
                            addToFavorites={() =>
-                              addToFavorites(data.productId, Boolean(data.like))
+                              addToFavorites(
+                                 data.productId,
+                                 Boolean(data.like),
+                                 data.sort
+                              )
+                           }
+                           cart={data.cart}
+                           addToCart={() =>
+                              addProductsToCart(
+                                 data.productId,
+                                 Boolean(data.cart),
+                                 data.sort
+                              )
                            }
                            discount={data.discount}
                            img={data.image}
@@ -127,20 +151,20 @@ const MainPage = () => {
                            status={data.status}
                            title={data.nameMemoryColor}
                            rating={data.stars}
-                           actualprice={data.price}
-                           noneactualprice={data.currentPrice}
+                           actualprice={data.currentPrice}
+                           noneactualprice={data.price}
                         />
                      </div>
                   )
                })}
             </StyledCard>
-            {/* <StyledButton>
+            <StyledButton>
                {Number(seeMoreDiscount?.length) % 5 === 0 ? (
                   <div key={seeMoreDiscount?.productId}>
                      <Button
                         variant="outlined"
                         width="300px"
-                        onClick={() => loadMore('new')}
+                        onClick={() => loadMore('discount')}
                      >
                         Показать еще
                      </Button>
@@ -149,12 +173,12 @@ const MainPage = () => {
                   <Button
                      variant="outlined"
                      width="300px"
-                     onClick={() => showLess('new')}
+                     onClick={() => showLess('discount')}
                   >
                      Показать меньше
                   </Button>
                )}
-            </StyledButton> */}
+            </StyledButton>
             <Styled>Новинки</Styled>
             <StyledCard>
                {newProduct?.map((data) => {
@@ -164,26 +188,38 @@ const MainPage = () => {
                            id={data.productId}
                            action={data.action}
                            sort={data.sort}
+                           comparison={data.comparison}
                            compareProducts={() =>
                               compareProducts(
                                  data.productId,
-                                 Boolean(data.comparison)
+                                 Boolean(data.comparison),
+                                 data.sort
                               )
                            }
-                           comparison={data.comparison}
                            like={data.like}
                            addToFavorites={() =>
-                              addToFavorites(data.productId, Boolean(data.like))
+                              addToFavorites(
+                                 data.productId,
+                                 Boolean(data.like),
+                                 data.sort
+                              )
                            }
                            discount={data.discount}
                            img={data.image}
-                           addToCart={addProductsToCart}
+                           cart={data.cart}
+                           addToCart={() =>
+                              addProductsToCart(
+                                 data.productId,
+                                 Boolean(data.cart),
+                                 data.sort
+                              )
+                           }
                            quantity={data.quantity}
                            status={data.status}
                            title={data.nameMemoryColor}
                            rating={data.stars}
-                           actualprice={data.price}
-                           noneactualprice={data.currentPrice}
+                           actualprice={data.currentPrice}
+                           noneactualprice={data.price}
                         />
                      </div>
                   )
@@ -210,7 +246,7 @@ const MainPage = () => {
                   </Button>
                )}
             </StyledButton>
-            {/* <Styled> Мы рекомендуем</Styled> */}
+            <Styled> Мы рекомендуем</Styled>
             <StyledCard>
                {recommend?.map((data) => {
                   return (
@@ -219,16 +255,29 @@ const MainPage = () => {
                            id={data.productId}
                            action={data.action}
                            sort={data.sort}
+                           comparison={data.comparison}
                            compareProducts={() =>
                               compareProducts(
                                  data.productId,
-                                 Boolean(data.comparison)
+                                 Boolean(data.comparison),
+                                 data.sort
                               )
                            }
-                           comparison={data.comparison}
                            like={data.like}
                            addToFavorites={() =>
-                              addToFavorites(data.productId, Boolean(data.like))
+                              addToFavorites(
+                                 data.productId,
+                                 Boolean(data.like),
+                                 data.sort
+                              )
+                           }
+                           cart={data.cart}
+                           addToCart={() =>
+                              addProductsToCart(
+                                 data.productId,
+                                 Boolean(data.cart),
+                                 data.sort
+                              )
                            }
                            discount={data.discount}
                            img={data.image}
@@ -236,20 +285,20 @@ const MainPage = () => {
                            status={data.status}
                            title={data.nameMemoryColor}
                            rating={data.stars}
-                           actualprice={data.price}
-                           noneactualprice={data.currentPrice}
+                           actualprice={data.currentPrice}
+                           noneactualprice={data.price}
                         />
                      </div>
                   )
                })}
             </StyledCard>
-            {/* <StyledButton>
+            <StyledButton>
                {Number(seeMoreRecommend?.length) % 5 === 0 ? (
                   <div key={seeMoreRecommend?.productId}>
                      <Button
                         variant="outlined"
                         width="300px"
-                        onClick={() => loadMore('new')}
+                        onClick={() => loadMore('recommend')}
                      >
                         Показать еще
                      </Button>
@@ -258,12 +307,12 @@ const MainPage = () => {
                   <Button
                      variant="outlined"
                      width="300px"
-                     onClick={() => showLess('new')}
+                     onClick={() => showLess('recommend')}
                   >
                      Показать меньше
                   </Button>
                )}
-            </StyledButton> */}
+            </StyledButton>
             <StyledContainer>
                <InfoCards />
             </StyledContainer>
@@ -300,6 +349,7 @@ const StyledButton = styled('div')`
    display: flex;
    justify-content: center;
    margin-top: 40px;
+   margin-bottom: 120px;
 `
 const StyledContainer = styled('div')`
    display: flex;

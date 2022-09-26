@@ -37,11 +37,12 @@ const ImagePicker = ({ onChange, newFile }) => {
    )
 }
 export default ImagePicker
+
 const DeleteButton = styled.button`
    border: none;
    position: absolute;
-   left: 10px;
-   top: 110px;
+   left: 5px;
+   top: 130px;
    background-color: rgba(0, 0, 0, 0);
    bottom: 30px;
    font-family: 'Inter', sans-serif;
@@ -49,17 +50,9 @@ const DeleteButton = styled.button`
    font-size: 18px;
    color: #cb11ab;
    z-index: 10;
-   display: none;
    cursor: pointer;
-   display: none;
    &:hover {
-      /* /* text-decoration: underline; */
-      opacity: 3;
-      border-radius: 2px;
-      font-family: 'Inter', sans-serif;
-      align-items: center;
-      margin-right: 3px;
-      text-decoration: none;
+      color: red;
    }
 `
 
@@ -73,15 +66,14 @@ const ImagePickerContainer = styled.div`
    width: 90px;
    height: 90px;
    background: #f6f6f9;
+   background-size: contain;
    border: 1px solid #dcdce4;
    border-radius: 50%;
    ${(props) =>
       props.icons &&
       css`
-         background-image: url(${props.icons});
+         background: url(${props.icons}) 50% 50% no-repeat;
          background-size: cover;
-         background-position: center;
-         background-repeat: no-repeat;
          &::after {
             display: none;
          }
@@ -112,7 +104,7 @@ const Label = styled.label`
    &::after {
       content: 'Нажмите для добавления фотографии';
       position: absolute;
-      top: 100%;
+      top: 110%;
       right: -57px;
       width: 148px;
       font-family: 'Inter';
@@ -132,8 +124,8 @@ const Label = styled.label`
          &::after {
             content: 'Сменить фото';
             position: absolute;
-            left: 40px;
-            top: 100%;
+            left: 45px;
+            top: 110%;
             align-items: center;
             font-family: 'Inter', sans-serif;
             font-weight: 400;
@@ -141,13 +133,10 @@ const Label = styled.label`
             color: #cb11ab;
             transform: translateX(-50%);
          }
-         /* &:hover:after { */
          text-decoration: underline;
          text-decoration: none;
          display: block;
          align-items: center;
          text-align: center;
-         /* border-radius: 2px; */
-         /* } */
       `}
 `

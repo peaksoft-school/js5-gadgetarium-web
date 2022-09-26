@@ -80,6 +80,10 @@ const AllProducts = ({ setCheckedProducts, checkedProducts }) => {
       e.stopPropagation()
       if (window.confirm('Вы хотите удалить этот продукт?')) {
          dispatch(deleteProductById(id))
+            .unwrap()
+            .then(() => {
+               dispatch(getProducts(queryParams))
+            })
       }
    }
 
@@ -145,7 +149,7 @@ const AllProducts = ({ setCheckedProducts, checkedProducts }) => {
             <div>
                <StyledPrice>{item.price}</StyledPrice>
                <StyledDiscount>
-                  {item.discount === 0 ? '' : `${item.discount}%`}
+                  {item.discount ? `${item.discount}%` : ''}
                </StyledDiscount>
             </div>
          ),

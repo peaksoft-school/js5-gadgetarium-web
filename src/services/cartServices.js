@@ -7,5 +7,5 @@ export const getAllHoverCartProducts = () =>
    axiosInstance.get(`api/carts/hover`)
 export const deleteCartItemById = (productId) =>
    axiosInstance.delete(`api/carts/${productId}`)
-export const getTotalSum = (productId) =>
-   axiosInstance.get(`api/carts/total/sum/${productId}`)
+export const getTotalSum = (productIds) =>
+   axiosInstance.get(`api/carts/total/sum/${productIds}`)
