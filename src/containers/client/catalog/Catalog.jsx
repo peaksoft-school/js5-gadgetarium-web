@@ -47,7 +47,7 @@ const Catalog = () => {
       priceTo: null,
       sort: null,
       page: 1,
-      size: 5,
+      size: 12,
       filter: null,
    })
    const navigate = useNavigate()

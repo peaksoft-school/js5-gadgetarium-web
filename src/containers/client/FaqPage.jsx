@@ -61,14 +61,8 @@ const FaqPage = () => {
                   </DivBlock>
                   {show.que && (
                      <AnswersTitle>
-                        Urna aliquet dignissim pharetra consectetur commodo
-                        pellentesque at tellus. Odio eget scelerisque faucibus
-                        ut. Cras amet, diam vel, sollicitudin gravida quis
-                        augue. Bibendum et nulla accumsan sollicitudin aliquet
-                        velit viverra risus. Eget molestie enim quisque sodales
-                        habitant nulla tincidunt. Ullamcorper tincidunt purus
-                        sed facilisis. Ullamcorper aliquam gravida aliquet felis
-                        iaculis urna diam dui id.
+                        Ответ: Оплату можно совершить: Оплата картой онлайн,
+                        наличными при получении,картой при получении
                      </AnswersTitle>
                   )}
                </Div>
