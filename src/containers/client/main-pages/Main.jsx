@@ -40,12 +40,12 @@ const MainPage = () => {
 
    const dispatch = useDispatch()
 
-   const compareProducts = (id, status, sort) => {
+   const compareProducts = (id, status) => {
       if (jwt) {
          if (status) {
-            dispatch(removeCompareProduct({ productId: id, sort }))
+            dispatch(removeCompareProduct({ productId: id }))
          } else {
-            dispatch(addToComparison({ productd: id, sort }))
+            dispatch(addToComparison({ productId: id }))
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')

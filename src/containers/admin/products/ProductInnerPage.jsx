@@ -5,7 +5,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
 import styled from 'styled-components'
 
-import SamsungBrand from '../../../assets/images/brand.png'
 import BottomContent from '../../../components/admin/innerPageContent/BottomContent'
 import ProductContent from '../../../components/admin/innerPageContent/ProductContent'
 import BreadCrumbs from '../../../components/UI/Breadcrumbs'
@@ -60,7 +59,9 @@ const ProductInnerPage = () => {
       <Container>
          <BreadCrumbs paths={paths} />
          <HeaderBrand>
-            <img src={product.brandImage || SamsungBrand} alt="samsung" />
+            {product.brandImage && (
+               <img src={product.brandImage} alt="samsung" />
+            )}
          </HeaderBrand>
          <ProductContent handleDelete={handleDelete} data={product} />
          <BottomContent data={product} />

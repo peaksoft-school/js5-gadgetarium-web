@@ -93,6 +93,12 @@ const PersonProfile = () => {
       e.preventDefault()
       if (newPassword === confirmNewPassword) {
          dispatch(postProfile({ currentPassword, newPassword, showOther }))
+         setInputForPassword({
+            currentPassword: '',
+            newPassword: '',
+            confirmNewPassword: '',
+         })
+         showOther(false)
       } else {
          setError()
       }

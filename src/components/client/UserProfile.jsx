@@ -66,7 +66,7 @@ const UserProfile = () => {
 
    return (
       <StyledDiv>
-         <p onClick={handleClick}>{user?.email || 'Войти / Регистрация'}</p>
+         <p onClick={handleClick}>{user?.email || 'Войти | Регистрация'}</p>
          <ProfileLogo src={image || profileLogo} />
          <Popover
             id={id}

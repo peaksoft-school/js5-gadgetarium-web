@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import EmptyIcon from '../../../assets/images/sammy-shopping-1 1.png'
@@ -26,9 +25,6 @@ const CartPage = () => {
       dispatch(getAllProducts())
    }, [])
 
-   console.log(cartTotalSum)
-   console.log(checkedProducts)
-
    const { productId } = checkedProducts
    const getTotalSumByIds = (productIds) => productIds.join(',')
 
@@ -50,7 +46,6 @@ const CartPage = () => {
    ]
 
    const handleDeleteById = (e, productId) => {
-      console.log(productId)
       e.stopPropagation()
       dispatch(deleteProducts({ productId }))
    }
@@ -79,7 +74,7 @@ const CartPage = () => {
             <ComparisonPageTitle>Товары в корзине</ComparisonPageTitle>
          </Container>
          <Horizontal />
-         {cartProducts.length > 0 ? (
+         {cartProducts?.length > 0 ? (
             <CartContainer>
                <StyledCard>
                   {cartProducts.map((data) => {
@@ -139,11 +134,6 @@ const CartPage = () => {
                   <StyledEmptyIcon src={EmptyIcon} />
                   <StyledF2>Ваша корзина пуста</StyledF2>
                   <StyledText>Но вы всегда можете ее наполнить</StyledText>
-                  <StyledLink to="/catalog">
-                     <Button variant="contained" width="180px" height="41px">
-                        К покупкам
-                     </Button>
-                  </StyledLink>
                </StyledComponent>
             </StyledBlock>
          )}
@@ -188,9 +178,6 @@ const StyledText = styled.p`
    align-items: flex-end;
    text-align: center;
    color: #292929;
-`
-const StyledLink = styled(Link)`
-   text-decoration: none;
 `
 const Container = styled.div`
    margin-bottom: 20px;

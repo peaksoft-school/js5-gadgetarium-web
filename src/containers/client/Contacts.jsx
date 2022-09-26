@@ -5,7 +5,6 @@ import { styled } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 
-// import googleMap from '../../assets/images/Mapsicle Map.webp'
 import BreadCrumbs from '../../components/UI/Breadcrumbs'
 import Button from '../../components/UI/Button'
 import Input from '../../components/UI/inputs/Input'
@@ -71,7 +70,7 @@ const Contacts = () => {
                   <b>Адрес:</b> <br />
                   <p>г. Бишкек, ул. Гражданская 119</p>
                   <b>Телефон:</b> <br />
-                  <p>г+996(400) 00-00-00</p>
+                  <p>+996(400) 00-00-00</p>
                   <b>Почта:</b> <br />
                   <p>Gadgetarium.kg</p>
                   <b> Режим работы: </b>

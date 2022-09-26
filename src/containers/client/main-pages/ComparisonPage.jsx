@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { RingLoader } from 'react-spinners'
 import styled from 'styled-components'
 
 import EmptyIcon from '../../../assets/images/sammy-finance 1.png'
 import ComparisonContent from '../../../components/client/ComparisonContent'
 import Bredcrumbs from '../../../components/UI/Breadcrumbs'
-import Button from '../../../components/UI/Button'
 import CustomizedTabs from '../../../components/UI/Tab'
+import { postProducts } from '../../../store/actions/cartActions'
 import {
    getCompareProducts,
    removeAllCompareProducts,
@@ -38,6 +37,10 @@ const ComparisonPage = () => {
       dispatch(removeCompareProduct({ productId }))
    }
 
+   const addProductsToCart = (productId) => {
+      dispatch(postProducts({ productId }))
+   }
+
    const handleDeleteAllProducts = () => {
       dispatch(removeAllCompareProducts())
    }
@@ -64,6 +67,7 @@ const ComparisonPage = () => {
                data={smartPhone.compareProductResponse}
                handleDelete={handleDeleteById}
                handleAllDelete={handleDeleteAllProducts}
+               addProductsToCart={addProductsToCart}
             />
          ),
       },
@@ -77,6 +81,7 @@ const ComparisonPage = () => {
                data={laptop.compareProductResponse}
                handleDelete={handleDeleteById}
                handleAllDelete={handleDeleteAllProducts}
+               addProductsToCart={addProductsToCart}
             />
          ),
       },
@@ -90,6 +95,7 @@ const ComparisonPage = () => {
                data={tablet.compareProductResponse}
                handleDelete={handleDeleteById}
                handleAllDelete={handleDeleteAllProducts}
+               addProductsToCart={addProductsToCart}
             />
          ),
       },
@@ -105,6 +111,7 @@ const ComparisonPage = () => {
                data={smartWatch.compareProductResponse}
                handleDelete={handleDeleteById}
                handleAllDelete={handleDeleteAllProducts}
+               addProductsToCart={addProductsToCart}
             />
          ),
       },
@@ -150,11 +157,6 @@ const ComparisonPage = () => {
                      Добавляйте сюда товары, чтобы сравнить их характеристики.
                      Так выбрать станет проще!
                   </StyledText>
-                  <StyledLink to="/catalog">
-                     <Button variant="outlined" width="180px" height="41px">
-                        К покупкам
-                     </Button>
-                  </StyledLink>
                </StyledComponent>
             </StyledBlock>
          )}
@@ -207,13 +209,8 @@ const StyledText = styled.p`
    text-align: center;
    color: #292929;
 `
-const StyledLink = styled(Link)`
-   text-decoration: none;
-`
 
-const ComparisonPageContainer = styled.div`
-   /* background: #fff; */
-`
+const ComparisonPageContainer = styled.div``
 const Container = styled.div`
    margin-bottom: 20px;
 `

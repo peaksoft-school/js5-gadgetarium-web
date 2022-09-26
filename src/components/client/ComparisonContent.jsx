@@ -1,6 +1,5 @@
 import React, { Fragment, useRef } from 'react'
 
-import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ReactComponent as ArrowSlider } from '../../assets/icons/arrow2.svg'
@@ -30,10 +29,9 @@ const ComparisonContent = ({
    type,
    data,
    handleDelete,
-   addToCart,
+   addProductsToCart,
    handleAllDelete,
 }) => {
-   const navigate = useNavigate()
    const slideRef = useRef(null)
 
    const slideLeft = () => {
@@ -103,7 +101,9 @@ const ComparisonContent = ({
                                                 startIcon={<Busket />}
                                                 width="180px"
                                                 height="41px"
-                                                onClick={addToCart}
+                                                onClick={() =>
+                                                   addProductsToCart(el.id)
+                                                }
                                              >
                                                 В корзину
                                              </Button>
@@ -133,14 +133,6 @@ const ComparisonContent = ({
                      Добавляйте сюда товары, чтобы сравнить их характеристики.
                      Так выбрать станет проще!
                   </StyledText>
-                  <Button
-                     variant="outlined"
-                     width="180px"
-                     height="41px"
-                     onClick={() => navigate('/')}
-                  >
-                     К покупкам
-                  </Button>
                </StyledComponent>
             </StyledBlock>
          )}
