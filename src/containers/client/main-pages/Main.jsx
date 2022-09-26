@@ -52,12 +52,12 @@ const MainPage = () => {
       }
    }
 
-   const addToFavorites = (productId, status) => {
+   const addToFavorites = (productId, status, sort) => {
       if (id) {
          if (status) {
-            dispatch(deleteWishProducts({ id, productId }))
+            dispatch(deleteWishProducts({ id, productId, sort }))
          } else {
-            dispatch(addWishProducts({ id, productId }))
+            dispatch(addWishProducts({ id, productId, sort }))
          }
       } else {
          toast.error('Пожалуйста сначало авторизуйтесь')

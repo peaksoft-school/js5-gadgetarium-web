@@ -32,6 +32,7 @@ const ComparisonPage = () => {
    }, [])
 
    const handleDeleteById = (e, productId) => {
+      console.log(productId)
       e.stopPropagation()
       dispatch(removeCompareProduct({ productId }))
    }
@@ -209,9 +210,7 @@ const StyledText = styled.p`
    color: #292929;
 `
 
-const ComparisonPageContainer = styled.div`
-   /* background: #fff; */
-`
+const ComparisonPageContainer = styled.div``
 const Container = styled.div`
    margin-bottom: 20px;
 `
