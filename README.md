@@ -36,6 +36,6 @@ The frontend part is written in the JavaScript programming language, the React f
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 
+![Data Structure](https://user-images.githubusercontent.com/102057195/192830602-4d711c05-5717-4341-849e-7fe2caf97ec1.png)
