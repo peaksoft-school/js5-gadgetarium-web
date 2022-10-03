@@ -1,4 +1,3 @@
-
 # Gadgetarium
 
 Online store selling gadgets and accessories.
@@ -38,5 +37,7 @@ The frontend part is written in the JavaScript programming language, the React f
 
 ### Data Structure
 
-
+![Снимок экрана 2022-10-03 211742](https://user-images.githubusercontent.com/102057195/193620098-8b080fcf-20ff-4bb2-b8d4-8ea3cbfed675.jpg)
+![Снимок экрана 2022-10-03 212720](https://user-images.githubusercontent.com/102057195/193620106-59f2643f-129a-4af3-9697-e0cde63faceb.jpg)
 ![Data Structure](https://user-images.githubusercontent.com/102057195/192830602-4d711c05-5717-4341-849e-7fe2caf97ec1.png)
+
